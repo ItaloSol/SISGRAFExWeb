@@ -2,6 +2,7 @@
    <div class="modal fade" id="exLargeModalProdutos" tabindex="-1" aria-hidden="true">
      <div class="modal-dialog modal-xl" role="document">
        <div class="modal-content">
+
          <div class="modal-header">
            <h5 class="modal-title" id="exampleModalLabel4">Selecione um produto</h5>
            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -31,7 +32,7 @@
                  <div class="table-responsive text-nowrap">
                    <div class="card-body">
                      <form>
-
+                       <?php include_once('modal-selecionar-papel.php'); ?>
                        <div class="row mb-3">
                          <label class="col-sm-2 col-form-label" for="basic-default-name">TIPO DE PRODUTO</label>
                          <div class="col-sm-10">
@@ -77,17 +78,114 @@
                        </div>
                        <div class="card">
                          <div class="list-group list-group-horizontal-md text-md-center">
-                           <a class="list-group-item list-group-item-action active" id="papeis" data-bs-toggle="list" href="#papeis">PAPEIS</a>
-                           <a class="list-group-item list-group-item-action" id="acabamentos" data-bs-toggle="list" href="#acabamentos">ACABAMENTOS</a>
-                           <a class="list-group-item list-group-item-action active" id="consulta-produto" data-bs-toggle="list" href="#consulta1-produto">Consulta Produto</a>
-                           <a class="list-group-item list-group-item-action" id="novo-produto" data-bs-toggle="list" href="#novo1-produto">Novo Produto</a>
-                           <a class="list-group-item list-group-item-action active" id="consulta-produto" data-bs-toggle="list" href="#consulta1-produto">Consulta Produto</a>
-                           <a class="list-group-item list-group-item-action" id="novo-produto" data-bs-toggle="list" href="#novo1-produto">Novo Produto</a>
+                           <a class="list-group-item list-group-item-action active" id="papeis" data-bs-toggle="list" href="#papeis1">PAPÉIS</a>
+                           <a class="list-group-item list-group-item-action" id="acabamentos" data-bs-toggle="list" href="#acabamentos1">ACABAMENTOS</a>
+                           <a class="list-group-item list-group-item-action " id="valores" data-bs-toggle="list" href="#valores1">VALORES</a>
+                           <a class="list-group-item list-group-item-action" id="estoque" data-bs-toggle="list" href="#estoque1">ESTOQUE</a>
+                           <a class="list-group-item list-group-item-action " id="pedidos" data-bs-toggle="list" href="#pedidos1">PEDIDOS</a>
                          </div>
-                         <div>teste</div>
+                         <div class="tab-content px-0 mt-0">
+                           <div class="tab-pane fade show active" id="papeis1">
+
+                             <h5 class="card-header">PAPÉIS</h5>
+                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                               Launch modal
+                             </button>
+
+                             <div class="table-responsive text-nowrap">
+                               <table class="table table-bordered table-hover">
+                                 <tr>
+                                   <th>CÓDIGO</th>
+                                   <th>DESCRIÇÃO</th>
+                                   <th>TIPO</th>
+                                   <th>ORELHA</th>
+                                   <th>CORES FRENTE</th>
+                                   <th>CORES VERSO</th>
+                                 </tr>
+                                 <tr>
+                                   <td>cod</td>
+                                   <td>des</td>
+                                   <td>tp</td>
+                                   <td>or</td>
+                                   <td>cor</td>
+                                   <td>ver</td>
+                                 </tr>
+                               </table>
+                             </div>
+                           </div>
+                           <div class="tab-pane fade" id="acabamentos1">
+                             <h5 class="card-header">ACABAMENTOS</h5>
+                             <div class="table-responsive text-nowrap">
+
+                               <table class="table table-bordered table-hover">
+                                 <tr>
+                                   <th>CÓDIGO</th>
+                                   <th>DESCRIÇÃO</th>
+                                 </tr>
+                                 <tr>
+                                   <td>cod</td>
+                                   <td>des</td>
+                                 </tr>
+                               </table>
+
+                             </div>
+                           </div>
+                           <div class="tab-pane fade" id="valores1">
+                             <h5 class="card-header">VALORES</h5>
+                             <div class="table-responsive text-nowrap">
+
+                               <label class="form-check-label" for="prev"> PRODUTO PARA PRÉ-VENDA? </label>
+                               <input class="form-check-input" name="prev" type="checkbox" value="prevendaS" id="prev" />
+                               <div class="row mb-3">
+                                 <div class="col-sm-3">
+                                   <label class="col-sm-2 col-form-label" for="valorunitario">VALOR UNITÁRIO(R$)</label>
+                                   <input type="number" class="form-control" id="valorunitario" placeholder="0,00" />
+                                 </div>
+                                 <label class="col-sm-2 col-form-label" for="promo">VALOR PROMOCIONAL(R$)</label>
+                                 <div class="col-sm-3">
+                                   <input class="form-check-input" name="promo" type="checkbox" value="promo" id="promo" />
+                                   <input type="number" class="form-control" id="valorpromo" placeholder="0,00" />
+                                 </div>
+                               </div>
+
+                             </div>
+                           </div>
+                           <div class="tab-pane fade" id="estoque1">
+                             <h5 class="card-header">ESTOQUE</h5>
+                             <div class="table-responsive text-nowrap">
+
+                               <div class="mb-3">
+                                 <label class="form-label" for="basic-default-fullname">QUANTIDADE NO ESTOQUE FÍSICO</label>
+                                 <input type="number" class="form-control" id="qtdestoque" placeholder="0" />
+                               </div>
+                               <div class="mb-3">
+                                 <label class="form-label" for="avisoestoque">AVISO DE ESTOQUE?<input class="form-check-input" name="avisoestoque" type="checkbox" value="avisoestoque" id="avisoestoque" /> </label>
+                                 <input type="number" class="form-control" id="qtdaviso" placeholder="0" />
+                               </div>
+
+                             </div>
+                           </div>
+                           <div class="tab-pane fade" id="pedidos1">
+                             <h5 class="card-header">PEDIDOS</h5>
+                             <div class="table-responsive text-nowrap">
+
+                               <div class="mb-3">
+                                 <label class="form-label" for="basic-default-fullname">QUANTIDADE MÍNIMA</label>
+                                 <input type="number" class="form-control" id="qtdmin" placeholder="0" />
+                               </div>
+                               <div class="mb-3">
+                                 <label class="form-label" for="qtdmaxestoque">QUANTIDADE MÁXIMA<input class="form-check-input" name="qtdmaxestoque" type="checkbox" value="qtdmaxestoque" id="qtdmaxestoque" /> </label>
+                                 <input type="number" class="form-control" id="qtdmax" placeholder="0" />
+                               </div>
+
+                             </div>
+                           </div>
+
+                           <!-- aa -->
+                         </div>
                        </div>
                        <br>
-                       <div class="row justify-content-end">
+                       <div class=" text-end  row justify-content-end">
                          <div class="col-sm-10">
                            <button type="submit" class="btn btn-primary">SALVAR</button>
                          </div>
