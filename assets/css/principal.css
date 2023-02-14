@@ -1,0 +1,90 @@
+/* Página do Dashboard */
+
+.dashboard{
+    overflow-y: scroll;
+    height: 60%; 
+}
+
+.linha-dashboard {
+  color: #295bac;
+}
+
+.enfase-dashboard {
+  color: red;
+  font-weight: 900;
+  
+}
+/* Navbar */
+
+.brasao {
+  margin-bottom: 35px;
+  max-width: 55px;
+  max-height: 50px;
+}
+
+/* Modal da Navbar*/
+
+.enfase-navbar {
+  color: red;
+}
+
+.alt-modal {
+  height: 300px;
+}
+
+.table-modal {
+  text-align: center;
+}
+
+.scroll-modal {
+  overflow-y: scroll;
+}
+
+/* Painel */
+
+.font-contadores {
+  font-size: 3em;
+}
+
+.font-format {
+  text-align: center;
+}
+
+.pesquisa-painel {
+  width: 100%;
+
+}
+
+.lnr-eye {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.acesso {
+  text-align: center;
+}
+
+.menu-atualizacoes {
+  height:50em;  
+  overflow-y: scroll;
+}
+
+.exibir-cores {
+  padding:3px; 
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.botao-op {
+  margin-left: 85%;
+  float: right;
+}
+
+.modal-op-tabela {
+  padding: 5px;
+}
+
+.espacamento-buttom {
+  margin-right: 500px;
+}
