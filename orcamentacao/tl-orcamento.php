@@ -546,12 +546,12 @@ $valor_total_Finalizadas = 0;
                       </thead>
                       <tbody class="table-border-bottom-0">
                         <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td>0000</td>
+                          <td>NOME PRODUTO</td>
+                          <td>00.0</td>
+                          <td>00.0</td>
+                          <td>0</td>
+                          <td>---</td>
                         </tr>
 
 
@@ -576,12 +576,12 @@ $valor_total_Finalizadas = 0;
                       </thead>
                       <tbody class="table-border-bottom-0">
                         <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td>0000</td>
+                          <td>0</td>
+                          <td><input type="checkbox"></td>
+                          <td><input type="checkbox"></td>
+                          <td><input type="number"></td>
+                          <td><input type="number"></td>
                         </tr>
 
 
@@ -641,18 +641,18 @@ $valor_total_Finalizadas = 0;
                       </thead>
                       <tbody class="table-border-bottom-0">
                         <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td>0000</td>
+                          <td>000</td>
+                          <td>NOME PAPEL</td>
+                          <td>TIPO</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td><input type="number"></td>
+                          <td><input type="number"></td>
+                          <td><input type="number"></td>
+                          <td>0</td>
+                          <td><input type="number"></td>
+                          <td>0</td>
                         </tr>
 
 
@@ -675,20 +675,10 @@ $valor_total_Finalizadas = 0;
                       </thead>
                       <tbody class="table-border-bottom-0">
                         <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <!-- <div class="dropdown">
-                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Editar</a>
-                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Remover</a>
-                              </div> </div> -->
-
-                          </td>
+                          <td>0000</td>
+                          <td>00</td>
+                          <td>TIPO</td>
+                          <td>00.0</td>
                         </tr>
 
 
@@ -725,16 +715,8 @@ $valor_total_Finalizadas = 0;
                         <tr>
                           <td></td>
                           <td></td>
-                          <td>
-
-                          </td>
-                          <td>
-                          <td>
-
-                          </td>
+                          <td></td>
                         </tr>
-
-
                     </table>
                   </div>
                 </div>
