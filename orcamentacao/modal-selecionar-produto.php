@@ -21,7 +21,63 @@
                <div class="card">
                  <h5 class="card-header">Consulta Produto</h5>
                  <div class="table-responsive text-nowrap">
-                   CONSULTA PRODUTOS
+                   <div class="row mb-3">
+                     <div class="col-sm-3">
+                       <label for="exampleFormControlSelect1" class="form-label">PESQUISAR POR</label>
+                       <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                         <option selected>SELECIONE</option>
+                         <option value="1">DESCRIÇÃO</option>
+                         <option value="2">CODIGO</option>
+                       </select>
+                     </div>
+                     <div class="form-check col-sm-3">
+                       <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1" />
+                       <label class="form-check-label" for="defaultRadio1"> PRODUÇÃO(PP) </label> <BR>
+                       <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2" />
+                       <label class="form-check-label" for="defaultRadio2"> PRONTA ENTREGA(PE) </label>
+                     </div>
+                     <div class="form-check col-sm-5">
+                       <div class="input-group">
+                         <input type="text" class="form-control" placeholder="DIGITE A SUA BUSCA" aria-label="DIGITE A SUA BUSCA" aria-describedby="button-addon2" />
+                         <button class="btn btn-outline-primary" type="button" id="button-addon2">PESQUISAR</button>
+                       </div>
+                     </div>
+                   </div>
+                   <?php
+                    $query_produtos = $conexao->prepare("SELECT * FROM produtos ORDER BY CODIGO DESC LIMIT 45");
+                    $query_produtos->execute();
+                    $pr = 0;
+                    while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
+                      $pp[$pr] = [
+                        'CODIGO' => $linha['CODIGO'],
+                        'DESCRICAO' => $linha['DESCRICAO'],
+                      ];
+                      $pr++;
+                    }
+                    ?>
+                   <div style="height: 400px; width: 100%; overflow-y: scroll; ">
+                     <table class="table table-hover table-sm table-bordered">
+                       <tr>
+                         <th>CÓDIGO</th>
+                         <th>TIPO</th>
+                         <th>DESCRIÇÃO</th>
+                         <th>VALOR UNITÁRIO</th>
+                         <th>ESTOQUE</th>
+                         <th>PRÉ-VENDA</th>
+                         <th>PROMOÇÃO</th>
+                       </tr>
+                       <?php
+                        for ($i = 0; $i < $pr; $i++) {
+                          echo '<tr>
+                        <td><a href="#">' . $pp[$i]['CODIGO'] . '</a></td>
+                        <td><a href="#">PP</a></td>
+                        <td><a href="#">' . $pp[$i]['DESCRICAO'] . '</a></td>
+                        </tr>';
+                        }
+                        ?>
+                     </table>
+                   </div>
+                   <!-- AA -->
                  </div>
                </div>
              </div>
@@ -33,6 +89,7 @@
                    <div class="card-body">
                      <form>
                        <?php include_once('modal-selecionar-papel.php'); ?>
+                       <?php include_once('modal-seleiconar-acabamentos.php'); ?>
                        <div class="row mb-3">
                          <label class="col-sm-2 col-form-label" for="basic-default-name">TIPO DE PRODUTO</label>
                          <div class="col-sm-10">
@@ -63,6 +120,14 @@
                            <input type="number" id="largura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                          </div>
                          <div class="col-sm-3">
+                           <label class="col-sm-2 col-form-label" for="ESPESSURA">ESPESSURA</label>
+                           <input type="number" id="espessura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                         </div>
+                         <div class="col-sm-3">
+                           <label class="col-sm-2 col-form-label" for="PESO">PESO</label>
+                           <input type="number" id="peso" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                         </div>
+                         <div class="col-sm-3">
                            <label class="col-sm-2 col-form-label" for="LARGURA">QUANTIDADE FOLHAS</label>
                            <input type="number" value="1" id="largura" class="form-control phone-mask" placeholder="1" aria-label="1" />
                          </div>
@@ -88,11 +153,25 @@
                            <div class="tab-pane fade show active" id="papeis1">
 
                              <h5 class="card-header">PAPÉIS</h5>
-                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
-                               Launch modal
+                             <button type="button" class="btn btn-secondary">
+                               SELECIONAR PAPEL
                              </button>
 
                              <div class="table-responsive text-nowrap">
+                               <label class="form-label" for="basic-default-phone">TIPO</label>
+                               <select class="form-select">
+                                 <option>SELECIONE</option>
+                                 <option>CAPA</option>
+                                 <option>MIOLO</option>
+                                 <option>FOLHA</option>
+                                 <option>1° VIA</option>
+                                 <option>2° VIA</option>
+                                 <option>3° VIA</option>
+                               </select>
+                               <label class="form-label" for="basic-default-phone">CORES FRENTE</label>
+                               <input type="number" placeholder="0">
+                               <label class="form-label" for="basic-default-phone">CORES VERSO</label>
+                               <input type="number" placeholder="0">
                                <table class="table table-bordered table-hover">
                                  <tr>
                                    <th>CÓDIGO</th>
@@ -115,6 +194,9 @@
                            </div>
                            <div class="tab-pane fade" id="acabamentos1">
                              <h5 class="card-header">ACABAMENTOS</h5>
+                             <button type="button" class="btn btn-secondary">
+                               SELECIONAR ACABAMENTO
+                             </button>
                              <div class="table-responsive text-nowrap">
 
                                <table class="table table-bordered table-hover">
