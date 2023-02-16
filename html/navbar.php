@@ -393,6 +393,12 @@ if (isset($_SESSION['msg'])) {
             <div data-i18n="Basic">Modificação de Op</div>
           </a>
         </li>
+        <li class=" faturamento menu-item">
+          <a href="../expedicao/tl-faturadas.php" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-notepad"></i>
+            <div data-i18n="Basic">Notas Faturamento</div>
+          </a>
+        </li>
         <li class=" fatura menu-item">
           <a href="../expedicao/faturamento.php" class="menu-link">
             <iconify-icon icon="fa6-solid:file-invoice-dollar" width="20" height="20"></iconify-icon>
