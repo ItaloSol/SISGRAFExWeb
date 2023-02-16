@@ -71,6 +71,10 @@ const datas = document.querySelector(".datas");
 if (document.querySelector(".datas--")) {
   datas.classList.add("active");
 }
+const faturamento = document.querySelector(".faturamento");
+if (document.querySelector(".faturamento--")) {
+  faturamento.classList.add("active");
+}
 
 const atualizacoes = document.querySelector(".atualizacoes");
 if (document.querySelector(".atualizacoes--")) {
