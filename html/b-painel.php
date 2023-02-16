@@ -1036,24 +1036,32 @@
                                 }
                               }
                               if ($_GET['Exp'] == '2') {
-                                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '17' ORDER BY  o.data_entrega DESC ");
+                                if (!isset($_GET['Tp'])) {
+                                  $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '17' ORDER BY  o.data_entrega DESC ");
+                                }
                               }
                             } elseif (isset($_GET['Ent'])) {
-                              $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '11' ORDER BY  o.data_entrega DESC LIMIT 100 ");
+                              if (!isset($_GET['Tp'])) {
+                                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '11' ORDER BY  o.data_entrega DESC LIMIT 100 ");
+                              }
                             }
                             if (isset($_GET['EmProD'])) {
-                              $Status_EmProD = $_GET['EmProD'];
-                              $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.status = '$Status_EmProD' ORDER BY  o.data_entrega DESC ");
+                              if (!isset($_GET['Tp'])) {
+                                $Status_EmProD = $_GET['EmProD'];
+                                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.status = '$Status_EmProD' ORDER BY  o.data_entrega DESC ");
+                              }
                             }
                             if (isset($_GET['ProdT'])) {
                               $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status
-                             WHERE o.status != '13' AND o.status != '10' AND o.status != '17' AND o.status != '11' AND o.status != '15'
-                             ORDER BY  o.data_entrega DESC ");
+                                WHERE o.status != '13' AND o.status != '10' AND o.status != '17' AND o.status != '11' AND o.status != '15'
+                                ORDER BY  o.data_entrega DESC ");
                             }
 
                             if (isset($_GET['Att'])) {
-                              $Cod_Att = $_GET['Att'];
-                              $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.data_entrega < '$hoje' AND o.status = '$Cod_Att' ORDER BY  o.data_entrega DESC ");
+                              if (!isset($_GET['Tp'])) {
+                                $Cod_Att = $_GET['Att'];
+                                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.data_entrega < '$hoje' AND o.status = '$Cod_Att' ORDER BY  o.data_entrega DESC ");
+                              }
                             }
                             if (isset($_GET['Res'])) {
                               $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE $Where ");
