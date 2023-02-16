@@ -4,8 +4,8 @@
     z-index: 99999;
     margin-left: 20px;
     top: -100px;
-    /* display: flex; */
-    display: none;
+    display: flex;
+    /* display: none; */
     align-items: center;
     justify-content: center;
     text-align: center;

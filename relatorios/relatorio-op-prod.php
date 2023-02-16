@@ -256,7 +256,7 @@ $parte1  = "
     </tr>
 </table>
 
-<div style='border: 1px solid transparent;'><b style=' background: d4d4d4;' >$DESCRICAO </b></div>
+<div style='border: 1px solid transparent; text-align: center;'><b style=' background: d4d4d4;' >$DESCRICAO </b></div>
 
 <table  >
     <tr>

@@ -1031,7 +1031,9 @@
                               $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  IN (2,3,4,5,6,7,8,9) ORDER BY  o.data_entrega DESC ");
                             } elseif (isset($_GET['Exp'])) {
                               if ($_GET['Exp'] == '1') {
-                                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '10' ORDER BY  o.data_entrega DESC ");
+                                if (!isset($_GET['Tp'])) {
+                                  $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '10' ORDER BY  o.data_entrega DESC ");
+                                }
                               }
                               if ($_GET['Exp'] == '2') {
                                 $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '17' ORDER BY  o.data_entrega DESC ");
