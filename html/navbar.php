@@ -234,12 +234,12 @@ if (isset($_SESSION['msg'])) {
                   <div data-i18n="Accordion">Orçamentos</div>
                 </a>
               </li>
-
+-->
               <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-papeis.php" class="menu-link">
                   <div data-i18n="Accordion">Consumo de Papéis</div>
                 </a>
-              </li> -->
+              </li>
 
             <?php /* |||   */ } ?>
             <?php /* |||   */ if ($FIN_I == '1' || $ORD_I == '1') {  ?>

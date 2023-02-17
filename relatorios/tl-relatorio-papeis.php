@@ -31,7 +31,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                   <label class="form-check-label" for="descpapel"> Por Descrição do Papel </label>
                 </div>
                 <div class="mb-3">
-                  <input id="defaultInput" class="form-control" value="papeldesc" type="text" placeholder="Digite a descrição aqui" />
+                  <input id="defaultInput" class="form-control" name="papeldesc" type="text" placeholder="Digite a descrição aqui" />
                 </div>
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="radio" name="tipopapel" checked value="todostipo" id="todostipo" />
@@ -48,14 +48,14 @@ $_SESSION["pag"] = array(1, 0); ?>
                   <input id="defaultInput" class="form-control" name="numerocod" type="text" placeholder="Digite o código aqui" />
                 </div>
                 <div class="form-check mt-3">
-                  <input class="form-check-input" type="radio" name="orden" checked value="todosordcod" id="todosordcod" />
+                  <input class="form-check-input" type="radio" name="orden" checked id="todosordcod" />
                   <label class="form-check-label" for="todosordcod"> Todos </label>
                 </div>
               </div>
               <!--Período-->
               <div class="tab-pane fade" id="horizontal-messages">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="periodo" id="papelemiss" value="emiss" />
+                  <input class="form-check-input" type="radio" name="periodo" value="papelemiss" value="emiss" />
                   <label class="form-check-label" for="papelemiss">Por dia de Emissão</label>
                 </div>
                 <div class="mb-3 row">
@@ -64,7 +64,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                   </div>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="periodo" id="papelentrega" />
+                  <input class="form-check-input" type="radio" name="periodo" value="papelentrega" />
                   <label class="form-check-label" for="papelentrega">Por dia de Entrega</label>
                 </div>
                 <div class="mb-3 row">
@@ -73,7 +73,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                   </div>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="periodo" value="peridoemiss" id="peridoemiss" />
+                  <input class="form-check-input" type="radio" name="periodo" value="peridoemiss" value="peridoemiss" />
                   <label class="form-check-label" for="peridoemiss">Por Período de Data de Emissão</label>
                 </div>
                 <div class="mb-3 row">
@@ -89,7 +89,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                   </div>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="periodo" id="peridioentrega" value="peridioentrega" />
+                  <input class="form-check-input" type="radio" name="periodo" value="peridioentrega" value="peridioentrega" />
                   <label class="form-check-label" for="peridioentrega">Por Período de Data de Entrega</label>
                 </div>
                 <div class="mb-3 row">
@@ -114,15 +114,17 @@ $_SESSION["pag"] = array(1, 0); ?>
                 <div class="col-md">
                   <small class="text-light fw-semibold d-block">Selecione os campos que deseja em seu relatório:</small>
                   <div class="form-check form-check-inline mt-3">
-                    <input class="form-check-input" type="checkbox" name="campos1" id="Quantidade" name="Quantidade" value="Quantidade" />
+                    <input class="form-check-input" type="radio" name="campos1" id="Quantidade" name="Quantidade" value="Quantidade" checked />
+                    <input class="form-check-input" type="hidden" name="campos1" id="Quantidade" name="Quantidade" value="Quantidade" />
                     <label class="form-check-label" for="Quantidade">Quantidade Gasta</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="campos2" id="Descrição" name="Descrição" value="Descricao" />
+                    <input class="form-check-input" type="radio" name="campos2" id="Descrição" name="Descrição" value="Descricao" checked />
                     <label class="form-check-label" for="Descrição">Descrição do Papel</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" name="campos3" id="Codigo" name="Codigo" value="Codigo" />
+                    <input class="form-check-input" type="hidden" name="campos3" id="Codigo" name="Codigo" value="Codigo" />
                     <label class="form-check-label" for="Codigo">Código do Papel</label>
                   </div>
                   <div class="form-check form-check-inline">
@@ -160,7 +162,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                     <label class="form-check-label" for="semordem">Sem Ordenação</label>
                   </div><br></br>
                 </div>
-                <!-- <button type="submit" class="btn btn-info">Gerar Relatório</button> -->
+                <button type="submit" class="btn btn-info">Gerar Relatório</button>
               </div>
             </div>
         </div>

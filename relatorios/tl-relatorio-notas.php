@@ -25,14 +25,14 @@ $_SESSION["pag"] = array(1, 0); ?>
                 </div>
                 <div class="mb-3">
 
-                  <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                  <select class="form-select" id="exampleFormControlSelect1" name="tipo_pessoa" aria-label="Default select example">
                     <option selected>Selecione o tipo de pessoa</option>
                     <option value="1">1 - Pessoa Física (PF)</option>
                     <option value="2">2 - PEssoa Júridica</option>
                   </select>
                 </div>
                 <div>
-                  <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Insira o Código" aria-describedby="defaultFormControlHelp" />
+                  <input type="text" class="form-control" name="cod_papel" id="defaultFormControlInput" placeholder="Insira o Código" aria-describedby="defaultFormControlHelp" />
                 </div>
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="radio" name="tipopapel" value="codpapel" id="codpapel" />
@@ -204,7 +204,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                   </div>
                   <br></br>
                 </div>
-                <!-- <button type="submit" class="btn btn-info">Gerar Relatório</button> -->
+                <button type="submit" class="btn btn-info">Gerar Relatório</button>
               </div>
             </div>
 
