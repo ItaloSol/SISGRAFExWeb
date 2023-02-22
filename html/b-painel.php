@@ -1528,7 +1528,7 @@
                                   }
                                 }
                                 $relatorio = $tr .
-                                  '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '</td>' .
+                                  '<td data-nome="codOpJs">' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '</td>' .
                                   '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['orcamento_base'] . '</td>' .
                                   '<td>' . $Tabela_Quantidade[$Percorrer_Finalizadas]['quantidade'] . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_emissao'])) . '</td>' .
@@ -1537,7 +1537,7 @@
                                   '<td>' . $Tabela_Produtos_Finalizados[$Percorrer_Finalizadas]['descricao'] . '</td>
                                   <td>
                                   <div class="">
-                                  <a class="btn rounded-pill btn-info" href="../producao/tl-controle-op.php?cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
+                                  <a class="btn rounded-pill btn-info " id="pesquisarOp" href="../producao/tl-controle-op.php?cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
                               </div>
                                   </td>
                                   </tr>';
@@ -1550,7 +1550,7 @@
                                   }
                                 }
                                 $relatorio = $relatorio . $tr .
-                                  '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '</td>' .
+                                  '<td data-nome="codOpJs">' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '</td>' .
                                   '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['orcamento_base'] . '</td>' .
                                   '<td>' . $Tabela_Quantidade[$Percorrer_Finalizadas]['quantidade'] . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_emissao'])) . '</td>' .
@@ -1559,7 +1559,7 @@
                                   '<td>' . $Tabela_Produtos_Finalizados[$Percorrer_Finalizadas]['descricao'] . '</td>
                                   <td>
                                     <div class="">
-                                      <a class="btn rounded-pill btn-info" href="../producao/tl-controle-op.php?cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
+                                      <a class="btn rounded-pill btn-info" id="pesquisarOp" href="../producao/tl-controle-op.php?cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
                                   </div>
                                 </td>
                                           </tr>';
@@ -1635,6 +1635,37 @@
                      new PureCounter();
                    </script>
                    <script>
+                     /* adiciona o evento de abrir/fechar a td, linha
+                      */
+                     //  const codOpJs = document.querySelectorAll('#codOpJs');
+                     //  codOpJs.forEach(() => {
+                     //    console.log(codOpJs.values());
+                     //  })
+                     //  $(function() {
+                     //    $(document).on('click', '#pesquisarOp', function(e) {
+                     //      e.preventDefault;
+                     //      var nome = $(this).closest('tr').find('td[data-nome]').data('nome');
+                     //      alert(nome.inethtml);
+                     //    });
+                     //  });
+                     const links = document.querySelectorAll("#pesquisarOp");
+                     links.forEach((link) => {
+                       link.addEventListener("click", (event) => {
+                         event.preventDefault();
+                         const urlParams = new URLSearchParams(link.href.split("?")[1]);
+                         const codigo = urlParams.get("cod");
+
+                         const confirma = confirm('Atenção! Agora se continuar será aberto uma nova janela com o relatório da Op selecionada.');
+                         if (confirma) {
+                           window.open(`../relatorios/relatorio-op-prod.php?cod=${codigo}`, "_blank");
+                           window.location = `../producao/tl-controle-op.php?cod=${codigo}`
+                         } else {
+                           window.location = `../producao/tl-controle-op.php?cod=${codigo}`
+                         }
+
+                       });
+                     });
+
                      //      import PureCounter from "@srexi/purecounterjs";
                      const pure = new PureCounter();
 
