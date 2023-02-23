@@ -80,3 +80,7 @@ const atualizacoes = document.querySelector(".atualizacoes");
 if (document.querySelector(".atualizacoes--")) {
   atualizacoes.classList.add("active");
 }
+const problemas = document.querySelector(".problemas");
+if (document.querySelector(".problemas--")) {
+  problemas.classList.add("active");
+}
