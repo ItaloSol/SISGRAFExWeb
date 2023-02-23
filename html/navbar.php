@@ -176,6 +176,12 @@ if (isset($_SESSION['msg'])) {
               </a>
             </li>
           <?php }  ?>
+          <li class=" problemas menu-item">
+            <a href="../html/problemas.php" class="menu-link">
+              <iconify-icon icon="bx:support" width="20" height="20"></iconify-icon>
+              <div data-i18n="Basic">&nbsp &nbsp Suporte</div>
+            </a>
+          </li>
           </li>
           <!-- Modúlo de ADMINISTRAÇÃO -->
           <?php /* |||   */ if ($COD_I == 'ADM' || $PROD_ADM_I == '1') {  ?>
@@ -740,6 +746,13 @@ if (isset($_SESSION['msg'])) {
               </div>
 
               <script>
+                setTimeout(function() {
+                  document.getElementById("suportee").style.display = "none";
+                }, 9000);
+
+                function hide() {
+                  document.getElementById("suportee").style.display = "none";
+                }
                 const app = new Vue({
                   el: "#feedback",
 

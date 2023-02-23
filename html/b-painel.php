@@ -1655,7 +1655,7 @@
                          const urlParams = new URLSearchParams(link.href.split("?")[1]);
                          const codigo = urlParams.get("cod");
 
-                         const confirma = confirm('Atenção! Agora se continuar será aberto uma nova janela com o relatório da Op selecionada.');
+                         const confirma = confirm('Atenção! Agora se continuar será aberto uma nova janela com o relatório da Op selecionada. Clique em "cancelar" para ignorar.');
                          if (confirma) {
                            window.open(`../relatorios/relatorio-op-prod.php?cod=${codigo}`, "_blank");
                            window.location = `../producao/tl-controle-op.php?cod=${codigo}`
