@@ -184,6 +184,15 @@ if (isset($_SESSION['msg'])) {
           </li>
 
           </li>
+
+          <!-- Sub-Menu de ADMINISTRAÇÃO -->
+          <li class="ADMINISTRAÇÃO menu-item">
+            <a href="../login/logout.php" class="menu-link">
+              <iconify-icon icon="ic:baseline-power-settings-new" width="20" height="20"></iconify-icon>
+              <div data-i18n="Basic">&nbsp &nbsp SAIR</div>
+            </a>
+          </li>
+
           <!-- Modúlo de ADMINISTRAÇÃO -->
           <?php /* |||   */ if ($COD_I == 'ADM' || $PROD_ADM_I == '1') {  ?>
 
@@ -558,17 +567,27 @@ if (isset($_SESSION['msg'])) {
           </div>
 
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-              <!-- Usuário -->
-
-              <!-- Notificações -->
+            <ul class="navbar-nav align-itens-center">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
                 <i data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para visualizar suas OPs <span class='enfase-dashboard'>PENDENTES</span>!</span>" class='bx bx-bell bx-tada'></i>
                 <span><?= $Total_Notificacao ?></span>
               </button>
+            </ul>
+            <ul class="navbar-nav flex-row align-items-center ms-auto justify-content-between">
+              <!-- Usuário -->
+
+              <!-- Notificações -->
+
+              <div class="flex-grow-1 p-3">
+                <span class="fw-semibold d-block"><?= $nome_user ?></span>
+                <!-- <small class="text-muted"><?= $tipo_user . ' - ' . $cod_user ?></small> -->
+              </div>
+              <a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para sair de sua conta</span>" class="btn btn-outline-primary" href="../login/logout.php">
+                <i class="bx bx-power-off me-2"></i>
+                <span class="align-middle">Sair</span>
+              </a>
               <!-- Final das notificações -->
-              <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <!-- <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
                     <img src="../img/user.png" alt class="w-px-40 h-auto rounded-circle" />
@@ -608,7 +627,7 @@ if (isset($_SESSION['msg'])) {
                       <span class="align-middle">Sair</span>
                     </a>
                   </li>
-                </ul>
+                </ul> -->
               </li>
               <!-- Final de usuários -->
             </ul>
