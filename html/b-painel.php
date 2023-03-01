@@ -1635,36 +1635,25 @@
                      new PureCounter();
                    </script>
                    <script>
-                     /* adiciona o evento de abrir/fechar a td, linha
-                      */
-                     //  const codOpJs = document.querySelectorAll('#codOpJs');
-                     //  codOpJs.forEach(() => {
-                     //    console.log(codOpJs.values());
-                     //  })
-                     //  $(function() {
-                     //    $(document).on('click', '#pesquisarOp', function(e) {
-                     //      e.preventDefault;
-                     //      var nome = $(this).closest('tr').find('td[data-nome]').data('nome');
-                     //      alert(nome.inethtml);
-                     //    });
-                     //  });
-                     const links = document.querySelectorAll("#pesquisarOp");
-                     links.forEach((link) => {
-                       link.addEventListener("click", (event) => {
-                         event.preventDefault();
-                         const urlParams = new URLSearchParams(link.href.split("?")[1]);
-                         const codigo = urlParams.get("cod");
+                     /* adiciona o evento de abrir dois links no botão
+                   
+                    //  const links = document.querySelectorAll("#pesquisarOp");
+                    //  links.forEach((link) => {
+                    //    link.addEventListener("click", (event) => {
+                    //      event.preventDefault();
+                    //      const urlParams = new URLSearchParams(link.href.split("?")[1]);
+                    //      const codigo = urlParams.get("cod");
 
-                         const confirma = confirm('Atenção! Agora se continuar será aberto uma nova janela com o relatório da Op selecionada. Clique em "cancelar" para ignorar.');
-                         if (confirma) {
-                           window.open(`../relatorios/relatorio-op-prod.php?cod=${codigo}`, "_blank");
-                           window.location = `../producao/tl-controle-op.php?cod=${codigo}`
-                         } else {
-                           window.location = `../producao/tl-controle-op.php?cod=${codigo}`
-                         }
+                    //      const confirma = confirm('Atenção! Agora se continuar será aberto uma nova janela com o relatório da Op selecionada. Clique em "cancelar" para ignorar.');
+                    //      if (confirma) {
+                    //        window.open(`../relatorios/relatorio-op-prod.php?cod=${codigo}`, "_blank");
+                    //        window.location = `../producao/tl-controle-op.php?cod=${codigo}`
+                    //      } else {
+                    //        window.location = `../producao/tl-controle-op.php?cod=${codigo}`
+                    //      }
 
-                       });
-                     });
+                    //    });
+                    //  });
 
                      //      import PureCounter from "@srexi/purecounterjs";
                      const pure = new PureCounter();

@@ -390,8 +390,8 @@ if (isset($_GET['cod'])) {
                         </a>
                     <?php }
                     } ?>
-                    <a href="../relatorios/relatorio-op-prod.php?cod=<?= $CODIGO_OP ?>" target="_blank" class="btn btn-outline-info">
-                      <iconify-icon icon="mdi:form-outline" width="30" height="30"></iconify-icon><br>RELATÓRIO
+                    <a href="../relatorios/relatorio-op-prod.php?cod=<?= $CODIGO_OP ?>" style="max-height: 38px; font-size: 15px" target="_blank" class=" text-align-center btn rounded-pill btn-danger">
+                      <!-- <iconify-icon icon="mdi:form-outline" width="20" height="20"> </iconify-icon> -->RELATÓRIO
                     </a>
                     <div class="mb-3">
                       <label for="cod" class="form-label">Nº da OP</label>
@@ -840,7 +840,6 @@ if (isset($_GET['cod'])) {
             if (isset($_POST['codOrcS'])) {
               if ($_POST['codOrc']) {
                 $cod = $_POST["codOrc"];
-                echo "SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.orcamento_base = '$cod' ORDER BY  o.data_entrega DESC";
                 $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.orcamento_base = '$cod' ORDER BY  o.data_entrega DESC ");
               }
             }
