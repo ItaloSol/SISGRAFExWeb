@@ -9,6 +9,7 @@ $data = date('d/m/Y');
 if (isset($_GET['cod'])) {
     $codigo_op = $_GET['cod'];
     $papels = 0;
+    $servicos = 0;
     $tipo_papel_qtd_loop = 0;
     $qtd_acabamentos = 0;
     $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = $codigo_op ");
@@ -51,7 +52,24 @@ if (isset($_GET['cod'])) {
             $TIPO = $linha2['TIPO'];
             $DESCRICAO = $linha2['DESCRICAO'];
         }
-
+        $query_componente_orc = $conexao->prepare("SELECT * FROM tabela_componentes_orcamentos WHERE cod_orcamento = $codigo_orc   ");
+        $query_componente_orc->execute();
+        $Servico_N = true;
+        while ($linha88 = $query_componente_orc->fetch(PDO::FETCH_ASSOC)) {
+            $cod_componente_1 = $linha88['cod_componente_1'];
+            $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE cod = $cod_componente_1  ");
+            $query_servicos->execute();
+            if ($linha89 = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
+                $cod_servicoes = $linha89['cod'];
+                $descricao_servicoes = $linha89['descricao'];
+                $Do_servico_cod[$servicos] = $cod_servicoes;
+                $Do_servico_descricao[$servicos] = $descricao_servicoes;
+                $servicos++;
+            }
+            if (!isset($Do_servico_cod[0])) {
+                $Servico_N = 'NENHUM SELECIONADO';
+            }
+        }
         $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_op = $codigo_op AND tipo_produto = $tipo_produto ");
         $query_calculos_op->execute();
         while ($linha5 = $query_calculos_op->fetch(PDO::FETCH_ASSOC)) {
@@ -345,11 +363,16 @@ $parte7 = "</table>
 <div style='border: 1px solid transparent; background: d4d4d4;'><b >SERVIÇOS DO ORÇAMENTO</b></div>
 
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
- ' border='1'>
-    <tr>
-        <td style='text-align: center;' colspan='2'>NENHUM SELECIONADO</td>
-    </tr>
-</table>
+ ' border='1'>";
+$parte10 = '';
+if ($Servico_N == true) {
+    for ($i = 0; $i < $servicos; $i++) {
+        $parte10 = $parte10 . '<tr><td>CÓDIGO:' . $Do_servico_cod[$i] . '</td> <td> DESCRIÇÃO: ' . $Do_servico_descricao[$i] . '</td></tr>';
+    }
+} else {
+    $parte10 = '<tr><td>' . $Servico_N . '</td></tr>';
+}
+$parte9 =  "</table>
 <br>
 <div style=' border: 1px solid transparent; background: d4d4d4;'><b>OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b></div>
 
@@ -388,8 +411,8 @@ $parte7 = "</table>
     </tr>
 </table>
 ";
-$html = $parte1 . $parte2 . $parte3 . $parte4 . $parte5 . $parte6 . $parte7;
-// echo $html;
+$html = $parte1 . $parte2 . $parte3 . $parte4 . $parte5 . $parte6 . $parte7 . $parte10 . $parte9;
+//echo $html;
 
 require_once __DIR__ . '../../vendor/autoload.php';
 // Create an instance of the class:
