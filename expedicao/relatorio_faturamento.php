@@ -277,7 +277,7 @@ if (isset($_GET['cod'])) {
       </tr>
     </table><br>
     <table border="1" style="width: 100%;   border-collapse: collapse;" >
-      <tr>
+      <tr style=" background-color: #d4d4d4;">
         <th colspan="4">DESTINATÁRIO</th>
       </tr>
       <tr ><td  >
@@ -329,15 +329,15 @@ if (isset($_GET['cod'])) {
     </table><br>
     VENDEDOR: ' . $nome_atendente . ' - ' . $cod_emissor . '<br>
     
-    <table border="1" style="width: 100%;  border-collapse: collapse;">
+    <table  style="width: 100%;  border-collapse: collapse;">
       <tr>
-        <td style="text-align: center;"><b>' . $DESCRICAO . '</b></td>
+        <td style="text-align: center;  background-color: #d4d4d4;"><b>' . $DESCRICAO . '</b></td>
       </tr>
     </table>
     QUANTIDADE: ' . $quantidade . ' FORMATO: ' . $largura . ' X ' . $ALTURA . ' <br> &nbsp;
     <table border="1" style="width: 100%;  border-collapse: collapse;">
       <tr>
-        <td style="text-align: center;"><b style="font-size: 12px">TIPO PRODUTO: FOLHA</b></td>
+        <td style="text-align: center;  background-color: #d4d4d4;"><b style="font-size: 12px">TIPO PRODUTO: FOLHA</b></td>
       </tr>
     </table>
    <b>PAPÉIS</b> 
@@ -410,19 +410,19 @@ if (isset($_GET['cod'])) {
     $percorrer++;
   }
   $parte5 = '</table><BR>
-       <b> SERVIÇOS DO ORÇAMENTO</b> 
+       <b style=" background-color: #d4d4d4;" > SERVIÇOS DO ORÇAMENTO</b> 
         <table border="1" style="width: 100%;  border-collapse: collapse;">' .
     $parte10 = '';
-  if ($Servico_N == true) {
+  if ($Servico_N != 'NENHUM SELECIONADO') {
     for ($i = 0; $i < $servicos; $i++) {
-      $parte10 = $parte10 . '<tr><td>CÓDIGO:' . $Do_servico_cod[$i] . '</td> <td> DESCRIÇÃO: ' . $Do_servico_descricao[$i] . '</td></tr>';
+      $parte10 .=  '<tr><td>CÓDIGO:' . $Do_servico_cod[$i] . '</td> <td> DESCRIÇÃO: ' . $Do_servico_descricao[$i] . '</td></tr>';
     }
   } else {
-    $parte10 = '<tr><td>' . $Servico_N . '</td></tr>';
+    $parte10 = '<tr><td style="text-align: center;">NENHUM SELECIONADO</td></tr>';
   }
   $parte9 = '         
         </table><br>
-      <b>  OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b> 
+      <b style=" background-color: #d4d4d4;" >  OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b> 
         
           <table border="1" style="width: 100%;  border-collapse: collapse;">
           <tr>
@@ -431,7 +431,7 @@ if (isset($_GET['cod'])) {
             </td>
           </tr>
           </table><br><br>
-        <b>  HISTÓRICO DE RECIBOS DE ENTREGA</b> 
+        <b style=" background-color: #d4d4d4;">  HISTÓRICO DE RECIBOS DE ENTREGA</b> 
           <table border="1" style="width: 100%;  border-collapse: collapse;">
           <tr>
             <td>CÓDIGO DO
@@ -459,7 +459,7 @@ if (isset($_GET['cod'])) {
                 R$ 0,00
                 
               </td>
-              <td>
+              <td style=" background-color: #d4d4d4;">
                 VALOR FATURADO <br>
                 R$ ' . $VLR_FAT . '
               </td>
@@ -471,7 +471,7 @@ if (isset($_GET['cod'])) {
             </td>
           </tr>
           </table>&nbsp;<br><br><br>
-         <b> TOTAL</b>
+         <b style=" background-color: #d4d4d4;"> TOTAL</b>
           <table border="1" style="width: 100%;  border-collapse: collapse;">
           <tr>
             <td>CÓDIGO DO
@@ -499,13 +499,13 @@ if (isset($_GET['cod'])) {
                 R$ 0,00
                 
               </td>
-              <td>
+              <td style=" background-color: #d4d4d4;">
                 VALOR FATURADO <br>
                 R$ ' . $VLR_FAT . '
               </td>
           </tr>
           </table><br>
-          TRANSPORTADOR/VOLUMES TRANSPORTADOS
+         <b style=" background-color: #d4d4d4; "> TRANSPORTADOR/VOLUMES TRANSPORTADOS</b>
           <table border="1" style="width: 100%;  border-collapse: collapse;">
           <tr>
             <td colspan="2">
