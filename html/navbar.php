@@ -184,9 +184,7 @@ if (isset($_SESSION['msg'])) {
           </li>
 
           </li>
-
-          <!-- Sub-Menu de ADMINISTRAÇÃO -->
-          <li class="ADMINISTRAÇÃO menu-item">
+          <li class=" menu-item">
             <a href="../login/logout.php" class="menu-link">
               <iconify-icon icon="ic:baseline-power-settings-new" width="20" height="20"></iconify-icon>
               <div data-i18n="Basic">&nbsp &nbsp SAIR</div>

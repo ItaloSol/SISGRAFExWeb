@@ -153,9 +153,8 @@
                            <div class="tab-pane fade show active" id="papeis1">
 
                              <h5 class="card-header">PAPÉIS</h5>
-                             <button type="button" class="btn btn-secondary">
-                               SELECIONAR PAPEL
-                             </button>
+
+
 
                              <div class="table-responsive text-nowrap">
                                <label class="form-label" for="basic-default-phone">TIPO</label>
@@ -168,10 +167,16 @@
                                  <option>2° VIA</option>
                                  <option>3° VIA</option>
                                </select>
-                               <label class="form-label" for="basic-default-phone">CORES FRENTE</label>
-                               <input type="number" placeholder="0">
-                               <label class="form-label" for="basic-default-phone">CORES VERSO</label>
-                               <input type="number" placeholder="0">
+                               <div class="row">
+                                 <div class="col-3">
+                                   <label class="form-label " for="basic-default-phone">CORES FRENTE</label>
+                                   <input type="number" class="form-control" placeholder="0">
+                                 </div>
+                                 <div class="col-3">
+                                   <label class="form-label" for="basic-default-phone">CORES VERSO</label>
+                                   <input type="number" class="form-control" placeholder="0">
+                                 </div>
+                               </div>
                                <table class="table table-bordered table-hover">
                                  <tr>
                                    <th>CÓDIGO</th>
@@ -194,9 +199,7 @@
                            </div>
                            <div class="tab-pane fade" id="acabamentos1">
                              <h5 class="card-header">ACABAMENTOS</h5>
-                             <button type="button" class="btn btn-secondary">
-                               SELECIONAR ACABAMENTO
-                             </button>
+
                              <div class="table-responsive text-nowrap">
 
                                <table class="table table-bordered table-hover">
