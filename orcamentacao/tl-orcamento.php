@@ -294,7 +294,9 @@ $valor_total_Finalizadas = 0;
                   </div>
               <?php }
                           } ?>
-
+              <div class=" mb-3">
+                <a class="btn btn-warning" target="_blank" href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>" style="color: white;"><iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO</a>
+              </div>
                 </div> <?php include_once('modal-enviarop.php'); ?>
                 <?php if ($ORD_I == 1) { ?>
                   <div class="col-3" id="<?= $od ?>">
