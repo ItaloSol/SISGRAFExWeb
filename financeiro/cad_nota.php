@@ -4,7 +4,7 @@ $cod_user = $_SESSION["usuario"][2];
 include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
 date_default_timezone_set('America/Sao_Paulo');
-    $dataHora = date('d/m/Y H:i:s');
+$dataHora = date('d/m/Y H:i:s');
 
 if (isset($_POST['excluir'])) {
     if (isset($_POST['valor']) && isset($_POST['forma_pagamento']) && isset($_POST['codigo_cliente'])) {
@@ -16,7 +16,7 @@ if (isset($_POST['excluir'])) {
         $cod_cliente = $_POST['codigo_cliente'];
         $tipo_cliente = $_POST['tipo_cliente'];
         $forma_pagamento = $_POST['forma_pagamento'];
-       
+
 
         $cpf = $_POST['cpf'];
         $nome_emiss = $_POST['nome_emissor'];
@@ -44,21 +44,21 @@ if (isset($_POST['excluir'])) {
             $anterios = $linha['credito'];
         }
 
-       
-            $credito = $anterios - $valor;
-         
-        
+
+        $credito = $anterios - $valor;
+
+
         if ($forma_pagamento == '1') {
             $TABELA_SIAFI =  $conexao->prepare("DELETE FROM nt_credito_lanc_siafi WHERE NT_CREDITO_CODIGO_SIAFI = '$siafi' ");
             $TABELA_SIAFI->execute();
             if ($tipo_cliente == '1') {
                 echo 'atualizou saldo ';
                 $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas->execute();
             }
             if ($tipo_cliente == '2') {
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
         }
         if ($forma_pagamento == '4') {
@@ -69,13 +69,13 @@ if (isset($_POST['excluir'])) {
                 $query_aceitalas->execute();
             }
             if ($tipo_cliente == '2') {
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
         }
-       
-        
-       
+
+
+
         $TABELA_notas = $conexao->prepare("DELETE FROM tabela_notas WHERE cod = $cod ");
         $TABELA_notas->execute();
         $_SESSION['msg'] = ' <div style=";" id="alerta"
@@ -98,11 +98,10 @@ if (isset($_POST['excluir'])) {
                 </div>
               </div>';
 
-              $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito excluida do cliente $cod_cliente Tipo: $tipo_cliente ' , '$cod_user' , '$dataHora')");
-              $Atividade_Supervisao->execute();
-      
-            header("Location: tl-cadastro-notas.php?tp=3");
-        
+        $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito excluida do cliente $cod_cliente Tipo: $tipo_cliente ' , '$cod_user' , '$dataHora')");
+        $Atividade_Supervisao->execute();
+
+        header("Location: tl-cadastro-notas.php?tp=3");
     } else {
         $_SESSION['msg'] = ' <div style=";" id="alerta"
             role="bs-toast"
@@ -127,7 +126,7 @@ if (isset($_POST['excluir'])) {
     }
 }
 if (isset($_POST['salvar'])) {
-    if (isset($_POST['valor']) && isset($_POST['forma_pagamento']) && isset($_POST['codigo_cliente'])&& $_POST['contato'] != 'Selecione um Endereço'&& $_POST['endereco'] != 'Selecione um Endereço') {
+    if (isset($_POST['valor']) && isset($_POST['forma_pagamento']) && isset($_POST['codigo_cliente']) && $_POST['contato'] != 'Selecione um Endereço' && $_POST['endereco'] != 'Selecione um Endereço') {
         $endereco = $_POST['endereco'];
         $contato = $_POST['contato'];
         $valor =  $_POST['valor'];
@@ -157,7 +156,7 @@ if (isset($_POST['salvar'])) {
             $cod_ult = $linha['cod'];
             $cod_prox = $cod_ult + 1;
         }
-        if(!isset($cod_prox)){
+        if (!isset($cod_prox)) {
             $cod_prox = 0;
         }
         $TABELA_notas = $conexao->prepare("INSERT INTO tabela_notas (cod, serie, tipo, forma_pagamento, cod_emissor , cod_cliente, cod_endereco, cod_contato, tipo_pessoa,  valor, `data`, observacoes ) 
@@ -189,14 +188,14 @@ if (isset($_POST['salvar'])) {
             if ($tipo_cliente == '1') {
                 $TABELA_SIAFI = $conexao->prepare("INSERT INTO nt_credito_lanc_siafi (NT_CREDITO_CODIGO, NT_CREDITO_CODIGO_SIAFI, CPF_USR, NOME_USR, UG, DATA_HORA) VALUES ('$numero','$siafi', '$cpf','$nome_emiss','$ug','$horas')");
                 $TABELA_SIAFI->execute();
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
             if ($tipo_cliente == '2') {
                 $TABELA_SIAFI = $conexao->prepare("INSERT INTO nt_credito_lanc_siafi (NT_CREDITO_CODIGO, NT_CREDITO_CODIGO_SIAFI, CPF_USR, NOME_USR, UG, DATA_HORA) VALUES ('$numero','$siafi', '$cpf','$nome_emiss','$ug','$horas')");
                 $TABELA_SIAFI->execute();
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
         }
         if ($_POST['forma_pagamento'] == '2') {
@@ -204,14 +203,14 @@ if (isset($_POST['salvar'])) {
             if ($tipo_cliente == '1') {
                 $TABELA_gru = $conexao->prepare("INSERT INTO nt_credito_lanc_gru (NT_CREDITO_CODIGO,CPF_USR, NOME_USR, CODIGO_REC, DATA_HORA) VALUES ('$numero','$cpf', '$nome_emiss','$cod_recolhimento','$horas')");
                 $TABELA_gru->execute();
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
             if ($tipo_cliente == '2') {
                 $TABELA_gru = $conexao->prepare("INSERT INTO nt_credito_lanc_gru (NT_CREDITO_CODIGO,CPF_USR, NOME_USR, CODIGO_REC, DATA_HORA) VALUES ('$numero','$cpf', '$nome_emiss','$cod_recolhimento','$horas')");
                 $TABELA_gru->execute();
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
         }
         $_SESSION['msg'] = ' <div style=";" id="alerta"
@@ -233,8 +232,8 @@ if (isset($_POST['salvar'])) {
                      Nota de Credito Adicionada com Sucesso!    
                 </div>
               </div>';
-              $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Adicionado nota de credito para o Cliente: $cod_cliente, Tipo: $tipo_cliente, Valor: $valor' , '$cod_user' , '$dataHora')");
-              $Atividade_Supervisao->execute();
+        $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Adicionado nota de credito para o Cliente: $cod_cliente, Tipo: $tipo_cliente, Valor: $valor' , '$cod_user' , '$dataHora')");
+        $Atividade_Supervisao->execute();
         if ($tipo_cliente == '1') {
             header("Location: tl-cadastro-notas.php?tp=1");
         } else {
@@ -273,10 +272,10 @@ if (isset($_POST['editar'])) {
         $datas = explode('-', $data_lan);
         $data_correta = date('d/m/Y', strtotime($datas[0] . $datas[1] . $datas[2]));
         $valorN =  $_POST['valor'];
-       
+
         $cod_cliente = $_POST['codigo_cliente'];
         $tipo_cliente = $_POST['tipo_cliente'];
-       // echo $_POST['tipo_cliente'];
+        // echo $_POST['tipo_cliente'];
         if ($_POST['forma_pagamento'] == 2) {
             $forma_pagamento = 4;
         } else {
@@ -309,19 +308,18 @@ if (isset($_POST['editar'])) {
             $anterios = $linha['credito'];
         }
 
-        if($valor < $valorN ){
-           $resto =  $valorN - $valor;
+        if ($valor < $valorN) {
+            $resto =  $valorN - $valor;
             $credito = $anterios + $resto;
-        }
-        elseif($valor > $valorN ){
+        } elseif ($valor > $valorN) {
             $resto = $valor - $valorN;
-                 $credito = $anterios - $resto;
-         }elseif($valor == $valorN){
+            $credito = $anterios - $resto;
+        } elseif ($valor == $valorN) {
             $credito = $anterios;
-         }
-         echo 'Calculo: '.$resto . '<br> Anteriores Z: ' . $anterios . '<br> novo X: '. $valorN . '<br> valor anterior A:'. $valor . '<br>' ;
-         echo $credito;
-       
+        }
+        echo 'Calculo: ' . $resto . '<br> Anteriores Z: ' . $anterios . '<br> novo X: ' . $valorN . '<br> valor anterior A:' . $valor . '<br>';
+        echo $credito;
+
         $TABELA_notas = $conexao->prepare("UPDATE tabela_notas SET forma_pagamento = '$forma_pagamento', cod_endereco =  '$endereco', cod_contato = '$contato', observacoes = '$obs', valor = '$valorN', data = '$data_correta' WHERE cod = $cod ");
         $TABELA_notas->execute();
 
@@ -329,24 +327,24 @@ if (isset($_POST['editar'])) {
             $TABELA_SIAFI = $conexao->prepare("UPDATE nt_credito_lanc_siafi SET NT_CREDITO_CODIGO_SIAFI = '$siafi', CPF_USR =  '$cpf', NOME_USR = '$nome_emiss', UG = '$ug', DATA_HORA = '$horas' WHERE NT_CREDITO_CODIGO = $cod ");
             $TABELA_SIAFI->execute();
             if ($tipo_cliente == '1') {
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
             if ($tipo_cliente == '2') {
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
         }
         if ($_POST['forma_pagamento'] == '2') {
             $TABELA_gru = $conexao->prepare("UPDATE nt_credito_lanc_gru SET CPF_USR = '$cpf', NOME_USR = '$nome_emiss', CODIGO_REC = '$cod_recolhimento', DATA_HORA = '$horas' WHERE NT_CREDITO_CODIGO = $cod");
             $TABELA_gru->execute();
             if ($tipo_cliente == '1') {
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
             if ($tipo_cliente == '2') {
-               $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-               $query_aceitalas->execute();
+                $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+                $query_aceitalas->execute();
             }
         }
         $_SESSION['msg'] = ' <div style=";" id="alerta"
@@ -368,10 +366,9 @@ if (isset($_POST['editar'])) {
                      Nota de Credito Adicionada com Sucesso!    
                 </div>
               </div>';
-              $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito editada do Cliente $cod_cliente, Tipo: $tipo_cliente, Cod Nota: $cod ' , '$cod_user' , '$dataHora')");
-              $Atividade_Supervisao->execute();
-            header("Location: tl-cadastro-notas.php?tp=3");
-        
+        $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito editada do Cliente $cod_cliente, Tipo: $tipo_cliente, Cod Nota: $cod ' , '$cod_user' , '$dataHora')");
+        $Atividade_Supervisao->execute();
+        header("Location: tl-cadastro-notas.php?tp=3");
     } else {
         $_SESSION['msg'] = ' <div style=";" id="alerta"
             role="bs-toast"
