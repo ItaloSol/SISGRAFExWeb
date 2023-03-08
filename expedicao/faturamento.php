@@ -17,6 +17,7 @@ $data = date('Y-m-d');
       $tipo_produto = $linha['tipo_produto'];
       $cod_produto = $linha['cod_produto'];
       $orcamento_base = $linha['orcamento_base'];
+      $status = $linha['status'];
       $cod_cliente = $linha['cod_cliente'];
       $tipo_cliente = $linha['tipo_cliente'];
     }
@@ -338,7 +339,7 @@ $data = date('Y-m-d');
                                   <?php } ?>
                                 </div><br>
                                 <div class="demo-inline-spacing">
-                                  <?php if (isset($FATURAMENTO)) { ?>
+                                  <?php if (isset($FATURAMENTO) && $status != '12') { ?>
                                     <input type="submit" class="form-control btn btn-danger" name="excluir" id="excluir" value="Excluir">
                                   <?php } else { ?>
                                     <input type="submit" class="form-control btn btn-warning" name="FATURAR" id="gravar" value="Faturar">

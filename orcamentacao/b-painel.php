@@ -786,7 +786,11 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                     'nome' => $linha2['nome']
                   ];
                 }
-
+                if (!isset($Tabela_Clientes[$i])) {
+                  $Tabela_Clientes[$i] = [
+                    'nome' => 'NÃO ENCONTRADO'
+                  ];
+                }
 
                 $i++;
               }

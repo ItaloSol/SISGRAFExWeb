@@ -1401,6 +1401,6 @@ $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first
 // LOAD a stylesheet
 
 $mpdf->WriteHTML($html, 2);
-$nome = 'Detalhamento_De_Cliente_' . $cod . '_' . $nome . '.pdf';
+$nome = 'OrdensDeProdução';
 $mpdf->Output($nome, 'I');
 exit;

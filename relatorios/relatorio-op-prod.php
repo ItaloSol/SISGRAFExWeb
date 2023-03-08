@@ -274,7 +274,7 @@ $parte1  = "
     </tr>
 </table>
 
-<div style='border: 1px solid transparent; text-align: center;'><b style=' background: d4d4d4;' >$DESCRICAO </b></div>
+<div style='border: 1px solid transparent; text-align: center; background: #d4d4d4;'><b style=' ' >$DESCRICAO </b></div>
 
 <table  >
     <tr>
@@ -283,12 +283,12 @@ $parte1  = "
     </tr>
     <tr>
         <td colspan='2'></td>
-        <td style='background: d4d4d4;'>OBSERVAÇÕES: SEM OBSERVAÇÕES<br>
+        <td style='background: #d4d4d4;'>OBSERVAÇÕES: SEM OBSERVAÇÕES<br>
             ENTREGA: ______ DIAS ÚTEIS APÓS A APROVAÇÃO DO 'MODELO DE PROVA'.</td>
     </tr>
 </table>
 <br>
-<div style=' border: 1px solid transparent; background: d4d4d4; position: static; height: max-content; text-align: center;'><b >TIPO PRODUTO: $tipo_papel</b></div>
+<div style=' border: 1px solid transparent; background: #d4d4d4; position: static; height: max-content; text-align: center;'><b >TIPO PRODUTO: $tipo_papel</b></div>
 <br>
 PAPÉIS <div style='   height: max-content; '>
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
@@ -360,7 +360,7 @@ while ($qtd_acabamentos > $percorrer) {
 
 $parte7 = "</table>
 <br>
-<div style='border: 1px solid transparent; background: d4d4d4;'><b >SERVIÇOS DO ORÇAMENTO</b></div>
+<div style='border: 1px solid transparent; background: #d4d4d4;'><b >SERVIÇOS DO ORÇAMENTO</b></div>
 
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
  ' border='1'>";
@@ -374,7 +374,7 @@ if ($Servico_N == true) {
 }
 $parte9 =  "</table>
 <br>
-<div style=' border: 1px solid transparent; background: d4d4d4;'><b>OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b></div>
+<div style=' border: 1px solid transparent; background: #d4d4d4;'><b>OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b></div>
 
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
  ' border='1'>
@@ -383,7 +383,7 @@ $parte9 =  "</table>
     </tr>
 </table>
 <br>
-<div style=' background: d4d4d4;'><b>DADOS DE POSTAGEM</b></div>
+<div style=' background: #d4d4d4;'><b>DADOS DE POSTAGEM</b></div>
 
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
  ' border='1'>
@@ -440,6 +440,6 @@ $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first
 // LOAD a stylesheet
 
 $mpdf->WriteHTML($html, 2);
-$nome = 'OrdemProducao67851';
+$nome = 'OrdemProducao' . $codigo_op;
 $mpdf->Output($nome, 'I');
 exit;

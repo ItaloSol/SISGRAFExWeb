@@ -259,7 +259,7 @@ $valor_total_Finalizadas = 0;
                       <div class="col-3  ">
                         <div class=" mb-3 ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 ||  $Orcamento_pesquisa['status'] == 3 || $Orcamento_pesquisa['status'] == 11 || $Orcamento_pesquisa['status'] == 4) {
-                            if ($Orcamento_pesquisa['valor_total'] < $Tabela_Clientes['credito']) { ?>
+                            if ($Orcamento_pesquisa['valor_total'] <= $Tabela_Clientes['credito']) { ?>
                               <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod" class="btn btn-warning"><iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br> Enviar para Produção</a>
                         </div>
                         <div class=" mb-3">
@@ -294,7 +294,9 @@ $valor_total_Finalizadas = 0;
                   </div>
               <?php }
                           } ?>
-
+              <div class=" mb-3">
+                <a class="btn btn-warning" target="_blank" href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>" style="color: white;"><iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO</a>
+              </div>
                 </div> <?php include_once('modal-enviarop.php'); ?>
                 <?php if ($ORD_I == 1) { ?>
                   <div class="col-3" id="<?= $od ?>">
