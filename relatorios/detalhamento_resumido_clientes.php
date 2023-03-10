@@ -547,13 +547,13 @@ while ($Total_Faturamentos > $Percorrer_Faturamentos) {
     if ($Percorrer_Faturamentos == 0) {
         $relatorio = '<tr><td>' . $Tabela_Faturamentos[$Percorrer_Faturamentos]['orcamento_base'] . '</td>' .
             '<td>' . $Tabela_Faturamentos[$Percorrer_Faturamentos]['cod'] . '</td>' .
-            '<td>' . $Tabela_Faturamentos[$Percorrer_Faturamentos]['DT_FAT'] . '</td>' .
+            '<td>' . date('d/m/Y', strtotime($Tabela_Faturamentos[$Percorrer_Faturamentos]['DT_FAT'])) . '</td>' .
             '<td colspan="2">' . $Tabela_Produtos[$Percorrer_Faturamentos]['descricao'] . '</td>' .
             '<td colspan="2">(-) R$ ' . number_format($Tabela_Faturamentos[$Percorrer_Faturamentos]["VLR_FAT"], 2, ',', '.') . ' </td></tr>';
     } else {
         $relatorio = $relatorio . '<tr><td>' . $Tabela_Faturamentos[$Percorrer_Faturamentos]['orcamento_base'] . '</td>' .
             '<td>' . $Tabela_Faturamentos[$Percorrer_Faturamentos]['cod'] . '</td>' .
-            '<td>' . $Tabela_Faturamentos[$Percorrer_Faturamentos]['DT_FAT'] . '</td>' .
+            '<td>' . date('d/m/Y', strtotime($Tabela_Faturamentos[$Percorrer_Faturamentos]['DT_FAT'])) . '</td>' .
             '<td colspan="2">' . $Tabela_Produtos[$Percorrer_Faturamentos]['descricao'] . '</td>' .
             '<td colspan="2">(-) R$ ' . number_format($Tabela_Faturamentos[$Percorrer_Faturamentos]["VLR_FAT"], 2, ',', '.') . ' </td></tr>';
     }
@@ -744,12 +744,12 @@ $Tabela_Total = "<tr>
     <tr>
     <td colspan='2'><strong>CRÉDITO</strong></td>
     <td colspan='2'><strong>DÉBITO</strong></td>
-    <td colspan='2'><strong>EM PRODUÇÃO</strong></td>
+    <td ><strong>EM PRODUÇÃO</strong></td>
     <td colspan='2'><strong>TOTAL</strong></td>
     </tr>";
 $Calculo_Total = 0;
 $Calculo_Total =   $valor_total_Notas - $valor_total_Faturamentos - $valor_total_Abertas;
-$Valores_Total = "<tr><td colspan='2'>R$ (+) " . number_format($valor_total_Notas, 2, ',', '.') . "</td><td colspan='2'>R$ (-) " . number_format($valor_total_Faturamentos, 2, ',', '.') . "</td><td colspan='2'>R$ (-) " . number_format($valor_total_Abertas, 2, ',', '.') . "</td><td colspan='2'>R$ " . number_format($Calculo_Total, 2, ',', '.') . "</td></tr>";
+$Valores_Total = "<tr><td colspan='2'>R$ (+) " . number_format($valor_total_Notas, 2, ',', '.') . "</td><td colspan='2'>R$ (-) " . number_format($valor_total_Faturamentos, 2, ',', '.') . "</td><td >R$ (-) " . number_format($valor_total_Abertas, 2, ',', '.') . "</td><td colspan='2'>R$ " . number_format($Calculo_Total, 2, ',', '.') . "</td></tr>";
 
 $Fecha_Todas_Tabela = "</table>";
 
