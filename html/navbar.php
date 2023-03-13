@@ -485,9 +485,9 @@ if (isset($_SESSION['msg'])) {
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Financeiro</span></li>
         <!-- Sub-Menu de Nota de Crédito e Cadastro de Cliente -->
         <li class=" nota menu-item">
-          <a href="../financeiro/tl-cadastro-notas.php" class="menu-link">
+          <a href="../financeiro/tl-cadastro-notas.php?tp=3" class="menu-link">
             <i class="menu-icon tf-icons bx bx-credit-card"></i>
-            <div data-i18n="Basic">Nota de Crédito</div>
+            <div data-i18n="Basic">Notas de Crédito</div>
           </a>
         </li>
         <li class="cadastro-cli menu-item">

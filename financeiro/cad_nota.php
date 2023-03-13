@@ -25,7 +25,8 @@ if (isset($_POST['excluir'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-
+if($cpf == ''){$cpf = $_SESSION["usuario"][7];}
+if($nome_emiss == ''){$nome_emiss = $_SESSION["usuario"][0];}
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod = $cod ");
         $Todos_notas->execute();
         if ($linha = $Todos_notas->fetch(PDO::FETCH_ASSOC)) {
@@ -149,7 +150,8 @@ if (isset($_POST['salvar'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-
+        if($cpf == ''){$cpf = $_SESSION["usuario"][7];}
+        if($nome_emiss == ''){$nome_emiss = $_SESSION["usuario"][0];}
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas order by cod desc ");
         $Todos_notas->execute();
         if ($linha = $Todos_notas->fetch(PDO::FETCH_ASSOC)) {
@@ -290,7 +292,8 @@ if (isset($_POST['editar'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-
+        if($cpf == ''){$cpf = $_SESSION["usuario"][7];}
+        if($nome_emiss == ''){$nome_emiss = $_SESSION["usuario"][0];}
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod = $cod ");
         $Todos_notas->execute();
         if ($linha = $Todos_notas->fetch(PDO::FETCH_ASSOC)) {

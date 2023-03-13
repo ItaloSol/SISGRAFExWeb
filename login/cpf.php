@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<?php /* |||   */  session_start(); ?>
+<?php 
+  session_start();
+   
+  include_once('../conexoes/conexao.php');
+  include_once('../conexoes/conn.php'); ?>
 <html
   lang="en"
   class="light-style customizer-hide"
@@ -125,6 +129,17 @@
                 unset($_SESSION['msg']);
               } 
               $id = $_GET['id'];
+              $Cpf = $conexao->prepare("SELECT * FROM tabela_atendentes WHERE codigo_atendente = '$id'");
+              $Cpf->execute();
+              $contato = 0;
+              if ($linha = $Cpf->fetch(PDO::FETCH_ASSOC)) {
+                $validado = $linha['validacao'];
+
+              }
+              if($validado == 1){
+                echo "<script>window.location = '../index.php'</script>";
+                $_SESSION["usuario"][5] = '1';
+              }
               ?>
               
               <h4 class="mb-2">Insira seu CPF</h4>
@@ -156,7 +171,24 @@
         </div>
       </div>
     </div>
-   
+   <script>
+        const cpf = document.getElementById('cpf');
+        cpf.addEventListener('keyup', vlw => {
+          cpf.value =  cpf.value.replace(/[^\d]+/g,'');
+         cpf.value =  formataCPF(cpf.value);
+        })
+    function formataCPF(cpf){
+      //retira os caracteres indesejados...
+      cpf = cpf.replace(/[^\d]+/g,'');
+      //realizar a formatação...
+      
+      if(cpf.length < 10){
+        return cpf.replace(/(\d{3})(\d{3})/, "$1.$2.");
+      }else{
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+      }    
+    }
+   </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
