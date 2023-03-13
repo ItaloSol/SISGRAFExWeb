@@ -11,7 +11,7 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     $user = $query->fetchAll(PDO::FETCH_ASSOC)[0];
 
 
-    $_SESSION["usuario"] = array($user["nome_atendente"], $user["tipo_atendente"], $user["codigo_atendente"], $user["login_atendente"], $user['ativo'], $user['validacao'], $user['secao_atendente']);
+    $_SESSION["usuario"] = array($user["nome_atendente"], $user["tipo_atendente"], $user["codigo_atendente"], $user["login_atendente"], $user['ativo'], $user['validacao'], $user['secao_atendente'], $user['cpf']);
     $_SESSION["SISGRAFEX"] = 'LOGADO NO SISGRAFEX';
     $_SESSION['pag'] = array(0, 0);
     $cod = $user["codigo_atendente"];

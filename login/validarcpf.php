@@ -79,6 +79,7 @@ else if ($cpf == '00000000000' ||
        CPF cadastrado com suscesso!     
   </div>
 </div>';
+$_SESSION["usuario"][5] = '1';
     header("Location: ../html/painel.php?p");
  }else{
     echo 'invalido';
@@ -104,3 +105,15 @@ else if ($cpf == '00000000000' ||
 				header("Location: cpf.php?id=$id_usuario");
  }
 }
+//// formatar CPFS errados no banco de dados
+// $cpfs = $conexao->prepare("SELECT * FROM tabela_atendentes WHERE validacao = 1");
+//  $cpfs->execute();
+//  while ($linha = $cpfs->fetch(PDO::FETCH_ASSOC)) {
+//   $B = $linha['codigo_atendente'];
+//  // echo 'Nome: '. $linha['nome_atendente']. ' Cpf: '. $linha['cpf']. '<br>';
+//   $cpf = $linha['cpf'];
+//   $A = preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cpf);
+// //  echo '----------> '. $A . '<-------------------<br>';
+//   $update_cpf = $conexao->prepare("UPDATE tabela_atendentes SET cpf = '$A' Where codigo_atendente = '$B'");
+//  $update_cpf->execute();
+//  }

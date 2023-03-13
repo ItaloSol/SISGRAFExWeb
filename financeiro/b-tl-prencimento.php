@@ -47,6 +47,11 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
 
 
 ?>
+ <style>
+                .tira{
+                  display: none;
+                }
+              </style>
 <div class="card mb-4">
   <h5 class="card-header">Nota de Crédito</h5>
   <div class="card-body">
@@ -164,7 +169,7 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
             <div class="tab-pane fade" id="horizontal-profile">
               <div class="mb-3">
                 <label for="exampleFormControlReadOnlyInput1" class="form-label">Forma de Pagamento</label>
-                <select class="form-select" name="forma_pagamento" id="exampleFormControlSelect1" aria-label="Default select example" required>
+                <select class="form-select" name="forma_pagamento"  id="forma_pagamento" aria-label="Default select example" required>
                   <option>Selecione...</option>
                   <option value="1">SIGA/SIAFI</option>
                   <option value="2">GRU</option>
@@ -177,31 +182,32 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
               <div class="divider divider-dark">
                 <div class="divider-text">Informações de Pagamento</div>
               </div>
+              <div id="informacoes" class="tira">
               <div class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">CPF do Emissor</label>
                 <div class="col-md-10">
-                  <input class="form-control" name="cpf" type="text" placeholder="Obrigatorio" id="html5-text-input" required/>
+                  <input class="form-control" name="cpf" type="text" placeholder="Prenchimento automatico <?= $_SESSION['usuario'][7] ?>" id="cpf" />
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">Nome do Emissor</label>
                 <div class="col-md-10">
-                  <input class="form-control" name="nome_emissor" type="text" placeholder="Obrigatorio" id="html5-text-input" required />
+                  <input class="form-control" name="nome_emissor" type="text" placeholder="Prenchimento automatico <?= $_SESSION['usuario'][0] ?>" id="html5-text-input"  />
                 </div>
               </div>
-              <div class="mb-3 row">
+              <div id="recolimento" class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">Código do Recolhimento</label>
                 <div class="col-md-10">
                   <input class="form-control" name="cod_recolhimete" type="text" id="html5-text-input" />
                 </div>
               </div>
-              <div class="mb-3 row">
+              <div id="siafi" class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">Código SIAFI</label>
                 <div class="col-md-10">
                   <input class="form-control" name="siafi" value="<?= $ano ?>NC" type="text" id="html5-text-input" />
                 </div>
               </div>
-              <div class="mb-3 row">
+              <div id="ug"  class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">Código UG</label>
                 <div class="col-md-10">
                   <input class="form-control" name="ug" type="text" id="html5-text-input" />
@@ -212,6 +218,7 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
                 <div class="col-md-10">
                   <input class="form-control" name="data_horas" type="datetime-local" value="<?= $datetime ?>" id="html5-date-input" />
                 </div>
+              </div>
               </div>
             </div>
 
@@ -230,3 +237,40 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
   </form>
       </div>
     </div>
+    <script>
+        const cpf = document.getElementById('cpf');
+        cpf.addEventListener('keyup', vlw => {
+          cpf.value =  cpf.value.replace(/[^\d]+/g,'');
+         cpf.value =  formataCPF(cpf.value);
+        })
+    function formataCPF(cpf){
+      //retira os caracteres indesejados...
+      cpf = cpf.replace(/[^\d]+/g,'');
+      //realizar a formatação...
+      
+      if(cpf.length < 10){
+        return cpf.replace(/(\d{3})(\d{3})/, "$1.$2.");
+      }else{
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+      }    
+    }
+                
+      const pagamento = document.getElementById('forma_pagamento');
+     pagamento.addEventListener('click', vlr => {
+      vlr.preventDefault();
+      document.getElementById('informacoes').classList.remove('tira');
+      ocultarInput(pagamento.value);
+     })
+     function ocultarInput(Valor){
+      if(Valor === '1'){
+        document.getElementById('ug').classList.remove('tira');
+        document.getElementById('siafi').classList.remove('tira');
+        document.getElementById('recolimento').classList.add('tira');
+      }else{
+        document.getElementById('recolimento').classList.remove('tira');
+        document.getElementById('ug').classList.add('tira');
+        document.getElementById('siafi').classList.add('tira');
+      }
+     }
+     
+    </script>
