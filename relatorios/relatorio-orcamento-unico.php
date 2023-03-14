@@ -20,7 +20,9 @@ while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
     $quantidade = $linha['quantidade'];
     $QuantidadeT[$produtos] = $quantidade;
     $preco_unitario = $linha['preco_unitario'];
+    $PrevoUni[$produtos] = $preco_unitario;
     $total = $quantidade * $preco_unitario;
+    $ValrTotal[$produtos] = $total;
     $tipo_produto = $linha['tipo_produto'];
     $cod_produto = $linha['cod_produto'];
    
@@ -32,6 +34,9 @@ while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
           $cod_contato = $linha14['cod_contato'];
           $cod_endereco = $linha14['cod_endereco'];
           $data_validade = $linha14['data_validade'];
+          $tipo_cliente = $linha14['tipo_cliente'];
+          $frete = $linha14['frete'];
+          $valor_total = $linha14['valor_total'];
           $descricao_orc = $linha14['descricao'];
             $cod_emissor = $linha14['cod_emissor'];
             $tipo_cliente = $linha14['tipo_cliente'];
@@ -177,8 +182,9 @@ while ($linha88 = $query_componente_orc->fetch(PDO::FETCH_ASSOC)) {
   $query_servicos->execute();
   if ($linha89 = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
       $cod_servicoes = $linha89['cod'];
-   
+      $valor_unitario = $linha89['valor_unitario'];
       $descricao_servicoes = $linha89['descricao'];
+      $Do_Servico_valor[$servicos] = $valor_unitario;
       $Do_servico_cod[$servicos] = $cod_servicoes;
       $Do_servico_descricao[$servicos] = $descricao_servicoes;
      
@@ -242,7 +248,7 @@ if(!isset($nome_fantasia)){
 if(!isset($nome_cliente)){
     $nome_cliente = 'NÃO ENCONTRADO';
 }
-$parte1 = '<img src="../assets/img/cabecalho_orcamento.png" style=" margin-left: 60px; margin-top: 0px; padding-top: 0px; top: 0px; justify-content: center; align-items: center; text-align: center; height: 150px">';
+$parte1 = '<div  style="  margin-top: 0px; padding-top: 0px;"><img src="../assets/img/cabecalho_orcamento.png" style=" margin-left: 60px; margin-top: 0px; padding-top: 0px; top: 0px; justify-content: center; align-items: center; text-align: center; height: 150px">';
 $parte2 = '<br><div style="text-align: center;"><br><b>PROPOSTA DE ORÇAMENTO Nº '.$cod_orcamento.'';
 if(isset($codigo_op)){
  
@@ -266,9 +272,9 @@ $parte3 = '<div>________________________________________________________________
 <div>_______________________________________________________________________________________________________</div>
 <div style="text-align: center;"><b>INFORMAÇÕES DO CLIENTE</b></div>
 <br>
-<div style="width: 85%;text-align: start;">
-<div>CLIENTE: '.$nome_cliente.': '.$cod_cliente.'</div>
-<div>CONTATO: '.$nome_contato.' TELEFONE PRINCIPAL: '.$telefone.' </div>';
+<div style="width: 100%;text-align: start;">
+<div>CLIENTE: '.$nome_cliente.'&nbsp;&nbsp;&nbsp; CÓDIGO CLIENTE: '.$cod_cliente.'</div>
+<div>CONTATO: '.$nome_contato.'&nbsp;&nbsp;&nbsp; TELEFONE PRINCIPAL: '.$telefone.' </div>';
 if($telefone2 != ''){
  $parte3 .= '<div>TELEFONESECUNDÁRIO:'.$telefone2.'</div>';
 }
@@ -302,45 +308,68 @@ $parte3 .= '
 <th>VALOR UNITARIO</th>
 <th>QUANTIDADE</th>
 <th>VALOR TOTAL</th>
-</tr>
-<tr align="center">
-<td align="center">6844</td>
-<td align="center">BANNER - GAB
-CMT EX - LONA
-VÍNILICA - 4X0 -
-SEM
-ACABAMENTO -
-2,20X1,10</td>
-<td align="center">138.60</td>
-<td align="center">2</td>
-<td align="center">277,20</td>
-</tr><tr>
-<td align="right" colspan="4">TOTAL (R$)</td>
-<td align="center">277,20</td>
-</tr>
-</table>
-</div>
+</tr>';
+
+for($a = 0; $a < count($PRODUTOS); $a++){
+   $parte3 .= '<tr align="center">
+    <td align="center">'.$PRODUTOS[$a]['CODIGO'].'</td>
+    <td align="center">'.$PRODUTOS[$a]['DESCRICAO'].'</td>
+    <td align="center">'.number_format($PrevoUni[$a], 2, ',', '.') .'</td>
+    <td align="center">'.$QuantidadeT[$a].'</td>
+    <td align="center">'.number_format($ValrTotal[$a], 2, ',', '.') .'</td></td>
+    </tr>';
+}
+for($a = 0; $a < $servicos; $a++){
+    $parte3 .= '<tr align="center">
+    <td align="center">'.$Do_servico_cod[$a].' - SV</td>
+    <td align="center">'.$Do_servico_descricao[$a].'</td>
+    <td align="center">'.number_format($Do_Servico_valor[$a], 2, ',', '.') .'</td>
+    <td align="center">1</td>
+    <td align="center">'.number_format($Do_Servico_valor[$a], 2, ',', '.') .'</td></td>
+    </tr>';
+}
+if($frete != '0.0'){
+    $parte3 .= '<tr align="center">
+    <td align="center">FRETE</td>
+    <td align="center">-</td>
+    <td align="center">'.number_format($frete, 2, ',', '.').'</td>
+    <td align="center">1</td>
+    <td align="center">'.number_format($frete, 2, ',', '.').'</td></td>
+    </tr>';
+}
+    $parte3 .= '<tr>
+    <td align="right" colspan="4"><b>TOTAL (R$)</b></td>
+    <td align="center"><b>'.number_format($valor_total, 2, ',', '.').'</b></td>
+    </tr>';
+
+$parte3 .= '</table></div>
 <div>_______________________________________________________________________________________________________</div>
 <div style="font-size: 13px; text-align: start; ">OBSERVAÇÕES DO ORÇAMENTO: '.$descricao_orc.' <BR></div>
 <BR>
 <div style="text-align: start;">
 <b >VALIDADE DA PROPOSTA: '.date('d/m/Y', strtotime($data_validade)).' <br>
-Método de pagamento: <br>
-<div style="font-size: 13px;"><b> TRANSFERÊNCIA ENTRE CONTAS, OPÇÃO PAGAMENTO DE SERVIÇO (POR NOTA DE CRÉDITO
-FAVORECIDO – UG 160083 E UG 167083 PARA ND 33 90 00 , ND 33 90 30 OU 33 90 39).</b></div></div><br>
-<div  style="text-align: center; background-color: #d4d4d4;"><b>ENTREGA: ______ DIAS ÚTEIS APÓS A APROVAÇÃO DO "MODELO DE PROVA"</b></div><br>
+Método de pagamento: ';
+if($tipo_cliente == '1'){
+    $parte3 .= '<div style="font-size: 13px;"><b> GRU SIMPLES, PAGAMENTO EXCLUSIVO NO BANCO DO BRASIL.</b></div></div><br>';
+}else{
+    $parte3 .= '<br><div style="font-size: 13px;"><b> TRANSFERÊNCIA ENTRE CONTAS, OPÇÃO PAGAMENTO DE SERVIÇO (POR NOTA DE CRÉDITO
+    FAVORECIDO – UG 160083 E UG 167083 PARA ND 33 90 00 , ND 33 90 30 OU 33 90 39).</b></div></div><br>';
+}
+
+
+$parte3 .= '<div  style="text-align: center; background-color: #d4d4d4;"><b>ENTREGA: ______ DIAS ÚTEIS APÓS A APROVAÇÃO DO "MODELO DE PROVA"</b></div><br>
 <div  style="text-align: center;  background-color: #d4d4d4;"><div  style="font-size: 14px;"><b>AUTORIZO A INSERÇÃO DO QR CODE DA GRÁFICA DO EXÉRCITO NA 4ª CAPA ( ) SIM ( ) NÃO</b></div></div>
 <div style="text-align: center;   display: solid; align-items: center; justify-content: center; "> <br><br><br><br><br><br>
 <p style="text-align: center; margin-left: 25%; margin-right: 25%; width: 50%; ">BRASÍLIA-DF, 08/02/2023. <br><br>
-________________________________________________
+________________________________________________<br>
 '.$nome_atendente.' <br>
 GRÁFICA DO EXÉRCITO - DIVISÃO COMERCIAL
 <br><br>
-________________________________________________
+________________________________________________<br>
 '.$nome_cliente.' <br>
 '.$nome_fantasia.' <br>
 DATA:  &nbsp; &nbsp;   &nbsp;  de &nbsp;&nbsp;  &nbsp;     &nbsp;  &nbsp;   &nbsp;   &nbsp; de  </p>
-</div>
+</div></div>
 ';
 
 
