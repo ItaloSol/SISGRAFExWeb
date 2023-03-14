@@ -1,3 +1,8 @@
+<style>
+.tira {
+  display: none;
+}
+</style>
 <?php /* |--  --| */ include_once("../html/../html/navbar.php");
 $_SESSION["pag"] = array(1, 0);
 
@@ -182,7 +187,8 @@ $valor_total_Finalizadas = 0;
       <div class="accordion mt-3" id="accordionExample5">
         <div class="card accordion-item active">
           <h2 class="accordion-header" id="headingOne">
-            <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne5" aria-expanded="true" aria-controls="accordionOne5">
+            <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne5"
+              aria-expanded="true" aria-controls="accordionOne5">
               Ações
             </button>
           </h2>
@@ -199,7 +205,8 @@ $valor_total_Finalizadas = 0;
                       <label for="html5-date-input" class="col-md-2 col-form-label">Status</label>
                       <div class="col-md-10">
                         <select>
-                          <option><?= $Orcamento_pesquisa['status'] ?> - <?= $Orcamento_pesquisa['STS_DESCRICAO'] ?></option>
+                          <option><?= $Orcamento_pesquisa['status'] ?> - <?= $Orcamento_pesquisa['STS_DESCRICAO'] ?>
+                          </option>
                           <?php for ($i = 0; $i < $Sts; $i++) {
                             echo '<option>' . $Codigo_Sts_P[$i] . ' - ' . $Nome_Sts_P[$i] . '</option>';
                           } ?>
@@ -239,16 +246,28 @@ $valor_total_Finalizadas = 0;
 
                         <div class="row mb-3 ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 || $Orcamento_pesquisa['status'] == 2 || $Orcamento_pesquisa['status'] == 3) { ?>
-                            <a href="b-update.php?acao=6&cod=<?= $cod_orcamento ?>" class="btn btn-danger"><iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon> <br>Não aprovado pelo cliente</a>
+                          <a href="b-update.php?acao=6&cod=<?= $cod_orcamento ?>" class="btn btn-danger">
+                            <iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon> <br>Não
+                            aprovado pelo cliente
+                          </a>
                           <?php } else { ?>
-                            <a class="btn btn-danger"><iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon> <br>Não aprovado pelo cliente</a>
+                          <a class="btn btn-danger">
+                            <iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon> <br>Não
+                            aprovado pelo cliente
+                          </a>
                           <?php } ?>
                         </div>
                         <div class="row mb-3  ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 || $Orcamento_pesquisa['status'] == 2 || $Orcamento_pesquisa['status'] == 3) { ?>
-                            <a href="b-update.php?acao=13&cod=<?= $cod_orcamento ?>" class="btn btn-danger"><iconify-icon icon="material-symbols:delete-outline-sharp" width="24" height="24"></iconify-icon><br> Excluir</a>
+                          <a href="b-update.php?acao=13&cod=<?= $cod_orcamento ?>" class="btn btn-danger">
+                            <iconify-icon icon="material-symbols:delete-outline-sharp" width="24" height="24">
+                            </iconify-icon><br> Excluir
+                          </a>
                           <?php } else { ?>
-                            <a class="btn btn-danger"><iconify-icon icon="material-symbols:delete-outline-sharp" width="24" height="24"></iconify-icon><br> Excluir</a>
+                          <a class="btn btn-danger">
+                            <iconify-icon icon="material-symbols:delete-outline-sharp" width="24" height="24">
+                            </iconify-icon><br> Excluir
+                          </a>
                           <?php } ?>
                         </div>
                         <!-- <div class="row mb-3">
@@ -260,70 +279,127 @@ $valor_total_Finalizadas = 0;
                         <div class=" mb-3 ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 ||  $Orcamento_pesquisa['status'] == 3 || $Orcamento_pesquisa['status'] == 11 || $Orcamento_pesquisa['status'] == 4) {
                             if ($Orcamento_pesquisa['valor_total'] <= $Tabela_Clientes['credito']) { ?>
-                              <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod" class="btn btn-warning"><iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br> Enviar para Produção</a>
+                          <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod"
+                            class="btn btn-warning">
+                            <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
+                            Enviar para Produção
+                          </a>
                         </div>
                         <div class=" mb-3">
-                          <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp" class="btn btn-warning"><iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar para Expedição</a>
+                          <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp"
+                            class="btn btn-warning">
+                            <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar
+                            para Expedição
+                          </a>
                         </div>
                         <?php } else {
                               if ($Orcamento_pesquisa['status'] == '4' || $Orcamento_pesquisa['status'] == '11') { ?>
-                          <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod" class="btn btn-warning"><iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br> Enviar para Produção</a>
+                        <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod"
+                          class="btn btn-warning">
+                          <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
+                          Enviar para Produção
+                        </a>
                       </div>
                       <div class=" mb-3">
-                        <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp" class="btn btn-warning"><iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar para Expedição</a>
+                        <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp"
+                          class="btn btn-warning">
+                          <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar
+                          para Expedição
+                        </a>
                       </div>
                       <?php  } else {
                                 if ($Orcamento_pesquisa['status'] == '3') {
                                   echo '</div>';
                                 } else { ?>
 
-                        <a href="b-update.php?acao=3&cod=<?= $cod_orcamento ?>" class="btn btn-warning"><iconify-icon icon="mdi:file-send-outline" width="24" height="24"></iconify-icon><br> <span>Saldo insuficiente!</span><br> Enviar o ordenador de despesa</a>
+                      <a href="b-update.php?acao=3&cod=<?= $cod_orcamento ?>" class="btn btn-warning">
+                        <iconify-icon icon="mdi:file-send-outline" width="24" height="24"></iconify-icon><br>
+                        <span>Saldo insuficiente!</span><br> Enviar o ordenador de despesa
+                      </a>
                     </div>
 
-                <?php }
+                    <?php }
                               }
                             }
                           } else {
                             if ($Orcamento_pesquisa['status'] == '5' || $Orcamento_pesquisa['status'] == '6' || $Orcamento_pesquisa['status'] == '12' || $Orcamento_pesquisa['status'] == '13' || $Orcamento_pesquisa['status'] == '14' || $Orcamento_pesquisa['status'] == '15') {
                               echo ' </div>';
                             } else {  ?>
-                <a class="btn btn-warning"><iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br> Enviar para Produção</a>
+                    <a class="btn btn-warning">
+                      <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
+                      Enviar para Produção
+                    </a>
                   </div>
                   <div class=" mb-3">
-                    <a class="btn btn-warning"><iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar para Expedição</a>
+                    <a class="btn btn-warning">
+                      <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar para
+                      Expedição
+                    </a>
                   </div>
-              <?php }
+                  <?php }
                           } ?>
-              <div class=" mb-3">
-                <a class="btn btn-warning" target="_blank" href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>" style="color: white;"><iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO</a>
-              </div>
+
                 </div> <?php include_once('modal-enviarop.php'); ?>
                 <?php if ($ORD_I == 1) { ?>
-                  <div class="col-3" id="<?= $od ?>">
+                <div class="col-3" id="<?= $od ?>">
 
-                    <div class="row mb-3 ">
-                      <a id="odA" class="btn btn-danger "><iconify-icon icon="material-symbols:check-circle-outline-rounded" width="24" height="24"></iconify-icon><br> (OD) AUTORIZAR PRODUÇÃO</a>
+                  <div class="row mb-3 ">
+                    <a id="odA" class="btn btn-danger ">
+                      <iconify-icon icon="material-symbols:check-circle-outline-rounded" width="24" height="24">
+                      </iconify-icon><br> (OD) AUTORIZAR PRODUÇÃO
+                    </a>
+                  </div>
+
+                  <div class="row mb-3">
+                    <a id="odN" class="btn btn-danger ">
+                      <iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon><br> (OD)
+                      NEGAR PRODUÇÃO
+                    </a>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-sm-6">
+                      <input type="radio" name="tipo" id="grafica" value="1"> <label for="grafica">OD- Grafica</label>
+
                     </div>
 
-                    <div class="row mb-3">
-                      <a id="odN" class="btn btn-danger "><iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon><br> (OD) NEGAR PRODUÇÃO</a>
+                    <div class="col-sm-6">
+                      <input type="radio" name="tipo" id="cliente" value="2"> <label for="cliente">OD - Cliente</label>
                     </div>
-                    <div class="row mb-2">
-                      <div class="col-sm-6">
-                        <input type="radio" name="tipo" id="grafica" value="1"> <label for="grafica">OD- Grafica</label>
-
-                      </div>
-
-                      <div class="col-sm-6">
-                        <input type="radio" name="tipo" id="cliente" value="2"> <label for="cliente">OD - Cliente</label>
-                      </div>
 
                     <?php } ?>
-                    </div>
-
-
-
                   </div>
+
+
+
+                </div>
+                <div class=" mb-3">
+                  <div id="simpleszao" class="">
+                    <a class="btn btn-warning" target="_blank"
+                      href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>&Tp=1"
+                      style="color: white;">
+                      <iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO
+                      <br> SIMPLES
+                    </a>
+                  </div>
+                  <div id="detalhadao" class="tira">
+                    <a class="btn btn-warning" target="_blank"
+                      href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>&Tp=2"
+                      style="color: white;">
+                      <iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO
+                      <br> DETALHADO
+                    </a>
+                  </div>
+                  <div id="selects">
+                    <div class="col-sm-6">
+                      <input type="radio" name="detalhe" id="SIMPLES" value="1" checked> <label
+                        for="SIMPLES">SIMPLES</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="radio" name="detalhe" id="DETALHADO" value="2"> <label
+                        for="DETALHADO">DETALHADO</label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -334,14 +410,28 @@ $valor_total_Finalizadas = 0;
   </div>
 </div>
 <script>
+const selects = document.getElementById('selects');
+const simpleszao = document.getElementById('simpleszao');
+const detalhadao = document.getElementById('detalhadao');
+const SIMPLES = document.getElementById('SIMPLES');
+const DETALHADO = document.getElementById('DETALHADO');
 
+SIMPLES.addEventListener('click', vlr => {
+  simpleszao.classList.remove('tira');
+  detalhadao.classList.add('tira');
+})
+DETALHADO.addEventListener('click', vlr => {
+  detalhadao.classList.remove('tira');
+  simpleszao.classList.add('tira');
+})
 </script>
 <!--  -->
 <div class="col-md mb-4 mb-md-0">
   <div class="accordion mt-3" id="accordionExample">
     <div class="card accordion-item active">
       <h2 class="accordion-header" id="headingOne">
-        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne">
+        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne"
+          aria-expanded="true" aria-controls="accordionOne">
           Orçamento
         </button>
       </h2>
@@ -358,7 +448,8 @@ $valor_total_Finalizadas = 0;
                   <label for="html5-date-input" class="col-md-2 col-form-label">Codigo Orçamento</label>
                   <div class="col-md-10">
                     <div class="input-group">
-                      <input type="text" id="cod_orc_" class="cod_orc_ form-control" value="<?= $cod_orcamento ?>" disabled />
+                      <input type="text" id="cod_orc_" class="cod_orc_ form-control" value="<?= $cod_orcamento ?>"
+                        disabled />
                     </div>
                     <br>
                   </div>
@@ -367,22 +458,27 @@ $valor_total_Finalizadas = 0;
                     <div class="input-group">
                       <form method="GET" action="b-update.php">
                         <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#smallModal">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                          data-bs-target="#smallModal">
                           Atualizar Data
                         </button>
-                        <input class="form-control " type="date" name="data" value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
+                        <input class="form-control " type="date" name="data"
+                          value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
                         <!--  -->
                         <!-- Small Modal -->
                         <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
                           <div class="modal-dialog modal-sm" role="document">
                             <div class="modal-content">
                               <div class="modal-header  ">
-                                <h5 class="modal-title align-items-center justify-content-center" id="exampleModalLabel2">Atualizar Data de validade do Orçamento</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h5 class="modal-title align-items-center justify-content-center"
+                                  id="exampleModalLabel2">Atualizar Data de validade do Orçamento</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
                               </div>
                               <div class="modal-body align-items-center justify-content-center">
 
-                                <h6 class="align-items-center justify-content-center align-text-center">Certeza que deseja atualizar a data de validade?</h6>
+                                <h6 class="align-items-center justify-content-center align-text-center">Certeza que
+                                  deseja atualizar a data de validade?</h6>
 
                               </div>
                               <div class="modal-footer">
@@ -398,39 +494,39 @@ $valor_total_Finalizadas = 0;
                       </form>
                     </div>
                     <script>
-                      const cod_orc = document.getElementById('cod_orc_')
-                      const grafica = document.getElementById("grafica");
-                      const cliente = document.getElementById("cliente");
-                      const grafica1 = document.getElementById("odN");
-                      const cliente1 = document.getElementById("odA");
-                      const od = document.getElementById('off');
-                      if (od) {
+                    const cod_orc = document.getElementById('cod_orc_')
+                    const grafica = document.getElementById("grafica");
+                    const cliente = document.getElementById("cliente");
+                    const grafica1 = document.getElementById("odN");
+                    const cliente1 = document.getElementById("odA");
+                    const od = document.getElementById('off');
+                    if (od) {
 
+                    } else {
+                      cliente.addEventListener('click', vm => {
+                        cliente.checked = true;
+                        cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
+                        grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
+                      })
+                      grafica.addEventListener('click', vm => {
+                        grafica.checked = true;
+                        cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
+                        grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
+                      })
+                      if (cliente.checked) {
+                        cliente.checked = true;
+                        cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
+                        grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
                       } else {
-                        cliente.addEventListener('click', vm => {
-                          cliente.checked = true;
-                          cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                        })
-                        grafica.addEventListener('click', vm => {
-                          grafica.checked = true;
-                          cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                        })
-                        if (cliente.checked) {
-                          cliente.checked = true;
-                          cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                        } else {
-                          grafica.checked = true;
-                          cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                        }
-                        if (document.querySelector('off')) {
-                          cliente1.href = '#';
-                          grafica1.href = '#';
-                        }
+                        grafica.checked = true;
+                        cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
+                        grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
                       }
+                      if (document.querySelector('off')) {
+                        cliente1.href = '#';
+                        grafica1.href = '#';
+                      }
+                    }
                     </script>
                   </div>
                 </div>
@@ -442,31 +538,36 @@ $valor_total_Finalizadas = 0;
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-name">Tipo de Pessoa</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="basic-default-name" value="<?= $cliente ?>" placeholder="Fisicou ou Juridica" />
+                        <input type="text" class="form-control" id="basic-default-name" value="<?= $cliente ?>"
+                          placeholder="Fisicou ou Juridica" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Código do Cliente</label>
                       <div class="col-sm-10">
-                        <input type="text" value="<?= $Pesquisa_Cliente ?>" class="form-control" id="basic-default-company" placeholder="" />
+                        <input type="text" value="<?= $Pesquisa_Cliente ?>" class="form-control"
+                          id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Nome do Cliente</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Tabela_Clientes['nome'] ?>" id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Tabela_Clientes['nome'] ?>"
+                          id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">CPF/CNPJ</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $documento ?>" id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $documento ?>" id="basic-default-company"
+                          placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Nome p/ Contato</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['nome_contato'] ?>" id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['nome_contato'] ?>"
+                          id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                   </div>
@@ -475,25 +576,30 @@ $valor_total_Finalizadas = 0;
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Telefone Principal</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['telefone'] ?>" id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['telefone'] ?>"
+                          id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Cidade</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['cidade'] ?>" id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['cidade'] ?>"
+                          id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">UF</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['uf'] ?>" id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['uf'] ?>"
+                          id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Crédito</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= number_format($Tabela_Clientes['credito'], 2, ',', '.') ?>" id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control"
+                          value="<?= number_format($Tabela_Clientes['credito'], 2, ',', '.') ?>"
+                          id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                   </div>
@@ -510,27 +616,35 @@ $valor_total_Finalizadas = 0;
   <!-- Informações Sobre o Orçamento (Segundo Drop) -->
   <div class="card accordion-item">
     <h2 class="accordion-header" id="headingTwo">
-      <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="true" aria-controls="accordionTwo">
+      <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionTwo"
+        aria-expanded="true" aria-controls="accordionTwo">
         Informações Sobre o Orçamento
       </button>
     </h2>
-    <div id="accordionTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+    <div id="accordionTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
+      data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <div class="col-lg-12">
           <div class="demo-inline-spacing mt-3">
             <div class="list-group list-group-horizontal-md text-md-center">
-              <a class="list-group-item list-group-item-action active" id="home-list-item" data-bs-toggle="list" href="#horizontal-prod">Produtos</a>
-              <a class="list-group-item list-group-item-action" id="profile-list-item1" data-bs-toggle="list" href="#horizontal-tir">Tiragens</a>
-              <a class="list-group-item list-group-item-action" id="messages-list-item2" data-bs-toggle="list" href="#horizontal-impr">Impressão</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item3" data-bs-toggle="list" href="#horizontal-pap">Papel</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item4" data-bs-toggle="list" href="#horizontal-aca">Acabamentos</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item5" data-bs-toggle="list" href="#horizontal-ser">Serviços</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item6" data-bs-toggle="list" href="#horizontal-obs">Observações</a>
+              <a class="list-group-item list-group-item-action active" id="home-list-item" data-bs-toggle="list"
+                href="#horizontal-prod">Produtos</a>
+              <a class="list-group-item list-group-item-action" id="profile-list-item1" data-bs-toggle="list"
+                href="#horizontal-tir">Tiragens</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item3" data-bs-toggle="list"
+                href="#horizontal-pap">Papel</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item4" data-bs-toggle="list"
+                href="#horizontal-aca">Acabamentos</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item5" data-bs-toggle="list"
+                href="#horizontal-ser">Serviços</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item6" data-bs-toggle="list"
+                href="#horizontal-obs">Observações</a>
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
                 <div class="card">
-                  <h5 class="card-header">PRODUTOS <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exLargeModalProdutos">
+                  <h5 class="card-header">PRODUTOS <button type="button" class="btn btn-outline-primary"
+                      data-bs-toggle="modal" data-bs-target="#exLargeModalProdutos">
                       Selecionar um Produto
                     </button></h5>
                   <?php include_once('modal-selecionar-produto.php') ?>
@@ -649,11 +763,11 @@ $valor_total_Finalizadas = 0;
                           <td>TIPO</td>
                           <td>0</td>
                           <td>0</td>
-                          <td><input type="number"></td>
-                          <td><input type="number"></td>
-                          <td><input type="number"></td>
+                          <td><input class="form-label" type="number"></td>
+                          <td><input class="form-label" type="number"></td>
+                          <td><input class="form-label" type="number"></td>
                           <td>0</td>
-                          <td><input type="number"></td>
+                          <td><input class="form-label" type="number"></td>
                           <td>0</td>
                         </tr>
 
@@ -727,36 +841,43 @@ $valor_total_Finalizadas = 0;
             <div class="container row ">
               <div class="col-3">
                 <label class="form-label m-0 p-0">CIF (%)</label>
-                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%"
+                  aria-describedby="defaultFormControlHelp" />
 
               </div>
               <div class="col-3">
                 <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
 
-                <input class="form-check-input mt-0" type="checkbox" id="valor" value="" aria-label="checkbox button for following text input" />
+                <input class="form-check-input mt-0" type="checkbox" id="valor" value=""
+                  aria-label="checkbox button for following text input" />
 
-                <input type="text" class="form-control" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
+                <input type="text" class="form-control" placeholder="R$ 00,00"
+                  aria-label="Text input with checkbox button" />
 
               </div>
 
               <div class="col-3">
                 <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
 
-                <input class="form-check-input mt-0" type="checkbox" id="frete" value="" aria-label="checkbox button for following text input" />
+                <input class="form-check-input mt-0" type="checkbox" id="frete" value=""
+                  aria-label="checkbox button for following text input" />
 
-                <input type="text" class="form-control" placeholder="R$ 00,00" aria-label="Text input with radio button" />
+                <input type="text" class="form-control" placeholder="R$ 00,00"
+                  aria-label="Text input with radio button" />
 
               </div>
 
               <div class="col-3">
                 <label class="form-label m-0 p-0">Desconto (%)</label>
-                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%"
+                  aria-describedby="defaultFormControlHelp" />
 
               </div>
 
             </div>
             <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
-            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" value="<?= $Orcamento_pesquisa['valor_total'] ?>" aria-describedby="defaultFormControlHelp" /><br></br>
+            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final"
+              value="<?= $Orcamento_pesquisa['valor_total'] ?>" aria-describedby="defaultFormControlHelp" /><br></br>
             <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
             <?php include_once('moda-cortes.php'); ?>
             <button type="button" class="btn btn-success">Salvar</button>
