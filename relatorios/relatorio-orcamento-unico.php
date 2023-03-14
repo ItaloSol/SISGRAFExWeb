@@ -9,12 +9,18 @@ $data = date('d/m/Y');
 $hora = date('H:i:s');
 $cod_orcamento = $_GET['cod'];
 $papels = 0;
-
+$produtos = 0;
+$ops = 0;
+$servicos = 0;
+$qtd_acabamentos = 0;
 $query_op = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE cod_orcamento = $cod_orcamento ");
 $query_op->execute();
-if ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
+while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
   
-
+    $quantidade = $linha['quantidade'];
+    $QuantidadeT[$produtos] = $quantidade;
+    $preco_unitario = $linha['preco_unitario'];
+    $total = $quantidade * $preco_unitario;
     $tipo_produto = $linha['tipo_produto'];
     $cod_produto = $linha['cod_produto'];
    
@@ -39,118 +45,23 @@ if ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
     }
     $query_produto->execute();
     if ($linha2 = $query_produto->fetch(PDO::FETCH_ASSOC)) {
-        $largura = $linha2['LARGURA'];
-        $ALTURA = $linha2['ALTURA'];
-        $QTD_PAGINAS = $linha2['QTD_PAGINAS'];
-        $TIPO = $linha2['TIPO'];
-        $DESCRICAO = $linha2['DESCRICAO'];
+        $PRODUTOS[$produtos] = [
+      'largura' => $linha2['LARGURA'],
+      'ALTURA' => $linha2['ALTURA'],
+      'CODIGO' => $linha2['CODIGO'],
+      'QTD_PAGINAS' => $linha2['QTD_PAGINAS'],
+      'TIPO' => $linha2['TIPO'],
+      'DESCRICAO' => $linha2['DESCRICAO']
+        ];
     }
-    $query_componente_orc = $conexao->prepare("SELECT * FROM tabela_componentes_orcamentos WHERE cod_orcamento = $cod_orcamento   ");
-    $query_componente_orc->execute();
-    $Servico_N = true;
+   
   
       
     
-        $ops = 0;
+       
       
-        $query_op_existe = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE orcamento_base = $cod_orcamento");
-        $query_op_existe->execute();
-        while ($linhaOps = $query_op_existe->fetch(PDO::FETCH_ASSOC)) {
-          $codigo_op = $linhaOps['cod'];
-         
-          $codio[$ops] = $codigo_op;
-        $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_op = $codigo_op AND tipo_produto = $tipo_produto ");
-        $query_calculos_op->execute();
-        while ($linha5 = $query_calculos_op->fetch(PDO::FETCH_ASSOC)) {
-            $cod_papels = $linha5['cod_papel'];
-            $cod_produtos = $linha5['cod_produto'];
-            $calculo_tipo_papel = $linha5['tipo_papel'];
-            $qtd_folhas = $linha5['qtd_folhas'];
-            $qtd_folhas_total = $linha5['qtd_folhas_total'];
-            $qtd_chapas = $linha5['qtd_chapas'];
-            $montagem = $linha5['montagem'];
-            $formato = $linha5['formato'];
-            $perca = $linha5['perca'];
-
-            $Calculo_calculo_tipo_papel[$papels] = $calculo_tipo_papel;
-            $Calculo_qtd_folhas[$papels] = $qtd_folhas;
-            $Calculo_qtd_folhas_total[$papels] = $qtd_folhas_total;
-            $Calculo_qtd_chapas[$papels] = $qtd_chapas;
-            $Calculo_montagem[$papels] = $montagem;
-            $Calculo_formato[$papels] = $formato;
-            $Calculo_perca[$papels] = $perca;
-
-            $query_orid_orc = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_orcamento = $cod_orcamento");
-            $query_orid_orc->execute();
-
-            if ($linha14 = $query_orid_orc->fetch(PDO::FETCH_ASSOC)) {
-                $quantidade = $linha14['quantidade'];
-                $preco_unitario = $linha14['preco_unitario'];
-                $total = $quantidade * $preco_unitario;
-            }
-
-            $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos ");
-            $query_papel->execute();
-
-            if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
-                $tipo_papel = $linha3['tipo_papel'];
-                $cod_papel = $linha3['cod_papel'];
-                $cor_frente = $linha3['cor_frente'];
-                $cor_verso = $linha3['cor_verso'];
-                $descricao = $linha3['descricao'];
-                $orelha = $linha3['orelha'];
-
-                $Papel_tipo_papel[$papels] = $tipo_papel;
-                $Papel_cod_papel[$papels] = $cod_papel;
-                $Papel_cor_frente[$papels] = $cor_frente;
-                $Papel_cor_verso[$papels] = $cor_verso;
-                $Papel_descricao[$papels] = $descricao;
-                $Papel_orelha[$papels] = $orelha;
-            }
-           
-            $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
-            $query_componente->execute();
-          
-            $papels++;
-        }
-        $ops++;
-      }
-      while ($linha88 = $query_componente_orc->fetch(PDO::FETCH_ASSOC)) {
-        $cod_componente_1 = $linha88['cod_componente_1'];
-        $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE cod = $cod_componente_1  ");
-        $query_servicos->execute();
-        if ($linha89 = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
-            $cod_servicoes = $linha89['cod'];
-            $descricao_servicoes = $linha89['descricao'];
-            $Do_servico_cod[$servicos] = $cod_servicoes;
-            $Do_servico_descricao[$servicos] = $descricao_servicoes;
-            $servicos++;
-        }
-        if (!isset($Do_servico_cod[0])) {
-            $Servico_N = 'NENHUM SELECIONADO';
-        }
-        $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
-        $query_componente->execute();
-        while ($linha12 = $query_componente->fetch(PDO::FETCH_ASSOC)) {
-            $cod_acabamento = $linha12['cod_acabamento'];
-            $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE CODIGO = $cod_acabamento  ");
-            $query_acabamento->execute();
-            if ($linha13 = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
-
-                $cod_acb = $linha13['CODIGO'];
-                $Maquina = $linha13['MAQUINA'];
-                $ATIVA = $linha13['ATIVA'];
-                $CUSTO_HORA = $linha13['CUSTO_HORA'];
-
-                $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acb;
-                $Do_Acabamento_Maquina[$qtd_acabamentos] = $Maquina;
-                $Do_Acabamento_midida[$qtd_acabamentos] = $ATIVA;
-                $Do_Acabamento_CUSTO_HORA[$qtd_acabamentos] = $CUSTO_HORA;
-                $qtd_acabamentos++;
-            }
-        }
-        $papels++;
-    }
+      
+  
     if ($tipo_produto == 2) {
         $query_orid_orc = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto AND cod_orcamento = $cod_orcamento");
         $query_orid_orc->execute();
@@ -206,6 +117,130 @@ if ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
             $telefone = $linha11['telefone'];
         
     }
+    $produtos++;
+}
+$query_op_existe = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE orcamento_base = $cod_orcamento");
+$query_op_existe->execute();
+while ($linhaOps = $query_op_existe->fetch(PDO::FETCH_ASSOC)) {
+  $codigo_op = $linhaOps['cod'];
+  $codio[$ops] = $codigo_op;
+  $ops++;
+ 
+$query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_op = $codigo_op AND tipo_produto = $tipo_produto ");
+$query_calculos_op->execute();
+while ($linha5 = $query_calculos_op->fetch(PDO::FETCH_ASSOC)) {
+    $cod_papels = $linha5['cod_papel'];
+    $cod_produtos = $linha5['cod_produto'];
+    $calculo_tipo_papel = $linha5['tipo_papel'];
+    $qtd_folhas = $linha5['qtd_folhas'];
+    $qtd_folhas_total = $linha5['qtd_folhas_total'];
+    $qtd_chapas = $linha5['qtd_chapas'];
+    $montagem = $linha5['montagem'];
+    $formato = $linha5['formato'];
+    $perca = $linha5['perca'];
+
+    $Calculo_calculo_tipo_papel[$papels] = $calculo_tipo_papel;
+    $Calculo_qtd_folhas[$papels] = $qtd_folhas;
+    $Calculo_qtd_folhas_total[$papels] = $qtd_folhas_total;
+    $Calculo_qtd_chapas[$papels] = $qtd_chapas;
+    $Calculo_montagem[$papels] = $montagem;
+    $Calculo_formato[$papels] = $formato;
+    $Calculo_perca[$papels] = $perca;
+
+}
+$query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos ");
+$query_papel->execute();
+
+if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
+  $tipo_papel = $linha3['tipo_papel'];
+  $cod_papel = $linha3['cod_papel'];
+  $cor_frente = $linha3['cor_frente'];
+  $cor_verso = $linha3['cor_verso'];
+  $descricao = $linha3['descricao'];
+  $orelha = $linha3['orelha'];
+
+  $Papel_tipo_papel[$papels] = $tipo_papel;
+  $Papel_cod_papel[$papels] = $cod_papel;
+  $Papel_cor_frente[$papels] = $cor_frente;
+  $Papel_cor_verso[$papels] = $cor_verso;
+  $Papel_descricao[$papels] = $descricao;
+  $Papel_orelha[$papels] = $orelha;
+}
+$papels++;
+}
+$query_componente_orc = $conexao->prepare("SELECT * FROM tabela_componentes_orcamentos WHERE cod_orcamento = $cod_orcamento   ");
+$query_componente_orc->execute();
+$Servico_N = true;
+while ($linha88 = $query_componente_orc->fetch(PDO::FETCH_ASSOC)) {
+  $cod_componente_1 = $linha88['cod_componente_1'];
+  $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE cod = $cod_componente_1  ");
+  $query_servicos->execute();
+  if ($linha89 = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
+      $cod_servicoes = $linha89['cod'];
+   
+      $descricao_servicoes = $linha89['descricao'];
+      $Do_servico_cod[$servicos] = $cod_servicoes;
+      $Do_servico_descricao[$servicos] = $descricao_servicoes;
+     
+      $servicos++;
+  }
+  if (!isset($Do_servico_cod[0])){
+      $Servico_N = '0';
+  }
+  $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
+  $query_componente->execute();
+  while ($linha12 = $query_componente->fetch(PDO::FETCH_ASSOC)) {
+      $cod_acabamento = $linha12['cod_acabamento'];
+      $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE CODIGO = $cod_acabamento  ");
+      $query_acabamento->execute();
+      if ($linha13 = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
+
+          $cod_acb = $linha13['CODIGO'];
+          $Maquina = $linha13['MAQUINA'];
+          $ATIVA = $linha13['ATIVA'];
+          $CUSTO_HORA = $linha13['CUSTO_HORA'];
+
+          $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acb;
+          $Do_Acabamento_Maquina[$qtd_acabamentos] = $Maquina;
+          $Do_Acabamento_midida[$qtd_acabamentos] = $ATIVA;
+          $Do_Acabamento_CUSTO_HORA[$qtd_acabamentos] = $CUSTO_HORA;
+          $qtd_acabamentos++;
+      }
+  }
+  $papels++;
+}
+if(!isset($nome_cliente)){
+    $nome_cliente = 'NÃO ENCONTRADO';
+}
+if(!isset($cod_cliente)){
+    $cod_cliente = 'NÃO ENCONTRADO';
+}
+if(!isset($nome_contato)){
+    $nome_contato = 'NÃO ENCONTRADO';
+}
+if(!isset($telefone)){
+    $telefone = 'NÃO ENCONTRADO';
+}
+if(!isset($telefone2)){
+    $telefone2 = 'NÃO ENCONTRADO';
+}
+if(!isset($nome_atendente)){
+    $nome_atendente = 'NÃO ENCONTRADO';
+}
+if(!isset($descricao_orc)){
+    $descricao_orc = 'NÃO ENCONTRADO';
+}
+if(!isset($data_validade)){
+    $data_validade = 'NÃO ENCONTRADO';
+}
+if(!isset($nome_atendente)){
+    $nome_atendente = 'NÃO ENCONTRADO';
+}
+if(!isset($nome_fantasia)){
+    $nome_fantasia = 'NÃO ENCONTRADO';
+}
+if(!isset($nome_cliente)){
+    $nome_cliente = 'NÃO ENCONTRADO';
 }
 $parte1 = '<img src="../assets/img/cabecalho_orcamento.png" style=" margin-left: 60px; margin-top: 0px; padding-top: 0px; top: 0px; justify-content: center; align-items: center; text-align: center; height: 150px">';
 $parte2 = '<br><div style="text-align: center;"><br><b>PROPOSTA DE ORÇAMENTO Nº '.$cod_orcamento.'';
@@ -214,6 +249,7 @@ if(isset($codigo_op)){
   $pp = '[';
   $a = $ops -1;
   for($i = 0; $i < $ops; $i++){
+   
     if($i != $a ){
       $pp .= ''.$codio[$i].', ';
     }else{
@@ -230,7 +266,7 @@ $parte3 = '<div>________________________________________________________________
 <div>_______________________________________________________________________________________________________</div>
 <div style="text-align: center;"><b>INFORMAÇÕES DO CLIENTE</b></div>
 <br>
-<div style="width: 85%;">
+<div style="width: 85%;text-align: start;">
 <div>CLIENTE: '.$nome_cliente.': '.$cod_cliente.'</div>
 <div>CONTATO: '.$nome_contato.' TELEFONE PRINCIPAL: '.$telefone.' </div>';
 if($telefone2 != ''){
@@ -241,13 +277,22 @@ $parte3 .= '
 </div>
 <div>_______________________________________________________________________________________________________</div>
 <div  style="text-align: center; padding-top: 4px;"><b>DESCRIÇÃO DO ORÇAMENTO</b></div>
-<br>
-CÓDIGO PRODUTO: 6844
-BANNER - GAB CMT EX - LONA VÍNILICA - 4X0 - SEM ACABAMENTO - 2,20X1,10. QUANTIDADE: 2 TAMANHO: 110.0 X 220.0
-PÁGINAS: 1
-<div>_______________________________________________________________________________________________________</div>
-<div  style="padding-top: 10px;  padding-bottom: -8px; align-items: center; justify-content: center; text-align: center;"><b>SERVIÇOS DO ORÇAMENTO</b></div>
-<div>_______________________________________________________________________________________________________</div>
+<br><div style="text-align: start;">';
+for($a = 0; $a < $produtos; $a++){
+    $parte3 .= 'CÓDIGO PRODUTO: '.$PRODUTOS[$a]['CODIGO'].'<br> 
+    '.$PRODUTOS[$a]['DESCRICAO'].'<br> QUANTIDADE: '.$QuantidadeT[$a].' TAMANHO: '.$PRODUTOS[$a]['ALTURA'].' X '.$PRODUTOS[$a]['largura'].' PÁGINAS:'.$PRODUTOS[$a]['QTD_PAGINAS'].'<br><br>';
+    
+}
+$parte3 .= '</div><div>_______________________________________________________________________________________________________</div>';
+if(isset($Do_servico_cod[0])){
+    $parte3 .= '<div  style="padding-top: 10px;  padding-bottom: -8px; align-items: center; justify-content: center; text-align: center;"><b>SERVIÇOS DO ORÇAMENTO</b><br></div>';
+   for($a = 0; $a < count($Do_servico_cod); $a++){
+    $parte3 .= '<div style="text-align: start;"><br>- CÓDIGO: '.$Do_servico_cod[$a].' | '.$Do_servico_descricao[$a].'</div>';
+   }
+   $parte3 .= '<div>_______________________________________________________________________________________________________</div>';
+}
+
+$parte3 .= '
 <div  style="text-align: center;  padding-top: 4px;"><b>DESCRIÇÃO DE VALORES</b></div>
 <div> <br>
 <table style="border-collapse: unset;" border="1">
@@ -278,8 +323,8 @@ ACABAMENTO -
 <div>_______________________________________________________________________________________________________</div>
 <div style="font-size: 13px; text-align: start; ">OBSERVAÇÕES DO ORÇAMENTO: '.$descricao_orc.' <BR></div>
 <BR>
-<div>
-<b>VALIDADE DA PROPOSTA: '.date('d/m/Y', strtotime($data_validade)).' <br>
+<div style="text-align: start;">
+<b >VALIDADE DA PROPOSTA: '.date('d/m/Y', strtotime($data_validade)).' <br>
 Método de pagamento: <br>
 <div style="font-size: 13px;"><b> TRANSFERÊNCIA ENTRE CONTAS, OPÇÃO PAGAMENTO DE SERVIÇO (POR NOTA DE CRÉDITO
 FAVORECIDO – UG 160083 E UG 167083 PARA ND 33 90 00 , ND 33 90 30 OU 33 90 39).</b></div></div><br>
@@ -300,7 +345,7 @@ DATA:  &nbsp; &nbsp;   &nbsp;  de &nbsp;&nbsp;  &nbsp;     &nbsp;  &nbsp;   &nbs
 
 
 $html = $parte1 . $parte2 . $parte3;
-//echo $html;
+ // echo $html;
 
 
 require_once __DIR__ . '../../vendor/autoload.php';
