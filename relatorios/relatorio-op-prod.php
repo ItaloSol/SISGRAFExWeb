@@ -6,6 +6,7 @@ include_once('../conexoes/conn.php');
 $cod_emissor_relatorio = $_SESSION['usuario'][2];
 $nome_emissor_relatorio = $_SESSION['usuario'][0];
 $data = date('d/m/Y');
+$OpsS = 0;
 if (isset($_GET['cod'])) {
     $codigo_op = $_GET['cod'];
     $papels = 0;
@@ -20,9 +21,11 @@ if (isset($_GET['cod'])) {
         $tipo_produto = $linha['tipo_produto'];
         $cod_produto = $linha['cod_produto'];
         $data_prevista = $linha['data_entrega'];
-
+        $status = $linha['status'];
         $tipo_cliente = $linha['tipo_cliente'];
         $cod_cliente = $linha['cod_cliente'];
+        $cod_contato = $linha['cod_contato'];
+        $cod_endereco = $linha['cod_endereco'];
         $cod_emissor = $linha['cod_emissor'];
         $obs_prod = $linha['descricao'];
 
@@ -33,6 +36,15 @@ if (isset($_GET['cod'])) {
         $data_5a_prova = $linha['data_5a_prova'];
 
         $data_prova = $linha['DT_ENTG_PROVA'];
+        $data_CANCELADO = $linha['DT_CANCELAMENTO'];
+
+        $query_orcamentos = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE orcamento_base = $codigo_orc ");
+        $query_orcamentos->execute();
+        while ($linhaOrcC = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
+            $cod_opSS = $linhaOrcC['cod'];
+            $Codigo_Ops[$OpsS] = $cod_opSS;
+            $OpsS++;
+        }
 
         if (!isset($data_prova)) {
             $data_prova = '--';
@@ -70,11 +82,23 @@ if (isset($_GET['cod'])) {
                 $Servico_N = 'NENHUM SELECIONADO';
             }
         }
-        $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_op = $codigo_op AND tipo_produto = $tipo_produto ");
+        $query_seexistecalculo = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_op = $codigo_op AND tipo_produto = $tipo_produto");
+        $query_seexistecalculo->execute();
+        if ($linhaAA = $query_seexistecalculo->fetch(PDO::FETCH_ASSOC)) {
+            $existe_dados = 1;
+        }
+        if(isset($existe_dados)){
+            $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_op = $codigo_op AND tipo_produto = $tipo_produto");
+        }else{
+            $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_proposta = $codigo_orc AND tipo_produto = $tipo_produto");
+        }
+    
+       
         $query_calculos_op->execute();
         while ($linha5 = $query_calculos_op->fetch(PDO::FETCH_ASSOC)) {
             $cod_papels = $linha5['cod_papel'];
             $cod_produtos = $linha5['cod_produto'];
+           
             $calculo_tipo_papel = $linha5['tipo_papel'];
             $qtd_folhas = $linha5['qtd_folhas'];
             $qtd_folhas_total = $linha5['qtd_folhas_total'];
@@ -82,7 +106,6 @@ if (isset($_GET['cod'])) {
             $montagem = $linha5['montagem'];
             $formato = $linha5['formato'];
             $perca = $linha5['perca'];
-
             $Calculo_calculo_tipo_papel[$papels] = $calculo_tipo_papel;
             $Calculo_qtd_folhas[$papels] = $qtd_folhas;
             $Calculo_qtd_folhas_total[$papels] = $qtd_folhas_total;
@@ -96,12 +119,11 @@ if (isset($_GET['cod'])) {
 
             if ($linha14 = $query_orid_orc->fetch(PDO::FETCH_ASSOC)) {
                 $quantidade = $linha14['quantidade'];
-                echo $quantidade;
                 $preco_unitario = $linha14['preco_unitario'];
                 $total = $quantidade * $preco_unitario;
             }
 
-            $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos ");
+            $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_papel = $cod_papels AND tipo_papel = '$calculo_tipo_papel' ");
             $query_papel->execute();
 
             if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -111,14 +133,15 @@ if (isset($_GET['cod'])) {
                 $cor_verso = $linha3['cor_verso'];
                 $descricao = $linha3['descricao'];
                 $orelha = $linha3['orelha'];
-
-                $Papel_tipo_papel[$papels] = $tipo_papel;
+          //     echo 'cor_frente '. $cor_frente . ' cor_verso '. $cor_verso . '<br>';
+                
+                $Papel_tipo_papel[$papels] = $calculo_tipo_papel;
                 $Papel_cod_papel[$papels] = $cod_papel;
                 $Papel_cor_frente[$papels] = $cor_frente;
                 $Papel_cor_verso[$papels] = $cor_verso;
                 $Papel_descricao[$papels] = $descricao;
                 $Papel_orelha[$papels] = $orelha;
-            }
+          
             $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $cod_papels  ");
             $query_do_papel->execute();
             if ($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -129,7 +152,7 @@ if (isset($_GET['cod'])) {
                 $formato = $linha4['formato'];
                 $uma_face = $linha4['uma_face'];
                 $unitario = $linha4['unitario'];
-
+            //    echo 'cod_papels '. $cod_papels . ' - '. $calculo_tipo_papel . '<br>';
                 $Do_Papel_cod[$tipo_papel_qtd_loop] = $cod_papels;
                 $Do_Papel_descricao_do_papel[$tipo_papel_qtd_loop] = $descricao_do_papel;
                 $Do_Papel_midida[$tipo_papel_qtd_loop] = $medida;
@@ -139,7 +162,7 @@ if (isset($_GET['cod'])) {
                 $Do_Papel_unitario[$tipo_papel_qtd_loop] = $unitario;
                 $tipo_papel_qtd_loop++;
             }
-
+        }
             $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
             $query_componente->execute();
             while ($linha12 = $query_componente->fetch(PDO::FETCH_ASSOC)) {
@@ -192,10 +215,7 @@ if (isset($_GET['cod'])) {
             }
         }
 
-        $associacao_endereco_cliente = $conexao->prepare("SELECT * FROM tabela_associacao_enderecos WHERE cod_cliente = $cod_cliente AND tipo_cliente = $tipo_cliente ");
-        $associacao_endereco_cliente->execute();
-        if ($linha8 = $associacao_endereco_cliente->fetch(PDO::FETCH_ASSOC)) {
-            $cod_endereco = $linha8['cod_endereco'];
+    
             $endereco_cliente = $conexao->prepare("SELECT * FROM tabela_enderecos WHERE cod = $cod_endereco ");
             $endereco_cliente->execute();
             if ($linha10 = $endereco_cliente->fetch(PDO::FETCH_ASSOC)) {
@@ -207,11 +227,7 @@ if (isset($_GET['cod'])) {
                 $cidade = $linha10['cidade'];
                 $complemento = $linha10['complemento'];
             }
-        }
-        $associacao_contato = $conexao->prepare("SELECT * FROM tabela_associacao_contatos WHERE cod_cliente = $cod_cliente AND tipo_cliente = $tipo_cliente ");
-        $associacao_contato->execute();
-        if ($linha9 = $associacao_contato->fetch(PDO::FETCH_ASSOC)) {
-            $cod_contato = $linha9['cod_contato'];
+   
             $endereco_cliente = $conexao->prepare("SELECT * FROM tabela_contatos WHERE cod = $cod_contato ");
             $endereco_cliente->execute();
             if ($linha11 = $endereco_cliente->fetch(PDO::FETCH_ASSOC)) {
@@ -219,7 +235,7 @@ if (isset($_GET['cod'])) {
                 $email = $linha11['email'];
                 $telefone = $linha11['telefone'];
             }
-        }
+        
     }
 }
 if (!isset($tipo_papel)) {
@@ -241,10 +257,16 @@ $parte1  = "
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black; width: 100%;'  border=1>
 
     <tr>
-        <td style='text-align: center;'>ORCAMENTO BASE: $codigo_orc <br> EMISSOR: $cod_emissor_relatorio <br> EMISSÃO: $data</td>
-        <td style='text-align: center;'><b>ORDEM DE PRODUÇÃO <br> $codigo_op </b></td>
-        <td style='text-align: center;' >DATA PROVÁVEL DE ENTREGA: <br> " . date('d/m/Y', strtotime($data_prevista)) . "
-            <hr> DATA DE ENTREGA DA PROVA: " . date('d/m/Y', strtotime($data_prova)) . "
+        <td style='text-align: center;'  rowspan='2'>ORCAMENTO BASE: $codigo_orc <br> EMISSOR: $cod_emissor_relatorio <br> EMISSÃO: $data</td>
+        <td style='text-align: center;' width: 150%; rowspan='2' colspan='2'><b>ORDEM DE PRODUÇÃO <br> $codigo_op </b></td>";
+        if($status != '13'){
+            $parte1 .= "<td style='text-align: center;' >DATA PROVÁVEL DE ENTREGA: <br> " . date('d/m/Y', strtotime($data_prevista));
+        }else{
+            $parte1 .= "<td style=' background: #d4d4d4;text-align: center;' >DATA DE CANCELAMENTO: <br> " . date('d/m/Y', strtotime($data_CANCELADO));
+        }
+        
+          
+       $parte1 .= "</tr><tr></td><td colspan='1' style='text-align: center;'>DATA DE ENTREGA DA PROVA: <br> " . date('d/m/Y', strtotime($data_prova)) . "
         </td>
     </tr>
 
@@ -257,7 +279,7 @@ $parte1  = "
     </tr>
 
     <tr>
-        <td style='font-size: 12px;'>CONTATO: $nome_cliente </td>
+        <td style='font-size: 12px;'>CONTATO: $nome_contato </td>
         <td style='font-size: 12px;'> TELEFONE: $telefone</td>
       
     </tr>
@@ -274,7 +296,7 @@ $parte1  = "
     </tr>
 </table>
 
-<div style='border: 1px solid transparent; text-align: center; background: #d4d4d4;'><b style=' ' >$DESCRICAO </b></div>
+<div style=' text-align: center; background: #d4d4d4;'><b style=' ' >$DESCRICAO </b></div>
 
 <table  >
     <tr>
@@ -288,7 +310,7 @@ $parte1  = "
     </tr>
 </table>
 <br>
-<div style=' border: 1px solid transparent; background: #d4d4d4; position: static; height: max-content; text-align: center;'><b >TIPO PRODUTO: $tipo_papel</b></div>
+<div style='  background: #d4d4d4; position: static; height: max-content; text-align: center;'><b >TIPO PRODUTO: $tipo_papel</b></div>
 <br>
 PAPÉIS <div style='   height: max-content; '>
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
@@ -300,7 +322,7 @@ while ($tipo_papel_qtd_loop > $papeis) {
     if (!in_array($Do_Papel_descricao_do_papel[$papeis], $anterior)) {
         $parte2 = $parte2 . "
     <tr>
-        <td>DESCRIÇÃO DO PAPEL:
+        <td>DESCRIÇÃO DO PAPEL: <br>
            " . $Do_Papel_descricao_do_papel[$papeis] . "</td>
         <td>GRAMATURA: " . $Do_Papel_gramatura[$papeis] . "</td>
         <td> TIPO PAPEL: " . $Papel_tipo_papel[$papeis] . "</td>
@@ -330,7 +352,6 @@ CHAPAS
  ' border='1'>";
 $parte4 = '';
 $papeis1 = 0;
-
 while ($papeis1 < $papels) {
     $parte4 = $parte4 . "<tr>
         <td>CÓDIGO PAPEL: " . $Do_Papel_cod[$papeis1] . "</td>
@@ -360,7 +381,7 @@ while ($qtd_acabamentos > $percorrer) {
 
 $parte7 = "</table>
 <br>
-<div style='border: 1px solid transparent; background: #d4d4d4;'><b >SERVIÇOS DO ORÇAMENTO</b></div>
+<div style=' background: #d4d4d4;'><b >SERVIÇOS DO ORÇAMENTO</b></div>
 
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
  ' border='1'>";
@@ -374,7 +395,7 @@ if ($Servico_N == true) {
 }
 $parte9 =  "</table>
 <br>
-<div style=' border: 1px solid transparent; background: #d4d4d4;'><b>OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b></div>
+<div style='  background: #d4d4d4;'><b>OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b></div>
 
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
  ' border='1'>
@@ -393,7 +414,16 @@ $parte9 =  "</table>
     </tr>
     <tr>
         <td colspan='2'>OP ASSOCIADAS A PROPOSTA</td>
-        <td colspan='2'> [$codigo_op]</td>
+        <td colspan='2'> [";
+        for($a = 0; $a < $OpsS; $a++){
+            if($a == $OpsS -1 ){
+                $parte9 .= $Codigo_Ops[$a];
+            }else{
+                $parte9 .= $Codigo_Ops[$a].', ';
+            }
+            
+        }
+        $parte9 .= "]</td>
     </tr>
     <tr>
         <td colspan='2'>OBSERVAÇÕES DO FRETE</td>
@@ -412,7 +442,7 @@ $parte9 =  "</table>
 </table>
 ";
 $html = $parte1 . $parte2 . $parte3 . $parte4 . $parte5 . $parte6 . $parte7 . $parte10 . $parte9;
-//echo $html;
+// echo $html;
 
 require_once __DIR__ . '../../vendor/autoload.php';
 // Create an instance of the class:
