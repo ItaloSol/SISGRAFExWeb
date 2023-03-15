@@ -35,7 +35,7 @@ $data = date('Y-m-d');
       }
     }
 
-    $query_produto = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = '$tipo_produto' AND cod_produto = '$cod_produto' ");
+    $query_produto = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto AND cod_orcamento = $orcamento_base");
     $query_produto->execute();
 
     while ($linha = $query_produto->fetch(PDO::FETCH_ASSOC)) {
