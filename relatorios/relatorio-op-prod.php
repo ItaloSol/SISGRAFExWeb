@@ -300,7 +300,7 @@ $parte1  = "
 
 <table  >
     <tr>
-        <td colspan='2'>QUANTIDADE: $quantidade </td>
+        <td colspan='2'>QUANTIDADE: $quantidade <br> PÁGINAS: $QTD_PAGINAS PGS </td>
         <td> FORMATO: $largura.0 X $ALTURA.0</td>
     </tr>
     <tr>
