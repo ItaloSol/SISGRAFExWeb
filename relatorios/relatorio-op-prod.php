@@ -300,8 +300,9 @@ $parte1  = "
 
 <table  >
     <tr>
-        <td colspan='2'>QUANTIDADE: $quantidade <br> PÁGINAS: $QTD_PAGINAS PGS </td>
-        <td> FORMATO: $largura.0 X $ALTURA.0</td>
+        <td colspan='2'>QUANTIDADE: $quantidade <br>";
+        if($tipo_produto == '1'){   $parte1 .= "PÁGINAS: $QTD_PAGINAS PGS </td>"; }
+       $parte1 .= "<td> FORMATO: $largura.0 X $ALTURA.0</td>
     </tr>
     <tr>
         <td colspan='2'></td>
@@ -311,8 +312,10 @@ $parte1  = "
 </table>
 <br>
 <div style='  background: #d4d4d4; position: static; height: max-content; text-align: center;'><b >TIPO PRODUTO: $tipo_papel</b></div>
-<br>
-PAPÉIS <div style='   height: max-content; '>
+<br>";
+if($tipo_produto == '1'){
+
+$parte1 .= "PAPÉIS <div style='   height: max-content; '>
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
  '  border='1'>";
 $parte2 = '';
@@ -377,8 +380,13 @@ while ($qtd_acabamentos > $percorrer) {
     }
     $percorrer++;
 }
-
-
+}else{
+    $parte2 = '';
+    $parte3 = '';
+    $parte4 = '';
+    $parte5 = '';
+    $parte6 = '';
+}
 $parte7 = "</table>
 <br>
 <div style=' background: #d4d4d4;'><b >SERVIÇOS DO ORÇAMENTO</b></div>
@@ -386,12 +394,12 @@ $parte7 = "</table>
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black;  width: 100%;
  ' border='1'>";
 $parte10 = '';
-if ($Servico_N == true) {
+if ($servicos > 0) {
     for ($i = 0; $i < $servicos; $i++) {
         $parte10 = $parte10 . '<tr><td>CÓDIGO:' . $Do_servico_cod[$i] . '</td> <td> DESCRIÇÃO: ' . $Do_servico_descricao[$i] . '</td></tr>';
     }
 } else {
-    $parte10 = '<tr><td>' . $Servico_N . '</td></tr>';
+    $parte10 = '<tr><td align="center">NENHUM SELECIONADO</td></tr>';
 }
 $parte9 =  "</table>
 <br>
