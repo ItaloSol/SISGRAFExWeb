@@ -4,8 +4,9 @@ include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
 $cod_emissor_relatorio = $_SESSION['usuario'][2];
 $nome_emissor_relatorio = $_SESSION['usuario'][0];
+date_default_timezone_set('America/Sao_Paulo');
 $data = date('d/m/Y');
-
+$hora = date('H:i:s');
 if (isset($_GET['cod'])) {
   $cod = $_GET['cod'];
   $papels = 0;
@@ -544,13 +545,13 @@ if (isset($_GET['cod'])) {
           </tr>
           </table><br>
           <div style="text-align: center;">
-          Quartel em Brasília-DF, 15/02/2023 16:16:32<BR><br>
+          Quartel em Brasília-DF, '.$data.' '.$hora.'<BR><br>
 _________________________________________<br>
-ADMINISTRADOR<br>
+'.$nome_emissor_relatorio.'<br>
 GRÁFICA DO EXÉRCITO - DIVISÃO COMERCIAL<br><br>
 _________________________________________<br>
-NOME: ______________ DOCUMENTO: ______________ EMISSOR: ________<br>
-BASE ADMINISTRATIVA QGEX - B ADM QGEX<br>
+NOME: ______________ DOCUMENTO: ______________ EMISSOR: ________<br>'.$nome_cliente.' - 
+'.$nome_fantasia.'<br>
 </div>';
 }
 ?> </div>
@@ -559,33 +560,33 @@ BASE ADMINISTRATIVA QGEX - B ADM QGEX<br>
 </html>
 <?php
 $html = $parte1 . $parte2 . $parte3 . $parte4 . $parte5 . $parte10 . $parte9;
-// echo $html;
-require_once __DIR__ . '../../vendor/autoload.php';
-// Create an instance of the class:
-$mpdf = new \mPDF();
+ echo $html;
+// require_once __DIR__ . '../../vendor/autoload.php';
+// // Create an instance of the class:
+// $mpdf = new \mPDF();
 
-if ($_POST['orientacao']) {
-  if ($_POST['orientacao'] == 'retrato') {
-    // Write some HTML code:
-    $mpdf = new mPDF('C', 'A4');
-  }
-}
-if ($_POST['orientacao']) {
-  if ($_POST['orientacao'] == 'paisagem') {
-    // Write some HTML code:
-    $mpdf = new mPDF('C', 'A4-L');
-  }
-}
+// if ($_POST['orientacao']) {
+//   if ($_POST['orientacao'] == 'retrato') {
+//     // Write some HTML code:
+//     $mpdf = new mPDF('C', 'A4');
+//   }
+// }
+// if ($_POST['orientacao']) {
+//   if ($_POST['orientacao'] == 'paisagem') {
+//     // Write some HTML code:
+//     $mpdf = new mPDF('C', 'A4-L');
+//   }
+// }
 
 
-$mpdf->SetDisplayMode('fullpage');
+// $mpdf->SetDisplayMode('fullpage');
 
-$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-//level of a list
+// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+// //level of a list
 
-// LOAD a stylesheet
+// // LOAD a stylesheet
 
-$mpdf->WriteHTML($html, 2);
-$nome = 'faturamento' . $cod;
-$mpdf->Output($nome, 'I');
-exit;
+// $mpdf->WriteHTML($html, 2);
+// $nome = 'faturamento' . $cod;
+// $mpdf->Output($nome, 'I');
+// exit;
