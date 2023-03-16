@@ -335,8 +335,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
         <div class="col-3">
           <label for="exampleFormControlSelect1" class="form-label">Pesquisar por</label>
           <select class="form-select" name="Tp" id="exampleFormControlSelect1" aria-label="Default select example">
-            <option value="0" selected>Selecione...</option>
-            <option value="orc">Código Orc</option>
+            <option value="orc">Código Orçamento</option>
             <option value="pro">Produto</option>
             <option value="nomepro">Nome Produto</option>
             <option value="clinom">Nome Cliente</option>
