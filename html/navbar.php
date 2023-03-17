@@ -735,8 +735,8 @@ if (isset($_SESSION['msg'])) {
               <div style="width: 600px;" id="feedback" class="bs-toast toast toast-placement-ex m-2 fade bg-dark bottom-0 start-50 translate-middle-x show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
                 <div class="toast-header">
                   <i class="bx bx-bell me-2"></i>
-                  <div class="me-auto fw-semibold">Pesquisa de Satisfação</div>
-                  <small>Deixe um feedback</small>
+                  <div class="me-auto fw-semibold">Pesquisa de Satisfação! <br> Tivemos Atualizações!</div>
+                  <small>Deixe um <b>NOVO</b> feedback</small>
                   <button v-if="confirmado == true" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div v-if="confirmado == false">
@@ -744,8 +744,8 @@ if (isset($_SESSION['msg'])) {
                   <div style="padding-left: 20px;" v-if="respondido == false">É necessário enviar um feedback</div>
                   <div style="padding-left: 20px;" v-else>Clique em Enviar Feedback</div>
                   <div style="padding-left: 20px;" class="row ">
-                    <div @click="valornota(20)" class=" p-2 m-2 btn btn-danger col-2 text-center">☹️<br>Insatisfeito</div>
-                    <div @click="valornota(40)" class=" p-2 m-2 btn btn-danger col-2 text-center">🙁<br>Mais ou menos</div>
+                    <div @click="valornota(20)" class=" p-2 m-2 btn btn-danger col-2 text-center">☹️<br>Muito Insatisfeito</div>
+                    <div @click="valornota(40)" class=" p-2 m-2 btn btn-danger col-2 text-center">🙁<br>Insatisfeito</div>
                     <div @click="valornota(60)" class=" p-2 m-2 btn btn-warning col-2 text-center">😐<br>Neutro</div>
                     <div @click="valornota(80)" class=" p-2 m-2 btn btn-success col-2 text-center">🙂<br>Satisfeito</div>
                     <div @click="valornota(100)" class=" p-2 m-2 btn btn-success col-2 text-center">😃<br>Muito Satisfeito</div>

@@ -27,9 +27,8 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     date_default_timezone_set('America/Sao_Paulo');
     $hoje = date('Y-m-d H:i:s');
     $_SESSION["feedback"] = 'false';
-    $feedback = $conexao->prepare("SELECT * FROM tabela_satisfacao_justificativa WHERE cod_user = '$cod'");
-    $feedback->execute();
-    if ($linha = $feedback->fetch(PDO::FETCH_ASSOC)) {
+    
+    if ($user['feedback'] == '2') {
       $_SESSION["feedback"] = 'true';
     }
     $LOGIN = $conexao->prepare("UPDATE tabela_atendentes SET DT_ULT_LOGIN = '$hoje' WHERE codigo_atendente = '$cod' ");
