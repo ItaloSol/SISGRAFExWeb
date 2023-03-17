@@ -29,6 +29,28 @@ if (isset($_GET['cod'])) {
       $OBSERVACOES = 'SEM OBSERVAÇÕES';
     }
   }
+  $qtd_fatusr = 0;
+  $query_faturamento_anteriores = $conexao->prepare("SELECT * FROM faturamentos WHERE CODIGO_OP = $codigo_op ");
+  $query_faturamento_anteriores->execute();
+  while ($linha = $query_faturamento_anteriores->fetch(PDO::FETCH_ASSOC)) {
+    $FATURAMENTOS[$qtd_fatusr] = [
+      'CODIGO' => $linha['CODIGO'],
+  'CODIGO_ORC' => $linha['CODIGO_ORC'],
+  'codigo_op' => $linha['CODIGO_OP'],
+  'EMISSOR' => $linha['EMISSOR'],
+  'QTD_ENTREGUE' => $linha['QTD_ENTREGUE'],
+  'VLR_FAT' => $linha['VLR_FAT'],
+  'DT_FAT' => $linha['DT_FAT'],
+  'FRETE_FAT' => $linha['FRETE_FAT'],
+  'SERVICOS_FAT' => $linha['SERVICOS_FAT'],
+  'OBSERVACOES' => $linha['OBSERVACOES'],
+    ];
+    
+    if ($FATURAMENTOS[$qtd_fatusr]['OBSERVACOES'] == '') {
+      $FATURAMENTOS[$qtd_fatusr]['OBSERVACOES'] = 'SEM OBSERVAÇÕES';
+    }
+    $qtd_fatusr++;
+  }
   $query_frete = $conexao->prepare("SELECT * FROM tabela_notas_transporte WHERE cod_nota = $cod ");
   $query_frete->execute();
   if ($linhaF = $query_frete->fetch(PDO::FETCH_ASSOC)) {
@@ -204,6 +226,7 @@ if (isset($_GET['cod'])) {
     if ($linha32 = $cliente_info->fetch(PDO::FETCH_ASSOC)) {
       $cod_contato = $linha32['cod_contato'];
       $cod_endereco = $linha32['cod_endereco'];
+      $vlr_frete = $linha32['frete'];
     }
     $atendente = $conexao->prepare("SELECT * FROM tabela_atendentes WHERE codigo_atendente = '$cod_emissor' ");
     $atendente->execute();
@@ -279,7 +302,7 @@ if (isset($_GET['cod'])) {
     </table><br>
     <table border="1" style="width: 100%;   border-collapse: collapse;" >
       <tr style=" background-color: #d4d4d4;">
-        <th colspan="4">DESTINATÁRIO</th>
+        <th align="left" colspan="4">DESTINATÁRIO</th>
       </tr>
       <tr ><td  >
         NOME/RAZÃO SOCIAL - CÓDIGO <br>
@@ -340,8 +363,9 @@ if (isset($_GET['cod'])) {
       <tr>
         <td style="text-align: center;  background-color: #d4d4d4;"><b style="font-size: 12px">TIPO PRODUTO: FOLHA</b></td>
       </tr>
-    </table>
-   <b>PAPÉIS</b> 
+    </table>';
+  if($tipo_produto == '1'){ 
+   $parte1 .=  '<b>PAPÉIS</b> 
     <table border="1" style="width: 100%;  border-collapse: collapse;">
       <tr>
         <td>
@@ -410,8 +434,13 @@ if (isset($_GET['cod'])) {
     }
     $percorrer++;
   }
+}else{
+  $parte4 = '';
+  $parte3 = '';
+  $parte2 = '';
+}
   $parte5 = '</table><BR>
-       <b style=" background-color: #d4d4d4;" > SERVIÇOS DO ORÇAMENTO</b> 
+      <div  style=" background-color: #d4d4d4;" > <b> SERVIÇOS DO ORÇAMENTO</b> </div>
         <table border="1" style="width: 100%;  border-collapse: collapse;">' .
     $parte10 = '';
   if ($Servico_N != 'NENHUM SELECIONADO') {
@@ -423,7 +452,7 @@ if (isset($_GET['cod'])) {
   }
   $parte9 = '         
         </table><br>
-      <b style=" background-color: #d4d4d4;" >  OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b> 
+       <div  style=" background-color: #d4d4d4;" > <b>  OBSERVAÇÕES DA ORDEM DE PRODUÇÃO</b> </div>
         
           <table border="1" style="width: 100%;  border-collapse: collapse;">
           <tr>
@@ -432,16 +461,59 @@ if (isset($_GET['cod'])) {
             </td>
           </tr>
           </table><br><br>
-        <b style=" background-color: #d4d4d4;">  HISTÓRICO DE RECIBOS DE ENTREGA</b> 
+          <div  style=" background-color: #d4d4d4;" > <b>  HISTÓRICO DE RECIBOS DE ENTREGA</b> </div>
+          <table border="1" style="width: 100%;  border-collapse: collapse;">';
+  for($a = 0; $a < $qtd_fatusr; $a++){
+    $valor_total += $FATURAMENTOS[$a]["VLR_FAT"];
+    $parte9 .= ' <tr>
+    <td>CÓDIGO DO
+      RECIBO<br>
+      ' . $FATURAMENTOS[$a]["CODIGO"] . '
+      </td>
+      <td>
+        DATA DE ENTREGA<br>
+      ' . date('d/m/Y', strtotime($FATURAMENTOS[$a]["DT_FAT"])) . '
+      
+      </td>
+      <td>
+        QUANTIDADE
+      ENTREGUE <br>
+      ' . $FATURAMENTOS[$a]["QTD_ENTREGUE"] . '
+     
+      </td>
+      <td>
+        VALOR FRETE <br>
+        R$ 0,00
+       
+      </td>
+      <td>
+        VALOR SERVIÇOS <br>
+        R$ 0,00
+        
+      </td>
+      <td style=" background-color: #d4d4d4;">
+        VALOR FATURADO <br>
+        R$ ' .number_format($FATURAMENTOS[$a]["VLR_FAT"], 2, ',', '.')  . '
+      </td>
+  </tr>
+  <tr>
+    <td colspan="6">
+      OBSERVAÇÕES <br>
+      ' . $FATURAMENTOS[$a]["OBSERVACOES"] . '
+    </td>
+  </tr> ';
+  }
+         $freter = $vlr_frete + $valor_total;
+        $parte9 .=   '</table>&nbsp;<br><br><br>
+          <div  style=" background-color: #d4d4d4;" >  <b > TOTAL</b></div>
           <table border="1" style="width: 100%;  border-collapse: collapse;">
           <tr>
-            <td>CÓDIGO DO
-              RECIBO<br>
-              ' . $cod . '
+            <td>VALOR UNITÁRIO<br>
+              ' . $preco_unitario . '
               </td>
               <td>
-                DATA DE ENTREGA<br>
-              ' . date('d/m/Y', strtotime($DT_FAT)) . '
+                QUANTIDADE SOLICITADA<br>
+              ' . $quantidade . '
               
               </td>
               <td>
@@ -452,7 +524,7 @@ if (isset($_GET['cod'])) {
               </td>
               <td>
                 VALOR FRETE <br>
-                R$ 0,00
+                R$ '.number_format($vlr_frete, 2, ',', '.').'
                
               </td>
               <td>
@@ -461,52 +533,12 @@ if (isset($_GET['cod'])) {
                 
               </td>
               <td style=" background-color: #d4d4d4;">
-                VALOR FATURADO <br>
-                R$ ' . $VLR_FAT . '
-              </td>
-          </tr>
-          <tr>
-            <td colspan="6">
-              OBSERVAÇÕES <br>
-              ' . $OBSERVACOES . '
-            </td>
-          </tr>
-          </table>&nbsp;<br><br><br>
-         <b style=" background-color: #d4d4d4;"> TOTAL</b>
-          <table border="1" style="width: 100%;  border-collapse: collapse;">
-          <tr>
-            <td>CÓDIGO DO
-              RECIBO<br>
-              ' . $cod . '
-              </td>
-              <td>
-                DATA DE ENTREGA<br>
-              ' . date('d/m/Y', strtotime($DT_FAT)) . '
-              
-              </td>
-              <td>
-                QUANTIDADE
-              ENTREGUE <br>
-              ' . $QTD_ENTREGUE . '
-             
-              </td>
-              <td>
-                VALOR FRETE <br>
-                R$ 0,00
-               
-              </td>
-              <td>
-                VALOR SERVIÇOS <br>
-                R$ 0,00
-                
-              </td>
-              <td style=" background-color: #d4d4d4;">
-                VALOR FATURADO <br>
-                R$ ' . $VLR_FAT . '
+                VALOR TOTAL <br>
+                R$ ' . number_format($freter, 2, ',', '.') . '
               </td>
           </tr>
           </table><br>
-         <b style=" background-color: #d4d4d4; "> TRANSPORTADOR/VOLUMES TRANSPORTADOS</b>
+          <div  style=" background-color: #d4d4d4;" >  <b>TRANSPORTADOR/VOLUMES TRANSPORTADOS</b></div>
           <table border="1" style="width: 100%;  border-collapse: collapse;">
           <tr>
             <td colspan="2">
@@ -560,33 +592,33 @@ NOME: ______________ DOCUMENTO: ______________ EMISSOR: ________<br>'.$nome_clie
 </html>
 <?php
 $html = $parte1 . $parte2 . $parte3 . $parte4 . $parte5 . $parte10 . $parte9;
- echo $html;
-// require_once __DIR__ . '../../vendor/autoload.php';
-// // Create an instance of the class:
-// $mpdf = new \mPDF();
+//echo $html;
+require_once __DIR__ . '../../vendor/autoload.php';
+// Create an instance of the class:
+$mpdf = new \mPDF();
 
-// if ($_POST['orientacao']) {
-//   if ($_POST['orientacao'] == 'retrato') {
-//     // Write some HTML code:
-//     $mpdf = new mPDF('C', 'A4');
-//   }
-// }
-// if ($_POST['orientacao']) {
-//   if ($_POST['orientacao'] == 'paisagem') {
-//     // Write some HTML code:
-//     $mpdf = new mPDF('C', 'A4-L');
-//   }
-// }
+if ($_POST['orientacao']) {
+  if ($_POST['orientacao'] == 'retrato') {
+    // Write some HTML code:
+    $mpdf = new mPDF('C', 'A4');
+  }
+}
+if ($_POST['orientacao']) {
+  if ($_POST['orientacao'] == 'paisagem') {
+    // Write some HTML code:
+    $mpdf = new mPDF('C', 'A4-L');
+  }
+}
 
 
-// $mpdf->SetDisplayMode('fullpage');
+$mpdf->SetDisplayMode('fullpage');
 
-// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-// //level of a list
+$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+//level of a list
 
-// // LOAD a stylesheet
+// LOAD a stylesheet
 
-// $mpdf->WriteHTML($html, 2);
-// $nome = 'faturamento' . $cod;
-// $mpdf->Output($nome, 'I');
-// exit;
+$mpdf->WriteHTML($html, 2);
+$nome = 'faturamento' . $cod;
+$mpdf->Output($nome, 'I');
+exit;
