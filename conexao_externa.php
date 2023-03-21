@@ -12,8 +12,8 @@ $url = 'https://www.google.com';
 // phpinfo();
 $servername = "10.166.64.212"; //nome_do_servidor_dns
 $username = "root";
-$password = "senha";
-$dbname = "banco";
+$password = "admin123";
+$dbname = "bala_dev";
 
 // Define as configurações do proxy
 $proxy_host = "10.166.128.179"; // nome_do_host_do_proxy
@@ -21,8 +21,8 @@ $proxy_port = "3128"; // porta_do_proxy
 
 // Define as configurações do túnel SSH (se necessário)
 $ssh_host = "10.166.128.179"; // nome_do_servidor_ssh
-$ssh_user = "usuario"; // nome_do_usuario_ssh
-$ssh_pass = "@senha"; // senha_do_usuario_ssh
+$ssh_user = "dantas"; // nome_do_usuario_ssh
+$ssh_pass = "@dantas123"; // senha_do_usuario_ssh
 
 /// Cria um novo contexto de stream
 $opts = array(

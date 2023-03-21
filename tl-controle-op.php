@@ -1,75 +1,4 @@
-<link rel="icon" type="image/x-icon" href="../img/logo40px.ico" />
-<?php
-session_start();
-
-  require("../conexoes/conexao.php");
-$refresh = 0;
-// if(isset($_SESSION['pag'])){ 
-//   echo 'Potencial';
-//      while($refresh < 1){
-//        echo  '<meta http-equiv="refresh" content="0">'; break;         
-//        $refresh++;
-//      }
-//      echo  '<meta  http-equiv="refresh" content="" />';    
-//   } 
-if (isset($_SESSION['msg'])) {
-  echo $_SESSION['msg'];
-  unset($_SESSION['msg']);
-}
-?>
-
-<style>
-  .tira{
-    display: none;
-  }
-</style>
-<!DOCTYPE html>
-
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
-  <title>SISGRAFEx</title>
-
-
-
-  <!-- Favicon -->
-
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
-
-  <!-- Icons. Uncomment required icon fonts -->
-  <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-
-  <!-- Core CSS -->
-  <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-  <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-  <link rel="stylesheet" href="../assets/css/demo.css" />
-  <link rel="stylesheet" href="../assets/css/principal.css" />
-
-  <!-- Vendors CSS -->
-  <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-  <!-- Page CSS -->
-
-  <!-- Helpers -->
-  <script src="../assets/vendor/js/helpers.js"></script>
-
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-  <script src="../assets/js/config.js"></script>
-
-  <!--Import para descer barra de rolagem-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="../assets/js/vue.js"></script>
-</head>
-<?php /* |--  --| */// include_once("../html/navbar.php");.
-
+<?php /* |--  --| */ include_once("../html/navbar.php");
 $a = 0;
 $hoje = date('Y-m-d');
 $mes = date('Y-m');
@@ -166,7 +95,11 @@ while ($STS = $query_Sts_Pord->fetch(PDO::FETCH_ASSOC)) {
   <div class="col-md mb-4 mb-md-0">
     <div class="accordion mt-3" id="accordionExample">
       <div class="card accordion-item active">
-     
+        <h2 class="accordion-header" id="headingOne">
+          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne">
+            Filtros
+          </button>
+        </h2>
         <?php
         if (isset($_GET['cod'])) {
           echo '<div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">';
@@ -174,7 +107,78 @@ while ($STS = $query_Sts_Pord->fetch(PDO::FETCH_ASSOC)) {
           echo '<div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">';
         } ?>
 
-       
+        <div class="accordion-body">
+          <form action="tl-controle-op.php" method="POST">
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" name="codOpS" type="checkbox" id="flexSwitchCheckDefault" />
+              <label class="form-check-label" for="flexSwitchCheckDefault">Código da OP</label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname"></label>
+              <input type="text" class="form-control" name="codOp" id="basic-default-fullname" placeholder="Insira o código da ordem de produção" />
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" name="codOrcS" type="checkbox" id="flexSwitchCheckDefault" />
+              <label class="form-check-label" for="flexSwitchCheckDefault">Código do Orçamento</label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname"></label>
+              <input type="text" class="form-control" name="codOrc" id="basic-default-fullname" placeholder="Insira o código dor orçamento" />
+            </div><br></br>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" name="entregaS" type="checkbox" id="flexSwitchCheckDefault" />
+              <label class="form-check-label" for="flexSwitchCheckDefault">Data de Entrega</label>
+            </div>
+            <div class="mb-3 row">
+              <label for="html5-date-input" class="col-md-2 col-form-label"></label>
+              <div class="col-md-10">
+                <input class="form-control" type="date" name="entrega" value="<?= $hoje ?>" id="html5-date-input" />
+              </div>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" name="mesES" type="checkbox" id="flexSwitchCheckDefault" />
+              <label class="form-check-label" for="flexSwitchCheckDefault">Mês de Emissão</label>
+            </div>
+            <div class="mb-3 row">
+              <label for="html5-month-input" class="col-md-2 col-form-label"></label>
+              <div class="col-md-10">
+                <input class="form-control" type="month" name="mesE" value="<?= $mes ?>" id="html5-month-input" />
+              </div>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" name="mesEnS" type="checkbox" id="flexSwitchCheckDefault" />
+              <label class="form-check-label" for="flexSwitchCheckDefault">Mês de Entrega</label>
+            </div>
+            <div class="mb-3 row">
+              <label for="html5-month-input" class="col-md-2 col-form-label"></label>
+              <div class="col-md-10">
+                <input class="form-control" type="month" name="mesEn" value="<?= $mes ?>" id="html5-month-input" />
+              </div>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" name="statusS" type="checkbox" id="flexSwitchCheckDefault" />
+              <label class="form-check-label" for="flexSwitchCheckDefault">Status</label>
+            </div>
+            <div class="mb-3">
+              <label for="defaultSelect" class="form-label"></label>
+              <select id="defaultSelect" name="status" class="form-select">
+                <option>Selecione...</option>
+                <?php
+                $i = 0;
+                while ($i < $Sts) {
+                  echo '<option value="' . $Codigo_Sts_P[$i] . '">' . $Codigo_Sts_P[$i] . ' - ' . $Nome_Sts_P[$i] . '</option>';
+                  $i++;
+                }
+                ?>
+              </select>
+            </div>
+            <button type="submit" name="pesquisar" class="btn btn-primary">Aplicar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 <?php
@@ -379,8 +383,13 @@ if (isset($_GET['cod'])) {
                     <button type="button" class="btn btn-primary botao" data-bs-toggle="modal" data-bs-target="#modalCenter">
                       OBSERVAÇÕES
                     </button>
-                    
-                 
+                    <?php if ($EXP_I == '1') {
+                      if ($Ordens_Selecionada['status'] == '10' ||  $Ordens_Selecionada['status'] == '11' || $Ordens_Selecionada['status'] == '12') { ?>
+                        <a href="../expedicao/faturamento.php?cod=<?= $b ?>" class=" btn btn-warning botao">
+                          FATURAR
+                        </a>
+                    <?php }
+                    } ?>
                     <a href="../relatorios/relatorio-op-prod.php?cod=<?= $CODIGO_OP ?>" style="max-height: 38px; font-size: 15px" target="_blank" class=" text-align-center btn rounded-pill btn-danger">
                       <!-- <iconify-icon icon="mdi:form-outline" width="20" height="20"> </iconify-icon> -->RELATÓRIO
                     </a>
@@ -489,9 +498,12 @@ if (isset($_GET['cod'])) {
                       <!-- <button type="submit" class="btn btn-primary">Observações</button>
                         <button type="submit" class="btn btn-dark">Imprimir</button> -->
                       <!-- Toggle Between Modals -->
-                     
-                     Você não tem permissão para alterar essa OP
-                    
+                      <?php /* |--  --| */ if ($PROD_I == '1' && $Ordens_Selecionada['status'] != '10' && $Ordens_Selecionada['status'] != '17') { ?> <button type="button" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle">
+                          Salvar
+                        </button>
+                      <?php /* |--  --| */ } else {
+                        echo  'Você não tem permissão para alterar essa OP';
+                      } ?>
                       <br></br>
                     </div>
                 </div>
@@ -503,7 +515,29 @@ if (isset($_GET['cod'])) {
         </div>
       </div>
       <!-- Modal 1-->
-     
+      <?php /* |--  --| */ if ($PROD_I == '1') { ?>
+        <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalToggleLabel">Salvar Alterações</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">Todas atualizações serão salvas! <br>
+                <b>Tem certeza que deseja salvar?</b>
+                <hr>
+                <b>Op que está sendo transeferida para a 10 - EXPEDIÇÃO tera que ser aceita por algum atendente para efetuar a movimentação da op!</b>
+                <br>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" name="sim" class="btn btn-primary" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
+                  Sim
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php /* |--  --| */ } ?>
       <!-- Datas -->
       <br>
       <div class="card accordion-item">
@@ -744,14 +778,10 @@ if (isset($_GET['cod'])) {
                             </tr>
                             <?php
                             $percorrer = 0;
-                            if($Obs_Qtd == 0){
-                              echo '<tr><td>NÃO TEM OBSERVAÇÕES</td></tr>';
-                            }else{
                             while ($Obs_Qtd > $percorrer) {
                               echo '<tr><td>' . date('d/m/y', strtotime($Tabela_Observacoes[$percorrer]['data'])) . '</td><td>' . $Tabela_Observacoes[$percorrer]['obs'] . '</td></tr>';
                               $percorrer++;
                             }
-                          }
                             ?>
                           </table>
                         </div>
@@ -759,6 +789,18 @@ if (isset($_GET['cod'])) {
                       <div class="col-12">
                         <div class="col-xl">
                           <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                              <small class="text-muted float-end">Adicionar nova Observação</small>
+                            </div>
+                            <div class="card-body">
+                              <form method="POST" action="tl-controle-op.php?cod=<?= $Ordens_Selecionada['cod'] ?>&obs=1">
+                                <div class="mb-3">
+                                  <label class="form-label" for="Observacao_nova">Observação</label>
+                                  <textarea name="Observacao_nova" id="Observacao_nova" class="form-control" placeholder="Qual a Anotação para esta OP?" rows="10" cols="50"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar Observação</button>
+                              </form>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -777,7 +819,188 @@ if (isset($_GET['cod'])) {
             <br>";
   } ?>
 
-   
+    <div class="card">
+      <?php
+      if (isset($_POST['pesquisar'])) {
+        echo ' <h5 class="card-header">Resultados</h5>';
+      } else {
+        echo ' <h5 class="card-header">Tempo Real (Ultimas 45)</h5>';
+      }
+      ?>
+      <div class="card-body">
+        <div class="table-responsive text-nowrap">
+          <?php
+          if (isset($_POST['pesquisar'])) {
+            if (isset($_POST['codOpS'])) {
+              if ($_POST['codOp']) {
+                $cod = $_POST["codOp"];
+                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.cod LIKE '%$cod' ORDER BY  o.data_entrega DESC ");
+              }
+            }
+            if (isset($_POST['codOrcS'])) {
+              if ($_POST['codOrc']) {
+                $cod = $_POST["codOrc"];
+                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.orcamento_base = '$cod' ORDER BY  o.data_entrega DESC ");
+              }
+            }
+            if (isset($_POST['entregaS'])) {
+              if ($_POST['entrega']) {
+                $cod = $_POST["entrega"];
+                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.data_entrega LIKE '%$cod%' ORDER BY  o.data_entrega DESC ");
+              }
+            }
+            if (isset($_POST['mesES'])) {
+              if ($_POST['mesE']) {
+                $cod = $_POST["mesE"];
+                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.data_emissao LIKE '%$cod%' ORDER BY  o.data_entrega DESC ");
+              }
+            }
+            if (isset($_POST['mesEnS'])) {
+              if ($_POST['mesEn']) {
+                $cod = $_POST["mesEn"];
+                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.data_entrega LIKE '%$cod%' ORDER BY  o.data_entrega DESC ");
+              }
+            }
+            if (isset($_POST['statusS'])) {
+              if ($_POST['status']) {
+                $cod = $_POST["status"];
+                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO  WHERE o.status = '$cod' ORDER BY  o.data_entrega DESC ");
+              }
+            }
+          } else {
+            $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.status != '11' AND o.status != '12' AND o.status != '13' ORDER BY  o.data_entrega DESC LIMIT 45");
+          }
+
+
+          if (isset($query_ordens_finalizadas)) {
+            $query_ordens_finalizadas->execute();
+
+            $i = 0;
+
+          ?>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Nº da OP</th>
+                  <th>Data de Emissão</th>
+                  <th>Data de Entrega</th>
+                  <th>Status</th>
+                  <th>Produtos</th>
+                  <th>Selecionar</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php
+              while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
+                $Ordens_Finalizadas[$i] = [
+                  'cod' => $linha['cod'],
+                  'orcamento_base' => $linha['orcamento_base'],
+                  'tipo_produto' => $linha['tipo_produto'],
+                  'cod_produto' => $linha['cod_produto'],
+                  'cod_cliente' => $linha['cod_cliente'],
+                  'tipo_cliente' => $linha['tipo_cliente'],
+                  'status' => $linha['status'],
+                  'STS_DESCRICAO' => $linha['STS_DESCRICAO'],
+                  'data_entrega' => date($linha['data_entrega']),
+                  'data_emissao' => date($linha['data_emissao']),
+
+                ];
+                $Pesquisa_Produto = $Ordens_Finalizadas[$i]['cod_produto'];
+                $Tipo_Produto = $Ordens_Finalizadas[$i]['tipo_produto'];
+                if ($Tipo_Produto == '2') {
+                  $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos_pr_ent  WHERE CODIGO = '$Pesquisa_Produto'");
+                  $query_PRODUTOS->execute();
+
+                  while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+                    $Tabela_Produtos_Finalizados[$i] = [
+                      'descricao' => $linha2['DESCRICAO']
+                    ];
+                  }
+                }
+                if ($Tipo_Produto == '1') {
+                  $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
+                  $query_PRODUTOS->execute();
+
+                  while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+                    $Tabela_Produtos_Finalizados[$i] = [
+                      'descricao' => $linha2['DESCRICAO']
+                    ];
+                  }
+                }
+
+                $Pesquisa_Orc = $Ordens_Finalizadas[$i]['orcamento_base'];
+                $query_Pesquisa_Orc = $conexao->prepare("SELECT * FROM tabela_orcamentos  WHERE cod = '$Pesquisa_Orc'");
+                $query_Pesquisa_Orc->execute();
+
+                while ($linha2 = $query_Pesquisa_Orc->fetch(PDO::FETCH_ASSOC)) {
+                  $Tabela_Orc_Finalizados[$i] = [
+                    'valor_total' => $linha2['valor_total']
+                  ];
+                }
+
+                echo '<tr>
+                        <td>
+                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>' . $Ordens_Finalizadas[$i]['cod'] . '</strong>
+                        </td>
+                        <td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$i]['data_emissao'])) . '</td>
+                        <td>
+                             ' . date('d/m/Y', strtotime($Ordens_Finalizadas[$i]['data_entrega'])) . '
+                        </td>
+                        
+                        <td><span class="badge bg-label-primary me-1">' . $Ordens_Finalizadas[$i]['status'] . ' - ' . $Ordens_Finalizadas[$i]["STS_DESCRICAO"] . '</span></td>
+                        <td>
+                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>' . $Tabela_Produtos_Finalizados[$i]['descricao'] . '</strong>
+                        </td>
+                        <td>
+                        <div class="">
+                        <a class="btn rounded-pill btn-info" href="tl-controle-op.php?cod=' . $Ordens_Finalizadas[$i]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
+                    </div>
+                        </td>
+                      </tr>';
+
+
+                $i++;
+              }
+
+              if (!isset($Ordens_Finalizadas[0]['cod'])) {
+                echo '<tr>
+                        <td>
+                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Nenhum Resultado Encontrado, Confira o código ou se já está em produção.</strong>
+                        </td>
+                        <td></td>
+                        <td>
+                            
+                        </td>
+                        <td><span class="badge bg-label-primary me-1"></span></td>
+                        <td>
+                          
+                        </td>
+                      </tr>';
+              }
+            } else {
+              echo '<tr>
+                      <td>
+                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>É necessário  ativar um filtro antes de consultar!</strong>
+                      </td>
+                      <td></td>
+                      <td>
+                          
+                      </td>
+                      <td><span class="badge bg-label-primary me-1"></span></td>
+                      <td>
+                        
+                      </td>
+                    </tr>';
+            }
+              ?>
+
+
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
 
 
 
