@@ -1,4 +1,9 @@
 <?php
+$duracao = 28800 ; 
+ini_set('session.cookie_lifetime', $duracao);
+ini_set('session.gc_maxlifetime', $duracao);
+session_set_cookie_params($duracao);
+session_cache_expire(480);
 session_start();
 require("../conexoes/conexao.php");
 
