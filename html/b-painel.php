@@ -523,6 +523,13 @@
                 //
                 // print_r($GET);
                 // echo $key;
+                
+                $tempoDeVidaMinutos = session_cache_expire();
+
+// Converte o tempo de vida em segundos
+$tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
+// echo ini_get('session.gc_maxlifetime');
+// echo "O tempo de vida da sessão é de " . $tempoDeVidaMinutos . " minutos.";
                 ?>
                <div class=" mb-2 pesquisa-painel">
                  <form action="painel.php" method="GET">
