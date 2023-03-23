@@ -2,6 +2,7 @@
 session_start();
 include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
+include('../vendor/phpqrcode-master/qrlib.php');
 // require_once '../vendor/phpqrcode-master/qrlib.php';
 
 $cod_emissor_relatorio = 'INTERNET';
@@ -254,12 +255,24 @@ if (!isset($total)) {
 }
 if (!isset($quantidade)) {
     //  $quantidade = 'NÃO ENCONTRADO';
-}
-?> <div style="display: none;" class='id_op' id="<?= $codigo_op ?>"><?= $codigo_op ?></div> <?php
+}    
+// outputs image directly into browser, as PNG stream
+$url = 'http://www.graficadoexercito.eb.mil.br/sisgrafex/producao/tl-controle-op.php?cod='.$codigo_op;
+$text = QRcode::text($url);
+$raw = join("<br/>", $text);
+
+$raw = strtr($raw, array(
+    '0' => '<span style="color:white">&#9608;&#9608;</span>',
+    '1' => '&#9608;&#9608;'
+));
+//$svgCode = QRcode::svg($url);
+//  <div style="display: none;" class='id_op' id="<?= $codigo_op ">$codigo_op </div> 
 $parte1  = " 
+
 <table style='  border-collapse: collapse; border: 1px solid black; border: 1px solid black; width: 100%;'  border=1>
-<div  id='resultado'></div>
+   
     <tr>
+  
         <td style='text-align: center;'  rowspan='2'>ORCAMENTO BASE: $codigo_orc <br> EMISSOR: $cod_emissor_relatorio <br> EMISSÃO: $data</td>
         <td style='text-align: center;' width: 150%; rowspan='2' colspan='2'><b>ORDEM DE PRODUÇÃO <br> $codigo_op </b></td>";
         if($status != '13'){
@@ -267,21 +280,22 @@ $parte1  = "
         }else{
             $parte1 .= "<td style=' background: #d4d4d4;text-align: center;' >DATA DE CANCELAMENTO: <br> " . date('d/m/Y', strtotime($data_CANCELADO));
         }
-        ?>
-        <script>
-        // ID da opção para enviar ao arquivo qrcod.php
-const opcaoId = document.querySelector('.id_op').innerHTML;
+       
+//         <!-- <script>
+//         // ID da opção para enviar ao arquivo qrcod.php
+// const opcaoId = document.querySelector('.id_op').innerHTML;
 
-// Enviar uma solicitação de busca para o arquivo qrcod.php com o ID da opção
-fetch(`qrcod.php?id=${opcaoId}`)
-  .then(response => response.text()) // Converter a resposta em texto
-  .then(svg => {
-    // Exibir a imagem SVG recuperada na div criada anteriormente
-    document.getElementById("resultado").innerHTML = svg;
-  })
-  .catch(error => console.error(error)); // Lidar com qualquer erro de rede
-        </script>
-          <?php
+// // Enviar uma solicitação de busca para o arquivo qrcod.php com o ID da opção
+// fetch(`qrcod.php?id=${opcaoId}`)
+//   .then(response => response.text()) // Converter a resposta em texto
+//   .then(svg => {
+//     // Exibir a imagem SVG recuperada na div criada anteriormente
+//     document.getElementById("resultado").innerHTML = svg;
+//   })
+//   .catch(error => console.error(error)); // Lidar com qualquer erro de rede
+//         </script> -->
+       
+         
        $parte1 .= "</tr><tr></td><td colspan='1' style='text-align: center;'>DATA DE ENTREGA DA PROVA: <br> " . date('d/m/Y', strtotime($data_prova)) . "
         </td>
     </tr>
@@ -466,34 +480,34 @@ $parte9 =  "</table>
 </table>
 ";
 $html = $parte1 . $parte2 . $parte3 . $parte4 . $parte5 . $parte6 . $parte7 . $parte10 . $parte9;
- echo $html;
+// echo $html;
 
-// require_once __DIR__ . '../../vendor/autoload.php';
-// // Create an instance of the class:
-// $mpdf = new \mPDF();
+require_once __DIR__ . '../../vendor/autoload.php';
+// Create an instance of the class:
+$mpdf = new \mPDF();
 
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'retrato') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4');
-//     }
-// }
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'paisagem') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4-L');
-//     }
-// }
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'retrato') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4');
+    }
+}
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'paisagem') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4-L');
+    }
+}
 
 
-// $mpdf->SetDisplayMode('fullpage');
+$mpdf->SetDisplayMode('fullpage');
 
-// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-// //level of a list
+$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+//level of a list
 
-// // LOAD a stylesheet
+// LOAD a stylesheet
 
-// $mpdf->WriteHTML($html, 2);
-// $nome = 'OrdemProducao' . $codigo_op;
-// $mpdf->Output($nome, 'I');
-// exit;
+$mpdf->WriteHTML($html, 2);
+$nome = 'OrdemProducao' . $codigo_op;
+$mpdf->Output($nome, 'I');
+exit;

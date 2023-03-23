@@ -396,10 +396,6 @@ if (isset($_GET['cod'])) {
                       <label for="orc" class="form-label">Prioridade da Op</label>
                       <select class="form-select" id="prioridade" name="prioridade" aria-label="Default select example">
                         <option value="<?= $Ordens_Selecionada['prioridade_op'] ?>" selected><?= $Ordens_Selecionada['prioridade_op'] ?></option>
-                        <option value="1 - Alta">1 - Alta</option>';
-                        <option value="2 - Normal">2 - Normal</option>';
-                        <option value="3 - Média">3 - Média</option>';
-                        <option value="4 - Baixa">4 - Baixa</option>';
                       </select>
                     </div>
                     <div class="mb-3">
@@ -430,58 +426,28 @@ if (isset($_GET['cod'])) {
                         }
 
                         ?>
-                        <option>Selecione uma Seção</option>
-                        <option value="ACABAMENTO">ACABAMENTO</option>
-                        <option value="BANNER">BANNER</option>
-                        <option value="COMERCIAL / ORÇAMENTAÇÃO">COMERCIAL / ORÇAMENTAÇÃO</option>
-                        <option value="EXPEDIÇÃO">EXPEDIÇÃO</option>
-                        <option value="FINANCEIRO">FINANCEIRO</option>
-                        <option value="GRAVAÇÃO DE CHAPAS">GRAVAÇÃO DE CHAPAS</option>
-                        <option value="IMPRESSÃO DIGITAL">IMPRESSÃO DIGITAL</option>
-                        <option value="INFORMÁTICA">INFORMÁTICA</option>
-                        <option value="OFFSET">OFFSET</option>
-                        <option value="PLOTTER">PLOTTER</option>
-                        <option value="PRÉ-IMPRESSÃO">PRÉ-IMPRESSÃO</option>
-                        <option value="SEÇÃO TÉCNICA">SEÇÃO TÉCNICA</option>
-                        <option value="TIPOGRAFIA">TIPOGRAFIA</option>
+                       
                       </select>
                     </div>
                     <div class="mb-3">
                       <label for="operador" class="form-label">Operador</label>
                       <select class="form-select" id="operador" name="operador" aria-label="Default select example">
                         <option value="<?= $Pesquisa_atendente ?>" selected><?= $Tabela_aTENDENTE_Selecionada['nome_atendente'] ?></option>
-                        <?php
-                        while ($a < $Operadores) {
-                          echo '<option value="' . $Codigo[$a] . ',' . $Codigo[$a] . ' - ' . $Nome_Atem[$a] . '">' . $Codigo[$a] . ' - ' . $Nome_Atem[$a] . '</option>';
-                          $a++;
-                          //' . $Codigo[$a] . ','. $Codigo[$a] . ' - ' . $Nome_Atem[$a] .'
-                        }
-                        ?>
+                        
                       </select>
                     </div>
                     <div class="mb-3">
                       <label for="tipotrabalho" class="form-label">Tipo de Trabalho</label>
                       <select class="form-select" id="tipotrabalho" name="tipotrabalho" aria-label="Default select example">
                         <option value="<?= $Ordens_Selecionada['tipo_trabalho'] ?>" selected><?= $Ordens_Selecionada['tipo_trabalho'] ?></option>
-                        <option value="OFFSET">OFFSET</option>
-                        <option value="PLOTTER">PLOTTER</option>
-                        <option value="DIGITAL">DIGITAL</option>
-                        <option value="TIPOGRAFIA">TIPOGRAFIA</option>
-                        <option value="ACABAMENTO">ACABAMENTO</option>
+                      
                       </select>
                     </div>
                     <div class="mb-3">
                       <label for="codSts" class="form-label">Status</label>
                       <select class="form-select" id="codSts" name="codSts" aria-label="Default select example">
                         <option value="<?= $Ordens_Selecionada['status'] ?>" selected><?= $Ordens_Selecionada['status'] ?> - <?= $Ordens_Selecionada['STS_DESCRICAO'] ?></option>
-                        <?php
-                        $St = 0;
-                        while ($St < $Sts) {
-                          echo '<option value="' . $Codigo_Sts_P[$St] . '">' . $Codigo_Sts_P[$St] . ' - ' . $Nome_Sts_P[$St] . '</option>';
-                          $St++;
-                        }
-
-                        ?>
+                       
 
                       </select>
                     </div>

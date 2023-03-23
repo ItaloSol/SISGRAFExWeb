@@ -6,7 +6,7 @@ require_once '../vendor/phpqrcode-master/qrlib.php';
 
 
 // ID da opção enviado pelo JavaScript
-$opcaoId = $_GET["id"];
+$opcaoId = $_GET["cod"];
 
 // Gerar a imagem SVG com base no ID da opção e imprimir a saída
 echo gerarQRCode($opcaoId);
