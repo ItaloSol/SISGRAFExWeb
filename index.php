@@ -76,13 +76,13 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <?php /*   */ 
+              <?php 
             if(isset($_SESSION['msg'])){
               echo $_SESSION['msg'];
               unset($_SESSION['msg']);
             }  
               ?>
-               <?php /*   */ 
+               <?php 
             if(isset($_SESSION['sucesso'])){
               echo $_SESSION['sucesso'];
               unset($_SESSION['sucesso']);

@@ -1,5 +1,5 @@
-<?php /* |||   */ include_once("../html/navbar.php"); ?>
-<?php /* |||   */ if ($EXP_I == '1' || $EXP_ADM_I == '1') {  ?>
+<?php  include_once("../html/navbar.php"); ?>
+<?php  if ($EXP_I == '1' || $EXP_ADM_I == '1') {  ?>
 
   <?php
   if (isset($_SESSION['msg'])) {
@@ -321,5 +321,5 @@
           <!--  -->
           <!--  -->
 
-        <?php /* |||   */ } ?>
-        <?php /* |||   */ include_once("../html/navbar-dow.php"); ?>
+        <?php  } ?>
+        <?php  include_once("../html/navbar-dow.php"); ?>

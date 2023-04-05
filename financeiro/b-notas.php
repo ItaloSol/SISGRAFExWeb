@@ -1,4 +1,4 @@
-<?php /* |||   */ $Notas = $conexao->prepare("SELECT * FROM tabela_notas ORDER BY cod DESC");
+<?php  $Notas = $conexao->prepare("SELECT * FROM tabela_notas ORDER BY cod DESC");
 $Notas->execute();
 $i = 0;
 while ($linha = $Notas->fetch(PDO::FETCH_ASSOC)) {
@@ -37,17 +37,17 @@ if (isset($_GET['Pg'])) {
             <li class="page-item first">
               <a class="page-link" href="tl-cadastro-notas.php?Pg=<?= 0 ?>&tp=3"><i class="tf-icon bx bx-chevrons-left"></i></a>
 
-              <?php /* |||   */ while ($a < $total_paginas) {
+              <?php  while ($a < $total_paginas) {
                 if ($a == $Pg) { ?>
             <li class="page-item active">
-            <?php /* |||   */  } else { ?>
+            <?php   } else { ?>
             <li class="page-item ">
-            <?php /* |||   */    }
+            <?php     }
             ?>
 
             <a class="page-link" href="tl-cadastro-notas.php?Pg=<?= $a ?>&tp=3"><?= $a ?></a>
             </li>
-          <?php /* |||   */ $a++;
+          <?php  $a++;
               } ?>
 
           <li class="page-item last ">
@@ -58,7 +58,7 @@ if (isset($_GET['Pg'])) {
         </nav>
         <!--/ Basic Pagination -->
 
-        <?php /* |||   */
+        <?php 
         if (isset($_POST['pesquisa'])) {
           $Pesquisa = True;
           if (is_numeric($_POST['pesquisa'])) {
@@ -263,13 +263,13 @@ if (isset($_GET['Pg'])) {
                 </tr>
               </thead>
               <tbody>
-                <?php /* |||   */
+                <?php 
                 if ($Cod == False) { ?>
                   <tr>
                     <td>
                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Nenhuma Nota Encontrada! Pesquise pelo Código Correto</strong>
                     </td>
-                    <?php /* |||   */  } else {
+                    <?php   } else {
                     while ($Percorrer < $Listagem) { ?>
 
                   <tr>
@@ -284,7 +284,7 @@ if (isset($_GET['Pg'])) {
                       </li>
 
                     </td>
-                    <td><?php /* |||   */ echo $Observacoes[$Percorrer] ?></td>
+                    <td><?php  echo $Observacoes[$Percorrer] ?></td>
                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $Valor[$Percorrer] ?></strong></td>
                     <td>
                       <a class="btn rounded-pill btn-info" href="tl-cadastro-notas.php?tp=3&id=<?= $Cod[$Percorrer] ?>"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
@@ -294,7 +294,7 @@ if (isset($_GET['Pg'])) {
                     </td>
                   </tr>
 
-              <?php /* |||   */ $Percorrer++;
+              <?php  $Percorrer++;
                     }
                   } ?>
               </tbody>

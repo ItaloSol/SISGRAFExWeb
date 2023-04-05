@@ -293,4 +293,4 @@ include_once("../html/navbar.php"); ?>
       }
     });
   </script>
-  <?php /* |||   */ include_once("../html/navbar-dow.php"); ?>
+  <?php  include_once("../html/navbar-dow.php"); ?>

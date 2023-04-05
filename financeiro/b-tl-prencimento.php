@@ -137,7 +137,7 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
                         <label for="exampleFormControlSelect1" class="form-label">Contato:</label>
                         <select class="form-select" name="contato" id="exampleFormControlSelect1" aria-label="Default select example" required>
                           <option>Selecione um contato</option>
-                          <?php /* |||   */ 
+                          <?php  
                           $a = 0;
                           while($contato > $a){
                             echo '<option value="'.$Cliente_Contato_Puxado[$a]['cod'].'">'.$Cliente_Contato_Puxado[$a]['nome_contato'].' '.$Cliente_Contato_Puxado[$a]['telefone'].' '.$Cliente_Contato_Puxado[$a]['email'].'</option>';
@@ -155,7 +155,7 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
                         <label for="exampleFormControlSelect1" class="form-label">Endereço:</label>
                         <select class="form-select" name="endereco" id="exampleFormControlSelect1" aria-label="Default select example" required>
                           <option>Selecione um Endereço</option>
-                          <?php /* |||   */ 
+                          <?php  
                           $a = 0;
                           while($endereco > $a){
                             echo '<option value="'.$Cliente_Enderecos_Puxado[$a]['cod'].'">Cep: '.$Cliente_Enderecos_Puxado[$a]['cep'].' UF: '.$Cliente_Enderecos_Puxado[$a]['uf'].' logadouro: '.$Cliente_Enderecos_Puxado[$a]['logadouro'].' cidade: '.$Cliente_Enderecos_Puxado[$a]['cidade'].'</option>';

@@ -183,4 +183,4 @@ while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
     </table>
   </div>
 </div>
-<?php /* |||   */ include_once("../html/navbar-dow.php"); ?>
+<?php  include_once("../html/navbar-dow.php"); ?>

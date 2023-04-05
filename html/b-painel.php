@@ -508,7 +508,7 @@
                </style>
                <!-- Fim dos Contadores -->
                <!-- Tabela de Produção -->
-               <?php /* |||   */ // print_r($_GET);
+               <?php  // print_r($_GET);
                 $a = 0;
                 foreach ($_GET as $key => $value) {
                   $GET[$a] =  $key . '=' . $value;
@@ -534,7 +534,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                <div class=" mb-2 pesquisa-painel">
                  <form action="painel.php" method="GET">
                    <div class="row">
-                     <?php /* |||   */ if (isset($GET)) {
+                     <?php  if (isset($GET)) {
                      
                                   echo ' <input type="hidden" name="' . $key . '" value="' . $value . '"  >';
                                 } ?>
@@ -602,14 +602,14 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                      </script>
                    </div>
                  </form>
-                 <?php /* |||   */
+                 <?php 
                   if (!isset($_GET['Att'])) {  ?>
                  <nav style="margin-top: 10px; " aria-label="Page navigation">
                    <ul class="pagination">
 
 
                      <li class="page-item prev">
-                       <?php /* |||   */ $V = $a - 2;
+                       <?php  $V = $a - 2;
                           if ($V < 0) {
                             $V = 0;
                           } ?>
@@ -636,7 +636,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                           ?>
 
                      </li>
-                     <?php /* |||   */ $Proximo = $Pg - 1;
+                     <?php  $Proximo = $Pg - 1;
                             if ($Proximo > $total_paginas) {
                               $Proximo = 0;
                             }
@@ -649,9 +649,9 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                               for ($a = $Anterior; $a <= $Proximo; $a++) {
                                 if ($a == $Pg) { ?>
                      <li class="page-item active">
-                       <?php /* |||   */  } else { ?>
+                       <?php   } else { ?>
                      <li class="page-item ">
-                       <?php /* |||   */   } ?>
+                       <?php    } ?>
                        <?php
                                 if (!isset($_GET['b']) && !isset($_GET['Tp'])) {
                                   echo '<a class="page-link" href="painel.php?Pg=' . $a . '">' . $a . '</a>';
@@ -673,10 +673,10 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                               ?>
 
                      </li>
-                     <?php /* |||   */  }
+                     <?php   }
                             } ?>
                      </li>
-                     <?php /* |||   */ if (!isset($Pg)) {
+                     <?php  if (!isset($Pg)) {
                               $Pg = 0;
                             }
                             $Proximo = $Pg + 5;
@@ -686,9 +686,9 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                             for ($a = $Pg; $a < $Proximo; $a++) {
                               if ($a == $Pg) { ?>
                      <li class="page-item active">
-                       <?php /* |||   */  } else { ?>
+                       <?php   } else { ?>
                      <li class="page-item ">
-                       <?php /* |||   */   } ?>
+                       <?php    } ?>
                        <?php
                               if (!isset($_GET['b']) && !isset($_GET['Tp'])) {
                                 echo '<a class="page-link" href="painel.php?Pg=' . $a . '">' . $a . '</a>';
@@ -710,7 +710,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                               ?>
                        <!-- <a class="page-link" href="painel.php?Pg=<?= $a ?>"><?= $a ?></a> -->
                      </li>
-                     <?php /* |||   */  }  ?>
+                     <?php   }  ?>
 
                      <li class="page-item last ">
                        <?php
