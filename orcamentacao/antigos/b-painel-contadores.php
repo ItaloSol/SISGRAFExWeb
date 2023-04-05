@@ -37,7 +37,7 @@
                  <div class="card bg-danger text-white mb-3">
                    <div class="card-header"><i style="font-size: 3em;" class='bx bx-error bx-tada'></i></div>
                    <div class="card-body">
-                     <h5 class="card-title text-white"><span data-purecounter-start="0" data-purecounter-end="<?= $EmProducao ?>" class="purecounter" class="purecounter">0</span></h5>
+                     <h5 class="card-title text-white"><span data-purecounter-start="0" data-purecounter-end="<?= $EmProducao ?>"  class="purecounter" class="purecounter">0</span></h5>
                      <p class="card-text">Atrasadas</p>
                    </div>
                  </div>

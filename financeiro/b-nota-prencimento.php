@@ -165,7 +165,7 @@ while ($linha = $tabela_endereco->fetch(PDO::FETCH_ASSOC)) {
                         <label for="exampleFormControlSelect1" class="form-label">Contato:</label>
                         <select class="form-select" name="contato" id="exampleFormControlSelect1" aria-label="Default select example" required>
                     <option value="<?= $Cliente_Contato_Puxadu['cod']?>"><?php echo ''.$Cliente_Contato_Puxadu['nome_contato'].' '.$Cliente_Contato_Puxadu['telefone'].' '.$Cliente_Contato_Puxadu['email'].''; ?></option>
-                          <?php /* |||   */ 
+                          <?php  
                           $a = 0;
                           while($contato > $a){
                             echo '<option value="'.$Cliente_Contato_Puxado[$a]['cod'].'">'.$Cliente_Contato_Puxado[$a]['nome_contato'].' '.$Cliente_Contato_Puxado[$a]['telefone'].' '.$Cliente_Contato_Puxado[$a]['email'].'</option>';
@@ -183,7 +183,7 @@ while ($linha = $tabela_endereco->fetch(PDO::FETCH_ASSOC)) {
                         <label for="exampleFormControlSelect1" class="form-label">Endereço:</label>
                         <select class="form-select" name="endereco" id="exampleFormControlSelect1" aria-label="Default select example">
                           <?php  echo '<option value="'.$Cliente_Enderecos_Puxadu['cod'].'">Cep: '.$Cliente_Enderecos_Puxadu['cep'].' UF: '.$Cliente_Enderecos_Puxadu['uf'].' logadouro: '.$Cliente_Enderecos_Puxadu['logadouro'].' cidade: '.$Cliente_Enderecos_Puxadu['cidade'].'</option>'; ?>
-                          <?php /* |||   */ 
+                          <?php  
                           $a = 0;
                           while($endereco > $a){
                             echo '<option value="'.$Cliente_Enderecos_Puxado[$a]['cod'].'">Cep: '.$Cliente_Enderecos_Puxado[$a]['cep'].' UF: '.$Cliente_Enderecos_Puxado[$a]['uf'].' logadouro: '.$Cliente_Enderecos_Puxado[$a]['logadouro'].' cidade: '.$Cliente_Enderecos_Puxado[$a]['cidade'].'</option>';
@@ -203,7 +203,7 @@ while ($linha = $tabela_endereco->fetch(PDO::FETCH_ASSOC)) {
               <div class="mb-3">
                 <label for="exampleFormControlReadOnlyInput1" class="form-label">Forma de Pagamento</label>
                 <select class="form-select" name="forma_pagamento" id="forma_pagamento" aria-label="Default select example" required>
-                  <option value="<?= $forma_pagamento ?>" selected><?php /* |||   */ if($forma_pagamento == 1){echo 'SIGA/SIAFI';}else{echo 'GRU';} ?></option>
+                  <option value="<?= $forma_pagamento ?>" selected><?php  if($forma_pagamento == 1){echo 'SIGA/SIAFI';}else{echo 'GRU';} ?></option>
                   <option value="1">SIGA/SIAFI</option>
                   <option value="2">GRU</option>
                 </select>
@@ -232,19 +232,19 @@ while ($linha = $tabela_endereco->fetch(PDO::FETCH_ASSOC)) {
               <div id="recolimento" class="mb-3  row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">Código do Recolhimento</label>
                 <div class="col-md-10">
-                  <input class="form-control" name="cod_recolhimete" value="<?php /* |||   */ if(isset($gru)){echo $gru;} ?>" type="text" id="html5-text-input" />
+                  <input class="form-control" name="cod_recolhimete" value="<?php  if(isset($gru)){echo $gru;} ?>" type="text" id="html5-text-input" />
                 </div>
               </div>
               <div id="siafi" class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">Código SIAFI</label>
                 <div class="col-md-10">
-                  <input class="form-control" name="siafi" value="<?php /* |||   */ if(isset($siafi)){echo $siafi;} ?>" type="text" id="html5-text-input" />
+                  <input class="form-control" name="siafi" value="<?php  if(isset($siafi)){echo $siafi;} ?>" type="text" id="html5-text-input" />
                 </div>
               </div>
               <div id="ug" class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">Código UG</label>
                 <div class="col-md-10">
-                  <input class="form-control" name="ug" value="<?php /* |||   */ if(isset($ug)){echo $ug;} ?>" type="text" id="html5-text-input" />
+                  <input class="form-control" name="ug" value="<?php  if(isset($ug)){echo $ug;} ?>" type="text" id="html5-text-input" />
                 </div>
               </div>
               <div class="mb-3 row">

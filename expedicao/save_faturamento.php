@@ -1,4 +1,4 @@
-<?php /* |||   */
+<?php 
 session_start();
 $cod_user = $_SESSION["usuario"][2];
 include_once('../conexoes/conexao.php');

@@ -1,4 +1,4 @@
-<?php /* |||   */ 
+<?php  
 if(isset($_GET['tipo'])){
   if($_GET['tipo'] == 1){
     include_once('buscar_saldos_fisicos.php');
@@ -51,7 +51,7 @@ if(isset($_GET['tipo'])){
                         </tr>
                       </thead>
                       <tbody>
-                        <?php /* |||   */ 
+                        <?php  
                         $Percorrer = 0;
                         $encontrados = 0;
                         while($Percorrer < $numero_clientes){ 

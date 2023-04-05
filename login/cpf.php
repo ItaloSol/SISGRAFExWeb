@@ -119,7 +119,7 @@
                   
               </div>
               <!-- /Logo -->
-              <?php /* |||   */ 
+              <?php  
                if(isset($_SESSION['erro'])){
                 echo $_SESSION['erro'];
                 unset($_SESSION['erro']);

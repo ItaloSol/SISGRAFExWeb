@@ -1,5 +1,5 @@
 <?php
-$query_ordens_Semanal = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO ORDER BY o.data_entrega DESC ");
+$query_ordens_Semanal = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.status != '11' AND o.status != '13' ORDER BY o.data_entrega DESC ");
 $query_ordens_Semanal->execute();
 $i = 0;
 $Atrasada_Do_OP = 0;
@@ -12,7 +12,7 @@ $hoje_Semanal_Final = date('Y-m-d', strtotime('+' . 2 . 'day', strtotime($hoje_S
 $Entregues_Em_Op = 0;
 while ($linha = $query_ordens_Semanal->fetch(PDO::FETCH_ASSOC)) {
 
-  if ($linha['data_entrega'] <= $hoje_Semanal_Final  && $linha['data_entrega'] >= $hoje_Semanal_Inicio) {
+  if ($linha['data_entrega'] <= $hoje_Semanal_Final  && $linha['data_entrega'] >= $hoje_Semanal_Inicio && $linha['status'] != '11') {
     $Pesquisa_Produto = $linha['cod_produto'];
     $Tipo_Produto =  $linha['tipo_produto'];
     $Pesquisa_Cliente = $linha['cod_cliente'];
@@ -154,7 +154,7 @@ while ($linha = $query_ordens_Semanal->fetch(PDO::FETCH_ASSOC)) {
       <div class="card-body">
         <ul class="p-0 m-0">
           <hr class="linha-dashboard">
-          <?php /* |||   */
+          <?php 
           while ($Total_Semanal > $Percorrer_Semanal) {
             echo '<li class="d-flex mb-4 pb-1">
                        

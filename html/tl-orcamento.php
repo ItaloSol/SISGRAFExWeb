@@ -1,4 +1,4 @@
-<?php /* |||   */   include_once("../html/navbar.php");$_SESSION["pag"] = array( 1,0) ;?>
+<?php    include_once("../html/navbar.php");$_SESSION["pag"] = array( 1,0) ;?>
 <div class="row">
                 <!-- Basic Layout -->
                 <div class="col-xxl">
@@ -85,4 +85,4 @@
 
                      
 
-<?php /* |||   */ include_once("../html/navbar-dow.php"); ?>
+<?php  include_once("../html/navbar-dow.php"); ?>

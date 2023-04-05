@@ -1,4 +1,4 @@
-<?php /* |||   */ session_start(); ?>
+<?php  session_start(); ?>
 <!DOCTYPE html>
 
 <html
@@ -116,7 +116,7 @@
                   
               </div>
               <!-- /Logo -->
-              <?php /* |||   */ 
+              <?php  
             if(isset($_SESSION['msg'])){
               echo $_SESSION['msg'];
               unset($_SESSION['msg']);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php /* |||   */  session_start(); ?>
+<?php   session_start(); ?>
 <html
   lang="en"
   class="light-style customizer-hide"
@@ -115,7 +115,7 @@
                   
               </div>
               <!-- /Logo -->
-              <?php /* |||   */ 
+              <?php  
                if(isset($_SESSION['erro'])){
                 echo $_SESSION['erro'];
                 unset($_SESSION['erro']);

@@ -689,4 +689,4 @@ if (isset($_GET['cod'])) {
         </div>
       </div>
     </div>
-    <?php /* |||   */ include_once("../html/navbar-dow.php"); ?>
+    <?php  include_once("../html/navbar-dow.php"); ?>

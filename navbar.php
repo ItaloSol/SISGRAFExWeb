@@ -8,10 +8,10 @@ if (isset($_SESSION["usuario"]) && is_array($_SESSION["usuario"])) {
   $cod_user = $_SESSION["usuario"][2];
   $validacao = $_SESSION["usuario"][5];
   $atividade = $_SESSION["usuario"][4];
-  if ($atividade == '0') {
+  if($atividade == '0'){
     header('location: ../login/logout.php?i=0');
   }
-  if ($validacao == '0') {
+  if($validacao == '0'){
     $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
     role="bs-toast"
     class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
@@ -31,7 +31,7 @@ if (isset($_SESSION["usuario"]) && is_array($_SESSION["usuario"])) {
        É obrigatório o uso do CPF!     
     </div>
   </div>';
-    echo "<script>window.location = '../login/cpf.php?id=" . $cod_user . "'</script>";
+    echo "<script>window.location = '../login/cpf.php?id=".$cod_user."'</script>";
   }
 } else {
   echo "<script>window.location = '../index.php'</script>";
@@ -47,17 +47,9 @@ $refresh = 0;
 //      }
 //      echo  '<meta  http-equiv="refresh" content="" />';    
 //   } 
-if (isset($_SESSION['msg'])) {
-  echo $_SESSION['msg'];
-  unset($_SESSION['msg']);
-}
 ?>
 
-<style>
-  .tira{
-    display: none;
-  }
-</style>
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
@@ -101,7 +93,6 @@ if (isset($_SESSION['msg'])) {
 
   <!--Import para descer barra de rolagem-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="../assets/js/vue.js"></script>
 </head>
 
 <body>
@@ -154,72 +145,50 @@ if (isset($_SESSION['msg'])) {
             <i class="bx bx-chevron-left bx-sm align-middle"></i>
           </a>
         </div>
-
+      
 
         <ul class="menu-inner py-1">
           <!-- Menu Lateral -->
-          <li class=" painel menu-item ">
-            <a href="../html/painel.php?p" class=" menu-link">
+          <li class="menu-item ">
+            <a href="../html/painel.php?p" class="menu-link">
               <i class=" menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Página Inicial</div>
             </a>
           </li>
 
           <!-- Sub-Menu de Dashboard -->
-          <li class=" dash-g menu-item">
+          <li class="menu-item">
             <a href="../html/dashboard.php" class="menu-link">
-              <iconify-icon icon="mdi:monitor-dashboard" width="20" height="20"></iconify-icon>
-              <div data-i18n="Basic">&nbsp &nbsp Dashboard</div>
+              <i class=' menu-icon tf-icons bx bx-grid-alt'></i>
+              <div data-i18n="Basic"> Dashboard</div>
             </a>
           </li>
-          <?php  if ($COD_I == 'ADM') {  ?>
-            <li class=" linha menu-item">
-              <a href="../linhaproducao/tl-producao.php" class="menu-link">
-                <iconify-icon icon="fluent-mdl2:production-floor-management" width="20" height="20"></iconify-icon>
-                <div data-i18n="Basic">&nbsp &nbsp Linha de produção</div>
-              </a>
-            </li>
-          <?php }  ?>
-          <li class=" problemas menu-item">
-            <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" title="<i class='bx bx-support'></i> <span>Problemas ou Ajuda?</span>" href="../html/problemas.php" class="menu-link">
-              <iconify-icon icon="bx:support" width="20" height="20"></iconify-icon>
-              <div data-i18n="Basic">&nbsp &nbsp Suporte</div>
-            </a>
           </li>
-
-          </li>
-          <li class=" menu-item">
-            <a href="../login/logout.php" class="menu-link">
-              <iconify-icon icon="ic:baseline-power-settings-new" width="20" height="20"></iconify-icon>
-              <div data-i18n="Basic">&nbsp &nbsp SAIR</div>
-            </a>
-          </li>
-
           <!-- Modúlo de ADMINISTRAÇÃO -->
           <?php  if ($COD_I == 'ADM' || $PROD_ADM_I == '1') {  ?>
 
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Administração</span></li>
             <!-- Sub-Menu de ADMINISTRAÇÃO -->
-            <li class="ADMINISTRAÇÃO menu-item">
+            <li class="menu-item">
               <a href="../administrador/tl-supervisao.php" class="menu-link">
-                <iconify-icon icon="mdi:database-eye" width="20" height="20"></iconify-icon>
+                <i class="menu-icon tf-icons bx bx-user-pin"></i>
                 <div data-i18n="Basic">Supervisão de Atividades</div>
               </a>
             </li>
-            <?php  if ($COD_I == 'ADM') {  ?>
-              <li class="usuario menu-item">
-                <a href="../administrador/tl-cadastro-atendente.php" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                  <div data-i18n="Basic">Cadastro de Usuário</div>
-                </a>
-              </li>
-              <li class="dados menu-item">
-                <a href="../administrador/tl-origem-dados.php" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-cylinder"></i>
-                  <div data-i18n="Basic">Origem de Dados</div>
-                </a>
-              </li>
-            <?php  } ?>
+            <?php  if ($COD_I == 'ADM'){  ?> 
+            <li class="menu-item">
+              <a href="../administrador/tl-cadastro-atendente.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-pin"></i>
+                <div data-i18n="Basic">Cadastro de Usuário</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="../administrador/tl-origem-dados.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cylinder"></i>
+                <div data-i18n="Basic">Origem de Dados</div>
+              </a>
+            </li>
+            <?php  } ?> 
             <!-- Sub-Menu de Relatório -->
             <li class="menu-item">
 
@@ -227,13 +196,13 @@ if (isset($_SESSION['msg'])) {
 
             </li>
         </ul>
-      <?php  }  ?>
+      <?php  } ?>
       <?php  $bloq = 0;
       if ($bloq == '0') {  ?>
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Relatórios</span></li>
         <!-- Sub-Menu de Relatórios -->
-
-        <li class="relatorio menu-item">
+        
+        <li class="menu-item">
           <a href="javascript:void(0)" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
             <div data-i18n="User interface">Relatórios</div>
@@ -246,13 +215,13 @@ if (isset($_SESSION['msg'])) {
               </a>
             </li>
 
-            <?php  if ($ORC_I == '1' || $ORD_I == '1') {  ?>
-              <!-- <li class="menu-item">
+            <?php  == '1' || $ORD_I == '1') {  ?>
+              <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-orcamento.php" class="menu-link">
                   <div data-i18n="Accordion">Orçamentos</div>
                 </a>
               </li>
--->
+
               <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-papeis.php" class="menu-link">
                   <div data-i18n="Accordion">Consumo de Papéis</div>
@@ -261,7 +230,7 @@ if (isset($_SESSION['msg'])) {
 
             <?php  } ?>
             <?php  if ($FIN_I == '1' || $ORD_I == '1') {  ?>
-              <!-- <li class="menu-item">
+              <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-notas.php" class="menu-link">
                   <div data-i18n="Accordion">Notas de Crédito</div>
                 </a>
@@ -275,7 +244,7 @@ if (isset($_SESSION['msg'])) {
                 <a href="../relatorios/tl-relatorio-financeiro.php" class="menu-link">
                   <div data-i18n="Accordion">Financeiro</div>
                 </a>
-              </li> -->
+              </li>
             <?php  } ?>
             <li class="menu-item">
               <a href="../relatorios/tl-relatorio-detalhamento-de-cliente.php" class="menu-link">
@@ -289,7 +258,7 @@ if (isset($_SESSION['msg'])) {
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Orçamentação</span></li>
 
         <!-- Sub-Menu de Cadastro -->
-        <li class=" cadastro menu-item">
+        <li class="menu-item">
           <a href="javascript:void(0)" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-notepad"></i>
             <div data-i18n="User interface">Cadastro e Consulta</div>
@@ -348,43 +317,45 @@ if (isset($_SESSION['msg'])) {
         </ul>
         </li>
         <!-- Sub-Menu de Orçamento -->
-        <li class=" painel-orc menu-item">
-          <a href="../orcamentacao/tl-painel.php" class="menu-link">
-            <iconify-icon icon="uil:panel-add" width="20" height="20"></iconify-icon>
-            <div data-i18n="Basic">&nbsp &nbsp Painel Orçamentação</div>
-          </a>
-        </li>
-        <li class=" orcamento menu-item">
+        <li class="menu-item">
           <a href="../orcamentacao/tl-orcamento.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-receipt"></i>
             <div data-i18n="Basic">Orçamento</div>
           </a>
         </li>
         <!-- Sub-Menu de Ordem de Produção -->
-        <!-- <li class="menu-item">
+        <li class="menu-item">
           <a href="../producao/tl-controle-op.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-receipt"></i>
             <div data-i18n="Basic">Ordem de Produção</div>
           </a>
-        </li> -->
+        </li>
         <!-- Sub-Menu de Consulta Simatex -->
-        <!-- <li class="menu-item">
+        <li class="menu-item">
           <a href="tl-consulta-simatex.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-package"></i>
             <div data-i18n="Basic">Consulta Simatex</div>
           </a>
-        </li> -->
 
+          <!-- Sub-Menu de Relatório -->
+        <li class="menu-item">
+
+          <ul class="menu-sub">
+
+
+        </li>
+        </li>
+        </ul>
       <?php  } ?>
       <!-- Modúlo de Produção -->
       <?php  if ($PROD_I == '1') {  ?>
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Produção</span></li>
         <!-- Sub-Menu de Ordem Produção -->
-        <li class=" ordemproducao menu-item">
+        <li class="menu-item">
           <a href="../producao/tl-controle-op.php" class="menu-link">
-            <iconify-icon icon="uil:panel-add" width="20" height="20"></iconify-icon>
-            <div data-i18n="Basic">&nbsp &nbspOrdem de Produção</div>
+            <i class="menu-icon tf-icons bx bx-receipt"></i>
+            <div data-i18n="Basic">Ordem de Produção</div>
           </a>
         </li>
         <!-- Sub-Menu de Relatório -->
@@ -399,28 +370,22 @@ if (isset($_SESSION['msg'])) {
         <!-- Modúlo de Expedição -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Expedição</span></li>
         <!-- Sub-Menu de Cadastro de Clientes -->
-        <li class=" aceita menu-item">
+        <li class="menu-item">
           <a href="../expedicao/aceitar.php" class="menu-link">
-            <iconify-icon icon="material-symbols:fact-check" width="20" height="20"></iconify-icon>
-            <div data-i18n="Basic">&nbsp &nbsp Aceitar Op's</div>
+            <i class="menu-icon tf-icons bx bx-notepad"></i>
+            <div data-i18n="Basic">Aceitar Op's</div>
           </a>
         </li>
-        <li class=" modifca menu-item">
+        <!-- <li class="menu-item">
           <a href="../expedicao/tl-controle-expedicao.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-notepad"></i>
             <div data-i18n="Basic">Modificação de Op</div>
           </a>
-        </li>
-        <li class=" faturamento menu-item">
-          <a href="../expedicao/tl-faturadas.php" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-notepad"></i>
-            <div data-i18n="Basic">Notas Faturamento</div>
-          </a>
-        </li>
-        <li class=" fatura menu-item">
+        </li> -->
+        <li class="menu-item">
           <a href="../expedicao/faturamento.php" class="menu-link">
-            <iconify-icon icon="fa6-solid:file-invoice-dollar" width="20" height="20"></iconify-icon>
-            <div data-i18n="Basic">&nbsp &nbsp Faturamento</div>
+            <i class="menu-icon tf-icons bx bx-notepad"></i>
+            <div data-i18n="Basic">Faturamento</div>
           </a>
         </li>
         <!-- Sub-Menu de Relatório -->
@@ -440,43 +405,43 @@ if (isset($_SESSION['msg'])) {
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Ordenador de Despesas</span></li>
         <!-- Sub-Menu de Ordem Ordenador de Despesas -->
-        <!-- <li class="menu-item">
+        <li class="menu-item">
           <a href="../orcamentacao/tl-cadastro-clientes-ori.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-notepad"></i>
             <div data-i18n="Basic">Cadastro de Clientes</div>
           </a>
-        </li> -->
-        <li class="Od-orc menu-item">
-          <a href="../orcamentacao/tl-painel.php?ProdT=3" class="menu-link">
+        </li>
+        <li class="menu-item">
+          <a href="../orcamentacao/tl-orcamento.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-receipt"></i>
-            <div data-i18n="Basic">O.D. Orçamentos - Orçamentação</div>
+            <div data-i18n="Basic">Orçamentos - Orçamentação</div>
           </a>
         </li>
-        <!-- <li class="menu-item">
+        <li class="menu-item">
           <a href="../producao/tl-controle-op.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-receipt"></i>
             <div data-i18n="Basic">Ordens de Produção - Produção</div>
           </a>
-        </li> -->
-        <!-- <li class="menu-item">
+        </li>
+        <li class="menu-item">
           <a href="../expedicao/faturamento.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-notepad"></i>
             <div data-i18n="Basic">Faturamentos - Expedição</div>
           </a>
-        </li> -->
-        <!-- <li class="menu-item">
+        </li>
+        <li class="menu-item">
           <a href="../financeiro/tl-cadastro-notas.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-credit-card"></i>
             <div data-i18n="Basic">Notas de Crédito - Financeiro (Comercial)</div>
           </a>
-        </li> -->
-        <!--- <li class="menu-item">
+        </li>
+       <!--- <li class="menu-item">
           <a href="#" class="menu-link">
             <i class="menu-icon tf-icons bx bx-package"></i>
             <div data-i18n="Basic">Consulta de Material Simatex - Estoque</div>
           </a>
         </li> !-->
-        <li class="controle menu-item">
+        <li class="menu-item">
           <a href="../producao/tl-controle-op.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-receipt"></i>
             <div data-i18n="Basic">Controle de OP</div>
@@ -488,19 +453,19 @@ if (isset($_SESSION['msg'])) {
         <!-- Modúlo de Financeiro -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Financeiro</span></li>
         <!-- Sub-Menu de Nota de Crédito e Cadastro de Cliente -->
-        <li class=" nota menu-item">
-          <a href="../financeiro/tl-cadastro-notas.php?tp=3" class="menu-link">
+        <li class="menu-item">
+          <a href="../financeiro/tl-cadastro-notas.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-credit-card"></i>
-            <div data-i18n="Basic">Notas de Crédito</div>
+            <div data-i18n="Basic">Nota de Crédito</div>
           </a>
         </li>
-        <li class="cadastro-cli menu-item">
+        <li class="menu-item">
           <a href="../orcamentacao/tl-cadastro-clientes-ori.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-notepad"></i>
             <div data-i18n="Basic">Cadastro de Clientes</div>
           </a>
         </li>
-        <li class="control-op menu-item">
+        <li class="menu-item">
           <a href="../producao/tl-controle-op.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-receipt"></i>
             <div data-i18n="Basic">Controle de OP</div>
@@ -510,14 +475,14 @@ if (isset($_SESSION['msg'])) {
         </li>
         </li>
       <?php  } ?>
-      <?php  if ($ORC_ADM_I == '1' || $PROD_ADM_I == '1' || $EXP_ADM_I == '1' || $FIN_ADM_I == '1') {  ?>
+      <?php  if ($ORC_ADM_I == '1' || $PROD_ADM_I == '1' || $EXP_ADM_I == '1' || $FIN_ADM_I == '1' ) {  ?>
         <!-- Modúlo de Controle Datas -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Controle Datas</span></li>
         <!-- Sub-Menu de Cadastro de Clientes -->
-        <li class=" datas menu-item">
+        <li class="menu-item">
           <a href="../controle_periodo/tl-controle.php" class="menu-link">
-            <iconify-icon icon="material-symbols:avg-time-outline-sharp" width="20" height="20"></iconify-icon>
-            <div data-i18n="Basic">&nbsp Contadores de Período</div>
+            <i class="menu-icon tf-icons bx bx-notepad"></i>
+            <div data-i18n="Basic">Contadores de Período</div>
           </a>
         </li>
         <!-- Sub-Menu de Relatório -->
@@ -532,64 +497,54 @@ if (isset($_SESSION['msg'])) {
         </li>
         </ul>
       <?php  } ?>
-      <!-- Modúlo de Atualizações -->
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Atualizações</span></li>
-      <li class="atualizacoes menu-item">
-        <a href="../atualizacao/tl-atualizacao.php" class="menu-link">
-          <iconify-icon icon="ic:outline-system-update-alt" width="20" height="20"></iconify-icon>
-          <div data-i18n="Basic">&nbsp Sobre Atualizações</div>
-        </a>
-      </li>
-      <!-- Sub-Menu de Relatório -->
-      <li class="menu-item">
+        <!-- Modúlo de Atualizações -->
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Atualizações</span></li>
+        <li class="menu-item">
+          <a href="../atualizacao/tl-atualizacao.php" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-notepad"></i>
+            <div data-i18n="Basic">Sobre Atualizações</div>
+          </a>
+        </li>
+        <!-- Sub-Menu de Relatório -->
+        <li class="menu-item">
 
-        <ul class="menu-sub">
+          <ul class="menu-sub">
 
-          <li class="menu-item">
+            <li class="menu-item">
 
-          </li>
-      </li>
-      </li>
-      </ul>
-
-    <?php  } ?>
+            </li>
+        </li>
+        </li>
+        </ul>
+        
+      <?php  } ?>
       </aside>
       <!-- / Menu -->
-
+        
       <!-- Layout container -->
 
       <div class="layout-page">
         <!-- Navbar -->
-        <div style=" text-align:center;" class="alert alert-danger" role="alert">SISTEMA EM PROCESSO DE DESENVOLVIMENTO! <br> <span style="font-size: 13px;"> não é a versão final.</span></div>
+        <div style=" text-align:center;" class="alert alert-danger" role="alert">SISTEMA EM PROCESSO DE DESENVOLVIMENTO!</div>
         <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
           <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
             <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
               <i class="bx bx-menu bx-sm"></i>
             </a>
           </div>
-
+          
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-            <ul class="navbar-nav align-itens-center">
+
+            <ul class="navbar-nav flex-row align-items-center ms-auto">
+              <!-- Usuário -->
+
+              <!-- Notificações -->
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
                 <i data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para visualizar suas OPs <span class='enfase-dashboard'>PENDENTES</span>!</span>" class='bx bx-bell bx-tada'></i>
                 <span><?= $Total_Notificacao ?></span>
               </button>
-            </ul>
-            <ul class="navbar-nav flex-row align-items-center ms-auto justify-content-between">
-              <!-- Usuário -->
-
-              <!-- Notificações -->
-
-              <div class="flex-grow-1 p-3">
-                <span class="fw-semibold d-block"><?= $nome_user ?></span>
-                <!-- <small class="text-muted"><?= $tipo_user . ' - ' . $cod_user ?></small> -->
-              </div>
-              <a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para sair de sua conta</span>" class="btn btn-outline-primary" href="../login/logout.php">
-                <i class="bx bx-power-off me-2"></i>
-                <span class="align-middle">Sair</span>
-              </a>
               <!-- Final das notificações -->
-              <!-- <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
                     <img src="../img/user.png" alt class="w-px-40 h-auto rounded-circle" />
@@ -629,22 +584,22 @@ if (isset($_SESSION['msg'])) {
                       <span class="align-middle">Sair</span>
                     </a>
                   </li>
-                </ul> -->
+                </ul>
               </li>
               <!-- Final de usuários -->
             </ul>
           </div>
 
         </nav>
-        <style>
-          .contorno {
-            text-shadow:
-              -1px -1px 0px #000,
-              -1px 1px 0px #000,
-              1px -1px 0px #000,
-              1px 0px 0px #000;
-          }
-        </style>
+<style>
+  .contorno { 
+  text-shadow: 
+               -1px -1px 0px #000, 
+               -1px 1px 0px #000,                    
+                1px -1px 0px #000,                  
+                1px 0px 0px #000;
+  }
+</style>
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
@@ -665,8 +620,8 @@ if (isset($_SESSION['msg'])) {
 
                     <div class="card-body">
                       <div class="scroll-modal alt-modal" class="table-responsive text-nowrap">
-                        <small>Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;">Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; " class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
-                        <table class="table table-bordered table-modal">
+                      <small >Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;" >Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; "class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
+                      <table class="table table-bordered table-modal">
                           <thead>
                             <tr>
                               <th>Ordem de Produção</th>
@@ -683,26 +638,18 @@ if (isset($_SESSION['msg'])) {
                             while ($Total_Notificacao > $Percorrer_Notificacao) {
 
                               if ($Percorrer_Notificacao == 0) {
-                                if ($cor[$Percorrer_Notificacao]['cor'] == 'White') {
-                                  $tr = '<tr style="color: black;" bgcolor="' . $cor[$Percorrer_Notificacao]['cor'] . '">';
-                                } else {
-                                  $tr = '<tr style="color: white;" bgcolor="' . $cor[$Percorrer_Notificacao]['cor'] . '">';
-                                }
+                                if($cor[$Percorrer_Notificacao]['cor'] == 'White'){ $tr = '<tr style="color: black;" bgcolor="'.$cor[$Percorrer_Notificacao]['cor'].'">'; }else{  $tr = '<tr style="color: white;" bgcolor="'.$cor[$Percorrer_Notificacao]['cor'].'">'; }
                                 $relatorio_Notificacao = $tr .
-                                  '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] . '</td>' .
+                                  '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] .'</td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['orcamento_base'] . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_emissao'])) . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_entrega'])) . '</td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['status'] . ' - ' . $Ordens_Notificacao[$Percorrer_Notificacao]["STS_DESCRICAO"] . ' </td>' .
                                   '<td>' . $Tabela_Produtos_Notificacao[$Percorrer_Notificacao]['descricao'] . '</td></tr>';
                               } else {
-                                if ($cor[$Percorrer_Notificacao]['cor'] == 'White') {
-                                  $tr = '<tr style="color: black;" bgcolor="' . $cor[$Percorrer_Notificacao]['cor'] . '">';
-                                } else {
-                                  $tr = '<tr style="color: white;" bgcolor="' . $cor[$Percorrer_Notificacao]['cor'] . '">';
-                                }
+                                if($cor[$Percorrer_Notificacao]['cor'] == 'White'){ $tr = '<tr style="color: black;" bgcolor="'.$cor[$Percorrer_Notificacao]['cor'].'">'; }else{  $tr = '<tr style="color: white;" bgcolor="'.$cor[$Percorrer_Notificacao]['cor'].'">'; }
                                 $relatorio_Notificacao = $relatorio_Notificacao . $tr .
-                                  '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] . '</td>' .
+                                  '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod']. '</td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['orcamento_base'] . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_emissao'])) . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_entrega'])) . '</td>' .
@@ -712,15 +659,15 @@ if (isset($_SESSION['msg'])) {
                               // $valor_total_Notificacao =  $valor_total_Notificacao + $Tabela_Orc_Notificacao[$Percorrer_Notificacao]["valor_total"] ;
                               $Percorrer_Notificacao++;
                             }
-                            if (isset($relatorio_Notificacao)) {
+                            if(isset($relatorio_Notificacao)){
                               echo $relatorio_Notificacao;
-                            } else {
+                            }else{
                               $relatorio_Notificacao = '<tr>' .
-                                '<td>Não há nenhuma pendência</td>';
-
+                                  '<td>Não há nenhuma pendência</td>';
+                                  
                               echo $relatorio_Notificacao;
                             }
-
+                            
                             ?>
 
                           </tbody>
@@ -731,87 +678,3 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
             </div>
-            <?php if ($_SESSION['feedback'] == 'false') { ?>
-              <div style="width: 600px;" id="feedback" class="bs-toast toast toast-placement-ex m-2 fade bg-dark bottom-0 start-50 translate-middle-x show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
-                <div class="toast-header">
-                  <i class="bx bx-bell me-2"></i>
-                  <div class="me-auto fw-semibold">Pesquisa de Satisfação! <br> Tivemos Atualizações!</div>
-                  <small>Deixe um <b>NOVO</b> feedback</small>
-                  <button v-if="confirmado == true" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div v-if="confirmado == false">
-                  <div class="toast-body">Qual a satisfação quanto as funções e consultas do Sistema?</div>
-                  <div style="padding-left: 20px;" v-if="respondido == false">É necessário enviar um feedback</div>
-                  <div style="padding-left: 20px;" v-else>Clique em Enviar Feedback</div>
-                  <div style="padding-left: 20px;" class="row ">
-                    <div @click="valornota(20)" class=" p-2 m-2 btn btn-danger col-2 text-center">☹️<br>Muito Insatisfeito</div>
-                    <div @click="valornota(40)" class=" p-2 m-2 btn btn-danger col-2 text-center">🙁<br>Insatisfeito</div>
-                    <div @click="valornota(60)" class=" p-2 m-2 btn btn-warning col-2 text-center">😐<br>Neutro</div>
-                    <div @click="valornota(80)" class=" p-2 m-2 btn btn-success col-2 text-center">🙂<br>Satisfeito</div>
-                    <div @click="valornota(100)" class=" p-2 m-2 btn btn-success col-2 text-center">😃<br>Muito Satisfeito</div>
-                  </div>
-                  <div class="p-2">
-                    <label>Deixe um feedback (opcional)</label>
-                    <input class="form-control" v-model="feedback.texto" type="text" placeholder="Deixe aqui seu feedback" id="html5-text-input">
-                    <br>
-                    <div class="align-items-center justify-content-center text-center">
-                      <button v-if="respondido == true" @click="enviarrelatorio()" class=" col-6  btn btn-outline-success">Enviar Feedback</button>
-                    </div>
-                  </div>
-                </div>
-                <div style="height: 300px; color: yellow;" v-else>
-
-                  <div class="align-items-center justify-content-center text-center p-5"><iconify-icon icon="raphael:checked" width="50" height="50"></iconify-icon> <br> Feedback enviado com sucesso! Obrigado.<br>
-                    <button v-if="confirmado == true" type="button" class="btn btn-success" data-bs-dismiss="toast" aria-label="Close">FECHAR</button>
-                  </div>
-                </div>
-              </div>
-
-              <script>
-                const app = new Vue({
-                  el: "#feedback",
-
-                  data: {
-                    feedback: {
-                      nota: null,
-                      texto: '',
-                    },
-                    respondido: false,
-                    confirmado: false,
-                  },
-                  methods: {
-                    valornota(valor) {
-                      this.feedback.nota = valor;
-                      this.respondido = true;
-                    },
-                    textofeed(valor) {
-                      this.feedback.texto = valor;
-                    },
-                    enviarrelatorio() {
-                      if (!this.feedback.nota) {
-                        console.log('nenhuma nota');
-                      } else {
-                        fetch("../html/enviar_relatorio.php", {
-                            method: "post",
-                            headers: {
-                              "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(this.feedback)
-                          })
-                          .then(response => {
-                            return response.json();
-                          })
-                          .then(data => {
-                            if (data.message == 'sucesso') {
-                              this.confirmado = true;
-                            } else {
-                              this.confirmado = false;
-                            }
-                          });
-                      }
-                    }
-                  }
-                });
-              </script>
-
-            <?php } ?>

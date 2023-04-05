@@ -1,6 +1,6 @@
-<?php /* |||   */ include_once("../html/navbar.php"); ?>
+<?php  include_once("../html/navbar.php"); ?>
 
-<?php /* |||   */ include_once("../html/../html/navbar.php");
+<?php  include_once("../html/../html/navbar.php");
 date_default_timezone_set('America/Sao_Paulo');
 $hoje = date('Y-m-d');
 $datetime = date('Y-m-d H:i:s');
@@ -10,7 +10,7 @@ if (isset($_SESSION['msg'])) {
   unset($_SESSION['msg']);
 }
 ?>
-<?php /* |||   */ if (isset($_GET['tp']) && !isset($_GET['id'])) {
+<?php  if (isset($_GET['tp']) && !isset($_GET['id'])) {
 
   if ($_GET['tp'] == 1) {
     echo '<small class="text-light fw-semibold d-block">Selecione um Menu:</small><div class=" form-check form-check-inline mt-3">
@@ -95,7 +95,7 @@ if (isset($_SESSION['msg'])) {
   </div>';
 } ?>
 
-<?php /* |||   */ if (isset($_GET['id']) && isset($_GET['tp'])) { ?>
+<?php  if (isset($_GET['id']) && isset($_GET['tp'])) { ?>
 
   <?php
   $cod_Pesquisa = $_GET['id'];
@@ -254,8 +254,8 @@ if (isset($_SESSION['msg'])) {
   ?>
         
 
-      <?php /* |||   */ } ?>
-    <?php /* |||   */ include_once("../html/../html/navbar-dow.php"); ?>
+      <?php  } ?>
+    <?php  include_once("../html/../html/navbar-dow.php"); ?>
 
 
-    <?php /* |||   */ include_once("../html/../html/../html/navbar-dow.php"); ?>
+    <?php  include_once("../html/../html/../html/navbar-dow.php"); ?>

@@ -1,4 +1,4 @@
-<?php /* |||   */ include_once("../html/../html/navbar.php");
+<?php  include_once("../html/../html/navbar.php");
 $_SESSION["pag"] = array(1, 0);
 
 $data = date('Y-m-d');
@@ -389,5 +389,5 @@ $data = date('Y-m-d');
 
 
 
-<?php /* |||   */ include_once("../html/../html/navbar-dow.php"); ?>
+<?php  include_once("../html/../html/navbar-dow.php"); ?>
 <script src="../js/faturamento.js"></script>

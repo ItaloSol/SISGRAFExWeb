@@ -9066,7 +9066,7 @@ function _putfonts() {
 						fwrite($fh,$font,strlen($font));
 						fclose($fh);
 						$fh = fopen(_MPDF_TTFONTDATAPATH.$fontkey.'.ps.php',"wb");
-						$len = "<?php /* ||| 
+						$len = "<?php \n";
 						$len.='$originalsize='.$originalsize.";\n";
 						$len.="?>";
 						fwrite($fh,$len,strlen($len));
