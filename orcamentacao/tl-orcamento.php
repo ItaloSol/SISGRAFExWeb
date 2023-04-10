@@ -413,6 +413,7 @@ $valor_total_Finalizadas = 0;
     </div>
   </div>
 </div>
+<?php include_once('modal-enviarop.php'); ?>
 <script>
   const selects = document.getElementById('selects');
   const simpleszao = document.getElementById('simpleszao');
