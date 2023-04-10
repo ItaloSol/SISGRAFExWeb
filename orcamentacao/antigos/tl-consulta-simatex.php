@@ -1,4 +1,4 @@
-<?php /* |--  --| */ include_once("../html/navbar.php");?>
+<?php  include_once("../html/navbar.php");?>
 
 
               <!-- Div da Direita (Cadastro de Acabamentos) -->
@@ -281,4 +281,4 @@
             </div>
                             
 
-<?php /* |--  --| */ include_once("../html/navbar-dow.php"); ?>
+<?php  include_once("../html/navbar-dow.php"); ?>

@@ -1,4 +1,4 @@
-<?php /* |--  --| */ /* |--  --| */   include_once("../html/../html/navbar.php");$_SESSION["pag"] = array( 1,0) ;
+<?php     include_once("../html/../html/navbar.php");$_SESSION["pag"] = array( 1,0) ;
 
 $a = 0;
 $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' ORDER BY a.nome_atendente ASC ");
@@ -193,7 +193,7 @@ $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOI
                               <div class="mb-3">
                                 <select class="form-select" name="emissorCod" >
                                   <option selected>Selecione o emissor</option>
-                                  <?php /* |--  --| */ /* |--  --| */ 
+                                  <?php   
                                   while($a < $Operadores){ 
                                     echo '<option value="'.$Codigo[$a].'">'.$Codigo[$a].' - '.$Nome_Atem[$a].'</option>';
                                     $a++;  
@@ -458,4 +458,4 @@ $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOI
             </div>
                      
 
-<?php /* |--  --| */ /* |--  --| */ include_once("../html/../html/navbar-dow.php"); ?>
+<?php   include_once("../html/../html/navbar-dow.php"); ?>

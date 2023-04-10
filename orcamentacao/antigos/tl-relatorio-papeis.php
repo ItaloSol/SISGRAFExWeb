@@ -1,4 +1,4 @@
-<?php /* |--  --| */   include_once("../html/../html/navbar.php");$_SESSION["pag"] = array( 1,0) ;?>
+<?php    include_once("../html/../html/navbar.php");$_SESSION["pag"] = array( 1,0) ;?>
             
             
               <div class="card mb-4">
@@ -200,4 +200,4 @@
             </div>
                      
 
-<?php /* |--  --| */ include_once("../html/../html/navbar-dow.php"); ?>
+<?php  include_once("../html/../html/navbar-dow.php"); ?>
