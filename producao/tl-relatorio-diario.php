@@ -1,4 +1,4 @@
-<?php /* |--  --| */ include_once("../html/navbar.php"); 
+<?php  include_once("../html/navbar.php"); 
 $query_atendent = $conexao->prepare("SELECT * FROM relatorio_diario r INNER JOIN tabela_atendentes a ON a.codigo_atendente = r.atendente_relatorio ORDER BY r.data_relatorio DESC"); 
 $query_atendent->execute(); 
 
@@ -54,7 +54,7 @@ if(isset($_SESSION['msg'])){
         </tr>
       </thead>
       <tbody>
-        <?php /* |--  --| */ 
+        <?php  
          while($linha = $query_atendent->fetch(PDO::FETCH_ASSOC)) {
             $NAM = $linha['nome_atendente'];
             $DATA = $linha['data_relatorio'];
@@ -85,4 +85,4 @@ if(isset($_SESSION['msg'])){
 
     
     
- <?php /* |--  --| */   include_once("../html/navbar-dow.php"); ?>
+ <?php    include_once("../html/navbar-dow.php"); ?>

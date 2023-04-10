@@ -1,4 +1,4 @@
-<?php /* |--  --| */ include_once("../html/navbar.php");
+<?php  include_once("../html/navbar.php");
 $a = 0;
 $hoje = date('Y-m-d');
 $mes = date('Y-m');
@@ -85,7 +85,7 @@ while ($STS = $query_Sts_Pord->fetch(PDO::FETCH_ASSOC)) {
 };
 
 ?>
-<?php /* |--  --| */ if (isset($_SESSION['msg'])) {
+<?php  if (isset($_SESSION['msg'])) {
   echo $_SESSION['msg'];
   unset($_SESSION['msg']);
 }  ?>
@@ -498,10 +498,10 @@ if (isset($_GET['cod'])) {
                       <!-- <button type="submit" class="btn btn-primary">Observações</button>
                         <button type="submit" class="btn btn-dark">Imprimir</button> -->
                       <!-- Toggle Between Modals -->
-                      <?php /* |--  --| */ if ($PROD_I == '1' && $Ordens_Selecionada['status'] != '10' && $Ordens_Selecionada['status'] != '17') { ?> <button type="button" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle">
+                      <?php  if ($PROD_I == '1' && $Ordens_Selecionada['status'] != '10' && $Ordens_Selecionada['status'] != '17') { ?> <button type="button" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle">
                           Salvar
                         </button>
-                      <?php /* |--  --| */ } else {
+                      <?php  } else {
                         echo  'Você não tem permissão para alterar essa OP';
                       } ?>
                       <br></br>
@@ -515,7 +515,7 @@ if (isset($_GET['cod'])) {
         </div>
       </div>
       <!-- Modal 1-->
-      <?php /* |--  --| */ if ($PROD_I == '1') { ?>
+      <?php  if ($PROD_I == '1') { ?>
         <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -537,7 +537,7 @@ if (isset($_GET['cod'])) {
             </div>
           </div>
         </div>
-      <?php /* |--  --| */ } ?>
+      <?php  } ?>
       <!-- Datas -->
       <br>
       <div class="card accordion-item">
@@ -1008,4 +1008,4 @@ if (isset($_GET['cod'])) {
 
 
 
-    <?php /* |--  --| */ include_once("../html/navbar-dow.php"); ?>
+    <?php  include_once("../html/navbar-dow.php"); ?>

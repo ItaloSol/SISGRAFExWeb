@@ -1,4 +1,4 @@
-<?php /* |--  --| */ 
+<?php  
 session_start();
 include_once('../conexoes/conexao.php');
     if(isset($_POST['nome']) && isset($_POST['relatorio'])){
