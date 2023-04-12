@@ -34,6 +34,9 @@ if (isset($_GET['cod'])) {
 }
 
 
+$tipo_papel_qtd_loop = 0;
+$qtd_acabamentos = 0;
+$papels = 0;
 
 
 $query_Sts = $conexao->prepare("SELECT * FROM sts_orcamento  ORDER BY CODIGO ASC ");
@@ -82,7 +85,46 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
   $Pesquisa_Cliente = $Orcamento_pesquisa['cod_cliente'];
   $Tipo_Cliente = $Orcamento_pesquisa['tipo_cliente'];
 
-  $quantiadade = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento  WHERE cod_orcamento = '$Pesquisa_orcamento'");
+  $query_produtos_orcamentos = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE cod_orcamento = $cod_orcamento ");
+$query_produtos_orcamentos->execute();
+$i = 0;
+if ($linha_pp = $query_produtos_orcamentos->fetch(PDO::FETCH_ASSOC)) {
+
+
+    $Produtos_orcamento = [
+      'cod' => $linha_pp['cod'],
+      'cod_orcamento' => $linha_pp['cod_orcamento'],
+      'tipo_produto' => $linha_pp['tipo_produto'],
+      'cod_produto' => $linha_pp['cod_produto'],
+      'descricao_produto' => $linha_pp['descricao_produto'],
+      'quantidade' => $linha_pp['quantidade'],
+      'observacao_produto' => $linha_pp['observacao_produto'],
+      'preco_unitario' => $linha_pp['preco_unitario'],
+      'valor_digital' => $linha_pp['valor_digital'],
+      'tipo_trabalho' => $linha_pp['tipo_trabalho'],
+      'maquina' => $linha_pp['maquina'],
+      'caminho' => $linha_pp['caminho'],
+      
+    ];
+    
+      $tipo_produto = $linha_pp['tipo_produto'];
+      $cod_produto = $linha_pp['cod_produto'];
+  }
+  if ($tipo_produto == '1') {
+    $query_produto = $conexao->prepare("SELECT * FROM produtos WHERE CODIGO = $cod_produto ");
+}
+if ($tipo_produto == '2') {
+    $query_produto = $conexao->prepare("SELECT * FROM produtos_pr_ent WHERE CODIGO = $cod_produto ");
+}
+$query_produto->execute();
+if ($linha_pn = $query_produto->fetch(PDO::FETCH_ASSOC)) {
+    $largura = $linha_pn['LARGURA'];
+    $ALTURA = $linha_pn['ALTURA'];
+    $QTD_PAGINAS = $linha_pn['QTD_PAGINAS'];
+    $TIPO = $linha_pn['TIPO'];
+    $DESCRICAO = $linha_pn['DESCRICAO'];
+}
+  $quantiadade = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento  WHERE cod_orcamento = '$cod_orcamento'");
   $quantiadade->execute();
 
   if ($linha2 = $quantiadade->fetch(PDO::FETCH_ASSOC)) {
@@ -96,6 +138,111 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
       'quantidade' => 'Não Encontrada',
       'descricao' => 'Não Encontrada'
     ];
+  }
+  $query_seexistecalculo = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_proposta = $cod_orcamento AND tipo_produto = $tipo_produto");
+  $query_seexistecalculo->execute();
+  if ($linhaAA = $query_seexistecalculo->fetch(PDO::FETCH_ASSOC)) {
+      $existe_dados = 1;
+  }
+  if (isset($existe_dados)) {
+      $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_proposta = $cod_orcamento AND tipo_produto = $tipo_produto");
+  } else {
+      $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_proposta = $cod_orcamento AND tipo_produto = $tipo_produto");
+  }
+
+
+  $query_calculos_op->execute();
+  while ($linha5 = $query_calculos_op->fetch(PDO::FETCH_ASSOC)) {
+      $cod_papels = $linha5['cod_papel'];
+      $cod_produtos = $linha5['cod_produto'];
+
+      $calculo_tipo_papel = $linha5['tipo_papel'];
+      $qtd_folhas = $linha5['qtd_folhas'];
+      $qtd_folhas_total = $linha5['qtd_folhas_total'];
+      $qtd_chapas = $linha5['qtd_chapas'];
+      $montagem = $linha5['montagem'];
+      $formato = $linha5['formato'];
+      $perca = $linha5['perca'];
+      $Calculo_cod_produtos[$papels] = $cod_produtos;
+      $Calculo_calculo_tipo_papel[$papels] = $calculo_tipo_papel;
+      $Calculo_qtd_folhas[$papels] = $qtd_folhas;
+      $Calculo_qtd_folhas_total[$papels] = $qtd_folhas_total;
+      $Calculo_qtd_chapas[$papels] = $qtd_chapas;
+      $Calculo_montagem[$papels] = $montagem;
+      $Calculo_formato[$papels] = $formato;
+      $Calculo_perca[$papels] = $perca;
+
+      $query_orid_orc = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_orcamento = $cod_orcamento");
+      $query_orid_orc->execute();
+
+      if ($linha14 = $query_orid_orc->fetch(PDO::FETCH_ASSOC)) {
+          $quantidade = $linha14['quantidade'];
+          $preco_unitario = $linha14['preco_unitario'];
+          $total = $quantidade * $preco_unitario;
+          $Total_De_cada[$tipo_papel_qtd_loop] = $total;
+      }
+
+      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_papel = $cod_papels AND tipo_papel = '$calculo_tipo_papel' ");
+      $query_papel->execute();
+
+      if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
+          $tipo_papel = $linha3['tipo_papel'];
+          $cod_papel = $linha3['cod_papel'];
+          $cor_frente = $linha3['cor_frente'];
+          $cor_verso = $linha3['cor_verso'];
+          $descricao = $linha3['descricao'];
+          $orelha = $linha3['orelha'];
+          //     echo 'cor_frente '. $cor_frente . ' cor_verso '. $cor_verso . '<br>';
+
+          $Papel_tipo_papel[$papels] = $calculo_tipo_papel;
+          $Papel_cod_papel[$papels] = $cod_papel;
+          $Papel_cor_frente[$papels] = $cor_frente;
+          $Papel_cor_verso[$papels] = $cor_verso;
+          $Papel_descricao[$papels] = $descricao;
+          $Papel_orelha[$papels] = $orelha;
+
+          $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $cod_papels  ");
+          $query_do_papel->execute();
+          if ($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
+              $cod_papels = $linha4['cod'];
+              $descricao_do_papel = $linha4['descricao'];
+              $medida = $linha4['medida'];
+              $gramatura = $linha4['gramatura'];
+              $formato = $linha4['formato'];
+              $uma_face = $linha4['uma_face'];
+              $unitario = $linha4['unitario'];
+              //    echo 'cod_papels '. $cod_papels . ' - '. $calculo_tipo_papel . '<br>';
+              $Do_Papel_cod[$tipo_papel_qtd_loop] = $cod_papels;
+              $Do_Papel_descricao_do_papel[$tipo_papel_qtd_loop] = $descricao_do_papel;
+              $Do_Papel_midida[$tipo_papel_qtd_loop] = $medida;
+              $Do_Papel_gramatura[$tipo_papel_qtd_loop] = $gramatura;
+              $Do_Papel_formato[$tipo_papel_qtd_loop] = $formato;
+              $Do_Papel_uma_face[$tipo_papel_qtd_loop] = $uma_face;
+              $Do_Papel_unitario[$tipo_papel_qtd_loop] = $unitario;
+              $tipo_papel_qtd_loop++;
+          }
+      }
+      $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
+      $query_componente->execute();
+      while ($linha12 = $query_componente->fetch(PDO::FETCH_ASSOC)) {
+          $cod_acabamento = $linha12['cod_acabamento'];
+          $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE CODIGO = $cod_acabamento  ");
+          $query_acabamento->execute();
+          if ($linha13 = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
+
+              $cod_acb = $linha13['CODIGO'];
+              $Maquina = $linha13['MAQUINA'];
+              $ATIVA = $linha13['ATIVA'];
+              $CUSTO_HORA = $linha13['CUSTO_HORA'];
+
+              $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acb;
+              $Do_Acabamento_Maquina[$qtd_acabamentos] = $Maquina;
+              $Do_Acabamento_midida[$qtd_acabamentos] = $ATIVA;
+              $Do_Acabamento_CUSTO_HORA[$qtd_acabamentos] = $CUSTO_HORA;
+              $qtd_acabamentos++;
+          }
+      }
+      $papels++;
   }
   if ($Tipo_Cliente == '1') {
 
@@ -667,12 +814,12 @@ $valor_total_Finalizadas = 0;
                       </thead>
                       <tbody class="table-border-bottom-0">
                         <tr>
-                          <td>0000</td>
-                          <td>NOME PRODUTO</td>
-                          <td>00.0</td>
-                          <td>00.0</td>
-                          <td>0</td>
-                          <td>---</td>
+                          <td><?= $Produtos_orcamento['cod'] ?></td>
+                          <td><?= $DESCRICAO ?></td>
+                          <td><?= $largura ?></td>
+                          <td><?= $ALTURA ?></td>
+                          <td><?= $QTD_PAGINAS ?></td>
+                          <td><?= $Produtos_orcamento['observacao_produto'] ?></td>
                         </tr>
 
 
@@ -697,12 +844,12 @@ $valor_total_Finalizadas = 0;
                       </thead>
                       <tbody class="table-border-bottom-0">
                         <tr>
-                          <td>0000</td>
-                          <td>0</td>
-                          <td><input class="form-control" type="checkbox"></td>
-                          <td><input class="form-control" type="checkbox"></td>
-                          <td><input class="form-control" type="number"></td>
-                          <td><input class="form-control" type="number"></td>
+                          <td><?= $Produtos_orcamento['cod'] ?></td>
+                          <td><?= $Produtos_orcamento['quantidade'] ?></td>
+                          <td><input class="form-check-input" type="checkbox"></td>
+                          <td><input class="form-check-input" type="checkbox"></td>
+                          <td><input class="form-control" value="<?= $Produtos_orcamento['valor_digital'] ?>" type="number"></td>
+                          <td><input class="form-control" value="<?= $Produtos_orcamento['preco_unitario'] ?>" type="number"></td>
                         </tr>
 
 
@@ -710,7 +857,7 @@ $valor_total_Finalizadas = 0;
                   </div>
                 </div>
               </div>
-              <div class="tab-pane fade" id="horizontal-impr">
+              <!-- <div class="tab-pane fade" id="horizontal-impr">
                 <div class="card">
                   <h5 class="card-header">IMPRESSÃO</h5>
                   <div class="table-responsive text-nowrap">
@@ -737,7 +884,7 @@ $valor_total_Finalizadas = 0;
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="tab-pane fade" id="horizontal-pap">
                 <div class="card">
                   <h5 class="card-header">PAPEL</h5>
@@ -761,21 +908,24 @@ $valor_total_Finalizadas = 0;
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
+                        <?php for($a = 0; $a < $tipo_papel_qtd_loop; $a++){
+                        echo '
                         <tr>
-                          <td>0000</td>
-                          <td>000</td>
-                          <td>NOME PAPEL</td>
-                          <td>TIPO</td>
-                          <td>0</td>
-                          <td>0</td>
-                          <td><input class="form-control" type="number"></td>
-                          <td><input class="form-control" type="number"></td>
-                          <td><input class="form-control" type="number"></td>
-                          <td>0</td>
-                          <td><input class="form-control" type="number"></td>
-                          <td>0</td>
-                        </tr>
-
+                          <td>'.$Calculo_cod_produtos[$a].'</td>
+                          <td>'.$Papel_cod_papel[$a].'</td>
+                          <td>'.$Papel_descricao[$a].'</td>
+                          <td>'.$Calculo_calculo_tipo_papel[$a].'</td>
+                          <td>'.$Papel_cor_frente[$a].'</td>
+                          <td>'.$Papel_cor_verso[$a].'</td>
+                          <td><input class="form-control" value="'.$Calculo_formato[$a].'" type="number"></td>
+                          <td><input class="form-control" value="'.$Calculo_perca[$a].'" type="number"></td>
+                          <td><input class="form-control" value="'.$Calculo_qtd_folhas_total[$a].'" type="number"></td>
+                          <td>'.$Do_Papel_unitario[$a].'</td>
+                          <td><input class="form-control" value="'.$Calculo_qtd_chapas[$a].'" type="number"></td>
+                          <td>'.$quantidade.'</td>
+                        </tr>';
+                        }
+                         ?>
 
                     </table>
                   </div>
