@@ -4,6 +4,10 @@
                 unset($_SESSION['atualizacoes']);
                 include_once('../notificacoes/mensagem.php');
               }
+              if (isset($_SESSION['problema'])) {
+                echo $_SESSION['problema'];
+                unset($_SESSION['problema']);
+              }
 
               function notificaerro(){
                 echo ' <div  id="alerta4"
