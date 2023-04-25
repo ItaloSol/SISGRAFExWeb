@@ -782,7 +782,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                       ?>
 
                    <div class="table-responsive text-nowrap">
-                     <table class="table">
+                     <table class="table table-responsive">
                        <thead>
                          <tr>
                            <?php

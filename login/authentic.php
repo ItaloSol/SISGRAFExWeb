@@ -42,30 +42,30 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     $versao = $conexao->prepare("SELECT * FROM versao WHERE CODIGO != '2.7.4' ORDER BY CODIGO DESC ");
     $versao->execute();
     $i = 0;
-    $_SESSION['problema'] = '<div  style="   overflow-y: scroll;" id="alerta4"
-    role="bs-toast"
-    class=" bs-toast toast toast-placement-ex m-2 fade bg-danger top-0 start-50 translate-middle-x show "
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true">
-    <div class="toast-header">
-      <i class="bx bx-bell me-2"></i>
-      <div  class="me-auto fw-semibold">PASSANDO POR PROBLEMAS!</div>
-      <small>
+  //   $_SESSION['problema'] = '<div  style="   overflow-y: scroll;" id="alerta4"
+  //   role="bs-toast"
+  //   class=" bs-toast toast toast-placement-ex m-2 fade bg-danger top-0 start-50 translate-middle-x show "
+  //   role="alert"
+  //   aria-live="assertive"
+  //   aria-atomic="true">
+  //   <div class="toast-header">
+  //     <i class="bx bx-bell me-2"></i>
+  //     <div  class="me-auto fw-semibold">PASSANDO POR PROBLEMAS!</div>
+  //     <small>
         
-        </small>
-      <button type="button" style="position: relative;" class="btn-close d-md-block" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
+  //       </small>
+  //     <button type="button" style="position: relative;" class="btn-close d-md-block" data-bs-dismiss="toast" aria-label="Close"></button>
+  //   </div>
     
-    <div class="toast-body">
-    <div class="demo-inline-spacing mt-3">
-    <div class="list-group list-group-flush ">
-    <p>Por favor, observe que o nosso sistema atual está enfrentando algumas dificuldades na geração de relatórios. No entanto, estamos trabalhando arduamente para resolver essas questões o mais rápido possível.</p>
-     <br> <div class="allign-center">Para mais informações consulte o <br> menu de <a " href="../atualizacao/tl-atualizacao.php"><span class="btn btn-primary" style="background-color:blue; color:white padding: 2px;">ATUALIZAÇÕES</span></a></div>
-    </div>
-  </div>
-    </div>
-  </div>';
+  //   <div class="toast-body">
+  //   <div class="demo-inline-spacing mt-3">
+  //   <div class="list-group list-group-flush ">
+  //   <p>Informo que o nosso sistema está enfrentando algumas dificuldades na geração de relatórios. No entanto, estamos trabalhando arduamente para resolver o mais rápido possível.</p>
+  //    <br> <div class="allign-center">Para mais informações consulte o <br> menu de <a " href="../atualizacao/tl-atualizacao.php"><span class="btn btn-primary" style="background-color:blue; color:white padding: 2px;">ATUALIZAÇÕES</span></a></div>
+  //   </div>
+  // </div>
+  //   </div>
+  // </div>';
     while ($linha = $versao->fetch(PDO::FETCH_ASSOC)) {
       $codi = $linha['CODIGO'];
       $atualiz = $linha['ATUALIZACAO'];
