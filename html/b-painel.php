@@ -4,6 +4,10 @@
                 unset($_SESSION['atualizacoes']);
                 include_once('../notificacoes/mensagem.php');
               }
+              if (isset($_SESSION['problema'])) {
+                echo $_SESSION['problema'];
+                unset($_SESSION['problema']);
+              }
 
               function notificaerro(){
                 echo ' <div  id="alerta4"
@@ -778,7 +782,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                       ?>
 
                    <div class="table-responsive text-nowrap">
-                     <table class="table">
+                     <table class="table table-responsive">
                        <thead>
                          <tr>
                            <?php

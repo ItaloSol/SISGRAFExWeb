@@ -222,10 +222,11 @@ if ($linha_pn = $query_produto->fetch(PDO::FETCH_ASSOC)) {
               $tipo_papel_qtd_loop++;
           }
       }
-      $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
+      $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos  ");
       $query_componente->execute();
       while ($linha12 = $query_componente->fetch(PDO::FETCH_ASSOC)) {
           $cod_acabamento = $linha12['cod_acabamento'];
+          
           $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE CODIGO = $cod_acabamento  ");
           $query_acabamento->execute();
           if ($linha13 = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
@@ -234,7 +235,7 @@ if ($linha_pn = $query_produto->fetch(PDO::FETCH_ASSOC)) {
               $Maquina = $linha13['MAQUINA'];
               $ATIVA = $linha13['ATIVA'];
               $CUSTO_HORA = $linha13['CUSTO_HORA'];
-
+              $Do_Acabamento_cod_produtos[$qtd_acabamentos] = $cod_produtos;
               $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acb;
               $Do_Acabamento_Maquina[$qtd_acabamentos] = $Maquina;
               $Do_Acabamento_midida[$qtd_acabamentos] = $ATIVA;
@@ -427,6 +428,12 @@ $valor_total_Finalizadas = 0;
                       </div>
                       <div class="col-3  ">
                         <div class=" mb-3 ">
+                        <a class="btn btn-warning">
+                          <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
+                          Enviar para Produção
+                        </a>
+                      </div>
+                      <div class=" mb-3 ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 || $Orcamento_pesquisa['status'] == 3 || $Orcamento_pesquisa['status'] == 11 || $Orcamento_pesquisa['status'] == 4) {
                             if ($Orcamento_pesquisa['valor_total'] <= $Tabela_Clientes['credito']) { ?>
                               <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod"
@@ -922,7 +929,7 @@ $valor_total_Finalizadas = 0;
                           <td><input class="form-control" value="'.$Calculo_qtd_folhas_total[$a].'" type="number"></td>
                           <td>'.$Do_Papel_unitario[$a].'</td>
                           <td><input class="form-control" value="'.$Calculo_qtd_chapas[$a].'" type="number"></td>
-                          <td>'.$quantidade.'</td>
+                          <td>INDISPONIVEL</td>
                         </tr>';
                         }
                          ?>
@@ -945,12 +952,16 @@ $valor_total_Finalizadas = 0;
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
+                      <?php for($i = 0; $i < $qtd_acabamentos; $i++){
+                        echo '
                         <tr>
-                          <td>0000</td>
-                          <td>00</td>
-                          <td>TIPO</td>
-                          <td>00.0</td>
-                        </tr>
+                          <td>'.$Do_Acabamento_cod_produtos[$i].'</td>
+                          <td>'.$Do_Acabamento_cod[$i].'</td>
+                          <td>'.$Do_Acabamento_Maquina[$i].'</td>
+                          <td>'.$Do_Acabamento_CUSTO_HORA[$i].'</td>
+                        </tr>';
+                        }
+                         ?>
 
 
                     </table>
