@@ -1072,7 +1072,7 @@ $valor_total_Finalizadas = 0;
           </tr>';
       }
       } else {
-          echo '<tr><td rowspan="3" align="center">NENHUM SELECIONADO</td></tr>';
+          echo '<tr><td colspan="3" align="center">NENHUM SELECIONADO</td></tr>';
       }
                         ?>
                     </table>
