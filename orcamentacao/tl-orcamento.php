@@ -639,12 +639,18 @@ $valor_total_Finalizadas = 0;
                     <div class="input-group">
                       <form method="GET" action="b-update.php">
                         <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                        <div class="row">
+                          <div class="col-6">
+                        <input class="form-control " type="date" name="data"
+                          value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
+                          </div>
+                          <div class="col-6">
+                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                           data-bs-target="#smallModal">
                           Atualizar Data
                         </button>
-                        <input class="form-control " type="date" name="data"
-                          value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
+                        </div>
+                        </div>
                         <!--  -->
                         <!-- Small Modal -->
                         <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
@@ -1090,11 +1096,11 @@ $valor_total_Finalizadas = 0;
               <div class="col-3">
                 <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
 
-                <input class="form-check-input mt-0" type="checkbox" id="valor"
-                  aria-label="checkbox button for following text input" />
+                <input class="form-check-input mt-0" id="arte" type="checkbox" 
+                  aria-label="checkbox button for following text input"  />
 
-                <input type="text" class="form-control" placeholder="R$ 00,00"
-                 value="<?= $Orcamento_pesquisa['ARTE'] ?>" aria-label="Text input with checkbox button" />
+                <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00"
+                 value="<?= $Orcamento_pesquisa['ARTE'] ?>" disabled aria-label="Text input with checkbox button" />
 
               </div>
 
@@ -1104,10 +1110,32 @@ $valor_total_Finalizadas = 0;
                 <input class="form-check-input mt-0" type="checkbox" id="frete" 
                   aria-label="checkbox button for following text input" />
 
-                <input type="text" class="form-control" placeholder="R$ 00,00"
-                  value="<?= $Orcamento_pesquisa['frete'] ?>" aria-label="Text input with radio button" />
+                <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00"
+                  value="<?= $Orcamento_pesquisa['frete'] ?>" disabled aria-label="Text input with radio button" />
 
               </div>
+
+              <script>
+                const frete = document.getElementById('frete');
+                const arte =document.getElementById('arte');
+                const check_frete = document.getElementById('check_frete');
+                const check_arte = document.getElementById('check_arte');
+                frete.addEventListener('click', arr => {
+                if(check_frete.disabled === false){
+                  check_frete.disabled = true; 
+                }else{
+                  check_frete.disabled = false; 
+                }
+               })
+               arte.addEventListener('click', arr => {
+                if(check_arte.disabled === false){
+                  check_arte.disabled = true; 
+                }else{
+                  check_arte.disabled = false; 
+                }
+               })
+
+              </script>
 
               <div class="col-3">
                 <label class="form-label m-0 p-0">Desconto (%)</label>
