@@ -93,7 +93,7 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
   $query_produtos_orcamentos = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE cod_orcamento = $cod_orcamento ");
   $query_produtos_orcamentos->execute();
 
-  while($linha_pp = $query_produtos_orcamentos->fetch(PDO::FETCH_ASSOC)) {
+  while ($linha_pp = $query_produtos_orcamentos->fetch(PDO::FETCH_ASSOC)) {
 
 
     $Produtos_orcamento[$qtdX] = [
@@ -258,21 +258,21 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
   $query_componente_orc->execute();
   $Servico_N = true;
   while ($linha88 = $query_componente_orc->fetch(PDO::FETCH_ASSOC)) {
-      $cod_componente_1 = $linha88['cod_componente_1'];
-      $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE cod = $cod_componente_1  ");
-      $query_servicos->execute();
-      if ($linha89 = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
-          $cod_servicoes = $linha89['cod'];
-          $descricao_servicoes = $linha89['descricao'];
-          $vlr_unitar = $linha89['valor_unitario'];
-          $Do_servico_cod[$servicos] = $cod_servicoes;
-          $Do_servico_vlr[$servicos] = $vlr_unitar;
-          $Do_servico_descricao[$servicos] = $descricao_servicoes;
-          $servicos++;
-      }
-      if (!isset($Do_servico_cod[0])) {
-          $Servico_N = 'NENHUM SELECIONADO';
-      }
+    $cod_componente_1 = $linha88['cod_componente_1'];
+    $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE cod = $cod_componente_1  ");
+    $query_servicos->execute();
+    if ($linha89 = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
+      $cod_servicoes = $linha89['cod'];
+      $descricao_servicoes = $linha89['descricao'];
+      $vlr_unitar = $linha89['valor_unitario'];
+      $Do_servico_cod[$servicos] = $cod_servicoes;
+      $Do_servico_vlr[$servicos] = $vlr_unitar;
+      $Do_servico_descricao[$servicos] = $descricao_servicoes;
+      $servicos++;
+    }
+    if (!isset($Do_servico_cod[0])) {
+      $Servico_N = 'NENHUM SELECIONADO';
+    }
   }
   if ($Tipo_Cliente == '1') {
 
@@ -339,7 +339,6 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
     ];
     $endereco++;
   }
-
 }
 
 //////
@@ -426,12 +425,14 @@ $valor_total_Finalizadas = 0;
                         <div class="row mb-3 ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 || $Orcamento_pesquisa['status'] == 2 || $Orcamento_pesquisa['status'] == 3) { ?>
                             <a href="b-update.php?acao=6&cod=<?= $cod_orcamento ?>" class="btn btn-danger">
-                              <iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon> <br>Não
+                              <iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon>
+                              <br>Não
                               aprovado pelo cliente
                             </a>
                           <?php } else { ?>
                             <a class="btn btn-danger">
-                              <iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon> <br>Não
+                              <iconify-icon icon="mdi:close-circle-outline" width="24" height="24"></iconify-icon>
+                              <br>Não
                               aprovado pelo cliente
                             </a>
                           <?php } ?>
@@ -549,7 +550,8 @@ $valor_total_Finalizadas = 0;
                       </div>
 
                       <div class="col-sm-6">
-                        <input type="radio" name="tipo" id="cliente" value="2"> <label for="cliente">OD - Cliente</label>
+                        <input type="radio" name="tipo" id="cliente" value="2"> <label for="cliente">OD -
+                          Cliente</label>
                       </div>
 
                     <?php } ?>
@@ -596,22 +598,7 @@ $valor_total_Finalizadas = 0;
   </div>
 </div>
 <?php include_once('modal-enviarop.php'); ?>
-<script>
-  const selects = document.getElementById('selects');
-  const simpleszao = document.getElementById('simpleszao');
-  const detalhadao = document.getElementById('detalhadao');
-  const SIMPLES = document.getElementById('SIMPLES');
-  const DETALHADO = document.getElementById('DETALHADO');
 
-  SIMPLES.addEventListener('click', vlr => {
-    simpleszao.classList.remove('tira');
-    detalhadao.classList.add('tira');
-  })
-  DETALHADO.addEventListener('click', vlr => {
-    detalhadao.classList.remove('tira');
-    simpleszao.classList.add('tira');
-  })
-</script>
 <!--  -->
 <div class="col-md mb-4 mb-md-0">
   <div class="accordion mt-3" id="accordionExample">
@@ -647,15 +634,15 @@ $valor_total_Finalizadas = 0;
                         <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
                         <div class="row">
                           <div class="col-6">
-                        <input class="form-control " type="date" name="data"
-                          value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
+                            <input class="form-control " type="date" name="data"
+                              value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
                           </div>
                           <div class="col-6">
-                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                          data-bs-target="#smallModal">
-                          Atualizar Data
-                        </button>
-                        </div>
+                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                              data-bs-target="#smallModal">
+                              Atualizar Data
+                            </button>
+                          </div>
                         </div>
                         <!--  -->
                         <!-- Small Modal -->
@@ -686,41 +673,7 @@ $valor_total_Finalizadas = 0;
                         <!--  -->
                       </form>
                     </div>
-                    <script>
-                      const cod_orc = document.getElementById('cod_orc_')
-                      const grafica = document.getElementById("grafica");
-                      const cliente = document.getElementById("cliente");
-                      const grafica1 = document.getElementById("odN");
-                      const cliente1 = document.getElementById("odA");
-                      const od = document.getElementById('off');
-                      if (od) {
 
-                      } else {
-                        cliente.addEventListener('click', vm => {
-                          cliente.checked = true;
-                          cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                        })
-                        grafica.addEventListener('click', vm => {
-                          grafica.checked = true;
-                          cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                        })
-                        if (cliente.checked) {
-                          cliente.checked = true;
-                          cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                        } else {
-                          grafica.checked = true;
-                          cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                          grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                        }
-                        if (document.querySelector('off')) {
-                          cliente1.href = '#';
-                          grafica1.href = '#';
-                        }
-                      }
-                    </script>
                   </div>
                 </div>
                 <div class="card-header d-flex align-items-center justify-content-between">
@@ -854,7 +807,7 @@ $valor_total_Finalizadas = 0;
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
-                        <?php 
+                        <?php
                         for ($a = 0; $a < $qtdX; $a++) { ?>
                           <tr>
                             <td>
@@ -898,31 +851,34 @@ $valor_total_Finalizadas = 0;
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
-                         <?php 
+                        <?php
                         for ($a = 0; $a < $qtdX; $a++) { ?>
-                        <tr>
-                          <td>
-                            <?= $Produtos_orcamento[$a]['cod'] ?>
-                          </td>
-                          <td>
-                            <?= $Produtos_orcamento[$a]['quantidade'] ?>
-                          </td>
-                          <?php if($Produtos_orcamento[$a]['tipo_produto'] == '1'){ ?>
-                          <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck3" checked=""></td>
-                          <?php }else{ ?>
-                           <td><input class="form-check-input" type="checkbox"></td>
-                          <?php } if($Produtos_orcamento[$a]['tipo_produto'] == '2'){ ?>
-                          <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck3" checked=""></td>
-                          <?php }else{ ?>
-                          <td><input class="form-check-input" type="checkbox"></td>
-                          <?php } ?>
-                         
-                          <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['valor_digital'] ?>"
-                              type="number"></td>
-                          <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['preco_unitario'] ?>"
-                              type="number"></td>
-                        </tr>
-                          <?php } ?>
+                          <tr>
+                            <td>
+                              <?= $Produtos_orcamento[$a]['cod'] ?>
+                            </td>
+                            <td>
+                              <?= $Produtos_orcamento[$a]['quantidade'] ?>
+                            </td>
+                            <?php if ($Produtos_orcamento[$a]['tipo_produto'] == '1') { ?>
+                              <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck3" checked="">
+                              </td>
+                            <?php } else { ?>
+                              <td><input class="form-check-input" type="checkbox"></td>
+                            <?php }
+                            if ($Produtos_orcamento[$a]['tipo_produto'] == '2') { ?>
+                              <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck3" checked="">
+                              </td>
+                            <?php } else { ?>
+                              <td><input class="form-check-input" type="checkbox"></td>
+                            <?php } ?>
+
+                            <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['valor_digital'] ?>"
+                                type="number"></td>
+                            <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['preco_unitario'] ?>"
+                                type="number"></td>
+                          </tr>
+                        <?php } ?>
 
                     </table>
                   </div>
@@ -993,7 +949,7 @@ $valor_total_Finalizadas = 0;
                           <td><input class="form-control" value="' . $Calculo_qtd_folhas_total[$a] . '" type="number"></td>
                           <td>' . $Do_Papel_unitario[$a] . '</td>
                           <td><input class="form-control" value="' . $Calculo_qtd_chapas[$a] . '" type="number"></td>
-                          <td>'.$preco_chapa.'</td>
+                          <td>' . $preco_chapa . '</td>
                         </tr>';
                         }
                         ?>
@@ -1018,13 +974,13 @@ $valor_total_Finalizadas = 0;
                       <tbody class="table-border-bottom-0">
                         <?php $exibidos = [];
 
-                      for ($i = 0; $i < $qtd_acabamentos; $i++) {
+                        for ($i = 0; $i < $qtd_acabamentos; $i++) {
                           // Verifica se o valor já foi exibido anteriormente
                           $valor_exibido = implode('-', [$Do_Acabamento_cod_produtos[$i], $Do_Acabamento_cod[$i]]);
                           if (in_array($valor_exibido, $exibidos)) {
-                              continue;
+                            continue;
                           }
-                      
+
                           // Adiciona o valor ao array de valores exibidos
                           $exibidos[] = $valor_exibido;
 
@@ -1037,7 +993,7 @@ $valor_total_Finalizadas = 0;
                                   <td>' . $Do_Acabamento_CUSTO_HORA[$i] . '</td>
                               </tr>
                           ';
-                      }
+                        }
                         ?>
 
 
@@ -1074,18 +1030,18 @@ $valor_total_Finalizadas = 0;
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
-                        <?php 
+                        <?php
                         if ($servicos > 0) {
-      for ($i = 0; $i < $servicos; $i++) {
-          echo '<tr>
+                          for ($i = 0; $i < $servicos; $i++) {
+                            echo '<tr>
           <td>' . $Do_servico_cod[$i] . '</td>
           <td> ' . $Do_servico_descricao[$i] . '</td>
-          <td> '.$Do_servico_vlr[$i].'</td>
+          <td> ' . $Do_servico_vlr[$i] . '</td>
           </tr>';
-      }
-      } else {
-          echo '<tr><td colspan="3" align="center">NENHUM SELECIONADO</td></tr>';
-      }
+                          }
+                        } else {
+                          echo '<tr><td colspan="3" align="center">NENHUM SELECIONADO</td></tr>';
+                        }
                         ?>
                     </table>
                   </div>
@@ -1095,25 +1051,26 @@ $valor_total_Finalizadas = 0;
             <div class="container row ">
               <div class="col-3">
                 <label class="form-label m-0 p-0">CIF (%)</label>
-                <input type="text" class="form-control" id="defaultFormControlInput" value="<?= $Orcamento_pesquisa['sif'] ?>" placeholder="0%"
+                <input type="text" class="form-control" id="defaultFormControlInput"
+                  value="<?= $Orcamento_pesquisa['sif'] ?>" placeholder="0%"
                   aria-describedby="defaultFormControlHelp" />
 
               </div>
               <div class="col-3">
                 <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
 
-                <input class="form-check-input mt-0" id="arte" type="checkbox" 
-                  aria-label="checkbox button for following text input"  />
+                <input class="form-check-input mt-0" id="arte" type="checkbox"
+                  aria-label="checkbox button for following text input" />
 
                 <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00"
-                 value="<?= $Orcamento_pesquisa['ARTE'] ?>" disabled aria-label="Text input with checkbox button" />
+                  value="<?= $Orcamento_pesquisa['ARTE'] ?>" disabled aria-label="Text input with checkbox button" />
 
               </div>
 
               <div class="col-3">
                 <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
 
-                <input class="form-check-input mt-0" type="checkbox" id="frete" 
+                <input class="form-check-input mt-0" type="checkbox" id="frete"
                   aria-label="checkbox button for following text input" />
 
                 <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00"
@@ -1121,27 +1078,7 @@ $valor_total_Finalizadas = 0;
 
               </div>
 
-              <script>
-                const frete = document.getElementById('frete');
-                const arte =document.getElementById('arte');
-                const check_frete = document.getElementById('check_frete');
-                const check_arte = document.getElementById('check_arte');
-                frete.addEventListener('click', arr => {
-                if(check_frete.disabled === false){
-                  check_frete.disabled = true; 
-                }else{
-                  check_frete.disabled = false; 
-                }
-               })
-               arte.addEventListener('click', arr => {
-                if(check_arte.disabled === false){
-                  check_arte.disabled = true; 
-                }else{
-                  check_arte.disabled = false; 
-                }
-               })
 
-              </script>
 
               <div class="col-3">
                 <label class="form-label m-0 p-0">Desconto (%)</label>
@@ -1167,6 +1104,8 @@ $valor_total_Finalizadas = 0;
   <!-- Botão para abrir o primeiro modal -->
 
 
+
+
   <!-- Primeiro modal PRODUTOS GERAL -->
   <div class="modal" id="modal1">
     <div class="modal-dialog modal-xl" role="document">
@@ -1183,6 +1122,7 @@ $valor_total_Finalizadas = 0;
               <a class="list-group-item list-group-item-action" id="novo-produto" data-bs-toggle="list"
                 href="#novo1-produto">Novo Produto</a>
             </div>
+
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="consulta1-produto">
                 <div class="card">
@@ -1197,21 +1137,24 @@ $valor_total_Finalizadas = 0;
                           <option value="2">CODIGO</option>
                         </select>
                       </div>
-                      <div class="form-check col-sm-3">
-                        <input name="default-radio-1" class="form-check-input" type="radio" value=""
-                          id="defaultRadio1" />
-                        <label class="form-check-label" for="defaultRadio1"> PRODUÇÃO(PP) </label> <BR>
-                        <input name="default-radio-1" class="form-check-input" type="radio" value=""
-                          id="defaultRadio2" />
-                        <label class="form-check-label" for="defaultRadio2"> PRONTA ENTREGA(PE) </label>
-                      </div>
-                      <div class="form-check col-sm-5">
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="DIGITE A SUA BUSCA"
-                            aria-label="DIGITE A SUA BUSCA" aria-describedby="button-addon2" />
-                          <button class="btn btn-outline-primary" type="button" id="button-addon2">PESQUISAR</button>
+                      <template id="orcamentacaoProduto">
+                        <div class="form-check col-sm-3">
+
+                          <input type="text" v-model="teste">
+                          <input name="default-radio-1" class="form-check-input" type="radio" value=""
+                            id="defaultRadio1" />
+                          <label class="form-check-label" for="defaultRadio1"> PRODUÇÃO(PP) </label> <BR>
+                          <input name="default-radio-1" class="form-check-input" type="radio" value=""
+                            id="defaultRadio2" />
+                          <label class="form-check-label" for="defaultRadio2"> PRONTA ENTREGA(PE) </label>
                         </div>
-                      </div>
+                        <div class="form-check col-sm-5">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="DIGITE A SUA BUSCA"
+                              aria-label="DIGITE A SUA BUSCA" aria-describedby="button-addon2" />
+                            <button class="btn btn-outline-primary" type="button" id="button-addon2">PESQUISAR</button>
+                          </div>
+                        </div>
                     </div>
                     <?php
                     $query_produtos = $conexao->prepare("SELECT * FROM produtos ORDER BY CODIGO DESC LIMIT 45");
@@ -1402,7 +1345,8 @@ $valor_total_Finalizadas = 0;
                               <input class="form-check-input" name="prev" type="checkbox" value="prevendaS" id="prev" />
                               <div class="row mb-3">
                                 <div class="col-sm-3">
-                                  <label class="col-sm-2 col-form-label" for="valorunitario">VALOR UNITÁRIO(R$)</label>
+                                  <label class="col-sm-2 col-form-label" for="valorunitario">VALOR
+                                    UNITÁRIO(R$)</label>
                                   <input type="number" class="form-control" id="valorunitario" placeholder="0,00" />
                                 </div>
                                 <label class="col-sm-2 col-form-label" for="promo">VALOR PROMOCIONAL(R$)</label>
@@ -1631,7 +1575,7 @@ $valor_total_Finalizadas = 0;
                   </div>
                 </div>
               </div>
-
+              </templete>
 
               <!-- Inicializa o Bootstrap -->
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -1651,6 +1595,111 @@ $valor_total_Finalizadas = 0;
                   }
                 });
               </script>
+
+              <script>
+                const orcamentoproduto = new Vue({
+                  el: "#orcamentacaoProduto",
+                  data: {
+                    produto: 'valor'
+                  },
+                  methods: {
+                    atualizarProduto: function (novoValor) {
+                      this.produto = novoValor;
+                      this.$emit('produto-atualizado', novoValor);
+                    }
+                  }
+                });
+
+                const orcamentoselecionado = new Vue({
+                  el: "#orcamentacaoselecionado",
+                  data: {
+                    produto: ''
+                  },
+                  created: function () {
+                    orcamentoproduto.$on('produto-atualizado', (novoValor) => {
+                      this.produto = novoValor;
+                    });
+                  }
+                });
+              </script>
+
+              <script>
+                const frete = document.getElementById('frete');
+                const arte = document.getElementById('arte');
+                const check_frete = document.getElementById('check_frete');
+                const check_arte = document.getElementById('check_arte');
+                frete.addEventListener('click', arr => {
+                  if (check_frete.disabled === false) {
+                    check_frete.disabled = true;
+                  } else {
+                    check_frete.disabled = false;
+                  }
+                })
+                arte.addEventListener('click', arr => {
+                  if (check_arte.disabled === false) {
+                    check_arte.disabled = true;
+                  } else {
+                    check_arte.disabled = false;
+                  }
+                })
+              </script>
+
+              <script>
+                const cod_orc = document.getElementById('cod_orc_')
+                const grafica = document.getElementById("grafica");
+                const cliente = document.getElementById("cliente");
+                const grafica1 = document.getElementById("odN");
+                const cliente1 = document.getElementById("odA");
+                const od = document.getElementById('off');
+                if (od) {
+
+                } else {
+                  cliente.addEventListener('click', vm => {
+                    cliente.checked = true;
+                    cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
+                    grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
+                  })
+                  grafica.addEventListener('click', vm => {
+                    grafica.checked = true;
+                    cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
+                    grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
+                  })
+                  if (cliente.checked) {
+                    cliente.checked = true;
+                    cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
+                    grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
+                  } else {
+                    grafica.checked = true;
+                    cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
+                    grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
+                  }
+                  if (document.querySelector('off')) {
+                    cliente1.href = '#';
+                    grafica1.href = '#';
+                  }
+                }
+              </script>
+
+              <script>
+                const selects = document.getElementById('selects');
+                const simpleszao = document.getElementById('simpleszao');
+                const detalhadao = document.getElementById('detalhadao');
+                const SIMPLES = document.getElementById('SIMPLES');
+                const DETALHADO = document.getElementById('DETALHADO');
+
+                SIMPLES.addEventListener('click', vlr => {
+                  simpleszao.classList.remove('tira');
+                  detalhadao.classList.add('tira');
+                })
+                DETALHADO.addEventListener('click', vlr => {
+                  detalhadao.classList.remove('tira');
+                  simpleszao.classList.add('tira');
+                })
+              </script>
+
+
+
+
 
 
 
