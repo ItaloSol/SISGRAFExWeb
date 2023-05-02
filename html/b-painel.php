@@ -782,7 +782,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                       ?>
 
                    <div class="table-responsive text-nowrap">
-                     <table class="table">
+                     <table class="table table-responsive">
                        <thead>
                          <tr>
                            <?php
@@ -1242,10 +1242,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'STS_DESCRICAO' => $linha['STS_DESCRICAO'],
                                   'data_entrega' => date($linha['data_entrega']),
                                   'data_emissao' => date($linha['data_emissao']),
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
                                   'data_apr_cliente' => date($linha['data_apr_cliente']),
                                   'data_ent_tipografia' => date($linha['data_ent_tipografia']),
                                   'data_ent_acabamento' => date($linha['data_ent_acabamento']),
@@ -1261,7 +1257,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'data_ent_offset' => date($linha['data_ent_offset']),
                                   'data_envio_div_cmcl' => date($linha['data_envio_div_cmcl']),
                                   'DT_ENT_DIGITAL' => date($linha['DT_ENT_DIGITAL']),
-                                  'data_ent_offset' => date($linha['data_ent_offset']),
                                   'DT_TIPOGRAFIA_PROVA' => date($linha['DT_TIPOGRAFIA_PROVA']),
                                   'DT_ACABAMENTO_PROVA' => date($linha['DT_ACABAMENTO_PROVA']),
                                   'DT_SAIDA_EXPEDICAO' => date($linha['DT_SAIDA_EXPEDICAO']),
@@ -1311,11 +1306,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'cor_ativa' => $linha['cor_ativa'],
                                   'amarelo_controle' => $linha['amarelo_controle'],
                                   'vermelho_controle' => $linha['vermelho_controle'],
-                                  'STS_DESCRICAO' => $linha['STS_DESCRICAO'],
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
                                   'data_apr_cliente' => date($linha['data_apr_cliente']),
                                   'data_ent_tipografia' => date($linha['data_ent_tipografia']),
                                   'data_ent_acabamento' => date($linha['data_ent_acabamento']),
@@ -1331,7 +1321,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'data_ent_offset' => date($linha['data_ent_offset']),
                                   'data_envio_div_cmcl' => date($linha['data_envio_div_cmcl']),
                                   'DT_ENT_DIGITAL' => date($linha['DT_ENT_DIGITAL']),
-                                  'data_ent_offset' => date($linha['data_ent_offset']),
                                   'DT_TIPOGRAFIA_PROVA' => date($linha['DT_TIPOGRAFIA_PROVA']),
                                   'DT_ACABAMENTO_PROVA' => date($linha['DT_ACABAMENTO_PROVA']),
                                   'DT_SAIDA_EXPEDICAO' => date($linha['DT_SAIDA_EXPEDICAO']),

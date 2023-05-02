@@ -72,7 +72,7 @@ while ($linha = $query_sd_posto->fetch(PDO::FETCH_ASSOC)) {
 };
 
 $i = 0;
-$query_Sts_Pord = $conexao->prepare("SELECT * FROM sts_op WHERE CODIGO != '11' AND CODIGO != '12' AND CODIGO != '13'  ORDER BY CODIGO ASC ");
+$query_Sts_Pord = $conexao->prepare("SELECT * FROM sts_op WHERE CODIGO != '11' AND CODIGO != '12'   ORDER BY CODIGO ASC ");
 $query_Sts_Pord->execute();
 $Sts = 0;
 while ($STS = $query_Sts_Pord->fetch(PDO::FETCH_ASSOC)) {
@@ -202,7 +202,7 @@ if (isset($_GET['cod'])) {
   $hoje_Selecionada_Final = date('Y-m-d', strtotime('+' . 2 . 'day', strtotime($hoje_Selecionada_Base)));
   $Entregues_Em_Op = 0;
   $i = 0;
-  $query_Sts = $conexao->prepare("SELECT * FROM sts_op WHERE CODIGO != '11' AND CODIGO != '12' AND CODIGO != '13'  ORDER BY CODIGO ASC ");
+  $query_Sts = $conexao->prepare("SELECT * FROM sts_op WHERE CODIGO != '11' AND CODIGO != '12'  ORDER BY CODIGO ASC ");
   $query_Sts->execute();
   $Sts = 0;
   while ($linha = $query_Sts->fetch(PDO::FETCH_ASSOC)) {

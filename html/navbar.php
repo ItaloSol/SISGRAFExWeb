@@ -558,7 +558,7 @@ if (isset($_SESSION['msg'])) {
 
       <!-- Layout container -->
 
-      <div class="layout-page">
+      <div class="layout-page" >
         <!-- Navbar -->
         <div style=" text-align:center;" class="alert alert-danger" role="alert">SISTEMA EM PROCESSO DE DESENVOLVIMENTO! <br> <span style="font-size: 13px;"> não é a versão final.</span></div>
         <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
@@ -666,7 +666,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="card-body">
                       <div class="scroll-modal alt-modal" class="table-responsive text-nowrap">
                         <small>Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;">Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; " class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
-                        <table class="table table-bordered table-modal">
+                        <table class="table table-bordered table-responsive table-modal">
                           <thead>
                             <tr>
                               <th>Ordem de Produção</th>
