@@ -1137,7 +1137,6 @@ $valor_total_Finalizadas = 0;
                           <option value="2">CODIGO</option>
                         </select>
                       </div>
-                      <template id="orcamentacaoProduto">
                         <div class="form-check col-sm-3">
 
                           <input type="text" v-model="teste">
@@ -1575,7 +1574,7 @@ $valor_total_Finalizadas = 0;
                   </div>
                 </div>
               </div>
-              </templete>
+          
 
               <!-- Inicializa o Bootstrap -->
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -1597,30 +1596,30 @@ $valor_total_Finalizadas = 0;
               </script>
 
               <script>
-                const orcamentoproduto = new Vue({
-                  el: "#orcamentacaoProduto",
-                  data: {
-                    produto: 'valor'
-                  },
-                  methods: {
-                    atualizarProduto: function (novoValor) {
-                      this.produto = novoValor;
-                      this.$emit('produto-atualizado', novoValor);
-                    }
-                  }
-                });
+                // const orcamentoproduto = new Vue({
+                //   el: "#orcamentacaoProduto",
+                //   data: {
+                //     produto: 'valor'
+                //   },
+                //   methods: {
+                //     atualizarProduto: function (novoValor) {
+                //       this.produto = novoValor;
+                //       this.$emit('produto-atualizado', novoValor);
+                //     }
+                //   }
+                // });
 
-                const orcamentoselecionado = new Vue({
-                  el: "#orcamentacaoselecionado",
-                  data: {
-                    produto: ''
-                  },
-                  created: function () {
-                    orcamentoproduto.$on('produto-atualizado', (novoValor) => {
-                      this.produto = novoValor;
-                    });
-                  }
-                });
+                // const orcamentoselecionado = new Vue({
+                //   el: "#orcamentacaoselecionado",
+                //   data: {
+                //     produto: ''
+                //   },
+                //   created: function () {
+                //     orcamentoproduto.$on('produto-atualizado', (novoValor) => {
+                //       this.produto = novoValor;
+                //     });
+                //   }
+                // });
               </script>
 
               <script>
