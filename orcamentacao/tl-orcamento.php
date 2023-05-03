@@ -341,6 +341,8 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
   }
 }
 
+
+
 //////
 if (isset($Orcamento_pesquisa)) {
   $Total_Finalizadas = count($Orcamento_pesquisa);
@@ -823,7 +825,12 @@ $valor_total_Finalizadas = 0;
                               <?= $Produtos_orcamento[$a]['observacao_produto'] ?>
                             </td>
                           </tr>
-                        <?php } ?>
+                        <?php } 
+                         if($qtdX == 0){
+                          echo  '
+                        <tr> 
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
+                        }?>
 
                     </table>
                   </div>
@@ -872,7 +879,12 @@ $valor_total_Finalizadas = 0;
                             <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['preco_unitario'] ?>"
                                 type="number"></td>
                           </tr>
-                        <?php } ?>
+                        <?php }
+                         if($qtdX == 0){
+                          echo  '
+                        <tr> 
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
+                        } ?>
 
                     </table>
                   </div>
@@ -928,10 +940,11 @@ $valor_total_Finalizadas = 0;
 
                         </tr>
                       </thead>
+                     
                       <tbody class="table-border-bottom-0">
                         <?php for ($a = 0; $a < $tipo_papel_qtd_loop; $a++) {
-                          echo '
-                        <tr>
+                          echo  '
+                        <tr> 
                           <td>' . $Calculo_cod_produtos[$a] . '</td>
                           <td>' . $Papel_cod_papel[$a] . '</td>
                           <td>' . $Papel_descricao[$a] . '</td>
@@ -945,6 +958,11 @@ $valor_total_Finalizadas = 0;
                           <td><input class="form-control" value="' . $Calculo_qtd_chapas[$a] . '" type="number"></td>
                           <td>' . $preco_chapa . '</td>
                         </tr>';
+                        }
+                        if($tipo_papel_qtd_loop == 0){
+                          echo  '
+                        <tr> 
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
                         }
                         ?>
 
@@ -987,6 +1005,11 @@ $valor_total_Finalizadas = 0;
                                   <td>' . $Do_Acabamento_CUSTO_HORA[$i] . '</td>
                               </tr>
                           ';
+                        }
+                        if($qtd_acabamentos == 0){
+                          echo  '
+                        <tr> 
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
                         }
                         ?>
 
