@@ -1154,16 +1154,13 @@ $valor_total_Finalizadas = 0;
                           <option value="2">CODIGO</option>
                         </select>
                       </div>
-                        <div class="form-check col-sm-3">
-
-                          <input type="text" v-model="teste">
-                          <input name="default-radio-1" class="form-check-input" type="radio" value=""
-                            id="defaultRadio1" />
-                          <label class="form-check-label" for="defaultRadio1"> PRODUÇÃO(PP) </label> <BR>
-                          <input name="default-radio-1" class="form-check-input" type="radio" value=""
-                            id="defaultRadio2" />
-                          <label class="form-check-label" for="defaultRadio2"> PRONTA ENTREGA(PE) </label>
-                        </div>
+                        <!-- Adicione os botões de opção de rádio para selecionar o tipo de produto -->
+<div class="form-check col-sm-3">
+  <input name="tipoProduto" class="form-check-input" type="radio" value="PP" id="ppRadio" checked />
+  <label class="form-check-label" for="ppRadio">PRODUÇÃO (PP)</label><br>
+  <input name="tipoProduto" class="form-check-input" type="radio" value="PE" id="peRadio" />
+  <label class="form-check-label" for="peRadio">PRONTA ENTREGA (PE)</label>
+</div>
                         <div class="form-check col-sm-5">
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="DIGITE A SUA BUSCA"
@@ -1172,39 +1169,24 @@ $valor_total_Finalizadas = 0;
                           </div>
                         </div>
                     </div>
-                    <?php
-                    $query_produtos = $conexao->prepare("SELECT * FROM produtos ORDER BY CODIGO DESC LIMIT 45");
-                    $query_produtos->execute();
-                    $pr = 0;
-                    while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
-                      $pp[$pr] = [
-                        'CODIGO' => $linha['CODIGO'],
-                        'DESCRICAO' => $linha['DESCRICAO'],
-                      ];
-                      $pr++;
-                    }
-                    ?>
+                  
                     <div style="height: 400px; width: 100%; overflow-y: scroll; ">
-                      <table class="table table-hover table-sm table-bordered">
-                        <tr>
-                          <th>CÓDIGO</th>
-                          <th>TIPO</th>
-                          <th>DESCRIÇÃO</th>
-                          <th>VALOR UNITÁRIO</th>
-                          <th>ESTOQUE</th>
-                          <th>PRÉ-VENDA</th>
-                          <th>PROMOÇÃO</th>
-                        </tr>
-                        <?php
-                        for ($i = 0; $i < $pr; $i++) {
-                          echo '<tr>
-                        <td><a href="#">' . $pp[$i]['CODIGO'] . '</a></td>
-                        <td><a href="#">PP</a></td>
-                        <td><a href="#">' . $pp[$i]['DESCRICAO'] . '</a></td>
-                        </tr>';
-                        }
-                        ?>
-                      </table>
+                    <table class="table table-hover table-sm table-bordered">
+  <thead>
+    <tr>
+      <th>CÓDIGO</th>
+      <th>TIPO</th>
+      <th>DESCRIÇÃO</th>
+      <th>VALOR UNITÁRIO</th>
+      <th>ESTOQUE</th>
+      <th>PRÉ-VENDA</th>
+      <th>PROMOÇÃO</th>
+    </tr>
+  </thead>
+  <tbody id="produtosTableBody">
+    <!-- Os resultados da consulta serão adicionados aqui -->
+  </tbody>
+</table>
                     </div>
                     <!-- AA -->
                   </div>
@@ -1611,6 +1593,72 @@ $valor_total_Finalizadas = 0;
                   }
                 });
               </script>
+
+<script>
+fetch('api_produtos.php')
+  .then(response => response.json())
+  .then(data => {
+    // processa os dados recebidos
+    const pp = data.pp;
+    const pe = data.pe;
+    let ativo_pp = 'Nao';
+
+    // obtém a referência à tabela onde os resultados serão exibidos
+  // obtém referência aos inputs de rádio
+const ppRadio = document.getElementById('ppRadio');
+const peRadio = document.getElementById('peRadio');
+
+// adiciona listener de eventos às mudanças nos inputs de rádio
+ppRadio.addEventListener('change', function() {
+  // atualiza a tabela com os valores de pp
+  ativo_pp = 'Sim';
+  const tableBody = document.getElementById('produtosTableBody');
+  tableBody.innerHTML = '';
+  pp.forEach(produto => {
+    tableBody.innerHTML += `
+      <tr>
+        <td>${produto.CODIGO}</td>
+        <td>${produto.TIPO}</td>
+        <td>${produto.DESCRICAO}</td>
+        <td>${produto.VALOR_UNITARIO}</td>
+      </tr>
+    `;
+  });
+});
+
+peRadio.addEventListener('change', function() {
+  // atualiza a tabela com os valores de pe
+  ativo_pp = 'Sim';
+  const tableBody = document.getElementById('produtosTableBody');
+  tableBody.innerHTML = '';
+  pe.forEach(produto => {
+    tableBody.innerHTML += `
+      <tr>
+        <td>${produto.CODIGO}</td>
+        <td>${produto.TIPO}</td>
+        <td>${produto.DESCRICAO}</td>
+        <td>${produto.VALOR_UNITARIO}</td>
+      </tr>
+    `;
+  });
+});
+if(ativo_pp === 'Nao'){
+    const tableBody = document.getElementById('produtosTableBody');
+  tableBody.innerHTML = '';
+  pp.forEach(produto => {
+    tableBody.innerHTML += `
+      <tr>
+        <td>${produto.CODIGO}</td>
+        <td>${produto.TIPO}</td>
+        <td>${produto.DESCRICAO}</td>
+        <td>${produto.VALOR_UNITARIO}</td>
+      </tr>
+    `;
+  });
+}
+  })
+  .catch(error => console.error(error));
+</script>
 
               <script>
                 // const orcamentoproduto = new Vue({
