@@ -825,12 +825,12 @@ $valor_total_Finalizadas = 0;
                               <?= $Produtos_orcamento[$a]['observacao_produto'] ?>
                             </td>
                           </tr>
-                        <?php } 
-                         if($qtdX == 0){
-                          echo  '
+                        <?php }
+                        if ($qtdX == 0) {
+                          echo '
                         <tr> 
                           <td align="center" colspan="12">NENHUM SELECIONADO</td>';
-                        }?>
+                        } ?>
 
                     </table>
                   </div>
@@ -880,8 +880,8 @@ $valor_total_Finalizadas = 0;
                                 type="number"></td>
                           </tr>
                         <?php }
-                         if($qtdX == 0){
-                          echo  '
+                        if ($qtdX == 0) {
+                          echo '
                         <tr> 
                           <td align="center" colspan="12">NENHUM SELECIONADO</td>';
                         } ?>
@@ -940,10 +940,10 @@ $valor_total_Finalizadas = 0;
 
                         </tr>
                       </thead>
-                     
+
                       <tbody class="table-border-bottom-0">
                         <?php for ($a = 0; $a < $tipo_papel_qtd_loop; $a++) {
-                          echo  '
+                          echo '
                         <tr> 
                           <td>' . $Calculo_cod_produtos[$a] . '</td>
                           <td>' . $Papel_cod_papel[$a] . '</td>
@@ -959,8 +959,8 @@ $valor_total_Finalizadas = 0;
                           <td>' . $preco_chapa . '</td>
                         </tr>';
                         }
-                        if($tipo_papel_qtd_loop == 0){
-                          echo  '
+                        if ($tipo_papel_qtd_loop == 0) {
+                          echo '
                         <tr> 
                           <td align="center" colspan="12">NENHUM SELECIONADO</td>';
                         }
@@ -1006,8 +1006,8 @@ $valor_total_Finalizadas = 0;
                               </tr>
                           ';
                         }
-                        if($qtd_acabamentos == 0){
-                          echo  '
+                        if ($qtd_acabamentos == 0) {
+                          echo '
                         <tr> 
                           <td align="center" colspan="12">NENHUM SELECIONADO</td>';
                         }
@@ -1154,39 +1154,40 @@ $valor_total_Finalizadas = 0;
                           <option value="2">CODIGO</option>
                         </select>
                       </div>
-                        <!-- Adicione os botões de opção de rádio para selecionar o tipo de produto -->
-<div class="form-check col-sm-3">
-  <input name="tipoProduto" class="form-check-input" type="radio" value="PP" id="ppRadio" checked />
-  <label class="form-check-label" for="ppRadio">PRODUÇÃO (PP)</label><br>
-  <input name="tipoProduto" class="form-check-input" type="radio" value="PE" id="peRadio" />
-  <label class="form-check-label" for="peRadio">PRONTA ENTREGA (PE)</label>
-</div>
-                        <div class="form-check col-sm-5">
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="DIGITE A SUA BUSCA"
-                              aria-label="DIGITE A SUA BUSCA" aria-describedby="button-addon2" />
-                            <button class="btn btn-outline-primary" type="button" id="button-addon2">PESQUISAR</button>
-                          </div>
+                      <!-- Adicione os botões de opção de rádio para selecionar o tipo de produto -->
+                      <div class="form-check col-sm-3">
+                        <input name="tipoProduto" class="form-check-input" type="radio" value="PP" id="ppRadio"
+                          checked />
+                        <label class="form-check-label" for="ppRadio">PRODUÇÃO (PP)</label><br>
+                        <input name="tipoProduto" class="form-check-input" type="radio" value="PE" id="peRadio" />
+                        <label class="form-check-label" for="peRadio">PRONTA ENTREGA (PE)</label>
+                      </div>
+                      <div class="form-check col-sm-5">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="DIGITE A SUA BUSCA"
+                            aria-label="DIGITE A SUA BUSCA" aria-describedby="button-addon2" />
+                          <button class="btn btn-outline-primary" type="button" id="button-addon2">PESQUISAR</button>
                         </div>
+                      </div>
                     </div>
-                  
+
                     <div style="height: 400px; width: 100%; overflow-y: scroll; ">
-                    <table class="table table-hover table-sm table-bordered">
-  <thead>
-    <tr>
-      <th>CÓDIGO</th>
-      <th>TIPO</th>
-      <th>DESCRIÇÃO</th>
-      <th>VALOR UNITÁRIO</th>
-      <th>ESTOQUE</th>
-      <th>PRÉ-VENDA</th>
-      <th>PROMOÇÃO</th>
-    </tr>
-  </thead>
-  <tbody id="produtosTableBody">
-    <!-- Os resultados da consulta serão adicionados aqui -->
-  </tbody>
-</table>
+                      <table class="table table-hover table-sm table-bordered">
+                        <thead>
+                          <tr>
+                            <th>CÓDIGO</th>
+                            <th>TIPO</th>
+                            <th>DESCRIÇÃO</th>
+                            <th>VALOR UNITÁRIO</th>
+                            <th>ESTOQUE</th>
+                            <th>PRÉ-VENDA</th>
+                            <th>PROMOÇÃO</th>
+                          </tr>
+                        </thead>
+                        <tbody id="produtosTableBody">
+                          <!-- Os resultados da consulta serão adicionados aqui -->
+                        </tbody>
+                      </table>
                     </div>
                     <!-- AA -->
                   </div>
@@ -1573,7 +1574,7 @@ $valor_total_Finalizadas = 0;
                   </div>
                 </div>
               </div>
-          
+
 
               <!-- Inicializa o Bootstrap -->
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -1594,28 +1595,28 @@ $valor_total_Finalizadas = 0;
                 });
               </script>
 
-<script>
-fetch('api_produtos.php')
-  .then(response => response.json())
-  .then(data => {
-    // processa os dados recebidos
-    const pp = data.pp;
-    const pe = data.pe;
-    let ativo_pp = 'Nao';
+              <script>
+                fetch('api_produtos.php')
+                  .then(response => response.json())
+                  .then(data => {
+                    // processa os dados recebidos
+                    const pp = data.pp;
+                    const pe = data.pe;
+                    let ativo_pp = 'Nao';
 
-    // obtém a referência à tabela onde os resultados serão exibidos
-  // obtém referência aos inputs de rádio
-const ppRadio = document.getElementById('ppRadio');
-const peRadio = document.getElementById('peRadio');
+                    // obtém a referência à tabela onde os resultados serão exibidos
+                    // obtém referência aos inputs de rádio
+                    const ppRadio = document.getElementById('ppRadio');
+                    const peRadio = document.getElementById('peRadio');
 
-// adiciona listener de eventos às mudanças nos inputs de rádio
-ppRadio.addEventListener('change', function() {
-  // atualiza a tabela com os valores de pp
-  ativo_pp = 'Sim';
-  const tableBody = document.getElementById('produtosTableBody');
-  tableBody.innerHTML = '';
-  pp.forEach(produto => {
-    tableBody.innerHTML += `
+                    // adiciona listener de eventos às mudanças nos inputs de rádio
+                    ppRadio.addEventListener('change', function () {
+                      // atualiza a tabela com os valores de pp
+                      ativo_pp = 'Sim';
+                      const tableBody = document.getElementById('produtosTableBody');
+                      tableBody.innerHTML = '';
+                      pp.forEach(produto => {
+                        tableBody.innerHTML += `
       <tr>
         <td>${produto.CODIGO}</td>
         <td>${produto.TIPO}</td>
@@ -1623,16 +1624,16 @@ ppRadio.addEventListener('change', function() {
         <td>${produto.VALOR_UNITARIO}</td>
       </tr>
     `;
-  });
-});
+                      });
+                    });
 
-peRadio.addEventListener('change', function() {
-  // atualiza a tabela com os valores de pe
-  ativo_pp = 'Sim';
-  const tableBody = document.getElementById('produtosTableBody');
-  tableBody.innerHTML = '';
-  pe.forEach(produto => {
-    tableBody.innerHTML += `
+                    peRadio.addEventListener('change', function () {
+                      // atualiza a tabela com os valores de pe
+                      ativo_pp = 'Sim';
+                      const tableBody = document.getElementById('produtosTableBody');
+                      tableBody.innerHTML = '';
+                      pe.forEach(produto => {
+                        tableBody.innerHTML += `
       <tr>
         <td>${produto.CODIGO}</td>
         <td>${produto.TIPO}</td>
@@ -1640,13 +1641,13 @@ peRadio.addEventListener('change', function() {
         <td>${produto.VALOR_UNITARIO}</td>
       </tr>
     `;
-  });
-});
-if(ativo_pp === 'Nao'){
-    const tableBody = document.getElementById('produtosTableBody');
-  tableBody.innerHTML = '';
-  pp.forEach(produto => {
-    tableBody.innerHTML += `
+                      });
+                    });
+                    if (ativo_pp === 'Nao') {
+                      const tableBody = document.getElementById('produtosTableBody');
+                      tableBody.innerHTML = '';
+                      pp.forEach(produto => {
+                        tableBody.innerHTML += `
       <tr>
         <td>${produto.CODIGO}</td>
         <td>${produto.TIPO}</td>
@@ -1654,11 +1655,11 @@ if(ativo_pp === 'Nao'){
         <td>${produto.VALOR_UNITARIO}</td>
       </tr>
     `;
-  });
-}
-  })
-  .catch(error => console.error(error));
-</script>
+                      });
+                    }
+                  })
+                  .catch(error => console.error(error));
+              </script>
 
               <script>
                 // const orcamentoproduto = new Vue({

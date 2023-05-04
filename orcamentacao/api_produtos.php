@@ -11,24 +11,24 @@ $query_produtos = $conexao->prepare("SELECT * FROM produtos ORDER BY CODIGO DESC
 $query_produtos->execute();
 $pp = [];
 while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
-  $pp[] = [
-    'CODIGO' => $linha['CODIGO'],
-    'DESCRICAO' => $linha['DESCRICAO'],
-    'TIPO' => 'PP',
-    'VALOR_UNITARIO' => $linha['PRECO_CUSTO'],
-  ];
+    $pp[] = [
+        'CODIGO' => $linha['CODIGO'],
+        'DESCRICAO' => $linha['DESCRICAO'],
+        'TIPO' => 'PP',
+        'VALOR_UNITARIO' => $linha['PRECO_CUSTO'],
+    ];
 }
 
 $query_produtos = $conexao->prepare("SELECT * FROM produtos_pr_ent ORDER BY CODIGO DESC LIMIT 45");
 $query_produtos->execute();
 $pe = [];
 while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
-  $pe[] = [
-    'CODIGO' => $linha['CODIGO'],
-    'DESCRICAO' => $linha['DESCRICAO'],
-    'TIPO' => 'PE',
-    'VALOR_UNITARIO' => $linha['VLR_UNIT'],
-  ];
+    $pe[] = [
+        'CODIGO' => $linha['CODIGO'],
+        'DESCRICAO' => $linha['DESCRICAO'],
+        'TIPO' => 'PE',
+        'VALOR_UNITARIO' => $linha['VLR_UNIT'],
+    ];
 }
 
 // retorna os resultados em formato JSON
