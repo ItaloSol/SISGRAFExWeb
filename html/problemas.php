@@ -168,6 +168,59 @@ include_once("../html/navbar.php"); ?>
           </table>
         </div>
       </div>
+      <div>&nbsp;</div>
+      <div class="row">
+        <div id="ajuda" class="card text-center p-5">
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th>Código</th>
+              <th>Solicitante</th>
+              <th>Seção</th>
+              <th>Data e Hora</th>
+              <th>Tipo</th>
+              <th>Sobre</th>
+              <th>Atender</th>
+            </tr>
+            <tr>
+              <?php
+              $query_atendimentos = $conexao->prepare("SELECT * FROM tabela_suporte s INNER JOIN tabela_atendentes a on s.cod_user = a.codigo_atendente WHERE s.atendimento = '1' ORDER BY s.id_suporte DESC");
+              $query_atendimentos->execute();
+              $a = 0;
+              while ($linha = $query_atendimentos->fetch(PDO::FETCH_ASSOC)) {
+
+                $Solicitacoes[$a] = [
+                  'cod_user' => $linha['cod_user'],
+                  'nome_atendente' => $linha['nome_atendente'],
+                  'secao_atendente' => $linha['secao_atendente'],
+                  'data' => $linha['data'],
+                  'hora' => $linha['hora'],
+                  'tipo' => $linha['tipo'],
+                  'solicitacao' => $linha['solicitacao'],
+                  'id_suporte' => $linha['id_suporte'],
+                ];
+                $a++;
+              }
+              if ($a == 0) {
+                echo '<tr><td colspan="7">Nenhum chamado em aberto</td></tr>';
+              }
+              for ($i = 0; $i < $a; $i++) {
+                echo '
+              <tr>
+              <td>' . $Solicitacoes[$i]['id_suporte'] . '</td>
+              <td>' . $Solicitacoes[$i]['nome_atendente'] . '</td>
+              <td>' . $Solicitacoes[$i]['secao_atendente'] . '</td>
+              <td>' . date('d/m/Y', strtotime($Solicitacoes[$i]['data'])) . ' ' . date('H:i:s', strtotime($Solicitacoes[$i]['hora'])) . '</td>
+              <td>' . $Solicitacoes[$i]['tipo'] . '</td>
+              <td>' . $Solicitacoes[$i]['solicitacao'] . '</td>
+              <td> Atendido</td>
+              </tr>
+              ';
+              }
+              ?>
+            </tr>
+          </table>
+        </div>
+      </div>
     <?php } else {   ?>
       <div>&nbsp;</div>
       <div v-if="selecionado == false">
