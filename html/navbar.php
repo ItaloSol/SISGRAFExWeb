@@ -172,6 +172,12 @@ if (isset($_SESSION['msg'])) {
               <div data-i18n="Basic">&nbsp &nbsp Dashboard</div>
             </a>
           </li>
+          <li class=" painel-orc menu-item">
+          <a href="../html/tl-quantidades.php" class="menu-link">
+            <iconify-icon icon="uil:panel-add" width="20" height="20"></iconify-icon>
+            <div data-i18n="Basic">&nbsp &nbsp Quantitativos</div>
+          </a>
+        </li>
           <?php  if ($COD_I == 'ADM') {  ?>
             <li class=" linha menu-item">
               <a href="../linhaproducao/tl-producao.php" class="menu-link">
@@ -206,6 +212,7 @@ if (isset($_SESSION['msg'])) {
                 <div data-i18n="Basic">Supervisão de Atividades</div>
               </a>
             </li>
+           
             <?php  if ($COD_I == 'ADM') {  ?>
               <li class="usuario menu-item">
                 <a href="../administrador/tl-cadastro-atendente.php" class="menu-link">
