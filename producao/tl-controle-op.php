@@ -1,6 +1,7 @@
 <?php  include_once("../html/navbar.php");
 $a = 0;
 $hoje = date('Y-m-d');
+$cod_user = $_SESSION["usuario"][2];
 $mes = date('Y-m');
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
@@ -251,7 +252,6 @@ if (isset($_GET['cod'])) {
       'data_ent_offset' => date($linha['data_ent_offset']),
       'data_envio_div_cmcl' => date($linha['data_envio_div_cmcl']),
       'DT_ENT_DIGITAL' => date($linha['DT_ENT_DIGITAL']),
-      'data_ent_offset' => date($linha['data_ent_offset']),
       'DT_TIPOGRAFIA_PROVA' => date($linha['DT_TIPOGRAFIA_PROVA']),
       'DT_ACABAMENTO_PROVA' => date($linha['DT_ACABAMENTO_PROVA']),
       'DT_SAIDA_EXPEDICAO' => date($linha['DT_SAIDA_EXPEDICAO']),
@@ -662,6 +662,7 @@ if (isset($_GET['cod'])) {
                 <div class="card mb-4">
                   <h5 class="card-header">Seção de Produção <br> Data de Entrada</h5>
                   <div class="card-body">
+                  <?php if($PROD_ADM_I == '1'){ ?>
                     <div class="row">
                       <div class="mb-3 ">
                         <label for="html5-date-input" class="col-md-2 col-form-label">Entrada Pré-Imp</label>
@@ -706,6 +707,52 @@ if (isset($_GET['cod'])) {
                         </div>
                       </div>
                     </div>
+                    <?php }else{ ?>
+                      <div class="row">
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">Entrada Pré-Imp</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_entrada_pre" disabled type="date" value="<?= $Ordens_Selecionada['DT_ENTRADA_PRE_IMP'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">Entrada na Digital</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_entrada_digital" disabled type="date" value="<?= $Ordens_Selecionada['DT_ENT_DIGITAL'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">Entrada na OffSet</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_entrada_off" disabled type="date" value="<?= $Ordens_Selecionada['data_ent_offset'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">Entrada na CTP</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_entradactp" disabled type="date" value="<?= $Ordens_Selecionada['DT_ENTRADA_CTP'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">Entrada na Tipografia</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_entrada_tipo" disabled type="date" value="<?= $Ordens_Selecionada['data_ent_tipografia'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">Entrada no Acabamento</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_entrada_acabamento" disabled type="date" value="<?= $Ordens_Selecionada['data_ent_acabamento'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">Entrada na Plotter</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_entrada_PLOTTER" disabled type="date" value="<?= $Ordens_Selecionada['DT_ENTRADA_PLOTTER'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                    </div>
+                      <?php  } ?>
                   </div>
                 </div>
               </div>
@@ -713,6 +760,7 @@ if (isset($_GET['cod'])) {
                 <div class="card mb-4">
                   <h5 class="card-header">Seção de Produção <br> Previsão de Saída</h5>
                   <div class="card-body">
+                    <?php if($PROD_ADM_I == '1'){ ?>
                     <div class="row">
                       <div class="mb-3 ">
                         <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA na Pré-Imp</label>
@@ -757,6 +805,52 @@ if (isset($_GET['cod'])) {
                         </div>
                       </div>
                     </div>
+                    <?php }else{ ?>
+                      <div class="row">
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA na Pré-Imp</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_SAIDA_pre" disabled type="date" value="<?= $Ordens_Selecionada['SAIDA_PRE'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA na Digital</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_SAIDA_digital" disabled type="date" value="<?= $Ordens_Selecionada['SAIDA_DIGITAL'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA na OffSet</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_SAIDA_off" disabled type="date" value="<?= $Ordens_Selecionada['SAIDA_OFFSET'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA na CTP</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_SAIDActp" disabled type="date" value="<?= $Ordens_Selecionada['SAIDA_CTP'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA na Tipografia</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_SAIDA_tipo" disabled type="date" value="<?= $Ordens_Selecionada['SAIDA_TIPOGRAFIA'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA no Acabamento</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_SAIDA_acabamento" disabled type="date" value="<?= $Ordens_Selecionada['SAIDA_ACABAMENTO'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                      <div class="mb-3 ">
+                        <label for="html5-date-input" class="col-md-2 col-form-label">SAIDA na Plotter</label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="D_SAIDA_PLOTTER" disabled type="date" value="<?= $Ordens_Selecionada['SAIDA_PLOTTER'] ?>" id="html5-date-input" />
+                        </div>
+                      </div>
+                    </div>
+                  <?php  } ?>
                   </div>
                 </div>
               </div>

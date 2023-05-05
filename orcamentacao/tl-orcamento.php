@@ -1634,7 +1634,7 @@ $valor_total_Finalizadas = 0;
 
                 pesquisar.addEventListener('click', vlr => {
                   if (busca.value === '') {
-                    mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
+                    mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR, DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
                   } else {
                     mensagemBusca.innerHTML = '';
                     const consulta = {
