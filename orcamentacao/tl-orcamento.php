@@ -896,34 +896,7 @@ $valor_total_Finalizadas = 0;
                   </div>
                 </div>
               </div>
-              <!-- <div class="tab-pane fade" id="horizontal-impr">
-                <div class="card">
-                  <h5 class="card-header">IMPRESSÃO</h5>
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Project</th>
-                          <th>Client</th>
-                          <th>Users</th>
-                          <th>Status</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody class="table-border-bottom-0">
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
 
-
-                    </table>
-                  </div>
-                </div>
-              </div> -->
               <div class="tab-pane fade" id="horizontal-pap">
                 <div class="card">
                   <h5 class="card-header">PAPEL</h5>
@@ -1152,16 +1125,20 @@ $valor_total_Finalizadas = 0;
                   <h5 class="card-header">Consulta Produto</h5>
                   <div class="table-responsive text-nowrap">
                     <div class="row mb-3">
+
                       <div class="col-sm-3">
-                        <label for="exampleFormControlSelect1" class="form-label">PESQUISAR POR</label>
-                        <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-                          <option selected>SELECIONE</option>
-                          <option value="1">DESCRIÇÃO</option>
-                          <option value="2">CODIGO</option>
+                        <label for="pesquisarpor" class="form-label">PESQUISAR POR</label>
+                        <select class="form-select" id="pesquisarpor" aria-label="Default select example">
+                          <option value="descricao">DESCRIÇÃO</option>
+                          <option value="codigo">CODIGO</option>
                         </select>
+                        <div id="mensagemPesquisa"></div>
                       </div>
+
                       <!-- Adicione os botões de opção de rádio para selecionar o tipo de produto -->
+
                       <div class="form-check col-sm-3">
+
                         <input name="tipoProduto" class="form-check-input" type="radio" value="PP" id="ppRadio"
                           checked />
                         <label class="form-check-label" for="ppRadio">PRODUÇÃO (PP)</label><br>
@@ -1169,11 +1146,15 @@ $valor_total_Finalizadas = 0;
                         <label class="form-check-label" for="peRadio">PRONTA ENTREGA (PE)</label>
                       </div>
                       <div class="form-check col-sm-5">
+                        <div id="mensagemBusca"></div>
                         <div class="input-group">
-                          <input type="text" class="form-control" placeholder="DIGITE A SUA BUSCA"
-                            aria-label="DIGITE A SUA BUSCA" aria-describedby="button-addon2" />
-                          <button class="btn btn-outline-primary" type="button" id="button-addon2">PESQUISAR</button>
+                          <input type="text" class="form-control" placeholder="DIGITE A DESCIÇÃO DO PRODUTO QUE DESEJA"
+                            aria-label="DIGITE A SUA BUSCA" id="buscarP" aria-describedby="button-addon2" />
+                          <button class="btn btn-outline-primary" type="button" id="pesquisar">PESQUISAR</button>
                         </div>
+                        <br>
+                        <button class="btn btn-outline-warning" type="button" id="clonar">CLONAR PRODUTO</button>
+                        <button class="btn btn-outline-danger" type="button" id="selecionar">SELECIONAR</button>
                       </div>
                     </div>
 
@@ -1185,9 +1166,7 @@ $valor_total_Finalizadas = 0;
                             <th>TIPO</th>
                             <th>DESCRIÇÃO</th>
                             <th>VALOR UNITÁRIO</th>
-                            <th>ESTOQUE</th>
-                            <th>PRÉ-VENDA</th>
-                            <th>PROMOÇÃO</th>
+                            <th>SELECIONAR</th>
                           </tr>
                         </thead>
                         <tbody id="produtosTableBody">
@@ -1602,6 +1581,79 @@ $valor_total_Finalizadas = 0;
               </script>
 
               <script>
+                const busca = document.getElementById('buscarP');
+                const pesquisarpor = document.getElementById('pesquisarpor');
+                const pesquisar = document.getElementById('pesquisar');
+                const mensagemBusca = document.getElementById('mensagemBusca');
+                const mensagemPesquisa = document.getElementById('mensagemPesquisa');
+                let TipoProdutoSelect = 'PP';
+
+                pesquisarpor.addEventListener('click', vlr => {
+                  if (pesquisarpor.value === 'codigo') {
+                    busca.type = 'number';
+                    busca.placeholder = 'DIGITE O CÓDIGO DO PRODUTO';
+                  } else {
+                    busca.type = 'text';
+                    busca.placeholder = 'DIGITE A DESCIÇÃO DO PRODUTO';
+                  }
+                });
+
+                function exibirBusca(dados) {
+                  const tableBody = document.getElementById('produtosTableBody');
+                  tableBody.innerHTML = '';
+                  if (Array.isArray(dados)) {
+                    dados.forEach(produto => {
+                    tableBody.innerHTML += `
+                    <tr>
+                      <td>${produto.CODIGO}</td>
+                      <td>${produto.TIPO}</td>
+                      <td>${produto.DESCRICAO}</td>
+                      <td>${produto.VALOR_UNITARIO}</td>
+                      <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                    </tr>`;
+                  });
+                } else {
+                  tableBody.innerHTML += `
+                    <tr>
+                      <td>${dados[0].CODIGO}</td>
+                      <td>${dados[0].TIPO}</td>
+                      <td>${dados[0].DESCRICAO}</td>
+                      <td>${dados[0].VALOR_UNITARIO}</td>
+                      <td><input type="checkbox" value="${dados[0].CODIGO}" name="Produto${dados[0].CODIGO}"  ></td>
+                    </tr>`;
+                }
+                  
+                }
+
+                function enviarBusca(consulta) {
+                  const xhr = new XMLHttpRequest();
+                  xhr.open('POST', 'api_produtos.php');
+                  xhr.setRequestHeader('Content-Type', 'application/json');
+                  xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                      const response = JSON.parse(xhr.responseText);
+                      exibirBusca(response);
+                    }
+                  };
+                  xhr.send(JSON.stringify(consulta));
+                }
+
+                pesquisar.addEventListener('click', vlr => {
+                  if (busca.value === '') {
+                    mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR, DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
+                  } else {
+                    mensagemBusca.innerHTML = '';
+                    const consulta = {
+                      TipoProdutoSelect: TipoProdutoSelect,
+                      pesquisa: pesquisarpor.value,
+                      valor: busca.value,
+                    };
+                    enviarBusca(consulta);
+                  }
+
+                })
+
+
                 fetch('api_produtos.php')
                   .then(response => response.json())
                   .then(data => {
@@ -1619,6 +1671,7 @@ $valor_total_Finalizadas = 0;
                     ppRadio.addEventListener('change', function () {
                       // atualiza a tabela com os valores de pp
                       ativo_pp = 'Sim';
+                      TipoProdutoSelect = 'PP';
                       const tableBody = document.getElementById('produtosTableBody');
                       tableBody.innerHTML = '';
                       pp.forEach(produto => {
@@ -1628,6 +1681,7 @@ $valor_total_Finalizadas = 0;
         <td>${produto.TIPO}</td>
         <td>${produto.DESCRICAO}</td>
         <td>${produto.VALOR_UNITARIO}</td>
+        <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
       </tr>
     `;
                       });
@@ -1635,6 +1689,7 @@ $valor_total_Finalizadas = 0;
 
                     peRadio.addEventListener('change', function () {
                       // atualiza a tabela com os valores de pe
+                      TipoProdutoSelect = 'PE';
                       ativo_pp = 'Sim';
                       const tableBody = document.getElementById('produtosTableBody');
                       tableBody.innerHTML = '';
@@ -1645,6 +1700,7 @@ $valor_total_Finalizadas = 0;
         <td>${produto.TIPO}</td>
         <td>${produto.DESCRICAO}</td>
         <td>${produto.VALOR_UNITARIO}</td>
+        <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
       </tr>
     `;
                       });
@@ -1659,6 +1715,7 @@ $valor_total_Finalizadas = 0;
         <td>${produto.TIPO}</td>
         <td>${produto.DESCRICAO}</td>
         <td>${produto.VALOR_UNITARIO}</td>
+        <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
       </tr>
     `;
                       });
