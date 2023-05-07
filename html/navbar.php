@@ -172,6 +172,7 @@ if (isset($_SESSION['msg'])) {
               <div data-i18n="Basic">&nbsp &nbsp Dashboard</div>
             </a>
           </li>
+          <!-- Sub-Menu do quantitativo -->
           <li class=" painel-orc menu-item">
           <a href="../html/tl-quantidades.php" class="menu-link">
             <iconify-icon icon="uil:panel-add" width="20" height="20"></iconify-icon>
