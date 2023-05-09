@@ -340,7 +340,13 @@ $data = date('Y-m-d');
                                 </div><br>
                                 <div class="demo-inline-spacing">
                                   <?php if (isset($FATURAMENTO) && $status != '12') { ?>
+                                  </form>
+                                  <form action="save_faturamento.php" method="POST">
+                                  <input class="form-control" type="hidden" name="codigo" value="<?= $codigo_op ?>" id="codigo" placeholder="Digite o codigo da Op" required />
+                                  <input class="form-control" type="hidden" value="<?= $orcamento_base ?>" name="orc" id="orc" readonly />
+                                  <input class="form-control" type="hidden" value="<?= $CODIGO ?>" name="numero" id="numero" placeholder="" readonly />
                                     <input type="submit" class="form-control btn btn-danger" name="excluir" id="excluir" value="Excluir">
+                                    </form>
                                   <?php } else { ?>
                                     <input type="submit" class="form-control btn btn-warning" name="FATURAR" id="gravar" value="Faturar">
                                   <?php } ?>
