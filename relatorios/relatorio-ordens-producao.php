@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
 if (isset($_POST['cliente'])) {
@@ -297,12 +298,18 @@ if (isset($_POST['campos26'])) {
         $Campos = 'data_1a_prova, data_2a_prova, data_3a_prova, data_4a_prova, data_5a_prova';
     }
 }
-
+if (isset($_POST['campos27'])) {
+    if (isset($Campos)) {
+        $Campos = $Campos . "SAIDA_PRE , SAIDA_DIGITAL , SAIDA_OFFSET , data_ent_acabamento, data_ent_tipografia, SAIDA_CTP, SAIDA_TIPOGRAFIA,SAIDA_ACABAMENTO, SAIDA_PLOTTER "   . ' , ';
+    } else {
+        $Campos = "SAIDA_PRE , SAIDA_DIGITAL , SAIDA_OFFSET , data_ent_acabamento, data_ent_tipografia, SAIDA_CTP, SAIDA_TIPOGRAFIA,SAIDA_ACABAMENTO, SAIDA_PLOTTER ";
+    }
+}
 if (isset($_POST['campos24'])) {
     if (isset($Campos)) {
-        $Campos = $Campos . "SAIDA_PRE , SAIDA_DIGITAL , SAIDA_OFFSET , SAIDA_CTP, SAIDA_TIPOGRAFIA,SAIDA_ACABAMENTO, SAIDA_PLOTTER "   . ' , ';
+        $Campos = $Campos . "DT_ENTRADA_PLOTTER , data_ent_tipografia, data_ent_acabamento, DT_ENT_DIGITAL, data_ent_offset , DT_ENVIADO_EXPEDICAO , DT_ENTRADA_PRE_IMP_PROVA , DT_TIPOGRAFIA_PROVA, DT_ACABAMENTO_PROVA,DT_ENTRADA_PRE_IMP, DT_ENTRADA_CTP "   . ' , ';
     } else {
-        $Campos = "SAIDA_PRE , SAIDA_DIGITAL , SAIDA_OFFSET , SAIDA_CTP, SAIDA_TIPOGRAFIA,SAIDA_ACABAMENTO, SAIDA_PLOTTER ";
+        $Campos = "DT_ENTRADA_PLOTTER , data_ent_tipografia, DT_ENT_DIGITAL, data_ent_acabamento, data_ent_offset , DT_ENVIADO_EXPEDICAO , DT_ENTRADA_PRE_IMP_PROVA , DT_TIPOGRAFIA_PROVA, DT_ACABAMENTO_PROVA,DT_ENTRADA_PRE_IMP, DT_ENTRADA_CTP ";
     }
 }
 if (isset($_POST['campos15'])) {
@@ -493,7 +500,11 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
 
     if (isset($_POST['campos6'])) {
         $tipo_cliente_ = $linha['tipo_cliente'];
-        $tipo_cliente[$Recebe] = $tipo_cliente_;
+        if($tipo_cliente_ == '2'){
+            $tipo_cliente[$Recebe] = 'JURÍDICA';
+        }else{
+            $tipo_cliente[$Recebe] = 'FÍSICA';
+        }
     }
     if (isset($_POST['campos18'])) {
         if (!isset($_POST['campos3'])) {
@@ -576,63 +587,113 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
         $descricao_Obs_ = $linha['descricao'];
         $descricao_Obs[$Recebe] = $descricao_Obs_;
     }
-    if (isset($_POST['campos24'])) {
-        if ($linha['status'] == '1') {
-            $data_previsao_inicio_ = $linha['SAIDA_PRE'];
-            if (isset($data_previsao_inicio_)) {
-                $data_previcao_inicio[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
-            } else {
-                $data_previcao_inicio[$Recebe] = 'N/C';
+    if (isset($_POST['campos27'])) {
+       
+            $data_previsao_inicio_PRE = $linha['SAIDA_PRE'];
+            if (isset($data_previsao_inicio_PRE)) {
+                $data_previcao_Saida_PRE[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_PRE));
+            }else{
+                $data_previcao_Saida_PRE[$Recebe] = 'N/C';
             }
-        }
-        if ($linha['status'] == '6') {
-            $data_previsao_inicio_ = $linha['SAIDA_OFFSET'];
-            if (isset($data_previsao_inicio_)) {
-                $data_previcao_inicio[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
-            } else {
-                $data_previcao_inicio[$Recebe] = 'N/C';
-            }
-        }
-        if ($linha['status'] == '7') {
+       
+        
+            $data_previsao_inicio_OFF = $linha['SAIDA_OFFSET'];
+            if (isset($data_previsao_inicio_OFF)) {
+                $data_previcao_Saida_OFF[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_OFF));
+            }else{
+                $data_previcao_Saida_OFF[$Recebe] = 'N/C';
+            } 
+        
+        
             $data_previsao_inicio_ = $linha['SAIDA_DIGITAL'];
             if (isset($data_previsao_inicio_)) {
-                $data_previcao_inicio[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
-            } else {
-                $data_previcao_inicio[$Recebe] = 'N/C';
+                $data_previcao_Saida_DIG[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_Saida_DIG[$Recebe] = 'N/C';
             }
-        }
-        if ($linha['status'] == '8') {
+        
+       
             $data_previsao_inicio_ = $linha['SAIDA_TIPOGRAFIA'];
             if (isset($data_previsao_inicio_)) {
-                $data_previcao_inicio[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
-            } else {
-                $data_previcao_inicio[$Recebe] = 'N/C';
+                $data_previcao_Saida_TIP[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_Saida_TIP[$Recebe] = 'N/C';
             }
-        }
-        if ($linha['status'] == '9') {
+        
+       
             $data_previsao_inicio_ = $linha['SAIDA_ACABAMENTO'];
             if (isset($data_previsao_inicio_)) {
-                $data_previcao_inicio[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
-            } else {
-                $data_previcao_inicio[$Recebe] = 'N/C';
-            }
-        }
-        if ($linha['status'] == '14') {
+                $data_previcao_Saida_ACA[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_Saida_ACA[$Recebe] = 'N/C';
+            } 
+        
+       
             $data_previsao_inicio_ = $linha['SAIDA_CTP'];
             if (isset($data_previsao_inicio_)) {
-                $data_previcao_inicio[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
-            } else {
-                $data_previcao_inicio[$Recebe] = 'N/C';
+                $data_previcao_Saida_CTP[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_Saida_CTP[$Recebe] = 'N/C';
             }
-        }
-        if ($linha['status'] == '16') {
+       
+      
             $data_previsao_inicio_ = $linha['SAIDA_PLOTTER'];
             if (isset($data_previsao_inicio_)) {
-                $data_previcao_inicio[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
-            } else {
-                $data_previcao_inicio[$Recebe] = 'N/C';
-            }
-        }
+                $data_previcao_Saida_PLOTTER[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_Saida_PLOTTER[$Recebe] = 'N/C';
+            } 
+    }
+     if (isset($_POST['campos24'])) {
+      
+            $data_previsao_inicio_ = $linha['DT_ENTRADA_PLOTTER'];
+            if (isset($data_previsao_inicio_)) {
+                $data_previcao_inicio_PLOT[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_inicio_PLOT[$Recebe] = 'N/C';
+            }  
+       
+            $data_previsao_inicio_ = $linha['data_ent_offset'];
+            if (isset($data_previsao_inicio_)) {
+                $data_previcao_inicio_OFF[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_inicio_OFF[$Recebe] = 'N/C';
+            }  
+       
+            $data_previsao_inicio_ = $linha['DT_ENT_DIGITAL'];
+            if (isset($data_previsao_inicio_)) {
+                $data_previcao_inicio_DIG[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_inicio_DIG[$Recebe] = 'N/C';
+            }  
+       
+            $data_previcao_inicio_PRO_ = $linha['data_ent_tipografia'];
+            if (isset($data_previcao_inicio_PRO_)) {
+                $data_previcao_inicio_PRO[$Recebe] =  date('d/m/Y', strtotime($data_previcao_inicio_PRO_));
+            }else{
+                $data_previcao_inicio_PRO[$Recebe] = 'N/C';
+            }  
+       
+            $data_previsao_inicio_ = $linha['data_ent_acabamento'];
+            if (isset($data_previsao_inicio_)) {
+                $data_previcao_inicio_ACA[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_inicio_ACA[$Recebe] = 'N/C';
+            }  
+      
+            $data_previsao_inicio_ = $linha['DT_ENTRADA_PRE_IMP'];
+            if (isset($data_previsao_inicio_)) {
+                $data_previcao_inicio_PRE[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_inicio_PRE[$Recebe] = 'N/C';
+            } 
+       
+            $data_previsao_inicio_ = $linha['DT_ENTRADA_CTP'];
+            if (isset($data_previsao_inicio_)) {
+                $data_previcao_inicio_CTP[$Recebe] =  date('d/m/Y', strtotime($data_previsao_inicio_));
+            }else{
+                $data_previcao_inicio_CTP[$Recebe] = 'N/C';
+            } 
     }
     if (isset($_POST['campos16'])) {
         $op_secao_ = $linha['op_secao'];
@@ -931,9 +992,42 @@ if (isset($_POST['campos23'])) {
 }
 if (isset($_POST['campos24'])) {
     if (isset($Cabesalhos)) {
-        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>PREVISÃO INICIO DOS TRABALHOS</th>";
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>PREVISÃO INICIO DA PRÉ-IMP</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA DIGITAL</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA OFFSET</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA CTP</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA TIPOGRAFIA</th>
+        <th style=' color:Black'>PREVISÃO INICIO DO ACABAMENTO</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA PLOTTER</th>
+        ";
     } else {
-        $Cabesalhos = "<th style=' color:Black'>PREVISÃO INICIO DOS TRABALHOS</th>";
+        $Cabesalhos = "<th style=' color:Black'>PREVISÃO INICIO DA PRÉ-IMP</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA DIGITAL</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA OFFSET</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA CTP</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA TIPOGRAFIA</th>
+        <th style=' color:Black'>PREVISÃO INICIO DO ACABAMENTO</th>
+        <th style=' color:Black'>PREVISÃO INICIO DA PLOTTER</th>";
+    }
+}
+if (isset($_POST['campos27'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>PREVISÃO TERMINO DA PRÉ-IMP</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA DIGITAL</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA OFFSET</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA CTP</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA TIPOGRAFIA</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DO ACABAMENTO</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA PLOTTER</th>
+        ";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>PREVISÃO TERMINO DA PRÉ-IMP</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA DIGITAL</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA OFFSET</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA CTP</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA TIPOGRAFIA</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DO ACABAMENTO</th>
+        <th style=' color:Black'>PREVISÃO TERMINO DA PLOTTER</th>";
     }
 }
 if (isset($_POST['campos25'])) {
@@ -1293,20 +1387,37 @@ while ($Exibir < $Recebe) {
         }
     }
     if (isset($_POST['campos24'])) {
-        if (isset($data_previcao_inicio[$Exibir])) {
+       
             if (isset($Dados)) {
-                $Dados = $Dados . "<td>" . $data_previcao_inicio[$Exibir] . "</td>";
+                $Dados = $Dados . "<td>" . $data_previcao_inicio_PRE[$Exibir] . "</td>
+                        <td>" . $data_previcao_inicio_DIG[$Exibir] . "</td>
+                        <td>" . $data_previcao_inicio_OFF[$Exibir] . "</td>
+                        <td>" . $data_previcao_inicio_CTP[$Exibir] . "</td>
+                        <td>" . $data_previcao_inicio_PRO[$Exibir] . "</td>
+                        <td>" . $data_previcao_inicio_ACA[$Exibir] . "</td>
+                        <td>" . $data_previcao_inicio_PLOT[$Exibir] . "</td>";
             } else {
-                $Dados = "<td>N/C</td>";
+                $Dados = "<td>N/C</td><td>N/C</td><td>N/C</td>
+                <td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td>";
             }
-        } else {
-            if (isset($Dados)) {
-                $Dados = $Dados . "<td>N/C</td>";
-            } else {
-                $Dados = "<td>N/C</td>";
-            }
-        }
+        
     }
+    if (isset($_POST['campos27'])) {
+        
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $data_previcao_Saida_PRE[$Exibir] . "</td>
+                        <td>" . $data_previcao_Saida_DIG[$Exibir] . "</td>
+                        <td>" . $data_previcao_Saida_OFF[$Exibir] . "</td>
+                        <td>" . $data_previcao_Saida_CTP[$Exibir] . "</td>
+                        <td>" . $data_previcao_Saida_TIP[$Exibir] . "</td>
+                        <td>" . $data_previcao_Saida_ACA[$Exibir] . "</td>
+                        <td>" . $data_previcao_Saida_PLOTTER[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td><td>N/C</td><td>N/C</td>
+                <td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td>";
+            }
+    }
+    
     if (isset($_POST['campos25'])) {
         if (isset($Total_Quantidade_Prova[$Exibir])) {
             if (isset($Dados)) {
