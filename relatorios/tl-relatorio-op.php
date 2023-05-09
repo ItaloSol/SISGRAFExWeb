@@ -354,6 +354,10 @@ $hoje = date('Y-m-d');
                     <label class="form-check-label" for="Previsão Inicio dos Trabalhos">Previsão Inicio dos Trabalhos</label>
                   </div>
                   <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="campos27" id="Previsão Termino dos Trabalhos" value="PrevisãoTerminoTrabalhos" />
+                    <label class="form-check-label" for="Previsão Termino dos Trabalhos">Previsão Termino dos Trabalhos</label>
+                  </div>
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" name="campos25" id="Quantidade de Prova" value="qtd_prova_entregue" />
                     <label class="form-check-label" for="Quantidade de Prova">Quantidade de Prova</label>
                   </div>
