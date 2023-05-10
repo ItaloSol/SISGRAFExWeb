@@ -41,7 +41,7 @@ $hoje = date('Y-m-d');
             <a class="list-group-item list-group-item-action active" id="home-list-item" data-bs-toggle="list" href="#horizontal-home">Cliente</a>
             <a class="list-group-item list-group-item-action" id="profile-list-item" data-bs-toggle="list" href="#horizontal-profile">OP/Orçamento</a>
             <a class="list-group-item list-group-item-action" id="messages-list-item" data-bs-toggle="list" href="#horizontal-messages">Produto</a>
-            <a class="list-group-item list-group-item-action" id="settings-list-item" data-bs-toggle="list" href="#horizontal-settings">Emissor</a>
+            <a class="list-group-item list-group-item-action" id="settings-list-item" data-bs-toggle="list" href="#horizontal-settings">Operador</a>
             <a class="list-group-item list-group-item-action" id="settings-list-item" data-bs-toggle="list" href="#horizontal-periodo">Período</a>
             <a class="list-group-item list-group-item-action" id="settings-list-item" data-bs-toggle="list" href="#horizontal-status">Status</a>
             <a class="list-group-item list-group-item-action" id="settings-list-item" data-bs-toggle="list" href="#horizontal-campos">Campos</a>
@@ -149,15 +149,15 @@ $hoje = date('Y-m-d');
                   <label class="form-check-label" for="defaultCheck1"> Todos </label>
                 </div>
               </div>
-              <!--Emissor-->
+              <!--Emissor/OPERADOR-->
               <div class="tab-pane fade" id="horizontal-settings">
                 <div class="form-check mt-3">
                   <input class="form-check-input" name="emissor" type="radio" value="PorEmiss" id="selecionePorEmiss" />
-                  <label class="form-check-label" for="selecionePorEmiss"> Por Emissor </label>
+                  <label class="form-check-label" for="selecionePorEmiss"> Por Operador </label>
                 </div>
                 <div class="mb-3">
                   <select class="form-select" name="emissorCod">
-                    <option selected>Selecione o emissor</option>
+                    <option selected>Selecione o Operador</option>
                     <?php /* |-aaa! SISTEMA DE ESCALA DE SERVIÇO CRIADO POR SD ÍTALO SOL SCLOCOO *DANTAS* !-! */
                     while ($a < $Operadores) {
                       echo '<option value="' . $Codigo[$a] . '">' . $Codigo[$a] . ' - ' . $Nome_Atem[$a] . '</option>';

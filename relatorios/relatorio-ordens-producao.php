@@ -91,10 +91,11 @@ if (isset($_POST['produto'])) {
     //     $Produto = " tabela_ordens_producao.tipo_produto = '".$_POST['produtoTipo']."'";
     // }
 }
+// echo $_POST['emissorCod'] . '<br>' . $_POST['emissor'];
 if (isset($_POST['emissor'])) {
     if ($_POST['emissor'] != 'todos') {
         if (isset($_POST['emissorCod'])) {
-            $Emissor = " cod_emissor = '" . $_POST['emissorCod'] . "'";
+            $Emissor = " tabela_ordens_producao.COD_ATENDENTE LIKE '%" . $_POST['emissorCod'] . "%'";
         }
     }
 }
@@ -162,6 +163,13 @@ if (isset($_POST['campos3'])) {
         $Campos = $Campos . $_POST['campos3'] . ' , ';
     } else {
         $Campos = $_POST['campos3'];
+    }
+}
+if ($_POST['emissor'] == 'PorEmiss') {
+    if (isset($Campos)) {
+        $Campos = $Campos .'tabela_ordens_producao.COD_ATENDENTE , ';
+    } else {
+        $Campos = 'tabela_ordens_producao.COD_ATENDENTE';
     }
 }
 if (isset($_POST['campos4'])) {
@@ -468,7 +476,7 @@ if (isset($OrderBy)) {
     $Query_Busca_Completa = $Query_Busca_Completa . ' ';
 }
 //
-//echo $Query_Busca_Completa . '<br>';
+// echo $Query_Busca_Completa . '<br>';
 $Query_Busca_Completa_Executavel = $conexao->prepare("$Query_Busca_Completa");
 $Query_Busca_Completa_Executavel->execute();
 //   echo '<br><b>'.$Campos.'</b>';
@@ -748,6 +756,10 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
         } else {
             $Data_Expedida_Prova[$Recebe] =  'N/C';
         }
+    }
+    if (isset($_POST['campos17'])) {
+        $cod_emissor_ = $linha['cod_emissor'];
+        $cod_emissor[$Recebe] = $cod_emissor_;
     }
     if (isset($_POST['campos17'])) {
         $cod_emissor_ = $linha['cod_emissor'];
