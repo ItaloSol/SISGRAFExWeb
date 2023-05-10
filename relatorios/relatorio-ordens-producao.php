@@ -135,26 +135,26 @@ if (isset($_POST['periodo'])) {
 if (isset($_POST['periodoPrevisao'])) {
     if ($_POST['periodoPrevisao'] == 'EntrPerPrevisao') {
         if (isset($Periodo)) {
-            $Periodo = $Periodo . " AND SAIDA_PRE = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_DIGITAL  = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_OFFSET  = '" . $_POST['periodoEmissPrevisao'] . "
-            ' OR data_ent_acabamento = '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_tipografia = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_CTP = '" . $_POST['periodoEmissPrevisao'] . "
-            ' OR SAIDA_TIPOGRAFIA = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_ACABAMENTO = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_PLOTTER = '" . $_POST['periodoEmissPrevisao'] . "' ";
+            $Periodo = $Periodo . " AND ( SAIDA_PRE = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_DIGITAL = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_OFFSET = '" . $_POST['periodoEntrPrevisao'] . "'
+             OR SAIDA_CTP = '" . $_POST['periodoEntrPrevisao'] . "'
+            OR SAIDA_TIPOGRAFIA = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_ACABAMENTO = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_PLOTTER = '" . $_POST['periodoEntrPrevisao'] . "') ";
         } else {
-            $Periodo = "  SAIDA_PRE = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_DIGITAL  = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_OFFSET  = '" . $_POST['periodoEmissPrevisao'] . "
-            ' OR data_ent_acabamento = '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_tipografia = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_CTP = '" . $_POST['periodoEmissPrevisao'] . "
-            ' OR SAIDA_TIPOGRAFIA = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_ACABAMENTO = '" . $_POST['periodoEmissPrevisao'] . "' OR SAIDA_PLOTTER = '" . $_POST['periodoEmissPrevisao'] . "' ";
+            $Periodo = " ( SAIDA_PRE = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_DIGITAL = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_OFFSET = '" . $_POST['periodoEntrPrevisao'] . "'
+             OR SAIDA_CTP = '" . $_POST['periodoEntrPrevisao'] . "'
+            OR SAIDA_TIPOGRAFIA = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_ACABAMENTO = '" . $_POST['periodoEntrPrevisao'] . "' OR SAIDA_PLOTTER = '" . $_POST['periodoEntrPrevisao'] . "') ";
         }
     }
     if ($_POST['periodoPrevisao'] == 'EmissPerPrevisao') {
         if (isset($Periodo)) {
-            $Periodo = $Periodo . " AND DT_ENTRADA_PLOTTER = '" . $_POST['periodoEntr'] . "' OR data_ent_tipografia= '" . $_POST['periodoEntr'] . "' OR data_ent_acabamento = '" . $_POST['periodoEntr'] . "
-            ' OR DT_ENT_DIGITAL = '" . $_POST['periodoEntr'] . "' OR data_ent_offset = '" . $_POST['periodoEntr'] . "' OR DT_ENVIADO_EXPEDICAO = '" . $_POST['periodoEntr'] . "
-            ' OR DT_ENTRADA_PRE_IMP_PROVA = '" . $_POST['periodoEntr'] . "' OR DT_TIPOGRAFIA_PROVA = '" . $_POST['periodoEntr'] . "' OR DT_ACABAMENTO_PROVA = '" . $_POST['periodoEntr'] . "
-            ' OR DT_ENTRADA_PRE_IMP = '" . $_POST['periodoEntr'] . "' OR DT_ENTRADA_CTP = '" . $_POST['periodoEntr'] . "'";
+            $Periodo = $Periodo . " AND ( DT_ENTRADA_PLOTTER = '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_tipografia= '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_acabamento = '" . $_POST['periodoEmissPrevisao'] . "
+            ' OR DT_ENT_DIGITAL = '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_offset = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_ENVIADO_EXPEDICAO = '" . $_POST['periodoEmissPrevisao'] . "
+            ' OR DT_ENTRADA_PRE_IMP_PROVA = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_TIPOGRAFIA_PROVA = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_ACABAMENTO_PROVA = '" . $_POST['periodoEmissPrevisao'] . "
+            ' OR DT_ENTRADA_PRE_IMP = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_ENTRADA_CTP = '" . $_POST['periodoEmissPrevisao'] . "')";
         } else {
-            $Periodo = "  DT_ENTRADA_PLOTTER = '" . $_POST['periodoEntr'] . "' OR data_ent_tipografia= '" . $_POST['periodoEntr'] . "' OR data_ent_acabamento = '" . $_POST['periodoEntr'] . "
-            ' OR DT_ENT_DIGITAL = '" . $_POST['periodoEntr'] . "' OR data_ent_offset = '" . $_POST['periodoEntr'] . "' OR DT_ENVIADO_EXPEDICAO = '" . $_POST['periodoEntr'] . "
-            ' OR DT_ENTRADA_PRE_IMP_PROVA = '" . $_POST['periodoEntr'] . "' OR DT_TIPOGRAFIA_PROVA = '" . $_POST['periodoEntr'] . "' OR DT_ACABAMENTO_PROVA = '" . $_POST['periodoEntr'] . "
-            ' OR DT_ENTRADA_PRE_IMP = '" . $_POST['periodoEntr'] . "' OR DT_ENTRADA_CTP = '" . $_POST['periodoEntr'] . "'";
+            $Periodo = " ( DT_ENTRADA_PLOTTER = '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_tipografia= '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_acabamento = '" . $_POST['periodoEmissPrevisao'] . "
+            ' OR DT_ENT_DIGITAL = '" . $_POST['periodoEmissPrevisao'] . "' OR data_ent_offset = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_ENVIADO_EXPEDICAO = '" . $_POST['periodoEmissPrevisao'] . "
+            ' OR DT_ENTRADA_PRE_IMP_PROVA = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_TIPOGRAFIA_PROVA = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_ACABAMENTO_PROVA = '" . $_POST['periodoEmissPrevisao'] . "
+            ' OR DT_ENTRADA_PRE_IMP = '" . $_POST['periodoEmissPrevisao'] . "' OR DT_ENTRADA_CTP = '" . $_POST['periodoEmissPrevisao'] . "')";
         }
     }
     
