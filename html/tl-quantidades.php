@@ -137,7 +137,7 @@ INNER JOIN tabela_produtos_orcamento tpo
 ON tbo.cod = tpo.cod_orcamento
 INNER JOIN produtos p
 ON p.CODIGO = tpo.cod_produto
-WHERE top.status != '13' AND  (  top.data_entrega >= '2020-01-01' AND top.data_entrega <= '2020-12-31') AND  p.TIPO = 'BLOCO';");
+WHERE top.status != '13' AND  (  top.data_entrega >= '2020-01-01' AND top.data_entrega <= '2020-12-31') AND  p.TIPO = 'LIVRO';");
 $QuantidadeBLOCO->execute();
 $i = 0;
 if ($linha = $QuantidadeBLOCO->fetch(PDO::FETCH_ASSOC)) {
@@ -207,7 +207,7 @@ INNER JOIN tabela_produtos_orcamento tpo
 ON tbo.cod = tpo.cod_orcamento
 INNER JOIN produtos p
 ON p.CODIGO = tpo.cod_produto
-WHERE top.status != '13' AND  (  top.data_entrega >= '2020-01-01' AND top.data_entrega <= '2020-12-31') AND  p.TIPO = 'BLOCO';");
+WHERE top.status != '13' AND  (  top.data_entrega >= '2020-01-01' AND top.data_entrega <= '2020-12-31') AND  p.TIPO = 'FOLHA';");
 $QuantidadeBLOCO->execute();
 $i = 0;
 if ($linha = $QuantidadeBLOCO->fetch(PDO::FETCH_ASSOC)) {
@@ -531,25 +531,25 @@ if ($linha = $QuantidadeFOLHA->fetch(PDO::FETCH_ASSOC)) {
                                                             <tr>
                                                                 <td><strong>2019</strong></td>
                                                                 <td><span class="badge bg-label-primary me-1">
-                                                                        <?=  number_format($QtdFOLHA5,0,".",".");  ?>
+                                                                        <?=  number_format($QtdFOLHA1,0,".",".");  ?>
                                                                     </span></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><strong>2020</strong></td>
                                                                 <td><span class="badge bg-label-primary me-1">
-                                                                        <?=  number_format($QtdFOLHA5,0,".",".");  ?>
+                                                                        <?=  number_format($QtdFOLHA4,0,".",".");  ?>
                                                                     </span></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><strong>2021</strong></td>
                                                                 <td><span class="badge bg-label-primary me-1">
-                                                                        <?=  number_format($QtdFOLHA5,0,".",".");  ?>
+                                                                        <?=  number_format($QtdFOLHA2,0,".",".");  ?>
                                                                     </span></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><strong>2022</strong></td>
                                                                 <td><span class="badge bg-label-primary me-1">
-                                                                        <?=  number_format($QtdFOLHA5,0,".",".");  ?>
+                                                                        <?=  number_format($QtdFOLHA3,0,".",".");  ?>
                                                                     </span></td>
                                                             </tr>
                                                             <tr>
