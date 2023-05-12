@@ -278,24 +278,28 @@ if ($linha = $QuantidadeFOLHA->fetch(PDO::FETCH_ASSOC)) {
             <div class="row">
                 <div class="col-12 col-md-6 mb-2 mb-md-0">
                     <div class="multi-collapse" id="multiCollapseExample1">
-                        <div class="d-grid d-sm-flex p-3 border">
+                        <div class="justify-content-end d-grid d-sm-flex p-3 border">
                             <!-- <img src="../assets/img/elements/orc.jpg" alt="collapse-image" height="125" class="me-4 mb-sm-0 mb-2" /> -->
 
                             <span>
                                 DIVISÃO COMERCIAL<br>Quantidade de Propostas de Orçamento
                                 <br>
-                                <div class="row">
-                                    <div class="col-10">
+                                <div class="row ">
+                                    <div class="col-12 ">
                                         <div class="card">
 
-                                            <div class="table-responsive text-nowrap">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                        <tr>
+                                            <div class="table-responsive text-nowrap justify-content-end">
+                                                <table align="center" style="text-align: center;" class="table table-hover">
+                                                    <thead align="center" style="text-align: center;"> 
+                                                    <tr align="center" style="text-align: center;">
+                                                            <th colspan="2" rowspan="2" align="center" style="text-align: center;">ORÇAMENTOS</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tr>
                                                             <th>ANO</th>
                                                             <th>QUANTIDADE</th>
                                                         </tr>
-                                                    </thead>
                                                     <tbody class="table-border-bottom-0">
                                                         <tr>
                                                             <td><strong>2019</strong></td>
@@ -347,18 +351,24 @@ if ($linha = $QuantidadeFOLHA->fetch(PDO::FETCH_ASSOC)) {
                             <span>
                                 DIVISÃO PRODUÇÃO<br>Quantidade de Ordens de Produção
                                 <br>
-                                <div class="row">
-                                    <div class="col-10">
+                                <div class="row ">
+                                    <div class="col-12 ">
                                         <div class="card">
 
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table table-hover">
-                                                    <thead>
+                                                <thead align="center" style="text-align: center;"> 
+                                                    <tr align="center" style="text-align: center;">
+                                                            <th colspan="2" rowspan="2" align="center" style="text-align: center;">ORDENS DE PRODUÇÃO</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                  
                                                         <tr>
                                                             <th>ANO</th>
                                                             <th>QUANTIDADE</th>
                                                         </tr>
-                                                    </thead>
+                                                    
                                                     <tbody class="table-border-bottom-0">
                                                         <tr>
                                                             <td><strong>2019</strong></td>
@@ -401,15 +411,15 @@ if ($linha = $QuantidadeFOLHA->fetch(PDO::FETCH_ASSOC)) {
                 </div>
                 <div class="col-12 col-md-12">
                     <div class="multi-collapse" id="multiCollapseExample2">
-                        <div class="d-grid flex p-12 border">
+                        <div class="d-grid flex p-12 border" align="center" style="text-align: center;">
                             <!-- <img src="../assets/img/elements/pro.jpg"  height="125"class="me-4 mb-sm-0 mb-2" /> -->
 
                             <span>
                                 DIVISÃO PRODUÇÃO<br>Unidades de Materiais Produzidos
                                 <br>
-                                <div class="row">
-                                <div class="col-3">
-                                <div class="card">
+                                <div  class="row d-flex justify-content-center">
+                                <div  class="col-3">
+                                <div  class="card">
                                             <div class="table-responsive text-nowrap">
                                                     <table align="center" class="table table-hover">
                                                         <thead>
