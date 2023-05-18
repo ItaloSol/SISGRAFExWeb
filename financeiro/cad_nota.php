@@ -12,7 +12,7 @@ if (isset($_POST['excluir'])) {
         $endereco = $_POST['endereco'];
         $contato = $_POST['contato'];
         $data_lan = $_POST['data_lancamento'];
-        $valorN =  $_POST['valor'];
+        $valorN = $_POST['valor'];
         $cod_cliente = $_POST['codigo_cliente'];
         $tipo_cliente = $_POST['tipo_cliente'];
         $forma_pagamento = $_POST['forma_pagamento'];
@@ -25,8 +25,12 @@ if (isset($_POST['excluir'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-if($cpf == ''){$cpf = $_SESSION["usuario"][7];}
-if($nome_emiss == ''){$nome_emiss = $_SESSION["usuario"][0];}
+        if ($cpf == '0') {
+            $cpf = $_SESSION["usuario"][7];
+        }
+        if ($nome_emiss == '0') {
+            $nome_emiss = $_SESSION["usuario"][0];
+        }
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod = $cod ");
         $Todos_notas->execute();
         if ($linha = $Todos_notas->fetch(PDO::FETCH_ASSOC)) {
@@ -50,7 +54,7 @@ if($nome_emiss == ''){$nome_emiss = $_SESSION["usuario"][0];}
 
 
         if ($forma_pagamento == '1') {
-            $TABELA_SIAFI =  $conexao->prepare("DELETE FROM nt_credito_lanc_siafi WHERE NT_CREDITO_CODIGO_SIAFI = '$siafi' ");
+            $TABELA_SIAFI = $conexao->prepare("DELETE FROM nt_credito_lanc_siafi WHERE NT_CREDITO_CODIGO_SIAFI = '$siafi' ");
             $TABELA_SIAFI->execute();
             if ($tipo_cliente == '1') {
                 echo 'atualizou saldo ';
@@ -130,7 +134,7 @@ if (isset($_POST['salvar'])) {
     if (isset($_POST['valor']) && isset($_POST['forma_pagamento']) && isset($_POST['codigo_cliente']) && $_POST['contato'] != 'Selecione um Endereço' && $_POST['endereco'] != 'Selecione um Endereço') {
         $endereco = $_POST['endereco'];
         $contato = $_POST['contato'];
-        $valor =  $_POST['valor'];
+        $valor = $_POST['valor'];
         $data_lan = $_POST['data_lancamento'];
         $datas = explode('-', $data_lan);
         $data_correta = date('d/m/Y', strtotime($datas[0] . $datas[1] . $datas[2]));
@@ -150,8 +154,12 @@ if (isset($_POST['salvar'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-        if($cpf == ''){$cpf = $_SESSION["usuario"][7];}
-        if($nome_emiss == ''){$nome_emiss = $_SESSION["usuario"][0];}
+        if ($cpf == '0') {
+            $cpf = $_SESSION["usuario"][7];
+        }
+        if ($nome_emiss == '0') {
+            $nome_emiss = $_SESSION["usuario"][0];
+        }
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas order by cod desc ");
         $Todos_notas->execute();
         if ($linha = $Todos_notas->fetch(PDO::FETCH_ASSOC)) {
@@ -273,7 +281,7 @@ if (isset($_POST['editar'])) {
         $data_lan = $_POST['data_lancamento'];
         $datas = explode('-', $data_lan);
         $data_correta = date('d/m/Y', strtotime($datas[0] . $datas[1] . $datas[2]));
-        $valorN =  $_POST['valor'];
+        $valorN = $_POST['valor'];
 
         $cod_cliente = $_POST['codigo_cliente'];
         $tipo_cliente = $_POST['tipo_cliente'];
@@ -292,8 +300,12 @@ if (isset($_POST['editar'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-        if($cpf == ''){$cpf = $_SESSION["usuario"][7];}
-        if($nome_emiss == ''){$nome_emiss = $_SESSION["usuario"][0];}
+        if ($cpf == '0') {
+            $cpf = $_SESSION["usuario"][7];
+        }
+        if ($nome_emiss == '0') {
+            $nome_emiss = $_SESSION["usuario"][0];
+        }
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod = $cod ");
         $Todos_notas->execute();
         if ($linha = $Todos_notas->fetch(PDO::FETCH_ASSOC)) {
@@ -312,7 +324,7 @@ if (isset($_POST['editar'])) {
         }
 
         if ($valor < $valorN) {
-            $resto =  $valorN - $valor;
+            $resto = $valorN - $valor;
             $credito = $anterios + $resto;
         } elseif ($valor > $valorN) {
             $resto = $valor - $valorN;
