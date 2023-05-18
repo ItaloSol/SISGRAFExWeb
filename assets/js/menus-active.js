@@ -27,6 +27,10 @@ const dados = document.querySelector(".dados");
 if (document.querySelector(".dados--")) {
   dados.classList.add("active");
 }
+const quantidames = document.querySelector(".quantidames");
+if (document.querySelector(".quantidamess")) {
+  quantidames.classList.add("active");
+}
 
 const relatorio = document.querySelector(".relatorio");
 if (document.querySelector(".relatorio--")) {
