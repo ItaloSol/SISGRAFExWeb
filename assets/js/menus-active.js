@@ -88,3 +88,7 @@ const problemas = document.querySelector(".problemas");
 if (document.querySelector(".problemas--")) {
   problemas.classList.add("active");
 }
+const diaria = document.querySelector(".diaria");
+if (document.querySelector(".diario--")) {
+  diaria.classList.add("active");
+}
