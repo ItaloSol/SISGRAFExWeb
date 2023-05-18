@@ -574,6 +574,34 @@ if (isset($_GET['cod'])) {
             Administração de Datas
           </button>
         </h2>
+        <!-- arrumar alteraçãos -->
+        <!-- <input class="form-control" name="D_emiss" type="date"
+                              value="<?= $Ordens_Selecionada['data_emissao'] ?>" id="html5-date-input" />
+                              <input class="form-control" name="D_apr_cliente" type="date"
+                              value="<?= $Ordens_Selecionada['data_apr_cliente'] ?>" id="html5-date-input" />
+                              <input class="form-control" name="D_imposta_dir" type="date"
+                              value="<?= $Ordens_Selecionada['data_imp_dir'] ?>" id="html5-date-input" />
+                              <input class="form-control" name="D_expedicao" type="date"
+                                value="<?= $Ordens_Selecionada['DT_ENVIADO_EXPEDICAO'] ?>" id="html5-date-input" />
+                           <input class="form-control" name="D_prova_tipo" type="date"
+                          value="<?= $Ordens_Selecionada['DT_TIPOGRAFIA_PROVA'] ?>" id="html5-date-input" />
+                          <input class="form-control" name="D_prova_acabame" type="date"
+                          value="<?= $Ordens_Selecionada['DT_ACABAMENTO_PROVA'] ?>" id="html5-date-input" />
+                          <input class="form-control" name="D_entrada_pre" type="date"
+                        value="<?= $Ordens_Selecionada['DT_ENTRADA_PRE_IMP'] ?>" id="html5-date-input" />
+                        <input class="form-control" name="D_entrada_digital" type="date"
+                        value="<?= $Ordens_Selecionada['DT_ENT_DIGITAL'] ?>" id="html5-date-input" />
+                        <input class="form-control" name="D_entrada_off" type="date"
+                        value="<?= $Ordens_Selecionada['data_ent_offset'] ?>" id="html5-date-input" />
+                        <input class="form-control" name="D_entradactp" type="date"
+                        value="<?= $Ordens_Selecionada['DT_ENTRADA_CTP'] ?>" id="html5-date-input" />
+                        <input class="form-control" name="D_entrada_tipo" type="date"
+                        value="<?= $Ordens_Selecionada['data_ent_tipografia'] ?>" id="html5-date-input" />
+                        <input class="form-control" name="D_entrada_acabamento" type="date"
+                        value="<?= $Ordens_Selecionada['data_ent_acabamento'] ?>" id="html5-date-input" /> -->
+
+
+        <!--  -->
         <div id="accordionTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
           data-bs-parent="#accordionExample">
           <div class="accordion-body">

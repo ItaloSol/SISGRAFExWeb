@@ -76,7 +76,8 @@ if (isset($_POST['sim'])) {
     $staDe = "DT_ENCAMINHADO_FORA = '" . $data . "' ";
   }
 
-  if ($_POST['D_emiss'] != '') {
+  if (isset($_POST['D_emiss'])) {
+    if ($_POST['D_emiss'] != '') {
     // echo $_POST['D_emiss'];
     if (isset($Where)) {
       $Where = $Where . " , " . "data_emissao = '" . $_POST['D_emiss'] . "'";
@@ -85,16 +86,19 @@ if (isset($_POST['sim'])) {
     }
     $Where = "data_emissao = '" . $_POST['D_emiss'] . "'";
   }
-  if ($_POST['D_apr_cliente'] != '') {
+  }
+  if (isset($_POST['D_apr_cliente'])) {
+    if ($_POST['D_apr_cliente'] != '') {
     if (isset($Where)) {
       $Where = $Where . " , " . "data_apr_cliente = '" . $_POST['D_apr_cliente'] . "'";
     } else {
       $Where = "data_apr_cliente = '" . $_POST['D_apr_cliente'] . "'";
     }
     // echo $_POST['D_apr_cliente']."'";
-
   }
-  if ($_POST['D_imposta_dir'] != '') {
+  }
+  if (isset($_POST['D_imposta_dir'])) {
+    if ($_POST['D_imposta_dir'] != '') {
     // echo $_POST['D_imposta_dir']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_imp_dir = '" . $_POST['D_imposta_dir'] . "'";
@@ -102,7 +106,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_imp_dir = '" . $_POST['D_imposta_dir'] . "'";
     }
   }
-  if ($_POST['D_expedicao'] != '') {
+  }
+  if (isset($_POST['D_expedicao'])) {
+    if ($_POST['D_expedicao'] != '') {
     // echo $_POST['D_expedicao']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_ENVIADO_EXPEDICAO = '" . $_POST['D_expedicao'] . "'";
@@ -110,15 +116,18 @@ if (isset($_POST['sim'])) {
       $Where = "DT_ENVIADO_EXPEDICAO = '" . $_POST['D_expedicao'] . "'";
     }
   }
-  if ($_POST['D_prova_pre'] != '') {
-    // echo $_POST['D_prova_pre']."'";
+  }
+  if (isset($_POST['D_prova_pre'])) {
+    if ($_POST['D_prova_pre'] != '') {
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_ENTRADA_PRE_IMP_PROVA = '" . $_POST['D_prova_pre'] . "'";
     } else {
       $Where = "DT_ENTRADA_PRE_IMP_PROVA = '" . $_POST['D_prova_pre'] . "'";
     }
+    }
   }
-  if ($_POST['D_prova_tipo'] != '') {
+  if (isset($_POST['D_prova_tipo'])) {
+    if ($_POST['D_prova_tipo'] != '') {
     // echo $_POST['D_prova_tipo']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_TIPOGRAFIA_PROVA = '" . $_POST['D_prova_tipo'] . "'";
@@ -126,7 +135,9 @@ if (isset($_POST['sim'])) {
       $Where = "DT_TIPOGRAFIA_PROVA = '" . $_POST['D_prova_tipo'] . "'";
     }
   }
-  if ($_POST['D_prova_acabame'] != '') {
+  }
+  if (isset($_POST['D_prova_acabame'])) {
+    if ($_POST['D_prova_acabame'] != '') {
     // echo $_POST['D_prova_acabame']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_ACABAMENTO_PROVA = '" . $_POST['D_prova_acabame'] . "'";
@@ -134,7 +145,9 @@ if (isset($_POST['sim'])) {
       $Where = "DT_ACABAMENTO_PROVA = '" . $_POST['D_prova_acabame'] . "'";
     }
   }
-  if ($_POST['D_prova_1'] != '') {
+  }
+  if (isset($_POST['D_prova_1'])) {
+    if ($_POST['D_prova_1'] != '') {
     // echo $_POST['D_prova_1']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_1a_prova = '" . $_POST['D_prova_1'] . "'";
@@ -142,7 +155,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_1a_prova = '" . $_POST['D_prova_1'] . "'";
     }
   }
-  if ($_POST['D_prova_2'] != '') {
+  }
+  if (isset($_POST['D_prova_2'])) {
+    if ($_POST['D_prova_2'] != '') {
     // echo $_POST['D_prova_2']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_2a_prova = '" . $_POST['D_prova_2'] . "'";
@@ -150,7 +165,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_2a_prova = '" . $_POST['D_prova_2'] . "'";
     }
   }
-  if ($_POST['D_prova_3'] != '') {
+  }
+  if (isset($_POST['D_prova_3'])) {
+    if ($_POST['D_prova_3'] != '') {
     // echo $_POST['D_prova_3']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_3a_prova = '" . $_POST['D_prova_3'] . "'";
@@ -158,7 +175,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_3a_prova = '" . $_POST['D_prova_3'] . "'";
     }
   }
-  if ($_POST['D_prova_4'] != '') {
+  }
+  if (isset($_POST['D_prova_4'])) {
+    if ($_POST['D_prova_4'] != '') {
     // echo $_POST['D_prova_4']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_4a_prova = '" . $_POST['D_prova_4'] . "'";
@@ -166,7 +185,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_4a_prova = '" . $_POST['D_prova_4'] . "'";
     }
   }
-  if ($_POST['D_entrada_pre'] != '') {
+  }
+  if (isset($_POST['D_entrada_pre'])) {
+    if ($_POST['D_entrada_pre'] != '') {
     // echo $_POST['D_entrada_pre']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_ENTRADA_PRE_IMP = '" . $_POST['D_entrada_pre'] . "'";
@@ -174,7 +195,9 @@ if (isset($_POST['sim'])) {
       $Where = "DT_ENTRADA_PRE_IMP = '" . $_POST['D_entrada_pre'] . "'";
     }
   }
-  if ($_POST['D_entrada_digital'] != '') {
+  }
+  if (isset($_POST['D_entrada_digital'])) {
+    if ($_POST['D_entrada_digital'] != '') {
     // echo $_POST['D_entrada_digital']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_ENT_DIGITAL = '" . $_POST['D_entrada_digital'] . "'";
@@ -182,7 +205,9 @@ if (isset($_POST['sim'])) {
       $Where = "DT_ENT_DIGITAL = '" . $_POST['D_entrada_digital'] . "'";
     }
   }
-  if ($_POST['D_entrada_off'] != '') {
+  }
+  if (isset($_POST['D_entrada_off'])) {
+    if ($_POST['D_entrada_off'] != '') {
     // echo $_POST['D_entrada_off']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_ent_offset = '" . $_POST['D_entrada_off'] . "'";
@@ -190,7 +215,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_ent_offset = '" . $_POST['D_entrada_off'] . "'";
     }
   }
-  if ($_POST['D_entradactp'] != '') {
+  }
+  if (isset($_POST['D_entradactp'])) {
+    if ($_POST['D_entradactp'] != '') {
     // echo $_POST['D_entradactp']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_ENTRADA_CTP = '" . $_POST['D_entradactp'] . "'";
@@ -198,7 +225,9 @@ if (isset($_POST['sim'])) {
       $Where = "DT_ENTRADA_CTP = '" . $_POST['D_entradactp'] . "'";
     }
   }
-  if ($_POST['D_entrada_tipo'] != '') {
+  }
+  if (isset($_POST['D_entrada_tipo'])) {
+    if ($_POST['D_entrada_tipo'] != '') {
     // echo $_POST['D_entrada_tipo']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_ent_tipografia = '" . $_POST['D_entrada_tipo'] . "'";
@@ -206,7 +235,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_ent_tipografia = '" . $_POST['D_entrada_tipo'] . "'";
     }
   }
-  if ($_POST['D_entrada_acabamento'] != '') {
+  }
+  if (isset($_POST['D_entrada_acabamento'])) {
+    if ($_POST['D_entrada_acabamento'] != '') {
     // echo $_POST['D_entrada_acabamento']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_ent_acabamento = '" . $_POST['D_entrada_acabamento'] . "'";
@@ -214,7 +245,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_ent_acabamento = '" . $_POST['D_entrada_acabamento'] . "'";
     }
   }
-  if ($_POST['D_entrada_PLOTTER'] != '') {
+  }
+  if (isset($_POST['D_entrada_PLOTTER'])) {
+    if ($_POST['D_entrada_PLOTTER'] != '') {
     // echo $_POST['D_entrada_PLOTTER']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_ENTRADA_PLOTTER = '" . $_POST['D_entrada_PLOTTER'] . "'";
@@ -222,8 +255,10 @@ if (isset($_POST['sim'])) {
       $Where = "DT_ENTRADA_PLOTTER = '" . $_POST['D_entrada_PLOTTER'] . "'";
     }
   }
+  }
 
-  if ($_POST['D_SAIDA_pre'] != '') {
+  if (isset($_POST['D_SAIDA_pre'])) {
+    if ($_POST['D_SAIDA_pre'] != '') {
     // echo $_POST['D_SAIDA_pre']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "SAIDA_PRE = '" . $_POST['D_SAIDA_pre'] . "'";
@@ -231,7 +266,9 @@ if (isset($_POST['sim'])) {
       $Where = "SAIDA_PRE = '" . $_POST['D_SAIDA_pre'] . "'";
     }
   }
-  if ($_POST['D_SAIDA_digital'] != '') {
+  }
+  if (isset($_POST['D_SAIDA_digital'])) {
+    if ($_POST['D_SAIDA_digital'] != '') {
     // echo $_POST['D_SAIDA_digital']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "SAIDA_DIGITAL = '" . $_POST['D_SAIDA_digital'] . "'";
@@ -239,7 +276,9 @@ if (isset($_POST['sim'])) {
       $Where = "SAIDA_DIGITAL = '" . $_POST['D_SAIDA_digital'] . "'";
     }
   }
-  if ($_POST['D_SAIDA_off'] != '') {
+  }
+  if (isset($_POST['D_SAIDA_off'])) {
+    if ($_POST['D_SAIDA_off'] != '') {
     // echo $_POST['D_SAIDA_off']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "SAIDA_OFFSET = '" . $_POST['D_SAIDA_off'] . "'";
@@ -247,7 +286,9 @@ if (isset($_POST['sim'])) {
       $Where = "SAIDA_OFFSET = '" . $_POST['D_SAIDA_off'] . "'";
     }
   }
-  if ($_POST['D_SAIDActp'] != '') {
+  }
+  if (isset($_POST['D_SAIDActp'])) {
+    if ($_POST['D_SAIDActp'] != '') {
     // echo $_POST['D_SAIDActp']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "SAIDA_CTP = '" . $_POST['D_SAIDActp'] . "'";
@@ -255,7 +296,9 @@ if (isset($_POST['sim'])) {
       $Where = "SAIDA_CTP = '" . $_POST['D_SAIDActp'] . "'";
     }
   }
-  if ($_POST['D_SAIDA_tipo'] != '') {
+  }
+  if (isset($_POST['D_SAIDA_tipo'])) {
+    if ($_POST['D_SAIDA_tipo'] != '') {
     // echo $_POST['D_SAIDA_tipo']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "SAIDA_TIPOGRAFIA = '" . $_POST['D_SAIDA_tipo'] . "'";
@@ -263,7 +306,9 @@ if (isset($_POST['sim'])) {
       $Where = "SAIDA_TIPOGRAFIA = '" . $_POST['D_SAIDA_tipo'] . "'";
     }
   }
-  if ($_POST['D_SAIDA_acabamento'] != '') {
+  }
+  if (isset($_POST['D_SAIDA_acabamento'])) {
+    if ($_POST['D_SAIDA_acabamento'] != '') {
     // echo $_POST['D_SAIDA_acabamento']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "SAIDA_ACABAMENTO = '" . $_POST['D_SAIDA_acabamento'] . "'";
@@ -271,7 +316,9 @@ if (isset($_POST['sim'])) {
       $Where = "SAIDA_ACABAMENTO = '" . $_POST['D_SAIDA_acabamento'] . "'";
     }
   }
-  if ($_POST['D_SAIDA_PLOTTER'] != '') {
+  }
+  if (isset($_POST['D_SAIDA_PLOTTER'])) {
+    if ($_POST['D_SAIDA_PLOTTER'] != '') {
     // echo $_POST['D_SAIDA_PLOTTER']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "SAIDA_PLOTTER = '" . $_POST['D_SAIDA_PLOTTER'] . "'";
@@ -279,8 +326,10 @@ if (isset($_POST['sim'])) {
       $Where = "SAIDA_PLOTTER = '" . $_POST['D_SAIDA_PLOTTER'] . "'";
     }
   }
+  }
 
-  if ($_POST['D_saida_expedicao'] != '') {
+  if (isset($_POST['D_saida_expedicao'])) {
+    if ($_POST['D_saida_expedicao'] != '') {
     // echo $_POST['D_saida_expedicao']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "DT_SAIDA_EXPEDICAO = '" . $_POST['D_saida_expedicao'] . "'";
@@ -288,7 +337,9 @@ if (isset($_POST['sim'])) {
       $Where = "DT_SAIDA_EXPEDICAO = '" . $_POST['D_saida_expedicao'] . "'";
     }
   }
-  if ($_POST['D_data_entrega'] != '') {
+  }
+  if (isset($_POST['D_data_entrega'])) {
+    if ($_POST['D_data_entrega'] != '') {
     // echo $_POST['D_data_entrega']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_entrega = '" . $_POST['D_data_entrega'] . "'";
@@ -296,7 +347,9 @@ if (isset($_POST['sim'])) {
       $Where = "data_entrega = '" . $_POST['D_data_entrega'] . "'";
     }
   }
-  if ($_POST['data_entrega_prova'] != '') {
+  }
+  if (isset($_POST['data_entrega_prova'])) {
+    if ($_POST['data_entrega_prova'] != '') {
     // echo $_POST['D_data_entrega']."'";
     if (isset($Where)) {
       $Where = $Where . " , " . "data_entrega_prova = '" . $_POST['data_entrega_prova'] . "'";
@@ -304,6 +357,8 @@ if (isset($_POST['sim'])) {
       $Where = "data_entrega_prova = '" . $_POST['data_entrega_prova'] . "'";
     }
   }
+  }
+ 
   date_default_timezone_set('America/Sao_Paulo');
   $dataHora = date('d/m/Y H:i:s');
   $Todos_Staus = $conexao->prepare("SELECT * FROM sts_op WHERE CODIGO = '$codSts' ");
@@ -387,7 +442,11 @@ if (isset($_POST['sim'])) {
       $op_ = $operador[0];
       $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$codSts'  , op_secao = '$op', secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , COD_ATENDENTE = '$op_' , tipo_trabalho = '$tipotrabalho' , $Where , $staDe WHERE cod = $cod  ");
     } else {
+      if(!isset($Where)){
+        $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', tipo_trabalho='$tipotrabalho' , secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , $staDe WHERE  cod=$cod");
+      }else{
       $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', tipo_trabalho='$tipotrabalho' , secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao', $Where , $staDe WHERE  cod=$cod");
+      }
     }
     //  echo "INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Numero op: $cod | status: $codSts - $NOVOS_Sts  | tipo do trabalho: $tipotrabalho | prioridade op: $prioridade ' , '$cod_user' , '$dataHora'";
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Numero op: $cod | status: $codSts - $NOVOS_Sts  | tipo do trabalho: $tipotrabalho | prioridade op: $prioridade ' , '$cod_user' , '$dataHora')");
