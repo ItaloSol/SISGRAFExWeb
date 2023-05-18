@@ -296,6 +296,14 @@ if (isset($_POST['sim'])) {
       $Where = "data_entrega = '" . $_POST['D_data_entrega'] . "'";
     }
   }
+  if ($_POST['data_entrega_prova'] != '') {
+    // echo $_POST['D_data_entrega']."'";
+    if (isset($Where)) {
+      $Where = $Where . " , " . "data_entrega_prova = '" . $_POST['data_entrega_prova'] . "'";
+    } else {
+      $Where = "data_entrega_prova = '" . $_POST['data_entrega_prova'] . "'";
+    }
+  }
   date_default_timezone_set('America/Sao_Paulo');
   $dataHora = date('d/m/Y H:i:s');
   $Todos_Staus = $conexao->prepare("SELECT * FROM sts_op WHERE CODIGO = '$codSts' ");
