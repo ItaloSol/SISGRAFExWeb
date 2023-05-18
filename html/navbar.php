@@ -202,7 +202,7 @@ if (isset($_SESSION['msg'])) {
           </li>
 
           <!-- Modúlo de ADMINISTRAÇÃO -->
-          <?php  if ($COD_I == 'ADM' || $PROD_ADM_I == '1') {  ?>
+          <?php  if ($COD_I == 'ADM' || $PROD_ADM_I == '1' || $ORC_ADM_I == '1' || $EXP_ADM_I == '1' || $FIN_ADM_I == '1' || $PROD_ADM_I == '1' ) {  ?>
 
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Administração</span></li>
             <!-- Sub-Menu de ADMINISTRAÇÃO -->
