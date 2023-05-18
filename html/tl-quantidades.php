@@ -1,6 +1,6 @@
 <?php $refresh = 0;
 include_once("../html/navbar.php"); ?>
-<div class=" quantidames-- "></div>
+<div class="quantidamess"></div>
 <?php
 $QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2019-01-01' AND data_emissao <= '2019-12-31'");
 $QuantidadePO->execute();
