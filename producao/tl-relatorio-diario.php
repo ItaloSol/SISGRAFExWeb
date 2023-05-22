@@ -5,7 +5,7 @@ $cod_user = $_SESSION["usuario"][2];
 $mes = date('Y-m');
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
-$datar = date('d/m/Y');
+
 $query_atendent = $conexao->prepare("SELECT * FROM relatorio_diario r INNER JOIN tabela_atendentes a ON a.codigo_atendente = r.atendente_relatorio ORDER BY r.data_relatorio DESC");
 $query_atendent->execute();
 
@@ -66,7 +66,7 @@ if(isset($_POST['Filtrar'])){
 
   
   $data = $_POST['data'];
-
+  $datar = date('d/m/Y', strtotime($data));
 
 $query_ordens_Selecionada = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO 
 WHERE $campo = '$data' ORDER BY o.cod ASC ");
@@ -196,6 +196,10 @@ WHERE $campo = '$data' ORDER BY o.cod ASC ");
      'SAIDA_ACABAMENTO' => date($linha['SAIDA_ACABAMENTO']),
      'SAIDA_PLOTTER' => date($linha['SAIDA_PLOTTER']),
    ];
+
+   if($Ordens_Selecionada[$Total_Selecionada]['op_secao'] == ''){
+    $Ordens_Selecionada[$Total_Selecionada]['op_secao'] = 'OPERADOR NÃO SELECIONADO';
+   }
    if ($Tipo_Produto == '2') {
      $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos_pr_ent  WHERE CODIGO = '$Pesquisa_Produto'");
      $query_PRODUTOS->execute();
@@ -303,7 +307,44 @@ WHERE $campo = '$data' ORDER BY o.cod ASC ");
 
           <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+              <?php if(isset($_POST['Filtrar'])){ ?>
               <div class="mb-3">
+                <label for="nome" class="form-label">FILTROS</label>
+                <div class="row">
+                  <div class="col-3">
+                    <label for="defaultSelect" class="form-label">Periodo por Inicio ou Termino?</label>
+                    <select id="iniofim" name="iniofim" class="form-select">
+                    <option value="<?= $_POST['iniofim'] ?>"><?= $_POST['iniofim'] ?></option>
+                      <option value="Termino">Termino</option>
+                      <option value="Inicio">Inicio</option>
+                    </select>
+                  </div>
+                  <div class="col-3">
+                    <label for="defaultSelect" class="form-label">De qual seção?</label>
+                    <select id="secao" name="secao" class="form-select">
+                    <option value="<?= $_POST['secao'] ?>"><?= $_POST['secao'] ?></option>
+                      <option value="ACABAMENTO">ACABAMENTO</option>
+                      <!-- <option value="2">BANNER</option> -->
+                      <option value="CPT">GRAVAÇÃO DE CHAPAS</option>
+                      <option value="DIGITAL">IMPRESSAO DIGITAL</option>
+                      <option value="OFFSET">OFFSET</option>
+                      <option value="PLOTTER">PLOTTER</option>
+                      <option value="PRE">PRÉ-IMPRESSAO</option>
+                      <option value="TIPOGRAFIA">TIPOGRAFIA</option>
+                    </select>
+                  </div>
+                  <div class="col-3">
+                    <label for="defaultSelect" class="form-label">Data de Filtragem</label>
+                    <input type="date" class="form-control" name="data" value="<?= $_POST['data'] ?>" id="data" />
+                  </div>
+                  <div class="col-3">
+                    <label for="defaultSelect" class="form-label">Aplicar Filtragem</label> <br>
+                    <input class="btn btn-primary" type="submit" name="Filtrar" value="Filtrar">
+                  </div>
+                </div>
+              </div>
+              <?php }else{ ?>
+                <div class="mb-3">
                 <label for="nome" class="form-label">FILTROS</label>
                 <div class="row">
                   <div class="col-3">
@@ -336,6 +377,7 @@ WHERE $campo = '$data' ORDER BY o.cod ASC ");
                   </div>
                 </div>
               </div>
+           <?php   } ?>
               </form>
               <form method="POST" action="b-diario.php">
               <div class="mb-3">
@@ -347,25 +389,31 @@ WHERE $campo = '$data' ORDER BY o.cod ASC ");
                   </tr>
                   <tr>
                     <th>OP</th>
+                    <th>DESCRIÇÃO</th>
                     <th>QUANTIDAE</th>
                     <th>OPERADOR</th>
                     <th>DATA INICIO</th>
                     <th>DATA TERMINO</th>
+                    <?php if ($PROD_ADM_I == '1') { ?>
                     <th>SELECIONAR</th>
-                    
+                    <?php  }  ?>
                   </tr>
                   <?php for($per = 0; $per < $Total_Selecionada; $per++){ ?>
                   <tr>
                     <td><?= $Ordens_Selecionada[$per]['cod'] ?></td>
+                    <td><?= $Tabela_Produtos_Selecionada[$per]['descricao']?></td>
                     <td><?= $Tabela_Quantidade[$per]['quantidade'] ?></td>
                     <td><?= $Ordens_Selecionada[$per]['op_secao'] ?></td>
                     <td><input class="form-control" disabled value="<?= $inicio[$per] ?>" name="inic" type="date"></td>
                     <td><input class="form-control" disabled value="<?= $fim[$per] ?>" name="fim" type="date"></td>
+                    <?php if ($PROD_ADM_I == '1') { ?>
                     <td><input class="form-check-input" type="checkbox" value="<?= $Ordens_Selecionada[$per]['cod'] ?>" name="Selecionado<?= $per?>"  /></td>
+                    <?php  }  ?>
                   </tr>
                   <?php } ?>
                 </table>
               </div>
+              <?php if ($PROD_ADM_I == '1') { ?>
               <div class="mb-3">
                 <div class="card-body">
                 <div class="row">
@@ -390,6 +438,7 @@ WHERE $campo = '$data' ORDER BY o.cod ASC ");
                 </div>
                 </div>
               </div>
+              <?php  }  ?>
             </div>
           </div>
           </form>

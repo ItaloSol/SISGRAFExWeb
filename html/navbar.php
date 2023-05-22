@@ -395,14 +395,14 @@ if (isset($_SESSION['msg'])) {
             <div data-i18n="Basic">&nbsp &nbspOrdem de Produção</div>
           </a>
         </li>
-        <?php if ($PROD_ADM_I == '1') { ?>
+        
         <li class=" diaria menu-item">
           <a href="../producao/tl-relatorio-diario.php" class="menu-link">
           <iconify-icon icon="material-symbols:fact-check" width="20" height="20"></iconify-icon>
             <div data-i18n="Basic">&nbsp &nbspO.P DIÁRIA</div>
           </a>
         </li>
-        <?php  }  ?>
+       
         <!-- Sub-Menu de Relatório -->
         <li class="menu-item">
 
