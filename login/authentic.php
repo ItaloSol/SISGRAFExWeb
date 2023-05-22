@@ -60,7 +60,9 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
   //   <div class="toast-body">
   //   <div class="demo-inline-spacing mt-3">
   //   <div class="list-group list-group-flush ">
-  //   <p>Por favor, observe que o nosso sistema atual está enfrentando algumas dificuldades na geração de relatórios. No entanto, estamos trabalhando arduamente para resolver essas questões o mais rápido possível.</p>
+
+  //   <p>Informo que o nosso sistema está enfrentando algumas dificuldades na geração de relatórios. No entanto, estamos trabalhando arduamente para resolver o mais rápido possível.</p>
+
   //    <br> <div class="allign-center">Para mais informações consulte o <br> menu de <a " href="../atualizacao/tl-atualizacao.php"><span class="btn btn-primary" style="background-color:blue; color:white padding: 2px;">ATUALIZAÇÕES</span></a></div>
   //   </div>
   // </div>
