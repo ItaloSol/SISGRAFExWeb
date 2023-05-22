@@ -654,7 +654,7 @@ if (isset($_GET['cod'])) {
                   </div>
                 <?php } ?>
 
-                <?php if ($secao_user == 'EXPEDIÇÃO') { ?>
+                <?php if ($secao_user == 'EXPEDIÇÃO' or $secao_user == 'INFORMÁTICA') { ?>
                   <div class="col-md-6">
                     <div class="card mb-6">
                       <h5 class="card-header">Seção de Expedição</h5>
