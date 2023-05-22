@@ -67,7 +67,7 @@ include_once('../conexoes/conexao.php');
                             while ($linha = $query_negar->fetch(PDO::FETCH_ASSOC)) {
                               $status = $linha['status_op']; 
                             }
-            $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$status' WHERE cod = $cod ");
+            $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$status' , secao_op = 'SEÇÃO TÉCNICA' WHERE cod = $cod ");
             $atualizar_op->execute();
         }
         
