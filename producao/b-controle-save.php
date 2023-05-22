@@ -14,7 +14,11 @@ if (isset($_POST['sim'])) {
   $operador =  explode(',', $operador);
 
 
-
+  $Todos_Staus = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = '$cod' ");
+  $Todos_Staus->execute();
+  if ($linha = $Todos_Staus->fetch(PDO::FETCH_ASSOC)) {
+    $stsOPPR = $linha['status'];
+  }
   if ($codSts == '1') {
     // sec tec
     $staDe = "data_apr_cliente = '" . $data . "' ";
@@ -26,6 +30,10 @@ if (isset($_POST['sim'])) {
   if ($codSts == '3') {
     // diagramacao
     $staDe = "data_ent_tipografia = '" . $data . "' ";
+  }
+  if ($stsOPPR == '4') {
+    // prova
+    $staDe = "data_apr_cliente = '" . $data . "' ";
   }
   if ($codSts == '4') {
     // prova
