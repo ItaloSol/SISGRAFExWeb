@@ -61,11 +61,11 @@ if (isset($_POST['sim'])) {
   }
    if($codSts == '10'){
   //     // expedicao
-   $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' ";
+   $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO'  ";
    }
    if($codSts == '17'){
     //     // expedicao
-     $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' ";
+     $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO' ";
      }
 
   if ($codSts == '13') {
