@@ -348,6 +348,7 @@ $data = date('Y-m-d');
                                     <input type="submit" class="form-control btn btn-danger" name="excluir" id="excluir" value="Excluir">
                                     </form>
                                   <?php } else { ?>
+                                    teste <?= $FATURAMENTO ?>
                                     <input type="submit" class="form-control btn btn-warning" name="FATURAR" id="gravar" value="Faturar">
                                   <?php } ?>
                                 </div>

@@ -171,7 +171,8 @@ if(isset($_POST['FATURAR'])|| isset($_POST['excluir'])){
             $excluir_faturamento->execute();
             $excluir_frete = $conexao->prepare("DELETE FROM tabela_notas_transporte WHERE cod_nota = '$codigo'");
             $excluir_frete->execute();
-
+            $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '10' WHERE cod = $op ");
+            $atualizar_op->execute();
             $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Deletou o Faturamento da Op $op' , '$cod_user' , '$dataHora')");
             $Atividade_Supervisao->execute();
 

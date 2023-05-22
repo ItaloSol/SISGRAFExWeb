@@ -1,4 +1,4 @@
-<?php /*   */ 
+<?php 
 session_start();
 $cod_user = $_SESSION["usuario"][2];
 include_once('../conexoes/conexao.php');
@@ -76,7 +76,7 @@ if(isset($_POST['submit'])){
             $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Criado a Conta $nome' , '$cod_user' , '$dataHora')");
             $Atividade_Supervisao->execute();
 
-        $query_Atendente = $conexao->prepare("INSERT INTO tabela_atendentes (codigo_atendente, nome_atendente, login_atendente, senha_atendente, tipo_atendente, ativo, secao_atendente) VALUES ('$codigo', '$nome', '$login', '$senha', '$tipo', '1', '$atual' )");
+        $query_Atendente = $conexao->prepare("INSERT INTO tabela_atendentes (codigo_atendente, nome_atendente, login_atendente, senha_atendente, tipo_atendente, ativo, secao_atendente) VALUES ('$codigo', '$nome', '$login', '$senha', '$tipo', '1', '' )");
 	    $query_Atendente->execute();
         $query_Atendente = $conexao->prepare("INSERT INTO usuario_acessos (CODIGO_USR, ORC, ORC_ADM, PROD, PROD_ADM, EXP, EXP_ADM , FIN, FIN_ADM, EST, ORD) VALUES ('$codigo', $orc, $orc_ad, $prod, $prod_ad, $exp, $exp_ad, $fin, $fin_ad, $estoque, $od)");
 	    $query_Atendente->execute();
