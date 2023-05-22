@@ -59,10 +59,14 @@ if (isset($_POST['sim'])) {
     // acabamamento
     $staDe = "data_ent_acabamento = '" . $data . "' ";
   }
-  // if($codSts == '10'){
+   if($codSts == '10'){
   //     // expedicao
-  // $staDe = "DT_SAIDA_EXPEDICAO = '".$data."' ";
-  // }
+   $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' ";
+   }
+   if($codSts == '17'){
+    //     // expedicao
+     $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' ";
+     }
   if ($codSts == '14') {
     // CTP
     $staDe = "DT_ENTRADA_CTP = '" . $data . "' ";
