@@ -119,6 +119,25 @@ if (isset($_SESSION['msg'])) {
                 <label for="exampleFormControlInput1" class="form-label">Senha</label>
                 <input type="text" class="form-control" value="0" name="senha" id="exampleFormControlInput1" placeholder="Insira a senha" required />
               </div>
+              <div class="mt-2 mb-3">
+                        <label for="secao" class="form-label">Seção</label>
+                        <select id="secao" name="secao" class="form-select form-select-lg">
+                          <option>Selecione uma Seção</option>
+                          <option value="1">ACABAMENTO</option>
+                          <option value="2">BANNER</option>
+                          <option value="3">COMERCIAL / ORÇAMENTAÇÃO</option>
+                          <option value="4">EXPEDIÇÃO</option>
+                          <option value="13">FINANCEIRO</option>
+                          <option value="5">GRAVAÇÃO DE CHAPAS</option>
+                          <option value="6">IMPRESSAO DIGITAL</option>
+                          <option value="12">INFORMÁTICA</option>
+                          <option value="7">OFFSET</option>
+                          <option value="8">PLOTTER</option>
+                          <option value="9">PRÉ-IMPRESSAO</option>
+                          <option value="10">SEÇÃO TÉCNICA</option>
+                          <option value="11">TIPOGRAFIA</option>
+                        </select>
+                      </div>
               <div class="mb-3">
                 <label for="exampleFormControlSelect1" class="form-label">Tipo</label>
                 <select class="form-select" name="tipo" id="exampleFormControlSelect1" aria-label="Default select example">
