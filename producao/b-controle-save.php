@@ -444,7 +444,12 @@ if (isset($_POST['sim'])) {
     if (isset($operador[1])) {
       $op = $operador[1];
       $op_ = $operador[0];
+      if(!isset($Where)){
+        $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$codSts'  , op_secao = '$op', secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , COD_ATENDENTE = '$op_' , tipo_trabalho = '$tipotrabalho' , $staDe WHERE cod = $cod  ");
+      }else{
       $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$codSts'  , op_secao = '$op', secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , COD_ATENDENTE = '$op_' , tipo_trabalho = '$tipotrabalho' , $Where , $staDe WHERE cod = $cod  ");
+
+      }
     } else {
       if(!isset($Where)){
         $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', tipo_trabalho='$tipotrabalho' , secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , $staDe WHERE  cod=$cod");
