@@ -45,10 +45,38 @@ if(isset($_POST['submit'])){
            if(isset($_POST['option10'])){
             $fin_ad = $_POST['option10'];
             }
+            $secao = $_POST['secao'];
+            if($secao == 1){
+                $atual = 'ACABAMENTO';
+            }elseif($secao == 2){
+                $atual = 'BANNER';
+            }elseif($secao == 3){
+                $atual = 'COMERCIAL / ORÇAMENTAÇÃO';
+            }elseif($secao == 4){
+                $atual = 'EXPEDIÇÃO';
+            }elseif($secao == 5){
+                $atual = 'GRAVAÇÃO DE CHAPAS';
+            }elseif($secao == 6){
+                $atual = 'IMPRESSAO DIGITAL';
+            }elseif($secao == 12){
+                $atual = 'INFORMÁTICA';
+            }elseif($secao == 7){
+                $atual = 'OFFSET';
+            }elseif($secao == 8){
+                $atual = 'PLOTTER';
+            }elseif($secao == 9){
+                $atual = 'PRÉ-IMPRESSAO';
+            }elseif($secao == 10){
+                $atual = 'SEÇÃO TÉCNICA';
+            }elseif($secao == 11){
+                $atual = 'TIPOGRAFIA';
+            }elseif($secao == 13){
+            $atual = 'FINANCEIRO';
+        }
             $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Criado a Conta $nome' , '$cod_user' , '$dataHora')");
             $Atividade_Supervisao->execute();
 
-        $query_Atendente = $conexao->prepare("INSERT INTO tabela_atendentes (codigo_atendente, nome_atendente, login_atendente, senha_atendente, tipo_atendente, ativo) VALUES ('$codigo', '$nome', '$login', '$senha', '$tipo', '1' )");
+        $query_Atendente = $conexao->prepare("INSERT INTO tabela_atendentes (codigo_atendente, nome_atendente, login_atendente, senha_atendente, tipo_atendente, ativo, secao_atendente) VALUES ('$codigo', '$nome', '$login', '$senha', '$tipo', '1', '$atual' )");
 	    $query_Atendente->execute();
         $query_Atendente = $conexao->prepare("INSERT INTO usuario_acessos (CODIGO_USR, ORC, ORC_ADM, PROD, PROD_ADM, EXP, EXP_ADM , FIN, FIN_ADM, EST, ORD) VALUES ('$codigo', $orc, $orc_ad, $prod, $prod_ad, $exp, $exp_ad, $fin, $fin_ad, $estoque, $od)");
 	    $query_Atendente->execute();

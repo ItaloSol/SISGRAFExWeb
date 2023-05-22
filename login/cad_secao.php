@@ -5,9 +5,8 @@ if(isset($_POST['id'])){
    
   include_once('../conexoes/conexao.php');
   include_once('../conexoes/conn.php');
+  $id_usuario = $_POST['id'];
     $secao = $_POST['secao'];
-    $id_usuario = $_POST['id'];
-
     if($secao == 1){
         $atual = 'ACABAMENTO';
     }elseif($secao == 2){
