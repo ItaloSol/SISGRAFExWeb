@@ -25,10 +25,10 @@ if (isset($_POST['excluir'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-        if ($cpf == '0') {
+        if ($cpf == '0' or $cpf == '') {
             $cpf = $_SESSION["usuario"][7];
         }
-        if ($nome_emiss == '0') {
+        if ($nome_emiss == '0' or $nome_emiss == '') {
             $nome_emiss = $_SESSION["usuario"][0];
         }
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod = $cod ");
@@ -154,10 +154,10 @@ if (isset($_POST['salvar'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-        if ($cpf == '0') {
+        if ($cpf == '0' or $cpf == '') {
             $cpf = $_SESSION["usuario"][7];
         }
-        if ($nome_emiss == '0') {
+        if ($nome_emiss == '0' or $nome_emiss == '') {
             $nome_emiss = $_SESSION["usuario"][0];
         }
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas order by cod desc ");
@@ -300,10 +300,10 @@ if (isset($_POST['editar'])) {
         $ug = $_POST['ug'];
         $horas = $_POST['data_horas'];
         $obs = $_POST['obs'];
-        if ($cpf == '0') {
+        if ($cpf == '0' or $cpf == '') {
             $cpf = $_SESSION["usuario"][7];
         }
-        if ($nome_emiss == '0') {
+        if ($nome_emiss == '0' or $nome_emiss == '') {
             $nome_emiss = $_SESSION["usuario"][0];
         }
         $Todos_notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod = $cod ");
