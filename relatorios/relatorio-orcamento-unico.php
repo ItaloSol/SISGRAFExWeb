@@ -330,7 +330,7 @@ $parte3 = '<div>________________________________________________________________
 <div style="text-align: center;"><b>INFORMAÇÕES DO CLIENTE</b></div>
 <br>
 <div style="width: 100%;text-align: start;">
-<div>CLIENTE: ' . $nome_cliente . '&nbsp;&nbsp;&nbsp; CÓDIGO CLIENTE: ' . $cod_cliente . '</div>
+<div>CLIENTE: ' . $nome_cliente . '&nbsp;&nbsp;&nbsp; CÓD CLIENTE: ' . $cod_cliente . '</div>
 <div>CONTATO: ' . $nome_contato . '&nbsp;&nbsp;&nbsp; TELEFONE PRINCIPAL: ' . $telefone . ' </div>';
 if ($telefone2 != '') {
     $parte3 .= '<div>TELEFONESECUNDÁRIO:' . $telefone2 . '</div>';
@@ -436,7 +436,7 @@ if ($tipo_cliente == '1') {
 $parte3 .= '<div  style="text-align: center; background-color: #d4d4d4;"><b>ENTREGA: ______ DIAS ÚTEIS APÓS A APROVAÇÃO DO "MODELO DE PROVA"</b></div><br>
 <div  style="text-align: center;  background-color: #d4d4d4;"><div  style="font-size: 14px;"><b>AUTORIZO A INSERÇÃO DO QR CODE DA GRÁFICA DO EXÉRCITO NA 4ª CAPA ( ) SIM ( ) NÃO</b></div></div>
 <div style="text-align: center;   display: solid; align-items: center; justify-content: center; "> <br><br><br><br><br><br>
-<p style="text-align: center; margin-left: 25%; margin-right: 25%; width: 50%; ">BRASÍLIA-DF, 08/02/2023. <br><br>
+<p style="text-align: center; margin-left: 25%; margin-right: 25%; width: 50%; ">BRASÍLIA-DF, '.$data.'. <br><br>
 ________________________________________________<br>
 ' . $nome_atendente . ' <br>
 GRÁFICA DO EXÉRCITO - DIVISÃO COMERCIAL
