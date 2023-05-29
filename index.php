@@ -118,7 +118,8 @@
                       placeholder="Insira a Senha"
                       aria-describedby="password"
                     />
-                    <span class="lnr lnr-eye input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    
+                    <span id="olho"  class="lnr lnr-eye input-group-text cursor-pointer"><i  class="bx bx-hide"></i></span>
                   </div>
                 </div>
                 <div class="mb-3">
@@ -188,13 +189,13 @@
 
    <!-- Senha para Text -->
   <script>
-    let btn = document.querySelector('.lnr-eye');
+    const btn = document.getElementById('olho');
+    const input = document.getElementById('password');
     btn.addEventListener('click', function() {
-    let input = document.querySelector('#password');
-    if(input.getAttribute('type') == 'password') {
-        input.setAttribute('type', 'text');
+    if(input.getAttribute('type') === 'password') {
+      input.setAttribute('type', 'password');
     } else {
-        input.setAttribute('type', 'password');
+       input.setAttribute('type', 'text');
     }
     });
   </script>

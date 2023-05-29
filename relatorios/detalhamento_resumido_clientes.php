@@ -220,6 +220,7 @@ while ($linha = $query_Ordens_Producao->fetch(PDO::FETCH_ASSOC)) {
             ];
         }
     }
+    echo $Tabela_Faturamentos[$i]['VLR_FAT'] . '<br>';
     if ($Tipo_Produto == '1') {
         $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
         $query_PRODUTOS->execute();
@@ -294,8 +295,16 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
             'valor_total' => $linha2['valor_total']
         ];
     }
+    echo 'Total --> '. $Tabela_Orc_Finalizados[$i]['valor_total']. '<br>';
+    if($Tabela_Orc_Finalizados[$i]['valor_total'] != $Tabela_Faturamentos[$i]['VLR_FAT']){
+        echo $Tabela_Orc_Finalizados[$i]['valor_total'] . ' '. $Tabela_Faturamentos[$i]['VLR_FAT'] . '<br>';
+        $valor_falta[$i] = +$Tabela_Orc_Finalizados[$i]['valor_total'] - +$Tabela_Faturamentos[$i]['VLR_FAT'];
+    }else{
+        $valor_falta[$i] = 0;
+    }
     $i++;
 }
+
 if (isset($Ordens_Finalizadas)) {
     $Total_Finalizadas = count($Ordens_Finalizadas);
 } else {
@@ -598,16 +607,32 @@ while ($Total_Finalizadas > $Percorrer_Finalizadas) {
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_emissao'])) . '</td>' .
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_entrega'])) . '</td>' .
             '<td>' . $Tabela_Produtos_Finalizados[$Percorrer_Finalizadas]['descricao'] . '</td>' .
-            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>' .
+            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>';
+            if($valor_falta[$Percorrer_Finalizadas] == 0){
             '<td>' . $Tabela_Orc_Finalizados[$Percorrer_Finalizadas]["valor_total"] . ' </td></tr>';
+            }else{
+                if($Tabela_Faturamentos[$Percorrer_Finalizadas]['VLR_FAT'] == $valor_falta[$Percorrer_Finalizadas]){
+                    $relatorio += '<td>(FATURADA)'. $Tabela_Faturamentos[$Percorrer_Finalizadas]['VLR_FAT'] . ' </td></tr>';
+                }else{
+                    $relatorio +=   '<td>(FATURADA) R$ '. $Tabela_Faturamentos[$Percorrer_Finalizadas]['VLR_FAT'] .'<br>(NÃO FATURADA) R$ '.$valor_falta[$Percorrer_Finalizadas].'</td></tr>';
+                }
+            }
     } else {
         $relatorio = $relatorio . '<tr><td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['orcamento_base'] . '</td>' .
             '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '</td>' .
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_emissao'])) . '</td>' .
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_entrega'])) . '</td>' .
             '<td>' . $Tabela_Produtos_Finalizados[$Percorrer_Finalizadas]['descricao'] . '</td>' .
-            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>' .
-            '<td>' . $Tabela_Orc_Finalizados[$Percorrer_Finalizadas]["valor_total"] . ' </td></tr>';
+            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>';
+            if($valor_falta[$Percorrer_Finalizadas] == 0){
+                '<td>' . $Tabela_Orc_Finalizados[$Percorrer_Finalizadas]["valor_total"] . ' </td></tr>';
+                }else{
+                    if($Tabela_Faturamentos[$Percorrer_Finalizadas]['VLR_FAT'] == $valor_falta[$Percorrer_Finalizadas]){
+                        $relatorio += '<td>(FATURADA)'. $Tabela_Faturamentos[$Percorrer_Finalizadas]['VLR_FAT'] . ' </td></tr>';
+                    }else{
+                        $relatorio +=   '<td>(FATURADA) R$ '. $Tabela_Faturamentos[$Percorrer_Finalizadas]['VLR_FAT'] .'<br>(NÃO FATURADA) R$ '.$valor_falta[$Percorrer_Finalizadas].'</td></tr>';
+                    }
+            }
     }
     // $valor_total_Finalizadas =  $valor_total_Finalizadas + $Tabela_Orc_Finalizados[$Percorrer_Finalizadas]["valor_total"] ;
     $Percorrer_Finalizadas++;
@@ -762,37 +787,37 @@ if ($Detalhamento == 'Resumido') {
 }
 
 
-// echo $html;
+ echo $html;
 /// FIM CODIGO VARIAVEL///
 /////////////////////////////////////////////
 ///////////////// CODIGO FIXO ///////////////
 /////////////////////////////////////////////
-require_once __DIR__ . '../../vendor/autoload.php';
-// Create an instance of the class:
-$mpdf = new \mPDF();
+// require_once __DIR__ . '../../vendor/autoload.php';
+// // Create an instance of the class:
+// $mpdf = new \mPDF();
 
-if ($_POST['orientacao']) {
-    if ($_POST['orientacao'] == 'retrato') {
-        // Write some HTML code:
-        $mpdf = new mPDF('C', 'A4');
-    }
-}
-if ($_POST['orientacao']) {
-    if ($_POST['orientacao'] == 'paisagem') {
-        // Write some HTML code:
-        $mpdf = new mPDF('C', 'A4-L');
-    }
-}
+// if ($_POST['orientacao']) {
+//     if ($_POST['orientacao'] == 'retrato') {
+//         // Write some HTML code:
+//         $mpdf = new mPDF('C', 'A4');
+//     }
+// }
+// if ($_POST['orientacao']) {
+//     if ($_POST['orientacao'] == 'paisagem') {
+//         // Write some HTML code:
+//         $mpdf = new mPDF('C', 'A4-L');
+//     }
+// }
 
 
-$mpdf->SetDisplayMode('fullpage');
+// $mpdf->SetDisplayMode('fullpage');
 
-$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-//level of a list
+// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+// //level of a list
 
-// LOAD a stylesheet
+// // LOAD a stylesheet
 
-$mpdf->WriteHTML($html, 2);
-$nome = 'Detalhamento_De_Cliente_' . $cod . '_' . $nome . '.pdf';
-$mpdf->Output($nome, 'I');
-exit;
+// $mpdf->WriteHTML($html, 2);
+// $nome = 'Detalhamento_De_Cliente_' . $cod . '_' . $nome . '.pdf';
+// $mpdf->Output($nome, 'I');
+// exit;
