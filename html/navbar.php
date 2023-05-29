@@ -425,12 +425,14 @@ if (isset($_SESSION['msg'])) {
             <div data-i18n="Basic">&nbsp &nbsp Aceitar Op's</div>
           </a>
         </li>
+        <?php  if ($EXP_ADM_I == '1') {  ?>
         <li class=" modifca menu-item">
           <a href="../expedicao/tl-controle-expedicao.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-notepad"></i>
             <div data-i18n="Basic">Modificação de Op</div>
           </a>
         </li>
+        <?php  } ?>
         <li class=" faturamento menu-item">
           <a href="../expedicao/tl-faturadas.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-notepad"></i>
