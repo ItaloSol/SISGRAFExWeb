@@ -21,6 +21,25 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     $_SESSION['pag'] = array(0, 0);
     $cod = $user["codigo_atendente"];
     if ($user['ativo'] == '0') {
+      $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+      role="bs-toast"
+      class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header">
+        <i class="bx bx-bell me-2"></i>
+        <div class="me-auto fw-semibold">Aviso!</div>
+        <small>
+          
+          </small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      
+      <div class="toast-body">
+          Sua conta foi desativada por INATIVIDADE solicite ativação na seção de informática.     
+      </div>
+    </div>';
       header('location: logout.php?i=0');
     }
     if ($user['validacao'] == 0) {
