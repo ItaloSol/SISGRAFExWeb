@@ -60,7 +60,7 @@ if (isset($_GET['Ob'])) {
     </div>';
   }
 }
-$query_sd_posto = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' ORDER BY a.nome_atendente ASC ");
+$query_sd_posto = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' AND ativo = 1 ORDER BY a.nome_atendente ASC ");
 $query_sd_posto->execute();
 $Operadores = 0;
 while ($linha = $query_sd_posto->fetch(PDO::FETCH_ASSOC)) {
@@ -354,7 +354,7 @@ if (isset($_GET['cod'])) {
 
   <?php
   $a = 0;
-  $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' ORDER BY a.nome_atendente ASC ");
+  $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' AND ativo = 1 ORDER BY a.nome_atendente ASC ");
   $query_sd_posto->execute();
   $Operadores = 0;
   while ($linha = $query_sd_posto->fetch(PDO::FETCH_ASSOC)) {
