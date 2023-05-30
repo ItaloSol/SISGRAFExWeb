@@ -308,7 +308,12 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
     $ak = (int)$Tabela_Orc_Finalizados[$i]["valor_total"];
     $bk = (int)$valor_fata[$i]["valor_total"];
     $vkasd = $ak - $bk;
-    $Relatorio_Faturada[$i] = '(TOTAL) R$ '. $Tabela_Orc_Finalizados[$i]["valor_total"] .'<br>(FATURADA) R$ '. $valor_fata[$i]["valor_total"] . ' <br>(PRODUÇÃO) R$ '. number_format($vkasd, 2, ',', '.');
+    if($vkasd == 0){
+        $Relatorio_Faturada[$i] = '(TOTAL) R$ '. $Tabela_Orc_Finalizados[$i]["valor_total"] .'<br>(FATURADA) R$ '. $valor_fata[$i]["valor_total"] ;
+    }else{
+        $Relatorio_Faturada[$i] = '(TOTAL) R$ '. $Tabela_Orc_Finalizados[$i]["valor_total"] .'<br>(FATURADA) R$ '. $valor_fata[$i]["valor_total"] . ' <br>(PRODUÇÃO) R$ '. number_format($vkasd, 2, ',', '.');
+    }
+    
     $i++;
 }
 
@@ -614,8 +619,12 @@ while ($Total_Finalizadas > $Percorrer_Finalizadas) {
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_emissao'])) . '</td>' .
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_entrega'])) . '</td>' .
             '<td>' . $Tabela_Produtos_Finalizados[$Percorrer_Finalizadas]['descricao'] . '</td>' .
-            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>';
-            '<td>'.$Relatorio_Faturada[$i].' </td></tr>';
+            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>' ;
+           if(isset($Relatorio_Faturada[$Percorrer_Finalizadas])){
+            $relatorio = $relatorio . '<td>'.$Relatorio_Faturada[$Percorrer_Finalizadas].' </td></tr>';
+           } else{
+            $relatorio = $relatorio . '<td>ERRO <br> '.$Tabela_Orc_Finalizados[$Percorrer_Finalizadas]["valor_total"].'</td></tr>';
+           }
            
     } else {
         $relatorio = $relatorio . '<tr><td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['orcamento_base'] . '</td>' .
@@ -623,9 +632,12 @@ while ($Total_Finalizadas > $Percorrer_Finalizadas) {
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_emissao'])) . '</td>' .
             '<td>' . date('d/m/Y', strtotime($Ordens_Finalizadas[$Percorrer_Finalizadas]['data_entrega'])) . '</td>' .
             '<td>' . $Tabela_Produtos_Finalizados[$Percorrer_Finalizadas]['descricao'] . '</td>' .
-            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>'.
-         
-                '<td>'.$Relatorio_Faturada[$i].' </td></tr>';
+            '<td>' . $Ordens_Finalizadas[$Percorrer_Finalizadas]["STS_DESCRICAO"] . ' </td>';
+            if(isset($Relatorio_Faturada[$Percorrer_Finalizadas])){
+                $relatorio = $relatorio . '<td>'.$Relatorio_Faturada[$Percorrer_Finalizadas].' </td></tr>';
+               } else{
+                $relatorio = $relatorio . '<td>ERRO <br> '.$Tabela_Orc_Finalizados[$Percorrer_Finalizadas]["valor_total"].'</td></tr>';
+               }
             
     }
     //' . $Tabela_Orc_Finalizados[$Percorrer_Finalizadas]["valor_total"] . '
@@ -782,7 +794,7 @@ if ($Detalhamento == 'Resumido') {
 }
 
 
- //echo $html;
+// echo $html;
 /// FIM CODIGO VARIAVEL///
 /////////////////////////////////////////////
 ///////////////// CODIGO FIXO ///////////////
