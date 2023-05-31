@@ -28,7 +28,7 @@ $_SESSION["pag"] = array(1, 0); ?>
         <br>
         <label class="form-check-label" name="codigo" value="cod" for="defaultCheck1"> Tipo de Cliente </label>
         <div class="mb-3">
-          <select class="form-select" name="tipo_cliente" id="exampleFormControlSelect1" aria-label="Default select example">
+          <select class="form-select" name="tipo_cliente" id="cliente" aria-label="Default select example">
             <option selected>Selecione o tipo de cliente</option>
             <option value="1">Pessoa Física</option>
             <option value="2">Pessoa Júridica</option>
@@ -46,8 +46,11 @@ $_SESSION["pag"] = array(1, 0); ?>
           <input class="form-check-input" name="codigo" type="radio" value="nom" id="defaultCheck1" />
           <label class="form-check-label" value="nom" for="defaultCheck1"> Por Nome </label>
         </div>
-        <div class="mb-3">
-          <input id="defaultInput" name="nome" class="form-control" type="text" placeholder="Digite o nome aqui" />
+        <div id="juri" class="mb-3">
+          <input id="defaultInput" name="nome" class="form-control" type="text" placeholder="Digite o nome juridico" />
+        </div>
+        <div id="fisc" class="mb-3">
+          <input id="defaultInput" name="nome" class="form-control" type="text" placeholder="Digite o nome fisico" />
         </div>
         <div class="form-check mt-3">
           <!-- <input class="form-check-input" name="orientacao" type="radio" value="retrato"  id="Retrato" />
@@ -73,6 +76,21 @@ $_SESSION["pag"] = array(1, 0); ?>
   </div>
 </div>
 </div>
-
+<script>
+  const select = document.getElementById('cliente');
+  const juri = document.getElementById('juri');
+  const fisc = document.getElementById('fisc');
+  fisc.style.display = 'none';
+      juri.style.display = 'none';
+  select.addEventListener('click', vlr => {
+    if(select.value == 1){
+      fisc.style.display = 'block';
+      juri.style.display = 'none';
+    }else{
+      fisc.style.display = 'none';
+      juri.style.display = 'block';
+    }
+  })
+</script>
 
 <?php /* |-!  !-| */ include_once("../html/../html/navbar-dow.php"); ?>

@@ -428,8 +428,8 @@ Método de pagamento: ';
 if ($tipo_cliente == '1') {
     $parte3 .= '<div style="font-size: 13px;"><b> GRU SIMPLES, PAGAMENTO EXCLUSIVO NO BANCO DO BRASIL.</b></div></div><br>';
 } else {
-    $parte3 .= '<br><div style="font-size: 13px;"><b> TRANSFERÊNCIA ENTRE CONTAS, OPÇÃO PAGAMENTO DE SERVIÇO (POR NOTA DE CRÉDITO
-    FAVORECIDO – UG 160083 E UG 167083 PARA ND 33 90 00 , ND 33 90 30 OU 33 90 39).</b></div></div><br>';
+    $parte3 .= '<br><div style="font-size: 13px;"><b> PAGAMENTO DE SERVIÇO POR NOTA DE CRÉDITO
+    FAVORECIDO UG 167083 (PREFERENCIALMENTE) OU UG 160083, NAS ND 33 90 00 (PREFERENCIALMENTE), ND 33 90 30 OU ND 33 90 39.</b></div></div><br>';
 }
 
 
