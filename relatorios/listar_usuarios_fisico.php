@@ -10,9 +10,8 @@ if(!empty($nome_usuario)){
 
     $pesq_usuarios = "%" . $nome_usuario . "%";
 
-    $query_usuarios= "SELECT nome, cod, nome_fantasia, cnpj, atividade, filial_coligada, cod_atendente, 
-    nome_atendente, observacao, credito
-    FROM tabela_clientes_juridicos WHERE nome LIKE :nome LIMIT 20";
+    $query_usuarios= "SELECT *
+    FROM tabela_clientes_fisicos WHERE nome LIKE :nome LIMIT 20";
     $result_usuarios = $conn->prepare($query_usuarios);
     $result_usuarios->bindParam(':nome', $pesq_usuarios);
     $result_usuarios->execute();
@@ -22,20 +21,18 @@ if(!empty($nome_usuario)){
           $dados[] = [
                 'nome' => $row_usuario['nome'],
                 'cod' => $row_usuario['cod'],
-                'nome_fantasia' => $row_usuario['nome_fantasia'],
-                'cnpj' => $row_usuario['cnpj'],
+                'nome_fantasia' => $row_usuario['nome'],
+                'cnpj' => $row_usuario['cpf'],
                 'atividade' => $row_usuario['atividade'],
-                'filial_coligada' => $row_usuario['filial_coligada'],
                 'cod_atendente' => $row_usuario['cod_atendente'],
                 'nome_atendente' => $row_usuario['nome_atendente'],
-                'observacao' => $row_usuario['observacao'],
                 'credito' => $row_usuario['credito']
               
             ];
         }
 
         $retorna = ['erro' => false, 'dados' => $dados];
-        //$retorna = ['erro' => true, 'msg' => "Erro: Nenhum cliente encontrado!"];
+        //$retorna = ['erro' => true, 'msg' => "Erro: Nenhum usuário encontrado!"];
     }else{
         $retorna = ['erro' => true, 'msg' => "Erro: Nenhum cliente encontrado!"];
     }
@@ -44,8 +41,6 @@ if(!empty($nome_usuario)){
 }else{
     $retorna = ['erro' => true, 'msg' => "Erro: Nenhum cliente encontrado!"];
 }
-$_SESSION["codOm"] = array($dados[1]['cod']);
-
     
 echo json_encode($retorna);
 

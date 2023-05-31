@@ -7,14 +7,12 @@ include_once('../conexoes/conn.php');
 /////////////////////////////////////////////
 // CODIGO VARIAVEL // $html => VARIAVEL OBRIGATORIA PARA CRIAÇÃO DO PDF, INTRUÇÕES EM HTML 
 if (isset($_POST['submit'])) {
-    $busca_por = $_POST['codigo'];
+    $busca_por = 'cod';
 
-    if ($busca_por == 'cod') {
+    
         $seleciona_por = $_POST['numero'];
-    }
-    if ($busca_por == 'nom') {
-        $seleciona_por = $_POST['nome'];
-    }
+   
+   
     $tipo_cliente = $_POST['tipo_cliente'];
 }
 if (isset($_POST['relatorio'])) {

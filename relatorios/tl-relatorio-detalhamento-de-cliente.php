@@ -47,10 +47,17 @@ $_SESSION["pag"] = array(1, 0); ?>
           <label class="form-check-label" value="nom" for="defaultCheck1"> Por Nome </label>
         </div>
         <div id="juri" class="mb-3">
-          <input id="defaultInput" name="nome" class="form-control" type="text" placeholder="Digite o nome juridico" />
+          <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o nome juridico" onkeyup="carregar_usuarios(this.value)" />
+          <input id="codigo" name="numero" class="form-control" type="hidden" placeholder="Digite o código aqui" />
+          <span id="resultado_pesquisa0"></span>
+        </div>
+        <div id="dis" class="mb-3">
+          <input id="defaultInput" disabled class="form-control" type="text" placeholder="Selecione o tipo de cliente" />
         </div>
         <div id="fisc" class="mb-3">
-          <input id="defaultInput" name="nome" class="form-control" type="text" placeholder="Digite o nome fisico" />
+        <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome juridico" onkeyup="carregar_fisico(this.value)" />
+          <input id="codigo1" name="numero" class="form-control" type="hidden" placeholder="Digite o código aqui" />
+          <span id="resultador_123"></span>
         </div>
         <div class="form-check mt-3">
           <!-- <input class="form-check-input" name="orientacao" type="radio" value="retrato"  id="Retrato" />
@@ -79,6 +86,7 @@ $_SESSION["pag"] = array(1, 0); ?>
 <script>
   const select = document.getElementById('cliente');
   const juri = document.getElementById('juri');
+  const dis = document.getElementById('dis');
   const fisc = document.getElementById('fisc');
   fisc.style.display = 'none';
       juri.style.display = 'none';
@@ -86,11 +94,13 @@ $_SESSION["pag"] = array(1, 0); ?>
     if(select.value == 1){
       fisc.style.display = 'block';
       juri.style.display = 'none';
+      dis.style.display = 'none';
     }else{
       fisc.style.display = 'none';
       juri.style.display = 'block';
+      dis.style.display = 'none';
     }
   })
 </script>
-
+<script src="../js/custom.js"></script>
 <?php /* |-!  !-| */ include_once("../html/../html/navbar-dow.php"); ?>

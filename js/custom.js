@@ -66,48 +66,49 @@ document.addEventListener('click', function (event) {
 
 //
 
-async function carregar_atendentes(valor) {
+async function carregar_fisico(valor) {
     if (valor.length >= 3) {
-        console.log("Pesquisar: " + valor);
-
-        const dados = await fetch('listar_usuarios.php?codigo=' + valor);
-        const resposta = await dados.json();
-        console.log(resposta);
-
-        var html = "<ul class='list-group position-absolute'>";
-
-        if (resposta['erro']) {
-            html += "<li class='list-group-item list-group-item-dark'>" + resposta['msg'] + "</li>";
-        } else {
-            for (i = 0; i < resposta['dados'].length; i++) {
-                html += "<li class='list-group-item list-group-item-dark' onclick='get_id_codigo(" + resposta['dados'][i].codigo + ","
-                    + JSON.stringify(resposta['dados'][i].codigo) +
-
-                    ")'>" + resposta['dados'][i].codigo + "</li>";
+        //    console.log("Pesquisar: " + valor);
+    
+            const dados = await fetch('listar_usuarios_fisico.php?nome=' + valor);
+            const resposta = await dados.json();
+        //    console.log(resposta);
+    
+            var html = "<ul class='list-group position-absolute'>";
+    
+            if (resposta['erro']) {
+                html += "<li class='list-group-item list-group-item-dark'>" + resposta['msg'] + "</li>";
+            } else {
+                for (i = 0; i < resposta['dados'].length; i++) {
+                    html += "<li class='list-group-item list-group-item-dark' onclick='get_id_usuario1(" + resposta['dados'][i].cod + ","
+                        + JSON.stringify(resposta['dados'][i].nome) +
+                        "," + JSON.stringify(resposta['dados'][i].cnpj) +
+                        ")'>" + resposta['dados'][i].atividade +
+                        " " + resposta['dados'][i].nome + "</li>";
+                }
+    
             }
-
+            html += "</ul>";
+   
+            document.getElementById('resultador_123').innerHTML = html;
+            
         }
-        html += "</ul>";
-
-        document.getElementById('resultado').innerHTML = html;
-    }
+}
+function get_id_usuario1(cod, nome,) {
+    console.log("Id do usuario selecionado: " + cod);
+    console.log("nome do usuario selecionado: " + nome);
+    document.getElementById("usuario1").value = nome;
+    document.getElementById("codigo1").value = cod;
 }
 
-function get_id_codigo(codigo) {
-    console.log("codigo do usuario selecionado: " + codigo);
-
-    document.getElementById("codigo").value = codigo;
-}
-
-var fecha = document.getElementById('codigo');
+const fechar1 = document.getElementById('usuario1');
 
 document.addEventListener('click', function (event) {
-   
-        const validar_clique = fecha.contains(event.target);
+        const validar_clique = fechar1.contains(event.target);
         if (!validar_clique) {
-            document.getElementById('resultado').innerHTML = '';
+            document.getElementById('resultador_123').innerHTML = '';
         }
-    
+   
 
 })
 

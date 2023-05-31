@@ -177,7 +177,7 @@ if(isset($_GET['Ty'])){if($_GET['Ty'] == 2){ $Tipo_Cliente = 2;};if($_GET['Ty'] 
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Nome do Cliente Jurídico</label>
                           <input type="text" style="text-transform:uppercase" name="usuario0" class="form-control" id="usuario0" value="<?= $Cliente_Puxado[0]["nome"] ?>" placeholder="Pesquisar usuário" onkeyup="carregar_usuarios(this.value)" />
-                <span id="resultado_pesquisa0"></span>
+                        <span id="resultado_pesquisa0"></span>
                           <!-- <input type="text" class="form-control" id="usuario0" name="usuario0" placeholder="Insira o nome do cliente" onkeyup="carregar_usuarios(this.value)" />
                           <span id="resultado_pesquisa0"></span> -->
                         </div>
