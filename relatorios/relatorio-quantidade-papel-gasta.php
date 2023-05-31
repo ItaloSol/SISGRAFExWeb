@@ -111,8 +111,12 @@ if (isset($Query_Where)) {
 if (isset($OrderBy)) {
     $Query_Completa = $Query_Completa . $OrderBy;
 }
-
-//echo $Query_Completa . '<br>';
+if(!isset($Query_Completa)){
+    $Query_Completa = 'SELECT * FROM tabela_papeis 
+    INNER JOIN tabela_calculos_op ON tabela_calculos_op.cod_papel = tabela_papeis.cod 
+    INNER JOIN tabela_ordens_producao ON tabela_calculos_op.cod_op = tabela_ordens_producao.cod ';
+}
+// echo $Query_Completa . '<br>';
 $Query_Consumo_Papeis = $conexao->prepare("$Query_Completa");
 $Query_Consumo_Papeis->execute();
 $i = 0;
@@ -284,41 +288,41 @@ $Tabela_Completa = $Inicio_Tabela . $Cabesalhos .  $Fecha_Inicio . $Dados . $Fim
 $html = $titulo . $Tabela_Completa;
 
 
-//echo $html;
+echo $html;
 /// FIM CODIGO VARIAVEL///
 /////////////////////////////////////////////
 ///////////////// CODIGO FIXO ///////////////
 /////////////////////////////////////////////
-require_once __DIR__ . '../../vendor/autoload.php';
-// Create an instance of the class:
-$mpdf = new \mPDF();
+// require_once __DIR__ . '../../vendor/autoload.php';
+// // Create an instance of the class:
+// $mpdf = new \mPDF();
 
-if ($_POST['orientacao']) {
-    if ($_POST['orientacao'] == 'retrato') {
-        // Write some HTML code:
-        $mpdf = new mPDF('C', 'A4');
-    }
-}
-if ($_POST['orientacao']) {
-    if ($_POST['orientacao'] == 'paisagem') {
-        // Write some HTML code:
-        $mpdf = new mPDF('C', 'A4-L');
-    }
-} else {
-    if ($_POST['orientacao'] == 'retrato') {
-        // Write some HTML code:
-        $mpdf = new mPDF('C', 'A4');
-    }
-}
+// if ($_POST['orientacao']) {
+//     if ($_POST['orientacao'] == 'retrato') {
+//         // Write some HTML code:
+//         $mpdf = new mPDF('C', 'A4');
+//     }
+// }
+// if ($_POST['orientacao']) {
+//     if ($_POST['orientacao'] == 'paisagem') {
+//         // Write some HTML code:
+//         $mpdf = new mPDF('C', 'A4-L');
+//     }
+// } else {
+//     if ($_POST['orientacao'] == 'retrato') {
+//         // Write some HTML code:
+//         $mpdf = new mPDF('C', 'A4');
+//     }
+// }
 
-$mpdf->SetDisplayMode('fullpage');
+// $mpdf->SetDisplayMode('fullpage');
 
-$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-//level of a list
+// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+// //level of a list
 
-// LOAD a stylesheet
+// // LOAD a stylesheet
 
-$mpdf->WriteHTML($html, 2);
-$nome = 'RELATORIO_DE_CONSUMO_DE_PAPEIS.pdf';
-$mpdf->Output($nome, 'I');
-exit;
+// $mpdf->WriteHTML($html, 2);
+// $nome = 'RELATORIO_DE_CONSUMO_DE_PAPEIS.pdf';
+// $mpdf->Output($nome, 'I');
+// exit;

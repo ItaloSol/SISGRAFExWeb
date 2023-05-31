@@ -35,28 +35,28 @@ $_SESSION["pag"] = array(1, 0); ?>
           </select>
         </div>
         <div class="form-check mt-3">
-          <input class="form-check-input" name="codigo" type="radio" value="cod" id="defaultCheck1" />
-          <label class="form-check-label" name="codigo" value="cod" for="defaultCheck1"> Por Código do Cliente </label>
+          <input class="form-check-input" name="codigo" type="radio" value="cod" id="12" />
+          <label class="form-check-label" name="codigo" value="cod" for="12"> Por Código do Cliente </label>
         </div>
 
         <div class="mb-3">
           <input id="defaultInput" name="numero" class="form-control" type="text" placeholder="Digite o código aqui" />
         </div>
         <div class="form-check mt-3">
-          <input class="form-check-input" name="codigo" type="radio" value="nom" id="defaultCheck1" />
-          <label class="form-check-label" value="nom" for="defaultCheck1"> Por Nome </label>
+          <input class="form-check-input" name="codigo" type="radio" value="nom" id="23" />
+          <label class="form-check-label" value="nom" for="23"> Por Nome </label>
         </div>
         <div id="juri" class="mb-3">
-          <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o nome juridico" onkeyup="carregar_usuarios(this.value)" />
-          <input id="codigo" name="numero" class="form-control" type="hidden" placeholder="Digite o código aqui" />
+          <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o nome do cliente  juridico" onkeyup="carregar_usuarios(this.value)" />
+          <input id="codigo" name="numero2" class="form-control" type="hidden" placeholder="Digite o código aqui" />
           <span id="resultado_pesquisa0"></span>
         </div>
         <div id="dis" class="mb-3">
           <input id="defaultInput" disabled class="form-control" type="text" placeholder="Selecione o tipo de cliente" />
         </div>
         <div id="fisc" class="mb-3">
-        <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome juridico" onkeyup="carregar_fisico(this.value)" />
-          <input id="codigo1" name="numero" class="form-control" type="hidden" placeholder="Digite o código aqui" />
+        <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome do cliente fisico" onkeyup="carregar_fisico(this.value)" />
+          <input id="codigo1" name="numero1" class="form-control" type="hidden" placeholder="Digite o código aqui" />
           <span id="resultador_123"></span>
         </div>
         <div class="form-check mt-3">

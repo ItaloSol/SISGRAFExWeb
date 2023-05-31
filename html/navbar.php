@@ -261,11 +261,11 @@ if (isset($_SESSION['msg'])) {
                 </a>
               </li>
 -->
-              <li class="menu-item">
+              <!-- <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-papeis.php" class="menu-link">
                   <div data-i18n="Accordion">Consumo de Papéis</div>
                 </a>
-              </li>
+              </li> -->
 
             <?php  } ?>
             <?php  if ($FIN_I == '1' || $ORD_I == '1') {  ?>
@@ -323,35 +323,6 @@ if (isset($_SESSION['msg'])) {
               </li>
             </ul>
             </a>
-        </li>
-        <li class="menu-item">
-          <a href="../orcamentacao/tl-cadastro-acabamento.php" class="menu-link">
-            <div data-i18n="Alerts">Acabamentos</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="../orcamentacao/tl-cadastro-servicos-orcamento.php" class="menu-link">
-            <div data-i18n="Alerts">Serviços do Orçamento</div>
-          </a>
-        </li>
-        <?php
-                  echo  '<li class="menu-item">';
-        ?>
-        <a href="../orcamentacao/tl-cadastro-papeis.php" class="menu-link">
-          <div data-i18n="Alerts">Papéis</div>
-        </a>
-        </li>
-        <?php
-                  echo  '<li class="menu-item">';
-        ?>
-        <a href="../orcamentacao/tl-cadastro-chapas.php" class="menu-link">
-          <div data-i18n="Alerts">Chapas</div>
-        </a>
-        </li>
-        <li class="menu-item">
-          <a href="../orcamentacao/tl-cadastro-produtos.php" class="menu-link">
-            <div data-i18n="Alerts">Produtos</div>
-          </a>
         </li>
         </ul>
         </li>

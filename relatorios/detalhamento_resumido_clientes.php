@@ -7,13 +7,23 @@ include_once('../conexoes/conn.php');
 /////////////////////////////////////////////
 // CODIGO VARIAVEL // $html => VARIAVEL OBRIGATORIA PARA CRIAÇÃO DO PDF, INTRUÇÕES EM HTML 
 if (isset($_POST['submit'])) {
-    $busca_por = 'cod';
+    $busca_por = $_POST['codigo'];
 
-    
-        $seleciona_por = $_POST['numero'];
-   
-   
     $tipo_cliente = $_POST['tipo_cliente'];
+
+    if ($busca_por == 'cod') {
+
+        $seleciona_por = $_POST['numero'];
+    }
+    if ($busca_por == 'nom') {
+        if($tipo_cliente == '1'){
+                $seleciona_por = $_POST['usuario1'];
+        }else{
+                $seleciona_por = $_POST['usuario0'];
+        }
+    }
+   
+   
 }
 if (isset($_POST['relatorio'])) {
     if ($_POST['relatorio'] == 'Resumido') {
@@ -82,6 +92,9 @@ if ($tipo_cliente == '1') {
         }
     }
     if ($busca_por == "nom") {
+        if($_POST['numero1'] == ''){
+
+        }
         $query_clientes_fisico = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE  nome LIKE '%$seleciona_por%'  LIMIT 1");
         $query_clientes_fisico->execute();
 
@@ -123,7 +136,7 @@ if ($tipo_cliente == '2') {
         }
     }
     if ($busca_por == "nom") {
-        $query_Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE  nome LIKE '%$seleciona_por%' LIMIT 1  ");
+        $query_Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE  nome like '%$seleciona_por%' LIMIT 1  ");
         $query_Clientes_Juridicos->execute();
 
         while ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
