@@ -7,7 +7,7 @@ async function carregar_usuarios(valor) {
         const resposta = await dados.json();
     //    console.log(resposta);
 
-        var html = "<ul class='list-group position-absolute'>";
+        var html = "<ul style='z-index: 99999;' class='list-group position-absolute'>";
 
         if (resposta['erro']) {
             html += "<li class='list-group-item list-group-item-dark'>" + resposta['msg'] + "</li>";
@@ -70,11 +70,11 @@ async function carregar_fisico(valor) {
     if (valor.length >= 3) {
         //    console.log("Pesquisar: " + valor);
     
-            const dados = await fetch('listar_usuarios_fisico.php?nome=' + valor);
+            const dados = await fetch('../relatorios/listar_usuarios_fisico.php?nome=' + valor);
             const resposta = await dados.json();
         //    console.log(resposta);
     
-            var html = "<ul class='list-group position-absolute'>";
+            var html = "<ul style='z-index: 99999;' class='list-group position-absolute'>";
     
             if (resposta['erro']) {
                 html += "<li class='list-group-item list-group-item-dark'>" + resposta['msg'] + "</li>";

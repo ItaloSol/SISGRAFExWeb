@@ -1,4 +1,4 @@
-<?php /* ||| entes_juridicos ORDER BY nome ASC"); 
+<?php $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos ORDER BY nome ASC"); 
     $query_sd_posto->execute(); 
     $i = 0;
      while($linha = $query_sd_posto->fetch(PDO::FETCH_ASSOC)) {
@@ -25,7 +25,9 @@
                       <div class="demo-inline-spacing">
                       <div class="navbar navbar navbar-left bg-left mb-5">
                         <form class="d-flex" method="POST" action="tl-clientes-juridicos.php">
-                          <input class="form-control me-2" type="text" name="pesquisa"placeholder="Pesquisar Código ou Sigla" aria-label="Pesquisar" />
+                        <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o nome do cliente juridico" onkeyup="carregar_usuarios(this.value)" />
+                        <input id="codigo" name="numero" class="form-control" type="hidden" placeholder="Digite o código aqui" />
+                        <span id="resultado_pesquisa0"></span>
                           <!-- <imput class="btn btn-outline-primary" type="submit">Pesquisar -->
                           <input class="btn btn-outline-primary" type="submit" name="submit" value="Pesquisar">
                        </form>
@@ -38,17 +40,17 @@
                                 ><i class="tf-icon bx bx-chevrons-left"></i
                               ></a>
                         
-                            <?php /* ||| 
+                            <?php while($a < $total_paginas){ 
                               if($a == $Pg){ ?>
                                 <li class="page-item active">
-                                <?php /* ||| 
+                                <?php  }else{ ?>
                               <li class="page-item ">
-                              <?php /* ||| 
+                              <?php    }
                               ?>
                            
                               <a class="page-link" href="tl-clientes-juridicos.php?Pg=<?= $a ?>"><?= $a ?></a>
                             </li>
-                           <?php /* ||| 
+                           <?php $a++; }?>
                             
                             <li class="page-item last ">
                               <a class="page-link " href="tl-clientes-juridicos.php?Pg=<?= $a ?>"
@@ -60,11 +62,11 @@
                         </nav>
                         <!--/ Basic Pagination -->
                         
-<?php /* ||| 
-    if(isset($_POST['pesquisa'])){
+<?php  
+    if(isset($_POST['numero'])){
       $Pesquisa = True;
-      if( is_numeric($_POST['pesquisa'])){
-        $cod_Pesquisa = $_POST['pesquisa'];
+      if( is_numeric($_POST['numero'])){
+        $cod_Pesquisa = $_POST['numero'];
         $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE cod = $cod_Pesquisa ORDER BY nome ASC "); 
     $query_sd_posto->execute(); 
     $i = 0;
@@ -106,7 +108,7 @@
      
      $Percorrer = 0;
       }else{
-        $nome_Pesquisa = $_POST['pesquisa'];
+        $nome_Pesquisa = $_POST['numero'];
         $query_sd_posto = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE  nome_fantasia LIKE '%$nome_Pesquisa%'  ORDER BY nome ASC "); 
     $query_sd_posto->execute(); 
     $i = 0;
@@ -213,17 +215,17 @@
                           <th>Sigla</th>
                           <th>Cnpj</th>
                           <th>Crédito</th>
-                          <th>Editar</th>
+                          <th>Selecionar</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php /* ||| 
+                        <?php 
                         if($Cod == False){ ?>
                           <tr>
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Nenhum Cliente Encontrado! Pesquise pelo Código ou Pela Sigla Correta</strong>
                           </td>
-                          <?php /* ||| 
+                          <?php  }else{ 
                         while($Percorrer < $Listagem){ ?>
                                                   
                         <tr>
@@ -239,26 +241,13 @@
                               
                           </td>
                           <td><span class="badge bg-label-primary me-1"><?= $Cnpj[$Percorrer] ?></span></td>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $Credito[$Percorrer] ?></strong></td>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> R$ <strong><?= $Credito[$Percorrer] ?></strong></td>
                           <td>
-                            <div class="dropdown">
-                              <button
-                                type="button"
-                                class="btn p-0 dropdown-toggle hide-arrow"
-                                data-bs-toggle="dropdown"
-                              >
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" name='Cliente_Select' href="tl-cadastro-clientes.php?Select=<?= $Cod[$Percorrer] ?>&Ty=2"  
-                                  ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                >
-                                
-                              </div>
-                            </div>
+                          <a class="btn rounded-pill btn-info " name='Cliente_Select' href="tl-cadastro-clientes.php?Select=<?= $Cod[$Percorrer] ?>&Ty=2">
+                          <i class="bx bx-edit-alt me-1"></i> Selecionar</a>    
                           </td>
                         </tr>
                        
-                        <?php /* ||| 
+                        <?php $Percorrer++; } }?>
                       </tbody>
                     </table>

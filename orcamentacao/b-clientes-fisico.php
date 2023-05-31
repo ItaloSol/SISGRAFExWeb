@@ -13,7 +13,7 @@
         }
          ?>
 
-<h5 class="card-header">Clientes Jurídicos</h5>
+<h5 class="card-header">Clientes Físico</h5>
 
 <!-- Basic Pagination -->
 <div class="card-body">
@@ -25,7 +25,10 @@
                       <div class="demo-inline-spacing">
                       <div class="navbar navbar navbar-left bg-left mb-5">
                         <form class="d-flex" method="POST" action="tl-clientes-fisico.php">
-                          <input class="form-control me-2" type="text" name="pesquisa"placeholder="Pesquisar Código ou Sigla" aria-label="Pesquisar" />
+                        <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome do cliente Físico" onkeyup="carregar_fisico(this.value)" />
+          <input id="codigo1" name="numero" class="form-control" type="hidden" placeholder="Digite o código aqui" />
+          <span id="resultador_123"></span>
+                         
                           <!-- <imput class="btn btn-outline-primary" type="submit">Pesquisar -->
                           <input class="btn btn-outline-primary" type="submit" name="submit" value="Pesquisar">
                        </form>
@@ -61,10 +64,10 @@
                         <!--/ Basic Pagination -->
                         
 <?php /* |||  ||| */  
-    if(isset($_POST['pesquisa'])){
+    if(isset($_POST['numero'])){
       $Pesquisa = True;
-      if( is_numeric($_POST['pesquisa'])){
-        $cod_Pesquisa = $_POST['pesquisa'];
+      if( is_numeric($_POST['numero'])){
+        $cod_Pesquisa = $_POST['numero'];
         $query_clientes_fisico = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE cod = $cod_Pesquisa ORDER BY nome ASC "); 
     $query_clientes_fisico->execute(); 
     $i = 0;
@@ -94,7 +97,7 @@
      
      $Percorrer = 0;
       }else{
-        $nome_Pesquisa = $_POST['pesquisa'];
+        $nome_Pesquisa = $_POST['numero'];
         $query_clientes_fisico = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE  nome LIKE '%$nome_Pesquisa%'  ORDER BY nome ASC "); 
     $query_clientes_fisico->execute(); 
     $i = 0;
@@ -177,7 +180,7 @@
                           <th>Atividade</th>
                           <th>Cpf</th>
                           <th>Crédito</th>
-                          <th>Editar</th>
+                          <th>Selecionar</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -203,23 +206,10 @@
                               
                           </td>
                           <td><span class="badge bg-label-primary me-1"><?= $Cpf[$Percorrer] ?></span></td>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $Credito[$Percorrer] ?></strong></td>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> R$ <strong><?= $Credito[$Percorrer] ?></strong></td>
                           <td>
-                            <div class="dropdown">
-                              <button
-                                type="button"
-                                class="btn p-0 dropdown-toggle hide-arrow"
-                                data-bs-toggle="dropdown"
-                              >
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" name='Cliente_Select' href="tl-cadastro-clientes-fisico.php?Select=<?= $Cod[$Percorrer] ?>&Ty=1"  
-                                  ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                >
-                                
-                              </div>
-                            </div>
+                          <a class="btn rounded-pill btn-info " name='Cliente_Select' href="tl-cadastro-clientes-fisico.php?Select=<?= $Cod[$Percorrer] ?>&Ty=1">
+                          <i class="bx bx-edit-alt me-1"></i>Selecionar</a>
                           </td>
                         </tr>
                        
