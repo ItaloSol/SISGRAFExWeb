@@ -222,10 +222,10 @@ if(isset($_GET['Ty'])){if($_GET['Ty'] == 2){ $Tipo_Cliente = 2;};if($_GET['Ty'] 
                         <label for="obs" class="form-label">Observações do Cliente (Max 1000 Caracteres)</label>
                         <textarea class="form-control" value="<?= $Cliente_Puxado[0]["observacao"] ?>" id="obs" rows="3"></textarea>
                         </div><br></br>                              
-                        <button type="submit" class="btn btn-success">Incluir</button>   
+                        <!-- <button type="submit" class="btn btn-success">Incluir</button>   
                         <button type="submit" class="btn btn-danger">Excluir</button>
                         <button type="submit"  class="btn btn-success">Salvar</button>
-                        <button type="submit" class="btn btn-danger">Cancelar</button>    
+                        <button type="submit" class="btn btn-danger">Cancelar</button>     -->
                       </form>
                           </div>
                           <!-- Endereços -->
