@@ -157,7 +157,7 @@ while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
         $codio[$ops] = $codigo_op;
         $query_calculos_op = $conexao->prepare("SELECT * FROM tabela_calculos_op WHERE cod_op = $codigo_op AND tipo_produto = $tipo_produto ");
         $query_calculos_op->execute();
-      
+        $ops++;  
         while ($linha5 = $query_calculos_op->fetch(PDO::FETCH_ASSOC)) {
             $cod_papels = $linha5['cod_papel'];
             $cod_produtos = $linha5['cod_produto'];
@@ -179,7 +179,7 @@ while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
         
   
       $nova++;
-        
+      
     }
         
       
@@ -225,7 +225,7 @@ while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
     }
     $papels++;
 }
-    $ops++;  
+       
     $produtos++;
 }
 // echo 'tipo_papel_qtd_loop '. $tipo_papel_qtd_loop . ' produtos'. $produtos . ' papels'. $papels. '<br>'; 
@@ -307,17 +307,18 @@ if (!isset($nome_cliente)) {
 $parte1 = '<div  style="  margin-top: 0px; padding-top: 0px;"><img src="../assets/img/cabecalho_orcamento.png" style=" margin-left: 60px; margin-top: 0px; padding-top: 0px; top: 0px; justify-content: center; align-items: center; text-align: center; height: 150px">';
 $parte2 = '<br><div style="text-align: center;"><br><b>PROPOSTA DE ORÇAMENTO Nº ' . $cod_orcamento . '';
 if (isset($codigo_op)) {
-
-    $pp = '[';
+    $arrayUnico = array_unique($codio);
+    $pp = '[ ';
     $a = $ops - 1;
-    for ($i = 0; $i < $ops; $i++) {
-
-        if ($i != $a) {
-            $pp .= '' . $codio[$i] . ', ';
-        } else {
-            $pp .= '' . $codio[$i] . '';
+    for ($i = 0; $i < COUNT($arrayUnico); $i++) {
+        if($i != (count($arrayUnico) - 1 )){
+            $pp .= '' . $arrayUnico[$i] . ', ';
+        }else{
+            $pp .= '' . $arrayUnico[$i] . ' ';
         }
+          
     }
+   
     $pp .= ']';
     $parte2 .= ' / ORDEM DE PRODUÇÃO Nº ' . $pp . ' ';
 } else {
@@ -450,7 +451,7 @@ DATA:  &nbsp; &nbsp;   &nbsp;  de &nbsp;&nbsp;  &nbsp;     &nbsp;  &nbsp;   &nbs
 
 
 $html = $parte1 . $parte2 . $parte3;
- //echo $html;
+// echo $html;
 
 
 require_once __DIR__ . '../../vendor/autoload.php';
