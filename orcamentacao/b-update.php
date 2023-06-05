@@ -301,7 +301,7 @@ if (isset($_GET['acao'])) {
 if (isset($_GET['data'])) {
   $data_validade = $_GET['data'];
   $cod = $_GET['cod'];
-  $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET data_validade = '$data_validade'  WHERE cod = '$cod' ");
+  $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET data_validade = '$data_validade', status = '1'  WHERE cod = '$cod' ");
   $query_aceitalas->execute();
   $_SESSION['msg'] = ' <div style=";" id="alerta"
           role="bs-toast"
@@ -322,7 +322,7 @@ if (isset($_GET['data'])) {
                Alterada a data de validade do Orçamento!     
           </div>
         </div>';
-  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Alterou a data de validade do Orçamento $cod' , '$cod_user' , '$dataHora')");
+  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Alterou a data de validade do Orçamento $cod e o status para 1 - EM AVALIAÇÃO' , '$cod_user' , '$dataHora')");
   $Atividade_Supervisao->execute();
   header("Location: tl-orcamento.php?cod=$cod");
 }

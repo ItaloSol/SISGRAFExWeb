@@ -654,7 +654,7 @@ $valor_total_Finalizadas = 0;
                               <div class="modal-body align-items-center justify-content-center">
 
                                 <h6 class="align-items-center justify-content-center align-text-center">Certeza que
-                                  deseja atualizar a data de validade?</h6>
+                                  deseja atualizar a data de validade? <br><br> <b>O Staus da Op mudara para 1 - EM AVALIAÇÃO</b></h6>
 
                               </div>
                               <div class="modal-footer">
