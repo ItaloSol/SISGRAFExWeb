@@ -431,7 +431,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
                   <input class="form-check-input mt-0" id="arte" type="checkbox" aria-label="checkbox button for following text input" />
 
-                  <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00"  disabled aria-label="Text input with checkbox button" />
+                  <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00"   aria-label="Text input with checkbox button" />
 
                 </div>
 
@@ -440,7 +440,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
                   <input class="form-check-input mt-0" type="checkbox" id="frete" aria-label="checkbox button for following text input" />
 
-                  <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00"  disabled aria-label="Text input with radio button" />
+                  <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00"   aria-label="Text input with radio button" />
 
                 </div>
 
@@ -456,7 +456,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
               <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final"  aria-describedby="defaultFormControlHelp" /><br></br>
               <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
-              <button type="submit" class="btn btn-success">Salvar</button>
+              <!-- <button type="submit" class="btn btn-success">Salvar</button> -->
               </form>
 
             </div>
