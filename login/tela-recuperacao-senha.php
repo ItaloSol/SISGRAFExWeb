@@ -166,7 +166,24 @@
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
+    <script>
+        const cpf = document.getElementById('cpf');
+        cpf.addEventListener('keyup', vlw => {
+          cpf.value =  cpf.value.replace(/[^\d]+/g,'');
+         cpf.value =  formataCPF(cpf.value);
+        })
+    function formataCPF(cpf){
+      //retira os caracteres indesejados...
+      cpf = cpf.replace(/[^\d]+/g,'');
+      //realizar a formatação...
+      
+      if(cpf.length < 10){
+        return cpf.replace(/(\d{3})(\d{3})/, "$1.$2.");
+      }else{
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+      }    
+    }
+   </script>
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
