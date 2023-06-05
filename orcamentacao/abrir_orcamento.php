@@ -294,35 +294,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                          <?php
-                          for ($a = 0; $a < $qtdX; $a++) { ?>
-                            <tr>
-                              <td>
-                                <?= $Produtos_orcamento[$a]['cod'] ?>
-                              </td>
-                              <td>
-                                <?= $produto_diametro[$a]['DESCRICAO'] ?>
-                              </td>
-                              <td>
-                                <?= $produto_diametro[$a]['largura'] ?>
-                              </td>
-                              <td>
-                                <?= $produto_diametro[$a]['ALTURA'] ?>
-                              </td>
-                              <td>
-                                <?= $produto_diametro[$a]['QTD_PAGINAS'] ?>
-                              </td>
-                              <td>
-                                <?= $Produtos_orcamento[$a]['observacao_produto'] ?>
-                              </td>
-                            </tr>
-                          <?php }
-                          if ($qtdX == 0) {
-                            echo '
+                         
                         <tr> 
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
-                          } ?>
-
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                         
                       </table>
                     </div>
                   </div>
@@ -343,37 +318,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                          <?php
-                          for ($a = 0; $a < $qtdX; $a++) { ?>
-                            <tr>
-                              <td>
-                                <?= $Produtos_orcamento[$a]['cod'] ?>
-                              </td>
-                              <td>
-                                <?= $Produtos_orcamento[$a]['quantidade'] ?>
-                              </td>
-                              <?php if ($Produtos_orcamento[$a]['tipo_produto'] == '1') { ?>
-                                <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck3" checked="">
-                                </td>
-                              <?php } else { ?>
-                                <td><input class="form-check-input" type="checkbox"></td>
-                              <?php }
-                              if ($Produtos_orcamento[$a]['tipo_produto'] == '2') { ?>
-                                <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck3" checked="">
-                                </td>
-                              <?php } else { ?>
-                                <td><input class="form-check-input" type="checkbox"></td>
-                              <?php } ?>
-
-                              <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['valor_digital'] ?>" type="number"></td>
-                              <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['preco_unitario'] ?>" type="number"></td>
-                            </tr>
-                          <?php }
-                          if ($qtdX == 0) {
-                            echo '
+                         
                         <tr> 
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
-                          } ?>
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                         
 
                       </table>
                     </div>
@@ -404,29 +352,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </thead>
 
                         <tbody class="table-border-bottom-0">
-                          <?php for ($a = 0; $a < $tipo_papel_qtd_loop; $a++) {
-                            echo '
+                        
                         <tr> 
-                          <td>' . $Calculo_cod_produtos[$a] . '</td>
-                          <td>' . $Papel_cod_papel[$a] . '</td>
-                          <td>' . $Papel_descricao[$a] . '</td>
-                          <td>' . $Calculo_calculo_tipo_papel[$a] . '</td>
-                          <td>' . $Papel_cor_frente[$a] . '</td>
-                          <td>' . $Papel_cor_verso[$a] . '</td>
-                          <td><input class="form-control" value="' . $Calculo_formato[$a] . '" type="number"></td>
-                          <td><input class="form-control" value="' . $Calculo_perca[$a] . '" type="number"></td>
-                          <td><input class="form-control" value="' . $Calculo_qtd_folhas_total[$a] . '" type="number"></td>
-                          <td>' . $Do_Papel_unitario[$a] . '</td>
-                          <td><input class="form-control" value="' . $Calculo_qtd_chapas[$a] . '" type="number"></td>
-                          <td>' . $preco_chapa . '</td>
-                        </tr>';
-                          }
-                          if ($tipo_papel_qtd_loop == 0) {
-                            echo '
-                        <tr> 
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
-                          }
-                          ?>
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                         
 
                       </table>
                     </div>
@@ -446,35 +375,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                          <?php $exibidos = [];
-
-                          for ($i = 0; $i < $qtd_acabamentos; $i++) {
-                            // Verifica se o valor já foi exibido anteriormente
-                            $valor_exibido = implode('-', [$Do_Acabamento_cod_produtos[$i], $Do_Acabamento_cod[$i]]);
-                            if (in_array($valor_exibido, $exibidos)) {
-                              continue;
-                            }
-
-                            // Adiciona o valor ao array de valores exibidos
-                            $exibidos[] = $valor_exibido;
-
-                            // Exibe o valor
-                            echo '
-                              <tr>
-                                  <td>' . $Do_Acabamento_cod_produtos[$i] . '</td>
-                                  <td>' . $Do_Acabamento_cod[$i] . '</td>
-                                  <td>' . $Do_Acabamento_Maquina[$i] . '</td>
-                                  <td>' . $Do_Acabamento_CUSTO_HORA[$i] . '</td>
-                              </tr>
-                          ';
-                          }
-                          if ($qtd_acabamentos == 0) {
-                            echo '
+                         
                         <tr> 
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>';
-                          }
-                          ?>
-
+                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                         
 
                       </table>
                     </div>
@@ -488,8 +392,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         <thead>
                           <tr>
                             <form method="POST" action="saveobs.php">
-                              <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc" class="col-12"><?= $Orcamento_pesquisa['descricao'] ?></textarea>
-                              <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
+                              <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc" class="col-12"></textarea>
+                              <input type="hidden" name="cod">
                           </tr>
                       </table>
                     </div>
@@ -508,19 +412,9 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                          <?php
-                          if ($servicos > 0) {
-                            for ($i = 0; $i < $servicos; $i++) {
-                              echo '<tr>
-          <td>' . $Do_servico_cod[$i] . '</td>
-          <td> ' . $Do_servico_descricao[$i] . '</td>
-          <td> ' . $Do_servico_vlr[$i] . '</td>
-          </tr>';
-                            }
-                          } else {
-                            echo '<tr><td colspan="3" align="center">NENHUM SELECIONADO</td></tr>';
-                          }
-                          ?>
+                         
+                           <tr><td colspan="3" align="center">NENHUM SELECIONADO</td></tr>
+                         
                       </table>
                     </div>
                   </div>
@@ -529,7 +423,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               <div class="container row ">
                 <div class="col-3">
                   <label class="form-label m-0 p-0">CIF (%)</label>
-                  <input type="text" class="form-control" id="defaultFormControlInput" value="<?= $Orcamento_pesquisa['sif'] ?>" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+                  <input type="text" class="form-control" id="defaultFormControlInput"  placeholder="0%" aria-describedby="defaultFormControlHelp" />
 
                 </div>
                 <div class="col-3">
@@ -537,7 +431,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
                   <input class="form-check-input mt-0" id="arte" type="checkbox" aria-label="checkbox button for following text input" />
 
-                  <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00" value="<?= $Orcamento_pesquisa['ARTE'] ?>" disabled aria-label="Text input with checkbox button" />
+                  <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00"  disabled aria-label="Text input with checkbox button" />
 
                 </div>
 
@@ -546,7 +440,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
                   <input class="form-check-input mt-0" type="checkbox" id="frete" aria-label="checkbox button for following text input" />
 
-                  <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00" value="<?= $Orcamento_pesquisa['frete'] ?>" disabled aria-label="Text input with radio button" />
+                  <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00"  disabled aria-label="Text input with radio button" />
 
                 </div>
 
@@ -554,13 +448,13 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
                 <div class="col-3">
                   <label class="form-label m-0 p-0">Desconto (%)</label>
-                  <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" value="<?= $Orcamento_pesquisa['desconto'] ?>" aria-describedby="defaultFormControlHelp" />
+                  <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%"  aria-describedby="defaultFormControlHelp" />
 
                 </div>
 
               </div>
               <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
-              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" value="<?= $Orcamento_pesquisa['valor_total'] ?>" aria-describedby="defaultFormControlHelp" /><br></br>
+              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final"  aria-describedby="defaultFormControlHelp" /><br></br>
               <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
               <button type="submit" class="btn btn-success">Salvar</button>
               </form>
