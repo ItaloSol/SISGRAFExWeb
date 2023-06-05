@@ -359,7 +359,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
         </div>
         <div class="col-3">
           <div class=" mb-6 pesquisa-painel"><br>
-            <a href="abir_orcamento.php" class="btn btn-outline-primary">Abrir Orçamento</a>
+            <a href="abrir_orcamento.php" class="btn btn-outline-primary">Abrir Orçamento</a>
           </div>
         </div>
       </div>
