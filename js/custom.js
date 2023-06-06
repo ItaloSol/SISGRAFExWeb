@@ -38,11 +38,10 @@ function get_id_usuario0(cod, nome, cnpj, nome_fantasia, credito, atividade, fil
     console.log("Id do usuario selecionado: " + cod);
     console.log("nome do usuario selecionado: " + nome);
     console.log("nome_fantasia do usuario selecionado: " + nome_fantasia);
-
+    document.getElementById("numerodocliente").value = cod;
     document.getElementById("usuario0").value = nome;
-    document.getElementById("codigo").value = cod;
-    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
     document.getElementById("usuariosigla").value = nome_fantasia;
+    document.getElementById("codigo").value = cod;
     document.getElementById("cnpj").value = cnpj;
     document.getElementById("credito").value = credito;
     document.getElementById("atividade").value = atividade;
@@ -50,6 +49,7 @@ function get_id_usuario0(cod, nome, cnpj, nome_fantasia, credito, atividade, fil
     document.getElementById("codigo_aten").value = cod_atendente;
     document.getElementById("nome_aten").value = nome_atendente;
     document.getElementById("obs").value = observacao;
+    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
 }
 
 const fechar = document.getElementById('usuario0');
@@ -99,8 +99,10 @@ function get_id_usuario1(cod, nome,) {
     console.log("Id do usuario selecionado: " + cod);
     console.log("nome do usuario selecionado: " + nome);
     document.getElementById("usuario1").value = nome;
-    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=1&id="+cod;
     document.getElementById("codigo1").value = cod;
+    document.getElementById("numerodocliente").value = cod;
+    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=1&id="+cod;
+    
 }
 
 const fechar1 = document.getElementById('usuario1');
@@ -158,11 +160,11 @@ function get_id_usuariosigla(cod, nome, cnpj, nome_fantasia, credito, atividade,
     console.log("Id do usuario selecionado: " + cod);
     console.log("nome do usuario selecionado: " + nome);
     console.log("nome_fantasia do usuario selecionado: " + nome_fantasia);
-
+    document.getElementById("numerodocliente").value = cod;
     document.getElementById("usuario0").value = nome;
     document.getElementById("codigo").value = cod;
-    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
     document.getElementById("usuariosigla").value = nome_fantasia;
+    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
 
 }
 
