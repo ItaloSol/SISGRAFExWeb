@@ -12,7 +12,7 @@ if(!empty($nome_usuario)){
 
     $query_usuarios= "SELECT nome, cod, nome_fantasia, cnpj, atividade, filial_coligada, cod_atendente, 
     nome_atendente, observacao, credito
-    FROM tabela_clientes_juridicos WHERE nome LIKE :nome LIMIT 20";
+    FROM tabela_clientes_juridicos WHERE nome_fantasia LIKE :nome LIMIT 20";
     $result_usuarios = $conn->prepare($query_usuarios);
     $result_usuarios->bindParam(':nome', $pesq_usuarios);
     $result_usuarios->execute();
