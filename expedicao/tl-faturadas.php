@@ -5,7 +5,6 @@
 if (isset($_GET['Tp'])) {
   if ($_GET['Tp'] == 'op') {
     $codi = $_GET['PS'];
-    echo 'code';
     $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos f inner join tabela_orcamentos o on f.CODIGO_ORC = o.cod WHERE o.cod_cliente = '14' ORDER BY f.CODIGO DESC ");
   }
   if ($_GET['Tp'] == 'cod') {
