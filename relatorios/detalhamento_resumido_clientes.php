@@ -11,17 +11,11 @@ if (isset($_POST['submit'])) {
 
     $tipo_cliente = $_POST['tipo_cliente'];
 
-    if ($busca_por == 'cod') {
+   
 
-        $seleciona_por = $_POST['numero'];
-    }
-    if ($busca_por == 'nom') {
-        if($tipo_cliente == '1'){
-                $seleciona_por = $_POST['usuario1'];
-        }else{
-                $seleciona_por = $_POST['usuario0'];
-        }
-    }
+        $seleciona_por = $_POST['numerodocliente'];
+  
+   
    
    
 }
@@ -72,9 +66,8 @@ if (isset($_POST['codigo']) && isset($_POST['tipo_cliente'])) {
 /////////////////////////////////////////////
 /////// BUSCAR NO BANCO DE DADOS ////////////
 /////////////////////////////////////////////
-
 if ($tipo_cliente == '1') {
-    if ($busca_por == "cod") {
+   
         $Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE cod = '$seleciona_por' LIMIT 1");
         $Clientes_Juridicos->execute();
 
@@ -90,30 +83,12 @@ if ($tipo_cliente == '1') {
             $credito = $linha['credito'];
             $senha = $linha['senha'];
         }
-    }
-    if ($busca_por == "nom") {
-        if($_POST['numero1'] == ''){
-
-        }
-        $query_clientes_fisico = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE  nome LIKE '%$seleciona_por%'  LIMIT 1");
-        $query_clientes_fisico->execute();
-
-        while ($linha = $query_clientes_fisico->fetch(PDO::FETCH_ASSOC)) {
-            $cod = $linha['cod'];
-            $nome = $linha['nome'];
-            $cpf = $linha['cpf'];
-            $atividade = $linha['atividade'];
-            $cod_atendente = $linha['cod_atendente'];
-            $nome_atendente = $linha['nome_atendente'];
-            $observacoes = $linha['observacoes'];
-            $credito = $linha['credito'];
-            $senha = $linha['senha'];
-        }
-    }
+    
+    
 }
 
 if ($tipo_cliente == '2') {
-    if ($busca_por == "cod") {
+   
         $query_Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE cod = $seleciona_por LIMIT 1  ");
         $query_Clientes_Juridicos->execute();
 
@@ -134,29 +109,8 @@ if ($tipo_cliente == '2') {
             $uLTIMO_ACESSO = $linha['ULTIMO_ACESSO'];
             $qTD_ACESSO = $linha['QTD_ACESSOS'];
         }
-    }
-    if ($busca_por == "nom") {
-        $query_Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE  nome like '%$seleciona_por%' LIMIT 1  ");
-        $query_Clientes_Juridicos->execute();
-
-        while ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
-            $cod = $linha['cod'];
-            $nome = $linha['nome'];
-            $nome_Fantasia = $linha['nome_fantasia'];
-            $cnpj = $linha['cnpj'];
-            $atividade = $linha['atividade'];
-            $filial_coligada = $linha['filial_coligada'];
-            $cod_atendente = $linha['cod_atendente'];
-            $nome_atendente = $linha['nome_atendente'];
-            $observacao = $linha['observacao'];
-            $credito = $linha['credito'];
-            $senha = $linha['senha'];
-            $excluido = $linha['excluido'];
-            $tOKEN = $linha['TOKEN'];
-            $uLTIMO_ACESSO = $linha['ULTIMO_ACESSO'];
-            $qTD_ACESSO = $linha['QTD_ACESSOS'];
-        }
-    }
+   
+   
 }
 
 
