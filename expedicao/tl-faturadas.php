@@ -5,7 +5,7 @@
 if (isset($_GET['Tp'])) {
   if ($_GET['Tp'] == 'op') {
     $codi = $_GET['PS'];
-    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos f inner join tabela_orcamentos o on f.CODIGO_ORC = o.cod WHERE o.cod_cliente = '14' ORDER BY f.CODIGO DESC ");
+    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos f inner join tabela_orcamentos o on f.CODIGO_ORC = o.cod WHERE o.cod_cliente = '$codi' ORDER BY f.CODIGO DESC ");
   }
   if ($_GET['Tp'] == 'cod') {
     $codi = $_GET['PS'];
@@ -21,7 +21,6 @@ if (isset($_GET['Tp'])) {
 } else {
   $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos ORDER BY CODIGO DESC LIMIT 150");
 }
-
 $query_faturamento->execute();
 $a = 0;
 while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {

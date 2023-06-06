@@ -41,7 +41,8 @@ function get_id_usuario0(cod, nome, cnpj, nome_fantasia, credito, atividade, fil
 
     document.getElementById("usuario0").value = nome;
     document.getElementById("codigo").value = cod;
-    document.getElementById("nome_fantasia").value = nome_fantasia;
+    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
+    document.getElementById("usuariosigla").value = nome_fantasia;
     document.getElementById("cnpj").value = cnpj;
     document.getElementById("credito").value = credito;
     document.getElementById("atividade").value = atividade;
@@ -98,6 +99,7 @@ function get_id_usuario1(cod, nome,) {
     console.log("Id do usuario selecionado: " + cod);
     console.log("nome do usuario selecionado: " + nome);
     document.getElementById("usuario1").value = nome;
+    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=1&id="+cod;
     document.getElementById("codigo1").value = cod;
 }
 
@@ -159,6 +161,7 @@ function get_id_usuariosigla(cod, nome, cnpj, nome_fantasia, credito, atividade,
 
     document.getElementById("usuario0").value = nome;
     document.getElementById("codigo").value = cod;
+    document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
     document.getElementById("usuariosigla").value = nome_fantasia;
 
 }
