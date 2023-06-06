@@ -144,7 +144,7 @@ while ($linha = $tabela_endereco->fetch(PDO::FETCH_ASSOC)) {
               </div>
               <div class="mb-3">
                 <label for="exampleFormControlReadOnlyInput1" class="form-label">Código</label>
-                <input class="form-control" name="codigo_cliente" type="text" value="<?= $codigoC ?>" id="exampleFormControlReadOnlyInput1" placeholder="" readonly />
+                <input class="form-control" name="codigo_cliente" type="text" value="<?= $codigoC ?>" id="codcliente" placeholder=""  />
               </div>
               <div class="mb-3">
                 <label for="exampleFormControlReadOnlyInput1" class="form-label">Tipo do Cliente</label>
