@@ -38,22 +38,28 @@ function get_id_usuario0(cod, nome, cnpj, nome_fantasia, credito, atividade, fil
     console.log("Id do usuario selecionado: " + cod);
     console.log("nome do usuario selecionado: " + nome);
     console.log("nome_fantasia do usuario selecionado: " + nome_fantasia);
-    document.getElementById("numerodocliente").value = cod;
-    document.getElementById("usuario0").value = nome;
+    if(document.getElementById("usuario0")){
+        document.getElementById("usuario0").value = nome;
+    }
+    if(document.getElementById("usuariosigla")){
     document.getElementById("usuariosigla").value = nome_fantasia;
+    }
+    if(document.getElementById("codigo")){
     document.getElementById("codigo").value = cod;
-    document.getElementById("cnpj").value = cnpj;
-    document.getElementById("credito").value = credito;
-    document.getElementById("atividade").value = atividade;
-    document.getElementById("filial").value = filial;
-    document.getElementById("codigo_aten").value = cod_atendente;
-    document.getElementById("nome_aten").value = nome_atendente;
-    document.getElementById("obs").value = observacao;
+    }
+    if(document.getElementById("codigo1")){
+    document.getElementById("codigo1").value = cod;
+    }
+    if(document.getElementById("numerodocliente")){
+    document.getElementById("numerodocliente").value = cod;
+    }
+    if(document.getElementById("selecioanador_cliente")){
     document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
+    }
 }
 
 const fechar = document.getElementById('usuario0');
-
+if(document.getElementById('resultado_pesquisa0')){
 document.addEventListener('click', function (event) {
     
         const validar_clique = fechar.contains(event.target);
@@ -63,6 +69,7 @@ document.addEventListener('click', function (event) {
    
 
 })
+}
 
 
 //
@@ -100,13 +107,14 @@ function get_id_usuario1(cod, nome,) {
     console.log("nome do usuario selecionado: " + nome);
     document.getElementById("usuario1").value = nome;
     document.getElementById("codigo1").value = cod;
+    document.getElementById("codigo").value = cod;
     document.getElementById("numerodocliente").value = cod;
     document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=1&id="+cod;
     
 }
 
 const fechar1 = document.getElementById('usuario1');
-
+if(document.getElementById('resultador_123')){
 document.addEventListener('click', function (event) {
         const validar_clique = fechar1.contains(event.target);
         if (!validar_clique) {
@@ -115,7 +123,7 @@ document.addEventListener('click', function (event) {
    
 
 })
-
+}
 // 
 
 // 
@@ -169,7 +177,7 @@ function get_id_usuariosigla(cod, nome, cnpj, nome_fantasia, credito, atividade,
 }
 
 const fecharsigla = document.getElementById('usuariosigla');
-
+if(document.getElementById('resultado_sigla')){
 document.addEventListener('click', function (event) {
     
         const validar_clique = fecharsigla.contains(event.target);
@@ -179,5 +187,5 @@ document.addEventListener('click', function (event) {
    
 
 })
-
+}
 

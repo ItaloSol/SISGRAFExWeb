@@ -158,7 +158,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
                         <div class="row">
                           <div class="col-12">
-                            <input class="form-control " type="date" name="data" value="<?= $data30 ?>" />
+                            <input class="form-control " type="date" name="data_validade" id="data_validade" value="<?= $data30 ?>" />
                           </div>
 
                         </div>
@@ -553,14 +553,14 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-default-name">TIPO DE PRODUTO</label>
                         <div class="col-sm-10">
-                          <input name="TPP" class="form-check-input" type="radio" value="PP" id="PP" />
-                          <label class="form-check-label" for="PP"> PRODUÇÃO(PP) </label>
-                          <input name="TPP" class="form-check-input" type="radio" value="PE" id="PE" />
-                          <label class="form-check-label" for="PE"> PRONTA ENTREGA(PE) </label>
-                          <input class="form-check-input" name="commerce" type="checkbox" value="COMMERCE" id="COMMERCE" />
-                          <label class="form-check-label" for="COMMERCE"> SERÁ ULTILIZADO NO E-COMMERCE </label>
-                          <input class="form-check-input" name="ativo" type="checkbox" value="ATIVO" id="ATIVO" />
-                          <label class="form-check-label" for="ATIVO"> ATIVO</label>
+                          <input  name="TPP" class="form-check-input" type="radio" value="PP" id="PP" />
+                          <label class="form-check-label" for="TipoPP"> PRODUÇÃO(PP) </label>
+                          <input  name="TPP" class="form-check-input" type="radio" value="PE" id="PE" />
+                          <label class="form-check-label" for="TipoPE"> PRONTA ENTREGA(PE) </label>
+                          <input class="form-check-input"  name="TipoCommerce" type="checkbox" value="COMMERCE" id="TipoCommerce" />
+                          <label class="form-check-label" for="TipoTipoCOMMERCE"> SERÁ ULTILIZADO NO E-COMMERCE </label>
+                          <input class="form-check-input" name="Tipoativo" type="checkbox" value="ATIVO" id="Tipoativo" />
+                          <label class="form-check-label" for="TipoATIVO"> ATIVO</label>
                         </div>
                       </div>
                       <div class="row mb-3">
@@ -577,7 +577,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="ALTURA">ALTURA</label>
-                          <input type="number" id="largura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                          <input type="number" id="altura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="ESPESSURA">ESPESSURA</label>
@@ -588,16 +588,16 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <input type="number" id="peso" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="LARGURA">QUANTIDADE FOLHAS</label>
-                          <input type="number" value="1" id="largura" class="form-control phone-mask" placeholder="1" aria-label="1" />
+                          <label class="col-sm-2 col-form-label" for="qtdfolhas">QUANTIDADE FOLHAS</label>
+                          <input type="number" value="1" id="qtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="LARGURA">TIPO</label>
-                          <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                          <select class="form-select" id="tipoProduto" aria-label="Default select example">
                             <option desabled>SELECIONE</option>
-                            <option value="1">FOLHA</option>
-                            <option value="2">BLOCO</option>
-                            <option value="3">LIVRO</option>
+                            <option value="FOLHA">FOLHA</option>
+                            <option value="BLOCO">BLOCO</option>
+                            <option value="LIVRO">LIVRO</option>
                           </select>
                         </div>
                       </div>
@@ -643,12 +643,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                   <th>CORES VERSO</th>
                                 </tr>
                                 <tr>
-                                  <td>cod</td>
-                                  <td>des</td>
-                                  <td>tp</td>
-                                  <td>or</td>
-                                  <td>cor</td>
-                                  <td>ver</td>
+                                  <td colspan='6'></td>
                                 </tr>
                               </table>
                             </div>
@@ -820,7 +815,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
           <td>' . $papel[$i]['formato'] . '</td>
           <td>' . $papel[$i]['uma_face'] . '</td>
           <td>' . $papel[$i]['unitario'] . '</td>
-          <td><input type="checkbox"></td>
+          <td><input id="selectPapel'.$papel[$i]['cod'].'" value="'.$papel[$i]['cod'].'" type="checkbox" onclick="selecionarPapel(this.id)"></td>
         </tr>';
                             } ?>
 
@@ -906,7 +901,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               <script>
                 // Obtém o elemento do segundo modal
                 const modal2 = document.getElementById('modal2');
-
+                if(modal2){
                 // Adiciona o evento 'hidden.bs.modal' ao segundo modal
                 modal2.addEventListener('hidden.bs.modal', function(event) {
                   // Obtém o elemento do primeiro modal
@@ -917,6 +912,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     modal1.show();
                   }
                 });
+              }
               </script>
 
               <script>
@@ -926,7 +922,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 const mensagemBusca = document.getElementById('mensagemBusca');
                 const mensagemPesquisa = document.getElementById('mensagemPesquisa');
                 let TipoProdutoSelect = 'PP';
-
+                if(pesquisarpor){
                 pesquisarpor.addEventListener('click', vlr => {
                   if (pesquisarpor.value === 'codigo') {
                     busca.type = 'number';
@@ -936,7 +932,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     busca.placeholder = 'DIGITE A DESCIÇÃO DO PRODUTO';
                   }
                 });
-
+              }
                 function exibirBusca(dados) {
                   const tableBody = document.getElementById('produtosTableBody');
                   tableBody.innerHTML = '';
@@ -976,7 +972,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   };
                   xhr.send(JSON.stringify(consulta));
                 }
-
+                if(pesquisarpor){
                 pesquisar.addEventListener('click', vlr => {
                   if (busca.value === '') {
                     mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR, DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
@@ -991,6 +987,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   }
 
                 })
+              }
 
 
                 fetch('api_produtos.php')
@@ -1005,7 +1002,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     // obtém referência aos inputs de rádio
                     const ppRadio = document.getElementById('ppRadio');
                     const peRadio = document.getElementById('peRadio');
-
+                    if(ppRadio){
                     // adiciona listener de eventos às mudanças nos inputs de rádio
                     ppRadio.addEventListener('change', function() {
                       // atualiza a tabela com os valores de pp
@@ -1025,7 +1022,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
     `;
                       });
                     });
-
+                  }
+                  if(ppRadio){
                     peRadio.addEventListener('change', function() {
                       // atualiza a tabela com os valores de pe
                       TipoProdutoSelect = 'PE';
@@ -1044,6 +1042,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
     `;
                       });
                     });
+                  }
                     if (ativo_pp === 'Nao') {
                       const tableBody = document.getElementById('produtosTableBody');
                       tableBody.innerHTML = '';
@@ -1095,6 +1094,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 const arte = document.getElementById('arte');
                 const check_frete = document.getElementById('check_frete');
                 const check_arte = document.getElementById('check_arte');
+                if(frete){
                 frete.addEventListener('click', arr => {
                   if (check_frete.disabled === false) {
                     check_frete.disabled = true;
@@ -1102,6 +1102,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     check_frete.disabled = false;
                   }
                 })
+              }
+              if(arte){
                 arte.addEventListener('click', arr => {
                   if (check_arte.disabled === false) {
                     check_arte.disabled = true;
@@ -1109,59 +1111,25 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     check_arte.disabled = false;
                   }
                 })
-              </script>
-
-              <script>
-                const cod_orc = document.getElementById('cod_orc_')
-                const grafica = document.getElementById("grafica");
-                const cliente = document.getElementById("cliente");
-                const grafica1 = document.getElementById("odN");
-                const cliente1 = document.getElementById("odA");
-                const od = document.getElementById('off');
-                if (od) {
-
-                } else {
-                  cliente.addEventListener('click', vm => {
-                    cliente.checked = true;
-                    cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                  })
-                  grafica.addEventListener('click', vm => {
-                    grafica.checked = true;
-                    cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                  })
-                  if (cliente.checked) {
-                    cliente.checked = true;
-                    cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                  } else {
-                    grafica.checked = true;
-                    cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                  }
-                  if (document.querySelector('off')) {
-                    cliente1.href = '#';
-                    grafica1.href = '#';
-                  }
-                }
-              </script>
-
-              <script>
+              }
+              
                 const selects = document.getElementById('selects');
                 const simpleszao = document.getElementById('simpleszao');
                 const detalhadao = document.getElementById('detalhadao');
                 const SIMPLES = document.getElementById('SIMPLES');
                 const DETALHADO = document.getElementById('DETALHADO');
-
+                if(SIMPLES){
                 SIMPLES.addEventListener('click', vlr => {
                   simpleszao.classList.remove('tira');
                   detalhadao.classList.add('tira');
                 })
+              }
+                if(DETALHADO){
                 DETALHADO.addEventListener('click', vlr => {
                   detalhadao.classList.remove('tira');
                   simpleszao.classList.add('tira');
                 })
+              }
               </script>
 
 
@@ -1223,6 +1191,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
         const fisc = document.getElementById('fisc');
         fisc.style.display = 'none';
         juri.style.display = 'none';
+        if(select){
         select.addEventListener('click', vlr => {
           if (select.value == 1) {
             fisc.style.display = 'block';
@@ -1234,9 +1203,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
             dis.style.display = 'none';
           }
         })
+      }
       </script>
     <?php  } ?>
 
 
-
+<script src="../js/orcamentacao.js"></script>
     <?php include_once("../html/../html/navbar-dow.php"); ?>
