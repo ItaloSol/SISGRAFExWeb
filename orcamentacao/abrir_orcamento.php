@@ -332,7 +332,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <div class="card">
                   <h5 class="card-header">PAPEL</h5>
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
+                    <table id="tabela_campos" class="table table-striped">
                       <thead>
                         <tr>
                           <th>PRODUTO</th>
@@ -350,13 +350,103 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
                         </tr>
                       </thead>
+                      if (localStorage.getItem('papelSelecionado')) {
+  recuperarNomesPapel();
+}
 
-                      <tbody class="table-border-bottom-0">
+function recuperarNomesPapel() {
+  let papelSelecionado = localStorage.getItem('papelSelecionado');
+  let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
-                        <tr>
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
+  let promises = arraySelecionados.map(id => {
+    return fetch('api_papel.php?id=' + id)
+      .then(response => response.json())
+      .then(data => {
+        return {
+          id: id,
+          nomePapel: data.nome_do_papel,
+          codPapel: data.cod_papel,
+          corFrente: data.cor_frente,
+          corVerso: data.cor_verso,
+          descricao: data.descricao,
+          orelha: data.orelha,
+          codPapels: data.cod_papels,
+          descricaoPapel: data.descricao_do_papel,
+          medida: data.medida,
+          gramatura: data.gramatura,
+          formato: data.formato,
+          umaFace: data.uma_face,
+          unitario: data.unitario
+        };
+      });
+  });
 
+  Promise.all(promises)
+    .then(results => {
+      document.getElementById('nao_selecioando_appel').style.display = 'none';
 
+      let nomePapel = results.map(result => result.nomePapel).join(', ');
+      document.getElementById('nome_papel').value = nomePapel;
+
+      let tabela = document.getElementById('tabela_campos');
+      results.forEach(result => {
+        let tr = document.createElement('tr');
+        tabela.appendChild(tr);
+
+        let td1 = document.createElement('td');
+        td1.textContent = result.nomePapel;
+        tr.appendChild(td1);
+
+        let td2 = document.createElement('td');
+        td2.textContent = result.codPapel;
+        tr.appendChild(td2);
+
+        let td3 = document.createElement('td');
+        td3.textContent = result.descricao;
+        tr.appendChild(td3);
+
+        let td4 = document.createElement('td');
+        td4.textContent = result.tipo_papel;
+        tr.appendChild(td4);
+
+        let td5 = document.createElement('td');
+        td5.textContent = result.corFrente;
+        tr.appendChild(td5);
+
+        let td6 = document.createElement('td');
+        td6.textContent = result.corVerso;
+        tr.appendChild(td6);
+
+        let td7 = document.createElement('td');
+        td7.textContent = result.formato;
+        tr.appendChild(td7);
+
+        let td8 = document.createElement('td');
+        td8.textContent = result.orelha;
+        tr.appendChild(td8);
+
+        let td9 = document.createElement('td');
+        td9.textContent = result.gasto_folha;
+        tr.appendChild(td9);
+
+        let td10 = document.createElement('td');
+        td10.textContent = result.preco_folha;
+        tr.appendChild(td10);
+
+        let td11 = document.createElement('td');
+        td11.textContent = result.quantidade_chapas;
+        tr.appendChild(td11);
+
+        let td12 = document.createElement('td');
+        td12.textContent = result.preco_chapa;
+        tr.appendChild(td12);
+      });
+    })
+    .catch(error => {
+      document.getElementById('nao_selecioando_appel').style.display = 'block';
+      console.error('Erro ao recuperar nomes do papel:', error);
+    });
+}
                     </table>
                   </div>
                 </div>
@@ -739,7 +829,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title">PAPEL</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                      <div id="mensagemPapel"></div>
                     </div>
                     <div class="modal-body">
                       <?php
@@ -763,32 +853,32 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div class="row">
                         <div class="col-4">
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">DESCRIÇÃO</label>
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="NOME PAPEL" />
+                            <label class="form-label colorbranca" for="Nome_papel">DESCRIÇÃO</label>
+                            <input type="text" id="Nome_papel" class="form-control phone-mask" placeholder="NOME PAPEL" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">LARGURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Largura">LARGURA</label>
+                            <input type="number" id="Largura_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">ALTURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Altura">ALTURA</label>
+                            <input type="number" id="Altura_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">GRAMATURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Gramatura">GRAMATURA</label>
+                            <input type="number" id="Gramatura_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">FORMATO</label>
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Fomato_Papel">FORMATO</label>
+                            <input type="text" id="Fomato_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                            <label class="form-check-label" for="defaultCheck1"> UMA FACE? </label>
+                            <input class="form-check-input" type="checkbox" value="" id="umaface_Papel" />
+                            <label class="form-check-label" for="umaface_Papel"> UMA FACE? </label>
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">VALOR UNITÁRIO</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="valor_Papel">VALOR UNITÁRIO</label>
+                            <input type="number" id="valor_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
                             <button class="btn rounded-pill btn-success">CADASTRAR</button>
@@ -815,7 +905,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
           <td>' . $papel[$i]['formato'] . '</td>
           <td>' . $papel[$i]['uma_face'] . '</td>
           <td>' . $papel[$i]['unitario'] . '</td>
-          <td><input id="selectPapel'.$papel[$i]['cod'].'" value="'.$papel[$i]['cod'].'" type="checkbox" onclick="selecionarPapel(this.id)"></td>
+          <td><input id="'.$papel[$i]['cod'].'"  type="checkbox" onclick="selecionarPapel(this.id)"></td>
         </tr>';
                             } ?>
 
