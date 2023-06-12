@@ -28,7 +28,6 @@ function selecionarPapel(valor) {
 
 
   if (localStorage.getItem('papelSelecionado')) {
-    console.log('achou');
     recuperarNomesPapel();
   }
   
@@ -42,10 +41,11 @@ function selecionarPapel(valor) {
         .then(data => {
           return {
             id: id,
-            nomePapel: data.nome_do_papel,
+            nomePapel: data.descricao_do_papel,
             codPapel: data.cod_papel,
             corFrente: data.cor_frente,
             corVerso: data.cor_verso,
+            tipo_papel: data.tipo_papel,
             descricao: data.descricao,
             orelha: data.orelha,
             codPapels: data.cod_papels,
@@ -58,67 +58,51 @@ function selecionarPapel(valor) {
           };
         });
     });
-  
     Promise.all(promises)
-      .then(results => {
-        let nomePapel = results.map(result => result.nomePapel).join(', ');
-        document.getElementById('nome_papel').value = nomePapel;
+    .then(results => {
+      let nomePapel = results.map(result => result.nomePapel).join(', ');
+      console.log(nomePapel); // Movido para dentro do bloco `then`
+     // document.getElementById('nome_papel').value = nomePapel;
   
-        let tabela = document.getElementById('tabela_campos');
-        results.forEach(result => {
-          let tr = document.createElement('tr');
-          tabela.appendChild(tr);
-  
-          let td1 = document.createElement('td');
-          td1.textContent = result.nomePapel;
-          tr.appendChild(td1);
-  
-          let td2 = document.createElement('td');
-          td2.textContent = result.codPapel;
-          tr.appendChild(td2);
-  
-          let td3 = document.createElement('td');
-          td3.textContent = result.descricao;
-          tr.appendChild(td3);
-  
-          let td4 = document.createElement('td');
-          td4.textContent = result.tipo_papel;
-          tr.appendChild(td4);
-  
-          let td5 = document.createElement('td');
-          td5.textContent = result.corFrente;
-          tr.appendChild(td5);
-  
-          let td6 = document.createElement('td');
-          td6.textContent = result.corVerso;
-          tr.appendChild(td6);
-  
-          let td7 = document.createElement('td');
-          td7.textContent = result.formato;
-          tr.appendChild(td7);
-  
-          let td8 = document.createElement('td');
-          td8.textContent = result.orelha;
-          tr.appendChild(td8);
-  
-          let td9 = document.createElement('td');
-          td9.textContent = result.gasto_folha;
-          tr.appendChild(td9);
-  
-          let td10 = document.createElement('td');
-          td10.textContent = result.preco_folha;
-          tr.appendChild(td10);
-  
-          let td11 = document.createElement('td');
-          td11.textContent = result.quantidade_chapas;
-          tr.appendChild(td11);
-  
-          let td12 = document.createElement('td');
-          td12.textContent = result.preco_chapa;
-          tr.appendChild(td12);
-        });
-      })
-      .catch(error => {
-        console.error('Erro ao recuperar nomes do papel:', error);
+      const tableBody = document.getElementById('tabela_campos');
+      tableBody.innerHTML = '';
+      tableBody.innerHTML += `
+      <thead>
+      <tr>
+        <th>PRODUTO</th>
+        <th>CÓDIGO PAPEL</th>
+        <th>DESCRIÇÃO</th>
+        <th>TIPO</th>
+        <th>CF</th>
+        <th>CV</th>
+        <th>FORMATO IMPRESSÃO</th>
+        <th>PERCA(%)</th>
+        <th>GASTO FOLHA</th>
+        <th>PREÇO FOLHA</th>
+        <th>QUANTIDADE DE CHAPAS</th>
+        <th>PREÇO CHAPA</th>
+      </tr>
+    </thead>`;
+      results.forEach(result => {
+        tableBody.innerHTML += `
+        
+          <tr>
+            <td>${result.nomePapel}</td>
+            <td>${result.codPapel}</td>
+            <td>${result.descricao}</td>
+            <td>${result.tipo_papel}</td>
+            <td>${result.corFrente}</td>
+            <td>${result.corVerso}</td>
+            <td>${result.formato}</td>
+            <td>${result.orelha}</td>
+            <td>${result.gasto_folha}</td>
+            <td>${result.preco_folha}</td>
+            <td>${result.quantidade_chapas}</td>
+            <td>${result.preco_chapa}</td>
+          </tr>`;
       });
+    })
+    .catch(error => {
+      console.error('Erro ao recuperar nomes do papel:', error);
+    });
   }

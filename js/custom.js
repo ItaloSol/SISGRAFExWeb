@@ -168,11 +168,21 @@ function get_id_usuariosigla(cod, nome, cnpj, nome_fantasia, credito, atividade,
     console.log("Id do usuario selecionado: " + cod);
     console.log("nome do usuario selecionado: " + nome);
     console.log("nome_fantasia do usuario selecionado: " + nome_fantasia);
+    if(document.getElementById("numerodocliente")){
     document.getElementById("numerodocliente").value = cod;
+    }
+    if(document.getElementById("usuario0")){
     document.getElementById("usuario0").value = nome;
+    }
+    if(document.getElementById("codigo")){
     document.getElementById("codigo").value = cod;
+    }
+    if(document.getElementById("usuariosigla")){
     document.getElementById("usuariosigla").value = nome_fantasia;
+    }
+    if(document.getElementById("selecioanador_cliente")){
     document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
+    }
 
 }
 

@@ -10,7 +10,7 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 
 
 //DEFINE QUAL ENTRADA FOI USADO
-if (!empty($Solicitacao)) {
+if ($_GET['id']) {
  
     $pesquisa = $_GET['id'];
     
@@ -26,7 +26,7 @@ if (!empty($Solicitacao)) {
        'descricao' => $linha3['descricao'],
        'orelha' => $linha3['orelha'],
        ];
-
+       
 $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $pesquisa  ");
 $query_do_papel->execute();
     if ($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -39,5 +39,6 @@ $query_do_papel->execute();
     $Do_Papel['unitario'] = $linha4['unitario'];
     }
   }
+ 
     echo json_encode($Do_Papel);
 }
