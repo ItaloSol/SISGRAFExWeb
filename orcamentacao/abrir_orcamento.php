@@ -349,11 +349,14 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <th>PREÇO CHAPA</th>
                         </tr>
                       </thead>
+<<<<<<< HEAD
                       <tr>
                           <td align="center" colspan="12">
                             NENHUM SELECIONADO
                           </td>
                         </tr>
+=======
+>>>>>>> 83aaae46beae2f848e0d5f54b47e030940fe4947
                     </table>
                   </div>
                 </div>
