@@ -120,7 +120,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   $data30 = date('Y-m-d', strtotime('+' . 30 . 'day', strtotime($hoje)));
 
 
-?>
+ ?>
 
 
 
@@ -332,7 +332,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <div class="card">
                   <h5 class="card-header">PAPEL</h5>
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
+                    <table id="tabela_campos" class="table table-striped">
                       <thead>
                         <tr>
                           <th>PRODUTO</th>
@@ -347,16 +347,16 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <th>PREÇO FOLHA</th>
                           <th>QUANTIDADE DE CHAPAS</th>
                           <th>PREÇO CHAPA</th>
-
                         </tr>
                       </thead>
-
-                      <tbody class="table-border-bottom-0">
-
-                        <tr>
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
-
-
+<<<<<<< HEAD
+                      <tr>
+                          <td align="center" colspan="12">
+                            NENHUM SELECIONADO
+                          </td>
+                        </tr>
+=======
+>>>>>>> 83aaae46beae2f848e0d5f54b47e030940fe4947
                     </table>
                   </div>
                 </div>
@@ -375,11 +375,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
-
                         <tr>
                           <td align="center" colspan="12">NENHUM SELECIONADO</td>
-
-
                     </table>
                   </div>
                 </div>
@@ -412,11 +409,9 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
-
                         <tr>
                           <td colspan="3" align="center">NENHUM SELECIONADO</td>
                         </tr>
-
                     </table>
                   </div>
                 </div>
@@ -426,52 +421,33 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               <div class="col-3">
                 <label class="form-label m-0 p-0">CIF (%)</label>
                 <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
-
               </div>
               <div class="col-3">
                 <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
-
                 <input class="form-check-input mt-0" id="arte" type="checkbox" aria-label="checkbox button for following text input" />
-
                 <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
-
               </div>
-
               <div class="col-3">
                 <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
-
                 <input class="form-check-input mt-0" type="checkbox" id="frete" aria-label="checkbox button for following text input" />
-
                 <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00" aria-label="Text input with radio button" />
-
               </div>
-
-
-
               <div class="col-3">
                 <label class="form-label m-0 p-0">Desconto (%)</label>
                 <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
-
               </div>
-
             </div>
             <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
             <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
             <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
             <!-- <button type="submit" class="btn btn-success">Salvar</button> -->
             </form>
-
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <!-- Botão para abrir o primeiro modal -->
-
-
-
-
   <!-- Primeiro modal PRODUTOS GERAL -->
   <div class="modal" id="modal1">
     <div class="modal-dialog modal-xl" role="document">
@@ -553,11 +529,11 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-default-name">TIPO DE PRODUTO</label>
                         <div class="col-sm-10">
-                          <input  name="TPP" class="form-check-input" type="radio" value="PP" id="PP" />
+                          <input name="TPP" class="form-check-input" type="radio" value="PP" id="PP" />
                           <label class="form-check-label" for="TipoPP"> PRODUÇÃO(PP) </label>
-                          <input  name="TPP" class="form-check-input" type="radio" value="PE" id="PE" />
+                          <input name="TPP" class="form-check-input" type="radio" value="PE" id="PE" />
                           <label class="form-check-label" for="TipoPE"> PRONTA ENTREGA(PE) </label>
-                          <input class="form-check-input"  name="TipoCommerce" type="checkbox" value="COMMERCE" id="TipoCommerce" />
+                          <input class="form-check-input" name="TipoCommerce" type="checkbox" value="COMMERCE" id="TipoCommerce" />
                           <label class="form-check-label" for="TipoTipoCOMMERCE"> SERÁ ULTILIZADO NO E-COMMERCE </label>
                           <input class="form-check-input" name="Tipoativo" type="checkbox" value="ATIVO" id="Tipoativo" />
                           <label class="form-check-label" for="TipoATIVO"> ATIVO</label>
@@ -739,7 +715,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title">PAPEL</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                      <div id="mensagemPapel"></div>
                     </div>
                     <div class="modal-body">
                       <?php
@@ -763,32 +739,32 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div class="row">
                         <div class="col-4">
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">DESCRIÇÃO</label>
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="NOME PAPEL" />
+                            <label class="form-label colorbranca" for="Nome_papel">DESCRIÇÃO</label>
+                            <input type="text" id="Nome_papel" class="form-control phone-mask" placeholder="NOME PAPEL" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">LARGURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Largura">LARGURA</label>
+                            <input type="number" id="Largura_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">ALTURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Altura">ALTURA</label>
+                            <input type="number" id="Altura_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">GRAMATURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Gramatura">GRAMATURA</label>
+                            <input type="number" id="Gramatura_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">FORMATO</label>
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Fomato_Papel">FORMATO</label>
+                            <input type="text" id="Fomato_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                            <label class="form-check-label" for="defaultCheck1"> UMA FACE? </label>
+                            <input class="form-check-input" type="checkbox" value="" id="umaface_Papel" />
+                            <label class="form-check-label" for="umaface_Papel"> UMA FACE? </label>
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">VALOR UNITÁRIO</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="valor_Papel">VALOR UNITÁRIO</label>
+                            <input type="number" id="valor_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
                             <button class="btn rounded-pill btn-success">CADASTRAR</button>
@@ -808,15 +784,15 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             </tr>
                             <?php for ($i = 0; $i < $p; $i++) {
                               echo '<tr>
-          <td>' . $papel[$i]['cod'] . '</td>
-          <td>' . $papel[$i]['descricao'] . '</td>
-          <td>' . $papel[$i]['medida'] . '</td>
-          <td>' . $papel[$i]['gramatura'] . '</td>
-          <td>' . $papel[$i]['formato'] . '</td>
-          <td>' . $papel[$i]['uma_face'] . '</td>
-          <td>' . $papel[$i]['unitario'] . '</td>
-          <td><input id="selectPapel'.$papel[$i]['cod'].'" value="'.$papel[$i]['cod'].'" type="checkbox" onclick="selecionarPapel(this.id)"></td>
-        </tr>';
+                              <td>' . $papel[$i]['cod'] . '</td>
+                              <td>' . $papel[$i]['descricao'] . '</td>
+                              <td>' . $papel[$i]['medida'] . '</td>
+                              <td>' . $papel[$i]['gramatura'] . '</td>
+                              <td>' . $papel[$i]['formato'] . '</td>
+                              <td>' . $papel[$i]['uma_face'] . '</td>
+                              <td>' . $papel[$i]['unitario'] . '</td>
+                              <td><input id="' . $papel[$i]['cod'] . '"  type="checkbox" onclick="selecionarPapel(this.id)"></td>
+                            </tr>';
                             } ?>
 
                           </table>
@@ -877,12 +853,12 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               </tr>
                               <?php for ($i = 0; $i < $a; $i++) {
                                 echo '<tr>
-          <td>' . $acabamento[$i]['CODIGO'] . '</td>
-          <td>' . $acabamento[$i]['MAQUINA'] . '</td>
-          <td>' . $acabamento[$i]['ATIVA'] . '</td>
-          <td>' . $acabamento[$i]['CUSTO_HORA'] . '</td>
-          <td><input type="checkbox"></td>
-        </tr>';
+                                <td>' . $acabamento[$i]['CODIGO'] . '</td>
+                                <td>' . $acabamento[$i]['MAQUINA'] . '</td>
+                                <td>' . $acabamento[$i]['ATIVA'] . '</td>
+                                <td>' . $acabamento[$i]['CUSTO_HORA'] . '</td>
+                                <td><input type="checkbox"></td>
+                              </tr>';
                               } ?>
 
                             </table>
@@ -901,18 +877,18 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               <script>
                 // Obtém o elemento do segundo modal
                 const modal2 = document.getElementById('modal2');
-                if(modal2){
-                // Adiciona o evento 'hidden.bs.modal' ao segundo modal
-                modal2.addEventListener('hidden.bs.modal', function(event) {
-                  // Obtém o elemento do primeiro modal
-                  const modal1 = document.getElementById('modal1');
+                if (modal2) {
+                  // Adiciona o evento 'hidden.bs.modal' ao segundo modal
+                  modal2.addEventListener('hidden.bs.modal', function(event) {
+                    // Obtém o elemento do primeiro modal
+                    const modal1 = document.getElementById('modal1');
 
-                  // Verifica se o elemento do primeiro modal existe antes de chamar o método 'show()'
-                  if (modal1) {
-                    modal1.show();
-                  }
-                });
-              }
+                    // Verifica se o elemento do primeiro modal existe antes de chamar o método 'show()'
+                    if (modal1) {
+                      modal1.show();
+                    }
+                  });
+                }
               </script>
 
               <script>
@@ -922,17 +898,18 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 const mensagemBusca = document.getElementById('mensagemBusca');
                 const mensagemPesquisa = document.getElementById('mensagemPesquisa');
                 let TipoProdutoSelect = 'PP';
-                if(pesquisarpor){
-                pesquisarpor.addEventListener('click', vlr => {
-                  if (pesquisarpor.value === 'codigo') {
-                    busca.type = 'number';
-                    busca.placeholder = 'DIGITE O CÓDIGO DO PRODUTO';
-                  } else {
-                    busca.type = 'text';
-                    busca.placeholder = 'DIGITE A DESCIÇÃO DO PRODUTO';
-                  }
-                });
-              }
+                if (pesquisarpor) {
+                  pesquisarpor.addEventListener('click', vlr => {
+                    if (pesquisarpor.value === 'codigo') {
+                      busca.type = 'number';
+                      busca.placeholder = 'DIGITE O CÓDIGO DO PRODUTO';
+                    } else {
+                      busca.type = 'text';
+                      busca.placeholder = 'DIGITE A DESCIÇÃO DO PRODUTO';
+                    }
+                  });
+                }
+
                 function exibirBusca(dados) {
                   const tableBody = document.getElementById('produtosTableBody');
                   tableBody.innerHTML = '';
@@ -972,22 +949,22 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   };
                   xhr.send(JSON.stringify(consulta));
                 }
-                if(pesquisarpor){
-                pesquisar.addEventListener('click', vlr => {
-                  if (busca.value === '') {
-                    mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR, DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
-                  } else {
-                    mensagemBusca.innerHTML = '';
-                    const consulta = {
-                      TipoProdutoSelect: TipoProdutoSelect,
-                      pesquisa: pesquisarpor.value,
-                      valor: busca.value,
-                    };
-                    enviarBusca(consulta);
-                  }
+                if (pesquisarpor) {
+                  pesquisar.addEventListener('click', vlr => {
+                    if (busca.value === '') {
+                      mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR, DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
+                    } else {
+                      mensagemBusca.innerHTML = '';
+                      const consulta = {
+                        TipoProdutoSelect: TipoProdutoSelect,
+                        pesquisa: pesquisarpor.value,
+                        valor: busca.value,
+                      };
+                      enviarBusca(consulta);
+                    }
 
-                })
-              }
+                  })
+                }
 
 
                 fetch('api_produtos.php')
@@ -1002,60 +979,59 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     // obtém referência aos inputs de rádio
                     const ppRadio = document.getElementById('ppRadio');
                     const peRadio = document.getElementById('peRadio');
-                    if(ppRadio){
-                    // adiciona listener de eventos às mudanças nos inputs de rádio
-                    ppRadio.addEventListener('change', function() {
-                      // atualiza a tabela com os valores de pp
-                      ativo_pp = 'Sim';
-                      TipoProdutoSelect = 'PP';
-                      const tableBody = document.getElementById('produtosTableBody');
-                      tableBody.innerHTML = '';
-                      pp.forEach(produto => {
-                        tableBody.innerHTML += `
-      <tr>
-        <td>${produto.CODIGO}</td>
-        <td>${produto.TIPO}</td>
-        <td>${produto.DESCRICAO}</td>
-        <td>${produto.VALOR_UNITARIO}</td>
-        <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
-      </tr>
-    `;
+                    if (ppRadio) {
+                      // adiciona listener de eventos às mudanças nos inputs de rádio
+                      ppRadio.addEventListener('change', function() {
+                        // atualiza a tabela com os valores de pp
+                        ativo_pp = 'Sim';
+                        TipoProdutoSelect = 'PP';
+                        const tableBody = document.getElementById('produtosTableBody');
+                        tableBody.innerHTML = '';
+                        pp.forEach(produto => {
+                          tableBody.innerHTML += `
+                          <tr>
+                            <td>${produto.CODIGO}</td>
+                            <td>${produto.TIPO}</td>
+                            <td>${produto.DESCRICAO}</td>
+                            <td>${produto.VALOR_UNITARIO}</td>
+                            <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                          </tr>`;
+                        });
                       });
-                    });
-                  }
-                  if(ppRadio){
-                    peRadio.addEventListener('change', function() {
-                      // atualiza a tabela com os valores de pe
-                      TipoProdutoSelect = 'PE';
-                      ativo_pp = 'Sim';
-                      const tableBody = document.getElementById('produtosTableBody');
-                      tableBody.innerHTML = '';
-                      pe.forEach(produto => {
-                        tableBody.innerHTML += `
-      <tr>
-        <td>${produto.CODIGO}</td>
-        <td>${produto.TIPO}</td>
-        <td>${produto.DESCRICAO}</td>
-        <td>${produto.VALOR_UNITARIO}</td>
-        <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
-      </tr>
-    `;
+                    }
+                    if (ppRadio) {
+                      peRadio.addEventListener('change', function() {
+                        // atualiza a tabela com os valores de pe
+                        TipoProdutoSelect = 'PE';
+                        ativo_pp = 'Sim';
+                        const tableBody = document.getElementById('produtosTableBody');
+                        tableBody.innerHTML = '';
+                        pe.forEach(produto => {
+                          tableBody.innerHTML += `
+                            <tr>
+                              <td>${produto.CODIGO}</td>
+                              <td>${produto.TIPO}</td>
+                              <td>${produto.DESCRICAO}</td>
+                              <td>${produto.VALOR_UNITARIO}</td>
+                              <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                            </tr> `;
+   
+                        });
                       });
-                    });
-                  }
+                    }
                     if (ativo_pp === 'Nao') {
                       const tableBody = document.getElementById('produtosTableBody');
                       tableBody.innerHTML = '';
                       pp.forEach(produto => {
                         tableBody.innerHTML += `
-      <tr>
-        <td>${produto.CODIGO}</td>
-        <td>${produto.TIPO}</td>
-        <td>${produto.DESCRICAO}</td>
-        <td>${produto.VALOR_UNITARIO}</td>
-        <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
-      </tr>
-    `;
+                        <tr>
+                          <td>${produto.CODIGO}</td>
+                          <td>${produto.TIPO}</td>
+                          <td>${produto.DESCRICAO}</td>
+                          <td>${produto.VALOR_UNITARIO}</td>
+                          <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                        </tr>`;
+    
                       });
                     }
                   })
@@ -1094,42 +1070,42 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 const arte = document.getElementById('arte');
                 const check_frete = document.getElementById('check_frete');
                 const check_arte = document.getElementById('check_arte');
-                if(frete){
-                frete.addEventListener('click', arr => {
-                  if (check_frete.disabled === false) {
-                    check_frete.disabled = true;
-                  } else {
-                    check_frete.disabled = false;
-                  }
-                })
-              }
-              if(arte){
-                arte.addEventListener('click', arr => {
-                  if (check_arte.disabled === false) {
-                    check_arte.disabled = true;
-                  } else {
-                    check_arte.disabled = false;
-                  }
-                })
-              }
-              
+                if (frete) {
+                  frete.addEventListener('click', arr => {
+                    if (check_frete.disabled === false) {
+                      check_frete.disabled = true;
+                    } else {
+                      check_frete.disabled = false;
+                    }
+                  })
+                }
+                if (arte) {
+                  arte.addEventListener('click', arr => {
+                    if (check_arte.disabled === false) {
+                      check_arte.disabled = true;
+                    } else {
+                      check_arte.disabled = false;
+                    }
+                  })
+                }
+
                 const selects = document.getElementById('selects');
                 const simpleszao = document.getElementById('simpleszao');
                 const detalhadao = document.getElementById('detalhadao');
                 const SIMPLES = document.getElementById('SIMPLES');
                 const DETALHADO = document.getElementById('DETALHADO');
-                if(SIMPLES){
-                SIMPLES.addEventListener('click', vlr => {
-                  simpleszao.classList.remove('tira');
-                  detalhadao.classList.add('tira');
-                })
-              }
-                if(DETALHADO){
-                DETALHADO.addEventListener('click', vlr => {
-                  detalhadao.classList.remove('tira');
-                  simpleszao.classList.add('tira');
-                })
-              }
+                if (SIMPLES) {
+                  SIMPLES.addEventListener('click', vlr => {
+                    simpleszao.classList.remove('tira');
+                    detalhadao.classList.add('tira');
+                  })
+                }
+                if (DETALHADO) {
+                  DETALHADO.addEventListener('click', vlr => {
+                    detalhadao.classList.remove('tira');
+                    simpleszao.classList.add('tira');
+                  })
+                }
               </script>
 
 
@@ -1191,22 +1167,22 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
         const fisc = document.getElementById('fisc');
         fisc.style.display = 'none';
         juri.style.display = 'none';
-        if(select){
-        select.addEventListener('click', vlr => {
-          if (select.value == 1) {
-            fisc.style.display = 'block';
-            juri.style.display = 'none';
-            dis.style.display = 'none';
-          } else {
-            fisc.style.display = 'none';
-            juri.style.display = 'block';
-            dis.style.display = 'none';
-          }
-        })
-      }
+        if (select) {
+          select.addEventListener('click', vlr => {
+            if (select.value == 1) {
+              fisc.style.display = 'block';
+              juri.style.display = 'none';
+              dis.style.display = 'none';
+            } else {
+              fisc.style.display = 'none';
+              juri.style.display = 'block';
+              dis.style.display = 'none';
+            }
+          })
+        }
       </script>
     <?php  } ?>
 
 
-<script src="../js/orcamentacao.js"></script>
+    <script src="../js/orcamentacao.js"></script>
     <?php include_once("../html/../html/navbar-dow.php"); ?>
