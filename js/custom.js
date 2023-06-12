@@ -105,11 +105,21 @@ async function carregar_fisico(valor) {
 function get_id_usuario1(cod, nome,) {
     console.log("Id do usuario selecionado: " + cod);
     console.log("nome do usuario selecionado: " + nome);
+    if(document.getElementById("usuario1")){
     document.getElementById("usuario1").value = nome;
+    }
+    if(document.getElementById("codigo1")){
     document.getElementById("codigo1").value = cod;
+    }
+    if(document.getElementById("codigo")){
     document.getElementById("codigo").value = cod;
+    }
+    if(document.getElementById("numerodocliente")){
     document.getElementById("numerodocliente").value = cod;
+    }
+    if(document.getElementById("selecioanador_cliente")){
     document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=1&id="+cod;
+    }
     
 }
 

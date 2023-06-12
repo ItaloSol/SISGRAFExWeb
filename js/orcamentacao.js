@@ -28,6 +28,7 @@ function selecionarPapel(valor) {
 
 
   if (localStorage.getItem('papelSelecionado')) {
+    console.log(localStorage.getItem('papelSelecionado'))
     recuperarNomesPapel();
   }
   
@@ -48,13 +49,14 @@ function selecionarPapel(valor) {
             tipo_papel: data.tipo_papel,
             descricao: data.descricao,
             orelha: data.orelha,
+            preco_chapa: data.valor_chapa,
             codPapels: data.cod_papels,
             descricaoPapel: data.descricao_do_papel,
             medida: data.medida,
+            preco_folha: data.unitario,
             gramatura: data.gramatura,
             formato: data.formato,
             umaFace: data.uma_face,
-            unitario: data.unitario
           };
         });
     });
@@ -93,11 +95,11 @@ function selecionarPapel(valor) {
             <td>${result.tipo_papel}</td>
             <td>${result.corFrente}</td>
             <td>${result.corVerso}</td>
-            <td>${result.formato}</td>
-            <td>${result.orelha}</td>
-            <td>${result.gasto_folha}</td>
+            <td><input class="form-control" value="${result.formato}" type="number"></td>
+            <td><input class="form-control" value="${result.orelha}" type="number"></td>
+            <td><input class="form-control" value="0" type="number"></td>
             <td>${result.preco_folha}</td>
-            <td>${result.quantidade_chapas}</td>
+            <td><input class="form-control" value="0" type="number"></td>
             <td>${result.preco_chapa}</td>
           </tr>`;
       });
