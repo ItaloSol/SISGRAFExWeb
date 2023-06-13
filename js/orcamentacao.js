@@ -85,6 +85,14 @@ function selecionarPapel(valor) {
         <th>PREÇO CHAPA</th>
       </tr>
     </thead>`;
+    if (!results || results.length === 0) {
+      tableBody.innerHTML += `
+      <tr>
+      <td align="center" colspan="12">
+        NENHUM SELECIONADO
+      </td>
+    </tr>`;
+    }
       results.forEach(result => {
         tableBody.innerHTML += `
         
@@ -108,3 +116,17 @@ function selecionarPapel(valor) {
       console.error('Erro ao recuperar nomes do papel:', error);
     });
   }
+
+  function ApagarPapel(valor){
+        // Defina o nome do item que você deseja remover
+    var itemKey = valor;
+
+    // Remova o item do localStorage
+    localStorage.removeItem(itemKey);
+    document.getElementById('mensagemPapelApagado').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
+      
+    recuperarNomesPapel();
+    setTimeout(function () {
+      document.getElementById('mensagemPapelApagado').innerHTML = '';
+    }, 1000);
+   }

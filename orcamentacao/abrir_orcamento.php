@@ -120,7 +120,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   $data30 = date('Y-m-d', strtotime('+' . 30 . 'day', strtotime($hoje)));
 
 
- ?>
+?>
 
 
 
@@ -330,7 +330,15 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
               <div class="tab-pane fade" id="horizontal-pap">
                 <div class="card">
-                  <h5 class="card-header">PAPEL</h5>
+                <div id="mensagemPapelApagado"></div>
+                      <h5  style="display: flex; align-items: center;" class="card-header">PAPEL
+                        <button style="display: block; margin-left: 5px;"  class="btn btn-outline-primary"  onclick="ApagarPapel('papelSelecionado')"> 
+                        Apagar Todos Papeis
+                        </button>
+                      </h5>
+                   
+                 
+
                   <div class="table-responsive text-nowrap">
                     <table id="tabela_campos" class="table table-striped">
                       <thead>
@@ -350,10 +358,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </tr>
                       </thead>
                       <tr>
-                          <td align="center" colspan="12">
-                            NENHUM SELECIONADO
-                          </td>
-                        </tr>
+                        <td align="center" colspan="12">
+                          NENHUM SELECIONADO
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </div>
@@ -768,6 +776,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
+
                           <table class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
@@ -1012,7 +1021,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>${produto.VALOR_UNITARIO}</td>
                               <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
                             </tr> `;
-   
+
                         });
                       });
                     }
@@ -1028,7 +1037,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <td>${produto.VALOR_UNITARIO}</td>
                           <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
                         </tr>`;
-    
+
                       });
                     }
                   })
