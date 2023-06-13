@@ -5,15 +5,12 @@
 if (isset($_GET['Tp'])) {
   if ($_GET['Tp'] == 'op') {
     $codi = $_GET['PS'];
-    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos f inner join tabela_orcamentos o on f.CODIGO_ORC = o.cod WHERE o.cod_cliente = '$codi' ORDER BY f.CODIGO DESC ");
+    echo 'code';
+    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos WHERE CODIGO_OP = '$codi' ORDER BY CODIGO DESC LIMIT 150 ");
   }
   if ($_GET['Tp'] == 'cod') {
     $codi = $_GET['PS'];
     $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos WHERE CODIGO = '$codi' ORDER BY CODIGO DESC LIMIT 150 ");
-  }
-  if ($_GET['Tp'] == 'cli') {
-    $codi = $_GET['PS'];
-    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos f inner join tabela_orcamentos o on f.CODIGO_ORC = o.cod WHERE o.cod_cliente = '$codi' ORDER BY f.CODIGO DESC   ");
   }
   if (!isset($codi)) {
     $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos ORDER BY CODIGO DESC LIMIT 150");
@@ -21,6 +18,7 @@ if (isset($_GET['Tp'])) {
 } else {
   $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos ORDER BY CODIGO DESC LIMIT 150");
 }
+
 $query_faturamento->execute();
 $a = 0;
 while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
@@ -36,8 +34,6 @@ while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
     'SERVICOS_FAT' => $linha['SERVICOS_FAT'],
     'OBSERVACOES' => $linha['OBSERVACOES']
   );
-  $vlr_fat_values = array_column($FATURAMENTOS, 'VLR_FAT');
-  $total_vlr_fat = array_sum($vlr_fat_values);
   $codigo_op = $linha['CODIGO_OP'];
   if ($FATURAMENTOS[$a]['OBSERVACOES'] == '') {
     $FATURAMENTOS[$a]['OBSERVACOES'] = 'SEM OBSERVAÇÕES';
@@ -54,7 +50,7 @@ while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
   } else {
     $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = $codigo_op ");
   }
-  $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod_cliente = '14' ");
+
   $query_op->execute();
   if ($linha3 = $query_op->fetch(PDO::FETCH_ASSOC)) {
     $PRODUCAO[$a] = [
@@ -162,13 +158,10 @@ while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
         </tr>
       </thead>
       <?php
+
       $b = 0;
-     
-      echo '<tr ><td align="center" colspan="6">VALOR TOTAL = '.number_format($total_vlr_fat, 2, ',', '.').' </td></tr>';
       while ($a > $b) {
-     
         echo '<tr>
-        
                   <td>
                   ' . $FATURAMENTOS[$b]['CODIGO'] . '
                   </td>
@@ -190,4 +183,4 @@ while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
     </table>
   </div>
 </div>
-<?php  include_once("../html/navbar-dow.php"); ?>
+<?php /* |||   */ include_once("../html/navbar-dow.php"); ?>
