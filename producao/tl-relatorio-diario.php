@@ -394,6 +394,7 @@ WHERE $campo = '$data' ORDER BY o.cod ASC ");
                     <th>OPERADOR</th>
                     <th>DATA INICIO</th>
                     <th>DATA TERMINO</th>
+                    <th>ABRIR NO PAINEL</th>
                     <?php if ($PROD_ADM_I == '1') { ?>
                     <th>SELECIONAR</th>
                     <?php  }  ?>
@@ -406,6 +407,11 @@ WHERE $campo = '$data' ORDER BY o.cod ASC ");
                     <td><?= $Ordens_Selecionada[$per]['op_secao'] ?></td>
                     <td><input class="form-control" disabled value="<?= $inicio[$per] ?>" name="inic" type="date"></td>
                     <td><input class="form-control" disabled value="<?= $fim[$per] ?>" name="fim" type="date"></td>
+                    <td>
+                        <div class="">
+                        <a class="btn rounded-pill btn-info" href="tl-controle-op.php?cod=<?= $Ordens_Selecionada[$per]['cod'] ?>"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
+                    </div>
+                        </td>
                     <?php if ($PROD_ADM_I == '1') { ?>
                     <td><input class="form-check-input" type="checkbox" value="<?= $Ordens_Selecionada[$per]['cod'] ?>" name="Selecionado<?= $per?>"  /></td>
                     <?php  }  ?>
