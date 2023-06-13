@@ -349,14 +349,11 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <th>PREÇO CHAPA</th>
                         </tr>
                       </thead>
-<<<<<<< HEAD
                       <tr>
                           <td align="center" colspan="12">
                             NENHUM SELECIONADO
                           </td>
                         </tr>
-=======
->>>>>>> 83aaae46beae2f848e0d5f54b47e030940fe4947
                     </table>
                   </div>
                 </div>
@@ -450,7 +447,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   <!-- Botão para abrir o primeiro modal -->
   <!-- Primeiro modal PRODUTOS GERAL -->
   <div class="modal" id="modal1">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-fullscreen" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">PRODUTO</h5>
@@ -711,7 +708,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
               <!-- Segundo modal CONTEUDO PAPEL -->
               <div class="modal" id="modal2">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title">PAPEL</h5>
