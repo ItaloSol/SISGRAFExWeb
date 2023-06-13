@@ -785,10 +785,10 @@ $valor_total_Finalizadas = 0;
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
                 <div class="card">
-                  <h5 class="card-header">PRODUTOS <button type="button" class="btn btn-outline-primary"
+                  <!-- <h5 class="card-header">PRODUTOS <button type="button" class="btn btn-outline-primary"
                       data-bs-toggle="modal" data-bs-target="#modal1">
                       Selecionar um Produto
-                    </button> </h5>
+                    </button> </h5> -->
 
                   <div class="table-responsive text-nowrap">
                     <table class="table table-striped">
