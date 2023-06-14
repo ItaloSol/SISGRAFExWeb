@@ -85,6 +85,14 @@ function selecionarPapel(valor) {
         <th>PREÇO CHAPA</th>
       </tr>
     </thead>`;
+    if (!results || results.length === 0) {
+      tableBody.innerHTML += `
+      <tr>
+      <td align="center" colspan="12">
+        NENHUM SELECIONADO
+      </td>
+    </tr>`;
+    }
       results.forEach(result => {
         tableBody.innerHTML += `
         
@@ -108,3 +116,66 @@ function selecionarPapel(valor) {
       console.error('Erro ao recuperar nomes do papel:', error);
     });
   }
+
+  function ApagarPapel(valor){
+        // Defina o nome do item que você deseja remover
+    var itemKey = valor;
+
+    // Remova o item do localStorage
+    localStorage.removeItem(itemKey);
+    document.getElementById('mensagemPapelApagado').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
+      
+    recuperarNomesPapel();
+    setTimeout(function () {
+      document.getElementById('mensagemPapelApagado').innerHTML = '';
+    }, 1000);
+   }
+// Adicione event listeners aos elementos relevantes
+document.getElementById('descricao').addEventListener('change', NovoProduto);
+document.getElementById('largura').addEventListener('change', NovoProduto);
+document.getElementById('altura').addEventListener('change', NovoProduto);
+document.getElementById('espessura').addEventListener('change', NovoProduto);
+document.getElementById('peso').addEventListener('change', NovoProduto);
+document.getElementById('qtdfolhas').addEventListener('change', NovoProduto);
+document.getElementById('valor_Papel').addEventListener('change', NovoProduto);
+document.getElementById('tipoProduto').addEventListener('change', NovoProduto);
+document.getElementById('PP').addEventListener('change', NovoProduto);
+document.getElementById('PE').addEventListener('change', NovoProduto);
+document.getElementById('TipoCommerce').addEventListener('change', NovoProduto);
+document.getElementById('Tipoativo').addEventListener('change', NovoProduto);
+
+async function NovoProduto(){
+  let descricao = await document.getElementById('descricao').value;
+  let largura = await document.getElementById('largura').value;
+  let altura = await document.getElementById('altura').value;
+  let espessura = await document.getElementById('espessura').value;
+  let peso = await document.getElementById('peso').value;
+  let qtdfolhas = await document.getElementById('qtdfolhas').value;
+  let valor_Papel = await document.getElementById('valor_Papel').value;
+  let tipoProduto = await document.getElementById('tipoProduto').value;
+  let PP = await document.getElementById('PP').checked;
+  let PE = await document.getElementById('PE').checked;
+  let TipoCommerce = await document.getElementById('TipoCommerce').value;
+  let Tipoativo = await document.getElementById('Tipoativo').checked;
+  const Selecionados = {
+    'descricao': descricao,
+    'largura': largura,
+    'altura': altura,
+    'espessura': espessura,
+    'peso': peso,
+    'qtdfolhas': qtdfolhas,
+    'valor_Papel': valor_Papel,
+    'tipoProduto': tipoProduto,
+    'PP': PP,
+    'PP': PE,
+    'TipoCommerce': TipoCommerce,
+    'Tipoativo': Tipoativo,
+  }
+  localStorage.setItem('NovoProduto', JSON.stringify(Selecionados));
+  console.log(Selecionados)
+  
+}
+NovoProduto();
+
+ 
+ 

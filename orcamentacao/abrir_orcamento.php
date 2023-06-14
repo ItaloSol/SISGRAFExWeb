@@ -120,7 +120,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   $data30 = date('Y-m-d', strtotime('+' . 30 . 'day', strtotime($hoje)));
 
 
- ?>
+?>
 
 
 
@@ -330,7 +330,15 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
               <div class="tab-pane fade" id="horizontal-pap">
                 <div class="card">
-                  <h5 class="card-header">PAPEL</h5>
+                <div id="mensagemPapelApagado"></div>
+                      <h5  style="display: flex; align-items: center;" class="card-header">PAPEL
+                        <button style="display: block; margin-left: 5px;"  class="btn btn-outline-primary"  onclick="ApagarPapel('papelSelecionado')"> 
+                        Apagar Todos Papeis
+                        </button>
+                      </h5>
+                   
+                 
+
                   <div class="table-responsive text-nowrap">
                     <table id="tabela_campos" class="table table-striped">
                       <thead>
@@ -350,10 +358,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </tr>
                       </thead>
                       <tr>
-                          <td align="center" colspan="12">
-                            NENHUM SELECIONADO
-                          </td>
-                        </tr>
+                        <td align="center" colspan="12">
+                          NENHUM SELECIONADO
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </div>
@@ -562,7 +570,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="qtdfolhas">QUANTIDADE FOLHAS</label>
-                          <input type="number" value="1" id="qtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
+                          <input type="number" value="0" id="qtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="LARGURA">TIPO</label>
@@ -602,11 +610,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                 <option>2° VIA</option>
                                 <option>3° VIA</option>
                               </select>
-                              <label class="form-label" for="basic-default-phone">CORES FRENTE</label>
-                              <input type="number" placeholder="0">
-                              <label class="form-label" for="basic-default-phone">CORES VERSO</label>
-                              <input type="number" placeholder="0">
-                              <table class="table table-bordered table-hover">
+                              
+                              <table id="personalizaPapel" class="table table-bordered table-hover">
                                 <tr>
                                   <th>CÓDIGO</th>
                                   <th>DESCRIÇÃO</th>
@@ -616,7 +621,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                   <th>CORES VERSO</th>
                                 </tr>
                                 <tr>
-                                  <td colspan='6'></td>
+                                  <td colspan='4'></td>
+                                  <td><input class="form-control" type="number" placeholder="0"></td>
+                              
+                                  <td><input class="form-control" type="number" placeholder="0"></td>
                                 </tr>
                               </table>
                             </div>
@@ -768,6 +776,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
+
                           <table class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
@@ -1012,7 +1021,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>${produto.VALOR_UNITARIO}</td>
                               <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
                             </tr> `;
-   
+
                         });
                       });
                     }
@@ -1028,7 +1037,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <td>${produto.VALOR_UNITARIO}</td>
                           <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
                         </tr>`;
-    
+
                       });
                     }
                   })
