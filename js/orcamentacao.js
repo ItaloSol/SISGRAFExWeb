@@ -26,9 +26,33 @@ function selecionarPapel(valor) {
     recuperarNomesPapel()
   }
 
+  function SelecionarProduto(valor) {
+    const marcado = document.getElementById(valor).checked;
+    const selecionado = document.getElementById(valor).value;
+    let produtoSelecionado = localStorage.getItem('ProdutoSelecionado');
+    let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
+  
+    if (marcado) {
+      document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Sucesso. Produto Selecionado!</div></div>';
+  
+      if (!arraySelecionados.includes(selecionado)) {
+        arraySelecionados.push(selecionado);
+        localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
+      }
+    } else {
+      document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Sucesso. Produto Desmarcado!</div></div>';
+  
+      arraySelecionados = arraySelecionados.filter(id => id !== selecionado);
+      localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
+    }
+  
+    setTimeout(function () {
+      document.getElementById('SelecaoProdutoss').innerHTML = '';
+    }, 1000);
+  }
+
 
   if (localStorage.getItem('papelSelecionado')) {
-    console.log(localStorage.getItem('papelSelecionado'))
     recuperarNomesPapel();
   }
   
@@ -171,11 +195,63 @@ async function NovoProduto(){
     'TipoCommerce': TipoCommerce,
     'Tipoativo': Tipoativo,
   }
+  
+  const tableBody = document.getElementById('personalizaPapel');
+      tableBody.innerHTML = '';
+      tableBody.innerHTML += `
+      <thead>
+        <tr>
+          <th>CÓDIGO</th>
+          <th>DESCRIÇÃO</th>
+          <th>TIPO</th>
+          <th>ORELHA</th>
+          <th>CORES FRENTE</th>
+          <th>CORES VERSO</th>
+        </tr>
+    </thead>`;
+    if (!results || results.length === 0) {
+      tableBody.innerHTML += `
+      <tr>
+      <td align="center" colspan="6">
+        NENHUM SELECIONADO
+      </td>
+    </tr>`;
+    }
+      results.forEach(result => {
+        tableBody.innerHTML += `
+        
+          <tr>
+            <td>${Selecionardos.nomePapel}</td>
+            <td>${Selecionardos.codPapel}</td>
+            <td>${Selecionardos.descricao}</td>
+            <td>${Selecionardos.tipo_papel}</td>
+            <td>${Selecionardos.corFrente}</td>
+            <td>${Selecionardos.corVerso}</td>
+            <td><input class="form-control" value="${Selecionardos.formato}" type="number"></td>
+            <td><input class="form-control" value="${Selecionardos.orelha}" type="number"></td>
+            <td><input class="form-control" value="0" type="number"></td>
+            <td>${Selecionardos.preco_folha}</td>
+            <td><input class="form-control" type="number" placeholder="0"></td>
+             <td><input class="form-control" type="number" placeholder="0"></td>
+          </tr>`;
+      });
+
   localStorage.setItem('NovoProduto', JSON.stringify(Selecionados));
-  console.log(Selecionados)
+   console.log(localStorage.getItem('NovoProduto'));
+  if (localStorage.getItem('NovoProduto')) {
+    // Obter os dados do localStorage
+    const selecionadosString = localStorage.getItem('NovoProduto');
+    const selecionados = JSON.parse(selecionadosString);
+    
+    // Iterar sobre os pares chave-valor do objeto
+    Object.entries(selecionados).forEach(([chave, valor]) => {
+      // Preencher os valores nos elementos HTML correspondentes
+      document.getElementById(chave).value = valor;
+    });
+  }
   
 }
-NovoProduto();
+
 
  
  

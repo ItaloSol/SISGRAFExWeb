@@ -504,7 +504,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         <button class="btn btn-outline-danger" type="button" id="selecionar">SELECIONAR</button>
                       </div>
                     </div>
-
+                          <div id="SelecaoProdutoss"></div>
                     <div style="height: 400px; width: 100%; overflow-y: scroll; ">
                       <table class="table table-hover table-sm table-bordered">
                         <thead>
@@ -622,9 +622,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                 </tr>
                                 <tr>
                                   <td colspan='4'></td>
-                                  <td><input class="form-control" type="number" placeholder="0"></td>
-                              
-                                  <td><input class="form-control" type="number" placeholder="0"></td>
+                                  
                                 </tr>
                               </table>
                             </div>
@@ -797,7 +795,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>' . $papel[$i]['formato'] . '</td>
                               <td>' . $papel[$i]['uma_face'] . '</td>
                               <td>' . $papel[$i]['unitario'] . '</td>
-                              <td><input id="' . $papel[$i]['cod'] . '"  type="checkbox" onclick="selecionarPapel(this.id)"></td>
+                              <td><input id="' . $papel[$i]['cod'] . '"  type="checkbox" ></td>
                             </tr>';
                             } ?>
 
@@ -927,7 +925,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <td>${produto.TIPO}</td>
                       <td>${produto.DESCRICAO}</td>
                       <td>${produto.VALOR_UNITARIO}</td>
-                      <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                      <td>TESTE1</td>
+                      <td><input type="checkbox" value="${produto.CODIGO}"  name="Produto${produto.CODIGO}"   ></td>
                     </tr>`;
                     });
                   } else {
@@ -937,7 +936,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <td>${dados[0].TIPO}</td>
                       <td>${dados[0].DESCRICAO}</td>
                       <td>${dados[0].VALOR_UNITARIO}</td>
-                      <td><input type="checkbox" value="${dados[0].CODIGO}" name="Produto${dados[0].CODIGO}"  ></td>
+                      <td>TESTE2</td>
+                      <td><input type="checkbox" value="${dados[0].CODIGO}"  name="Produto${dados[0].CODIGO}"  ></td>
                     </tr>`;
                   }
 
@@ -1000,7 +1000,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <td>${produto.TIPO}</td>
                             <td>${produto.DESCRICAO}</td>
                             <td>${produto.VALOR_UNITARIO}</td>
-                            <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                            <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)"  ></td>
                           </tr>`;
                         });
                       });
@@ -1019,7 +1019,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>${produto.TIPO}</td>
                               <td>${produto.DESCRICAO}</td>
                               <td>${produto.VALOR_UNITARIO}</td>
-                              <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                              <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
                             </tr> `;
 
                         });
@@ -1035,7 +1035,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <td>${produto.TIPO}</td>
                           <td>${produto.DESCRICAO}</td>
                           <td>${produto.VALOR_UNITARIO}</td>
-                          <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
+                          <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
                         </tr>`;
 
                       });
