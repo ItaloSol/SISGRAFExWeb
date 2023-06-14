@@ -570,7 +570,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="qtdfolhas">QUANTIDADE FOLHAS</label>
-                          <input type="number" value="1" id="qtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
+                          <input type="number" value="0" id="qtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="LARGURA">TIPO</label>
@@ -610,11 +610,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                 <option>2° VIA</option>
                                 <option>3° VIA</option>
                               </select>
-                              <label class="form-label" for="basic-default-phone">CORES FRENTE</label>
-                              <input type="number" placeholder="0">
-                              <label class="form-label" for="basic-default-phone">CORES VERSO</label>
-                              <input type="number" placeholder="0">
-                              <table class="table table-bordered table-hover">
+                              
+                              <table id="personalizaPapel" class="table table-bordered table-hover">
                                 <tr>
                                   <th>CÓDIGO</th>
                                   <th>DESCRIÇÃO</th>
@@ -624,7 +621,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                   <th>CORES VERSO</th>
                                 </tr>
                                 <tr>
-                                  <td colspan='6'></td>
+                                  <td colspan='4'></td>
+                                  <td><input class="form-control" type="number" placeholder="0"></td>
+                              
+                                  <td><input class="form-control" type="number" placeholder="0"></td>
                                 </tr>
                               </table>
                             </div>
