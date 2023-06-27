@@ -500,12 +500,12 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <button class="btn btn-outline-primary" type="button" id="pesquisar">PESQUISAR</button>
                         </div>
                         <br>
-                        <button class="btn btn-outline-warning" type="button" id="clonar">CLONAR PRODUTO</button>
-                        <button class="btn btn-outline-danger" type="button" id="selecionar">SELECIONAR</button>
+                        <button class="btn btn-outline-danger" type="button" id="selecionar">CONFIRMAR SELEÇÃO DOS PRODUTOS</button>
                       </div>
                     </div>
                           <div id="SelecaoProdutoss"></div>
                     <div style="height: 400px; width: 100%; overflow-y: scroll; ">
+                    <div id="ClonadoProduto"></div>
                       <table class="table table-hover table-sm table-bordered">
                         <thead>
                           <tr>
@@ -513,6 +513,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <th>TIPO</th>
                             <th>DESCRIÇÃO</th>
                             <th>VALOR UNITÁRIO</th>
+                            <th>CLONAR</th>
                             <th>SELECIONAR</th>
                           </tr>
                         </thead>
@@ -534,47 +535,47 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-default-name">TIPO DE PRODUTO</label>
                         <div class="col-sm-10">
-                          <input name="TPP" class="form-check-input" type="radio" value="PP" id="PP" />
-                          <label class="form-check-label" for="TipoPP"> PRODUÇÃO(PP) </label>
-                          <input name="TPP" class="form-check-input" type="radio" value="PE" id="PE" />
-                          <label class="form-check-label" for="TipoPE"> PRONTA ENTREGA(PE) </label>
-                          <input class="form-check-input" name="TipoCommerce" type="checkbox" value="COMMERCE" id="TipoCommerce" />
-                          <label class="form-check-label" for="TipoTipoCOMMERCE"> SERÁ ULTILIZADO NO E-COMMERCE </label>
-                          <input class="form-check-input" name="Tipoativo" type="checkbox" value="ATIVO" id="Tipoativo" />
-                          <label class="form-check-label" for="TipoATIVO"> ATIVO</label>
+                          <input name="TPP" class="form-check-input" type="radio" value="PP" id="NovoPP" />
+                          <label class="form-check-label" for="NovoPP"> PRODUÇÃO(PP) </label>
+                          <input name="TPP" class="form-check-input" type="radio" value="PE" id="NovoPE" />
+                          <label class="form-check-label" for="NovoPE"> PRONTA ENTREGA(PE) </label>
+                          <input class="form-check-input" name="TipoCommerce" type="checkbox" value="COMMERCE" id="NovoTipoCommerce" />
+                          <label class="form-check-label" for="NovoTipoCommerce"> SERÁ ULTILIZADO NO E-COMMERCE </label>
+                          <input class="form-check-input" name="Tipoativo" type="checkbox" value="ATIVO" id="NovoTipoativo" />
+                          <label class="form-check-label" for="NovoTipoativo"> ATIVO</label>
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="descricao">DESCRIÇÃO DO PRODUTO</label>
+                        <label class="col-sm-2 col-form-label" for="Novodescricao">DESCRIÇÃO DO PRODUTO</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="descricao" placeholder="DESCRIÇÃO" />
+                          <input type="text" class="form-control" id="Novodescricao" placeholder="NovoDESCRIÇÃO" />
                           <div class="form-text">MÁXIMO 150 CARACTERES</div>
                         </div>
                       </div>
                       <div class="row mb-3">
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="LARGURA">LARGURA</label>
-                          <input type="number" id="largura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                          <label class="col-sm-2 col-form-label" for="NovoLARGURA">LARGURA</label>
+                          <input type="number" id="NovoNovolargura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="ALTURA">ALTURA</label>
-                          <input type="number" id="altura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                          <label class="col-sm-2 col-form-label" for="NovoALTURA">ALTURA</label>
+                          <input type="number" id="Novoaltura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="ESPESSURA">ESPESSURA</label>
-                          <input type="number" id="espessura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                          <label class="col-sm-2 col-form-label" for="NovoESPESSURA">ESPESSURA</label>
+                          <input type="number" id="Novoespessura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="PESO">PESO</label>
-                          <input type="number" id="peso" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                          <label class="col-sm-2 col-form-label" for="NovoPESO">PESO</label>
+                          <input type="number" id="Novopeso" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="qtdfolhas">QUANTIDADE FOLHAS</label>
-                          <input type="number" value="0" id="qtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
+                          <label class="col-sm-2 col-form-label" for="Novoqtdfolhas">QUANTIDADE FOLHAS</label>
+                          <input type="number" value="0" id="Novoqtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
                         </div>
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="LARGURA">TIPO</label>
-                          <select class="form-select" id="tipoProduto" aria-label="Default select example">
+                          <label class="col-sm-2 col-form-label" for="NovoLARGURA">TIPO</label>
+                          <select class="form-select" id="NovotipoProduto" aria-label="Default select example">
                             <option desabled>SELECIONE</option>
                             <option value="FOLHA">FOLHA</option>
                             <option value="BLOCO">BLOCO</option>
@@ -925,7 +926,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <td>${produto.TIPO}</td>
                       <td>${produto.DESCRICAO}</td>
                       <td>${produto.VALOR_UNITARIO}</td>
-                      <td>TESTE1</td>
+                      <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
                       <td><input type="checkbox" value="${produto.CODIGO}"  name="Produto${produto.CODIGO}"   ></td>
                     </tr>`;
                     });
@@ -936,7 +937,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <td>${dados[0].TIPO}</td>
                       <td>${dados[0].DESCRICAO}</td>
                       <td>${dados[0].VALOR_UNITARIO}</td>
-                      <td>TESTE2</td>
+                      <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
                       <td><input type="checkbox" value="${dados[0].CODIGO}"  name="Produto${dados[0].CODIGO}"  ></td>
                     </tr>`;
                   }
@@ -1000,6 +1001,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <td>${produto.TIPO}</td>
                             <td>${produto.DESCRICAO}</td>
                             <td>${produto.VALOR_UNITARIO}</td>
+                            <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
                             <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)"  ></td>
                           </tr>`;
                         });
@@ -1019,6 +1021,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>${produto.TIPO}</td>
                               <td>${produto.DESCRICAO}</td>
                               <td>${produto.VALOR_UNITARIO}</td>
+                              <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
                               <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
                             </tr> `;
 
@@ -1035,6 +1038,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <td>${produto.TIPO}</td>
                           <td>${produto.DESCRICAO}</td>
                           <td>${produto.VALOR_UNITARIO}</td>
+                          <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
                           <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
                         </tr>`;
 
