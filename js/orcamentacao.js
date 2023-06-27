@@ -54,9 +54,9 @@ function selecionarPapel(valor) {
 
   if (localStorage.getItem('papelSelecionado')) {
     recuperarNomesPapel();
-    const ArrayAcabamentos = JSON.parse(localStorage.getItem('papelSelecionado'));
+    const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
   if(document.getElementById('PapelsSelecionado')){
-  ArrayAcabamentos.map((item) => {
+  ArrayPapels.map((item) => {
       document.getElementById('Papel'+item).setAttribute('checked', 'checked');
   })
   }
@@ -150,7 +150,12 @@ function selecionarPapel(valor) {
   function ApagarPapel(valor){
         // Defina o nome do item que você deseja remover
     var itemKey = valor;
-
+    const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
+    if(document.getElementById('PapelsSelecionado')){
+      ArrayPapels.map((item) => {
+        document.getElementById('Papel' + item).removeAttribute('checked');
+      })
+      }
     // Remova o item do localStorage
     localStorage.removeItem(itemKey);
     document.getElementById('mensagemPapelApagado').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
@@ -401,7 +406,12 @@ function recuperarNomesAcabamento() {
 function ApagarAcabamento(valor){
       // Defina o nome do item que você deseja remover
   var itemKey = valor;
-
+  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+  if(document.getElementById('selecionarAcabamentos')){
+    ArrayAcabamentos.map((item) => {
+        document.getElementById('Acaba'+item).removeAttribute('checked');
+    })
+  }
   // Remova o item do localStorage
   localStorage.removeItem(itemKey);
   document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
