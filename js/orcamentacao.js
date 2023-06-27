@@ -6,15 +6,15 @@ function selecionarPapel(valor) {
     let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
   
     if (selecionado.checked) {
-      document.getElementById('mensagemPapel').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Sucesso. Papel Selecionado!</div></div>';
+      document.getElementById('mensagemPapel').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Papel Selecionado!</div></div>';
   
       // Adicionar o ID do item selecionado ao array de selecionados
-      arraySelecionados.push(selecionado.id);
+      arraySelecionados.push(selecionado.value);
     } else {
-      document.getElementById('mensagemPapel').innerHTML = '<div style=";" id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Desmarcado. Papel Desmarcado!</div></div>';
+      document.getElementById('mensagemPapel').innerHTML = '<div style=";" id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Papel Desmarcado!</div></div>';
   
       // Remover o ID do item desmarcado do array de selecionados
-      arraySelecionados = arraySelecionados.filter(id => id !== selecionado.id);
+      arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
     }
   
     // Salvar o array de selecionados no localStorage
@@ -33,14 +33,14 @@ function selecionarPapel(valor) {
     let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
   
     if (marcado) {
-      document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Sucesso. Produto Selecionado!</div></div>';
+      document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Selecionado!</div></div>';
   
       if (!arraySelecionados.includes(selecionado)) {
         arraySelecionados.push(selecionado);
         localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
       }
     } else {
-      document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Sucesso. Produto Desmarcado!</div></div>';
+      document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Desmarcado!</div></div>';
   
       arraySelecionados = arraySelecionados.filter(id => id !== selecionado);
       localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
@@ -54,6 +54,12 @@ function selecionarPapel(valor) {
 
   if (localStorage.getItem('papelSelecionado')) {
     recuperarNomesPapel();
+    const ArrayAcabamentos = JSON.parse(localStorage.getItem('papelSelecionado'));
+  if(document.getElementById('PapelsSelecionado')){
+  ArrayAcabamentos.map((item) => {
+      document.getElementById('Papel'+item).setAttribute('checked', 'checked');
+  })
+  }
   }
   
   function recuperarNomesPapel() {
@@ -147,7 +153,7 @@ function selecionarPapel(valor) {
 
     // Remova o item do localStorage
     localStorage.removeItem(itemKey);
-    document.getElementById('mensagemPapelApagado').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
+    document.getElementById('mensagemPapelApagado').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
       
     recuperarNomesPapel();
     setTimeout(function () {
@@ -288,7 +294,7 @@ async function NovoProduto(){
 }
 
 function ClonarProduto(valor) {
-  document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Clonado, Produto foi clonado!<br> Verifique a aba "Novo Produto".</div></div>';
+  document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Clonado, Produto foi clonado!<br> Verifique a aba "Novo Produto".</div></div>';
 
   setTimeout(function () {
       document.getElementById('ClonadoProduto').innerHTML = '';
@@ -306,12 +312,12 @@ function selecionarAcabamento(valor) {
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
 
   if (selecionado.checked) {
-    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
+    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
 
     // Adicionar o ID do item selecionado ao array de selecionados
     arraySelecionados.push(selecionado.value);
   } else {
-    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
+    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
 
     // Remover o ID do item desmarcado do array de selecionados
     arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
@@ -327,8 +333,14 @@ function selecionarAcabamento(valor) {
 }
 if (localStorage.getItem('AcabamentoSelecionado')) {
   recuperarNomesAcabamento();
-}else{
+  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+  if(document.getElementById('selecionarAcabamentos')){
+  ArrayAcabamentos.map((item) => {
+      document.getElementById('Acaba'+item).setAttribute('checked', 'checked');
+  })
 }
+}
+
 
 function recuperarNomesAcabamento() {
   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
@@ -392,7 +404,7 @@ function ApagarAcabamento(valor){
 
   // Remova o item do localStorage
   localStorage.removeItem(itemKey);
-  document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
+  document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
     
   recuperarNomesAcabamento();
   setTimeout(function () {

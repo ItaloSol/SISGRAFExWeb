@@ -795,7 +795,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
 
-                          <table class="colorbranca table table-sm table-houver">
+                          <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
                               <th>DESCRIÇÃO</th>
@@ -815,7 +815,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>' . $papel[$i]['formato'] . '</td>
                               <td>' . $papel[$i]['uma_face'] . '</td>
                               <td>' . $papel[$i]['unitario'] . '</td>
-                              <td><input id="' . $papel[$i]['cod'] . '" onclick="selecionarPapel(this.id)"  type="checkbox" ></td>
+                              <td><input value="' . $papel[$i]['cod'] . '" id="Papel' . $papel[$i]['cod'] . '" onclick="selecionarPapel(this.id)"  type="checkbox" ></td>
                             </tr>';
                             } ?>
 
@@ -867,7 +867,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </div>
                          
                           <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-                            <table class="colorbranca table table-sm table-houver">
+                            <table id="selecionarAcabamentos" class="colorbranca table table-sm table-houver">
                               <tr>
                                 <th>CODIGO</th>
                                 <th>MÁQUINA</th>
