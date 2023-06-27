@@ -252,6 +252,13 @@ async function NovoProduto(){
   
 }
 
+function ClonarProduto(valor) {
+  console.log(valor);
+  document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Clonado, Produto foi clonado!<br> Verifique a aba "Novo Produto".</div></div>';
+   setTimeout(function () {
+      document.getElementById('ClonadoProduto').innerHTML = '';
+    }, 1000);
+}
 
  
  
