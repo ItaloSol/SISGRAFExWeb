@@ -1,6 +1,6 @@
 function selecionarPapel(valor) {
     const selecionado = document.getElementById(valor);
-    console.log(selecionado.checked);
+   // console.log(selecionado.checked);
   
     let papelSelecionado = localStorage.getItem('papelSelecionado');
     let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
@@ -87,10 +87,10 @@ function selecionarPapel(valor) {
     Promise.all(promises)
     .then(results => {
       let nomePapel = results.map(result => result.nomePapel).join(', ');
-      console.log(nomePapel); // Movido para dentro do bloco `then`
+     // console.log(nomePapel); // Movido para dentro do bloco `then`
      // document.getElementById('nome_papel').value = nomePapel;
   
-      const tableBody = document.getElementById('tabela_campos');
+      const tableBody = document.getElementById('personalizaPapel');
       tableBody.innerHTML = '';
       tableBody.innerHTML += `
       <thead>
@@ -155,18 +155,53 @@ function selecionarPapel(valor) {
     }, 1000);
    }
 // Adicione event listeners aos elementos relevantes
-document.getElementById('descricao').addEventListener('change', NovoProduto);
-document.getElementById('largura').addEventListener('change', NovoProduto);
-document.getElementById('altura').addEventListener('change', NovoProduto);
-document.getElementById('espessura').addEventListener('change', NovoProduto);
-document.getElementById('peso').addEventListener('change', NovoProduto);
-document.getElementById('qtdfolhas').addEventListener('change', NovoProduto);
-document.getElementById('valor_Papel').addEventListener('change', NovoProduto);
-document.getElementById('tipoProduto').addEventListener('change', NovoProduto);
-document.getElementById('PP').addEventListener('change', NovoProduto);
-document.getElementById('PE').addEventListener('change', NovoProduto);
-document.getElementById('TipoCommerce').addEventListener('change', NovoProduto);
-document.getElementById('Tipoativo').addEventListener('change', NovoProduto);
+if (document.getElementById('descricao')) {
+  document.getElementById('descricao').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('largura')) {
+  document.getElementById('largura').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('altura')) {
+  document.getElementById('altura').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('espessura')) {
+  document.getElementById('espessura').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('peso')) {
+  document.getElementById('peso').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('qtdfolhas')) {
+  document.getElementById('qtdfolhas').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('valor_Papel')) {
+  document.getElementById('valor_Papel').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('tipoProduto')) {
+  document.getElementById('tipoProduto').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('PP')) {
+  document.getElementById('PP').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('PE')) {
+  document.getElementById('PE').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('TipoCommerce')) {
+  document.getElementById('TipoCommerce').addEventListener('change', NovoProduto);
+}
+
+if (document.getElementById('Tipoativo')) {
+  document.getElementById('Tipoativo').addEventListener('change', NovoProduto);
+}
 
 async function NovoProduto(){
   let descricao = await document.getElementById('descricao').value;
@@ -237,7 +272,7 @@ async function NovoProduto(){
       });
 
   localStorage.setItem('NovoProduto', JSON.stringify(Selecionados));
-   console.log(localStorage.getItem('NovoProduto'));
+  // console.log(localStorage.getItem('NovoProduto'));
   if (localStorage.getItem('NovoProduto')) {
     // Obter os dados do localStorage
     const selecionadosString = localStorage.getItem('NovoProduto');
@@ -253,12 +288,114 @@ async function NovoProduto(){
 }
 
 function ClonarProduto(valor) {
-  console.log(valor);
   document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Clonado, Produto foi clonado!<br> Verifique a aba "Novo Produto".</div></div>';
-   setTimeout(function () {
+
+  setTimeout(function () {
       document.getElementById('ClonadoProduto').innerHTML = '';
     }, 1000);
 }
 
  
- 
+//  SELECIONAR ACABAMENTO
+
+function selecionarAcabamento(valor) {
+  const selecionado = document.getElementById(valor);
+  
+ // console.log(selecionado.value);
+  let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
+  let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
+
+  if (selecionado.checked) {
+    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
+
+    // Adicionar o ID do item selecionado ao array de selecionados
+    arraySelecionados.push(selecionado.value);
+  } else {
+    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
+
+    // Remover o ID do item desmarcado do array de selecionados
+    arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
+  }
+
+  // Salvar o array de selecionados no localStorage
+  localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
+
+  setTimeout(function () {
+    document.getElementById('mensagemAcabamento').innerHTML = '';
+  }, 1000);
+  recuperarNomesAcabamento()
+}
+if (localStorage.getItem('AcabamentoSelecionado')) {
+  recuperarNomesAcabamento();
+}else{
+}
+
+function recuperarNomesAcabamento() {
+  let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
+  let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
+
+  let promises = arraySelecionados.map(id => {
+    return fetch('api_acabamento.php?id=' + id)
+      .then(response => response.json())
+      .then(data => {
+        return {
+          id: id,
+          MAQUINA: data.MAQUINA,
+          ATIVA: data.ATIVA,
+          CUSTO_HORA: data.CUSTO_HORA,
+        };
+      });
+  });
+  Promise.all(promises)
+  .then(results => {
+    let nomePapel = results.map(result => result.nomePapel).join(', ');
+   // console.log(nomePapel); // Movido para dentro do bloco `then`
+   // document.getElementById('nome_papel').value = nomePapel;
+
+    const tableBody = document.getElementById('NovoAcabemtnoSe');
+    tableBody.innerHTML = '';
+    tableBody.innerHTML += `
+    <thead>
+    <tr>
+    <th>CÓDIGO</th>
+    <th>MÁQUINA</th>
+    <th>CUSTO</th>
+    </tr>
+  </thead>`;
+  if (!results || results.length === 0) {
+    tableBody.innerHTML += `
+    <tr>
+    <td align="center" colspan="3">
+      NENHUM SELECIONADO
+    </td>
+  </tr>`;
+  }
+    results.forEach(result => {
+      tableBody.innerHTML += `
+      
+        <tr>
+          <td>${result.id}</td>
+          <td>${result.MAQUINA}</td>
+          <td>${result.ATIVA}</td>
+          <td>${result.CUSTO_HORA}</td>
+        </tr>`;
+    });
+  })
+  .catch(error => {
+    console.error('Erro ao recuperar nomes do acabamento:', error);
+  });
+}
+
+function ApagarAcabamento(valor){
+      // Defina o nome do item que você deseja remover
+  var itemKey = valor;
+
+  // Remova o item do localStorage
+  localStorage.removeItem(itemKey);
+  document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small> <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
+    
+  recuperarNomesAcabamento();
+  setTimeout(function () {
+    document.getElementById('mensagemAcabamento').innerHTML = '';
+  }, 1000);
+ }

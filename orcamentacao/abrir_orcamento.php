@@ -332,9 +332,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <div class="card">
                 <div id="mensagemPapelApagado"></div>
                       <h5  style="display: flex; align-items: center;" class="card-header">PAPEL
-                        <button style="display: block; margin-left: 5px;"  class="btn btn-outline-primary"  onclick="ApagarPapel('papelSelecionado')"> 
-                        Apagar Todos Papeis
-                        </button>
+                        
                       </h5>
                    
                  
@@ -597,9 +595,18 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <h5 class="card-header">PAPÉIS</h5>
 
                             <!-- Botão para abrir o segundo modal -->
+                            <div class="row">
+                            <div class="col-3">
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal2">
                               SELECIONAR PAPEL
                             </button>
+                            </div>
+                            <div class="col-3">
+                            <button style="display: block; margin-left: 5px;"  class="btn btn-outline-primary"  onclick="ApagarPapel('papelSelecionado')"> 
+                              Remover Todos Papeis
+                              </button>
+                        </div>
+                        </div>
                             <div class="table-responsive text-nowrap">
                               <label class="form-label" for="basic-default-phone">TIPO</label>
                               <select class="form-select">
@@ -622,28 +629,40 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                   <th>CORES VERSO</th>
                                 </tr>
                                 <tr>
-                                  <td colspan='4'></td>
-                                  
+                                <td align="center" colspan="6">NENHUM SELECIONADO</td>
                                 </tr>
                               </table>
                             </div>
                           </div>
                           <div class="tab-pane fade" id="acabamentos1">
                             <h5 class="card-header">ACABAMENTOS</h5>
+                           
+                            <div class="row">
+                            <div class="col-3">
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal23">
                               SELECIONAR ACABAMENTO
                             </button>
+                            </div>
+                            <div class="col-3">
+                            <button style="display: block; margin-left: 5px;"  class="btn btn-outline-primary"  onclick="ApagarAcabamento('AcabamentoSelecionado')"> 
+                              Remover Todos Acabamentos
+                              </button>
+                        </div>
+                        </div>
+                        <br>
                             <div class="table-responsive text-nowrap">
 
-                              <table class="table table-bordered table-hover">
+                              <table id="NovoAcabemtnoSe" class="table table-bordered table-hover">
                                 <tr>
                                   <th>CÓDIGO</th>
-                                  <th>DESCRIÇÃO</th>
+                                  <th>MÁQUINA</th>
+                                  <th>CUSTO</th>
                                 </tr>
                                 <tr>
-                                  <td>cod</td>
-                                  <td>des</td>
-                                </tr>
+                                <td align="center" colspan="3">
+                                  NENHUM SELECIONADO
+                                </td>
+                              </tr>
                               </table>
 
                             </div>
@@ -796,7 +815,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>' . $papel[$i]['formato'] . '</td>
                               <td>' . $papel[$i]['uma_face'] . '</td>
                               <td>' . $papel[$i]['unitario'] . '</td>
-                              <td><input id="' . $papel[$i]['cod'] . '"  type="checkbox" ></td>
+                              <td><input id="' . $papel[$i]['cod'] . '" onclick="selecionarPapel(this.id)"  type="checkbox" ></td>
                             </tr>';
                             } ?>
 
@@ -810,7 +829,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
               <!-- terceiro modal CONTEUDO ACABAMENTO -->
               <div class="modal" id="modal23">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title">ACABAMENTO</h5>
@@ -831,8 +850,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         $a++;
                       }
                       ?>
-                      <div class="teste">
                         <div class="row">
+                        <div id="mensagemAcabamento"></div>
                           <div class="col-4">
                             <div class="mb-3">
                               <label class="form-label colorbranca" for="basic-default-phone">NOME DA MÁQUINA</label>
@@ -842,11 +861,11 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <label class="form-label colorbranca" for="basic-default-phone">CUSTO HORA</label>
                               <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
                             </div>
-
                             <div class="mb-3">
                               <button class="btn rounded-pill btn-success">CADASTRAR</button>
                             </div>
                           </div>
+                         
                           <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
                             <table class="colorbranca table table-sm table-houver">
                               <tr>
@@ -862,12 +881,11 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                                 <td>' . $acabamento[$i]['MAQUINA'] . '</td>
                                 <td>' . $acabamento[$i]['ATIVA'] . '</td>
                                 <td>' . $acabamento[$i]['CUSTO_HORA'] . '</td>
-                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox" id="Acaba'.$acabamento[$i]['CODIGO'].'" value="'.$acabamento[$i]['CODIGO'].'" onclick="selecionarAcabamento(this.id)"></td>
                               </tr>';
                               } ?>
 
                             </table>
-                          </div>
                         </div>
                       </div>
                     </div>
