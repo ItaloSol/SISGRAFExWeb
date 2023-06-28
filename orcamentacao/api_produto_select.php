@@ -31,37 +31,6 @@ if (empty($Solicitacao)) {
   $query_produtos->execute();
   if ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
     $VALOR = [
-      "cod_calculo" => $linha['cod_calculo'],
-      "CODIGO" => $linha['CODIGO'],
-      "CODIGO_LI" => $linha['CODIGO_LI'],
-      "DESCRICAO" => $linha['DESCRICAO'],
-      "LARGURA" => $linha['LARGURA'],
-      "ALTURA" => $linha['ALTURA'],
-      "ESPESSURA" => $linha['ESPESSURA'],
-      "PESO" => $linha['PESO'],
-      "QTD_PAGINAS" => $linha['QTD_PAGINAS'],
-      "TIPO" => $linha['TIPO'],
-      "VENDAS" => $linha['VENDAS'],
-      "ATIVO" => $linha['ATIVO'],
-      "USO_ECOMMERCE" => $linha['USO_ECOMMERCE'],
-      "PRECO_CUSTO" => $linha['PRECO_CUSTO'],
-      "PROMOCIONAL" => $linha['PROMOCIONAL'],
-      "PRECO_PROMOCIONAL" => $linha['PRECO_PROMOCIONAL'],
-      // Campos restantes da tabela produtos_pr_ent
-      "ID_CATEGORIA" => $linha['ID_CATEGORIA'],
-      "PRE_VENDA" => $linha['PRE_VENDA'],
-      "PROM" => $linha['PROM'],
-      "VLR_PROM" => $linha['VLR_PROM'],
-      "INICIO_PROM" => $linha['INICIO_PROM'],
-      "FIM_PROM" => $linha['FIM_PROM'],
-      "ESTOQUE" => $linha['ESTOQUE'],
-      "AVISO_ESTOQUE" => $linha['AVISO_ESTOQUE'],
-      "AVISO_ESTOQUE_UN" => $linha['AVISO_ESTOQUE_UN'],
-      "VLR_UNIT" => $linha['VLR_UNIT'],
-      "ULT_MOV" => $linha['ULT_MOV'],
-      "PD_QTD_MIN" => $linha['PD_QTD_MIN'],
-      "PD_MAX" => $linha['PD_MAX'],
-      "PD_QTD_MAX" => $linha['PD_QTD_MAX'],
       // Campos restantes da tabela tabela_calculos_op
       "cod_op" => $linha['cod_op'],
       "cod_proposta" => $linha['cod_proposta'],
@@ -89,6 +58,42 @@ if (empty($Solicitacao)) {
       "descricao_papel_produto" => $linha['descricao'],
       "orelha" => $linha['orelha']
     ];
+    if ($tabela == 'produtos') {
+      $VALOR["cod_calculo"] = $linha['cod_calculo'];
+      $VALOR["CODIGO"] = $linha['CODIGO'];
+      $VALOR["CODIGO_LI"] = $linha['CODIGO_LI'];
+      $VALOR["DESCRICAO"] = $linha['DESCRICAO'];
+      $VALOR["LARGURA"] = $linha['LARGURA'];
+      $VALOR["ALTURA"] = $linha['ALTURA'];
+      $VALOR["ESPESSURA"] = $linha['ESPESSURA'];
+      $VALOR["PESO"] = $linha['PESO'];
+      $VALOR["QTD_PAGINAS"] = $linha['QTD_PAGINAS'];
+      $VALOR["TIPO"] = $linha['TIPO'];
+      $VALOR["VENDAS"] = $linha['VENDAS'];
+      $VALOR["ATIVO"] = $linha['ATIVO'];
+      $VALOR["USO_ECOMMERCE"] = $linha['USO_ECOMMERCE'];
+      $VALOR["PRECO_CUSTO"] = $linha['PRECO_CUSTO'];
+      $VALOR["PROMOCIONAL"] = $linha['PROMOCIONAL'];
+      $VALOR["PRECO_PROMOCIONAL"] = $linha['PRECO_PROMOCIONAL'];
+    }
+
+    if ($tabela == 'produtos_pr_ent') {
+      $VALOR["cod_calculo"] = $linha['cod_calculo'];
+      $VALOR["ID_CATEGORIA"] = $linha['ID_CATEGORIA'];
+      $VALOR["PRE_VENDA"] = $linha['PRE_VENDA'];
+      $VALOR["PROM"] = $linha['PROM'];
+      $VALOR["VLR_PROM"] = $linha['VLR_PROM'];
+      $VALOR["INICIO_PROM"] = $linha['INICIO_PROM'];
+      $VALOR["FIM_PROM"] = $linha['FIM_PROM'];
+      $VALOR["ESTOQUE"] = $linha['ESTOQUE'];
+      $VALOR["AVISO_ESTOQUE"] = $linha['AVISO_ESTOQUE'];
+      $VALOR["AVISO_ESTOQUE_UN"] = $linha['AVISO_ESTOQUE_UN'];
+      $VALOR["VLR_UNIT"] = $linha['VLR_UNIT'];
+      $VALOR["ULT_MOV"] = $linha['ULT_MOV'];
+      $VALOR["PD_QTD_MIN"] = $linha['PD_QTD_MIN'];
+      $VALOR["PD_MAX"] = $linha['PD_MAX'];
+      $VALOR["PD_QTD_MAX"] = $linha['PD_QTD_MAX'];
+    }
   }
 
   echo json_encode($VALOR);
