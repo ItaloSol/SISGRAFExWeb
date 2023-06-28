@@ -12,6 +12,7 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 
 //DEFINE QUAL ENTRADA FOI USADO
 if (empty($Solicitacao)) {
+
   $pesquisa = $_GET['id'];
   if ($_GET['tipo'] == 'PP') {
     $tabela = 'produtos';
@@ -22,41 +23,50 @@ if (empty($Solicitacao)) {
   $query_produtos = $conexao->prepare("
   SELECT c.cod AS cod_calculo, p.*, pp.*
   FROM tabela_calculos_op c 
-  INNER JOIN $tabela p ON c.cod_produto = p.CODIGO
-  INNER JOIN tabela_papeis pa ON pa.cod = c.cod_papel
-  INNER JOIN tabela_papeis_produto pap ON pap.cod_papel = pa.cod
-  INNER JOIN produtos_pr_ent pp ON pp.CODIGO = p.CODIGO
+  LEFT JOIN $tabela p ON c.cod_produto = p.CODIGO
+  LEFT JOIN tabela_papeis pa ON pa.cod = c.cod_papel
+  LEFT JOIN tabela_papeis_produto pap ON pap.cod_papel = pa.cod
+  LEFT JOIN produtos_pr_ent pp ON pp.CODIGO = p.CODIGO
   WHERE c.cod = $pesquisa
 ");
   $query_produtos->execute();
   if ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
+
     $VALOR = [
       // Campos restantes da tabela tabela_calculos_op
-      "cod_op" => $linha['cod_op'],
-      "cod_proposta" => $linha['cod_proposta'],
-      "tipo_produto" => $linha['tipo_produto'],
-      "qtd_folhas" => $linha['qtd_folhas'],
-      "qtd_folhas_total" => $linha['qtd_folhas_total'],
-      "qtd_chapas" => $linha['qtd_chapas'],
-      "montagem" => $linha['montagem'],
-      "formato" => $linha['formato'],
-      "perca" => $linha['perca'],
+      "cod_op" => isset($linha['cod_op']) ? $linha['cod_op'] : null,
+      "cod_proposta" => isset($linha['cod_proposta']) ? $linha['cod_proposta'] : null,
+      "tipo_produto" => isset($linha['tipo_produto']) ? $linha['tipo_produto'] : null,
+      "qtd_folhas" => isset($linha['qtd_folhas']) ? $linha['qtd_folhas'] : null,
+      "qtd_folhas_total" => isset($linha['qtd_folhas_total']) ? $linha['qtd_folhas_total'] : null,
+      "qtd_chapas" => isset($linha['qtd_chapas']) ? $linha['qtd_chapas'] : null,
+      "montagem" => isset($linha['montagem']) ? $linha['montagem'] : null,
+      "formato" => isset($linha['formato']) ? $linha['formato'] : null,
+      "perca" => isset($linha['perca']) ? $linha['perca'] : null,
+
       // Campos restantes da tabela tabela_papeis
-      "descricao_papel" => $linha['descricao'],
-      "medida" => $linha['medida'],
-      "gramatura" => $linha['gramatura'],
-      "formato_papel" => $linha['formato'],
-      "uma_face" => $linha['uma_face'],
-      "unitario" => $linha['unitario'],
+      "descricao_papel" => isset($linha['descricao']) ? $linha['descricao'] : null,
+      "medida" => isset($linha['medida']) ? $linha['medida'] : null,
+      "gramatura" => isset($linha['gramatura']) ? $linha['gramatura'] : null,
+      "formato_papel" => isset($linha['formato']) ? $linha['formato'] : null,
+      "uma_face" => isset($linha['uma_face']) ? $linha['uma_face'] : null,
+      "unitario" => isset($linha['unitario']) ? $linha['unitario'] : null,
+
       // Campos restantes da tabela tabela_papeis_produto
-      "tipo_produto_papel" => $linha['tipo_produto'],
-      "cod_produto_papel" => $linha['cod_produto'],
-      "cod_papel" => $linha['cod_papel'],
-      "tipo_papel" => $linha['tipo_papel'],
-      "cor_frente" => $linha['cor_frente'],
-      "cor_verso" => $linha['cor_verso'],
-      "descricao_papel_produto" => $linha['descricao'],
-      "orelha" => $linha['orelha']
+      "tipo_produto_papel" => isset($linha['tipo_produto']) ? $linha['tipo_produto'] : null,
+      "cod_produto_papel" => isset($linha['cod_produto']) ? $linha['cod_produto'] : null,
+      "cod_papel" => isset($linha['cod_papel']) ? $linha['cod_papel'] : null,
+      "tipo_papel" => isset($linha['tipo_papel']) ? $linha['tipo_papel'] : null,
+      "cor_frente" => isset($linha['cor_frente']) ? $linha['cor_frente'] : null,
+      "cor_verso" => isset($linha['cor_verso']) ? $linha['cor_verso'] : null,
+      "descricao_papel_produto" => isset($linha['descricao']) ? $linha['descricao'] : null,
+      "orelha" => isset($linha['orelha']) ? $linha['orelha'] : null,
+
+      // Campos restantes da tabela produtos
+      "CODIGO" => isset($linha['CODIGO']) ? $linha['CODIGO'] : null,
+      "CODIGO_LI" => isset($linha['CODIGO_LI']) ? $linha['CODIGO_LI'] : null,
+      "DESCRICAO" => isset($linha['DESCRICAO']) ? $linha['DESCRICAO'] : null,
+      // ...
     ];
     if ($tabela == 'produtos') {
       $VALOR["cod_calculo"] = $linha['cod_calculo'];
