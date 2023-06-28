@@ -453,16 +453,18 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   <!-- Botão para abrir o primeiro modal -->
   <!-- Primeiro modal PRODUTOS GERAL -->
   <div class="modal" id="modal1">
+    
     <div class="modal-dialog modal-fullscreen" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          
           <h5 class="modal-title">PRODUTO</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
           <div class="demo-inline-spacing mt-3">
             <div class="list-group list-group-horizontal-md text-md-center">
-              <a class="list-group-item list-group-item-action active" id="consulta-produto" data-bs-toggle="list" href="#consulta1-produto">Consulta Produto</a>
+              <a class="list-group-item list-group-item-action active" id="consulta-produto" data-bs-toggle="list" href="#consulta1-produto">Consultar Produto</a>
               <a class="list-group-item list-group-item-action" id="novo-produto" data-bs-toggle="list" href="#novo1-produto">Novo Produto</a>
             </div>
 
@@ -498,7 +500,6 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <button class="btn btn-outline-primary" type="button" id="pesquisar">PESQUISAR</button>
                         </div>
                         <br>
-                        <button class="btn btn-outline-danger" type="button" id="selecionar">CONFIRMAR SELEÇÃO DOS PRODUTOS</button>
                       </div>
                     </div>
                           <div id="SelecaoProdutoss"></div>
@@ -833,7 +834,6 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title">ACABAMENTO</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <div class="modal-body">
                       <?php
@@ -1040,7 +1040,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>${produto.DESCRICAO}</td>
                               <td>${produto.VALOR_UNITARIO}</td>
                               <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
-                              <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
+                              <td><input class="btn btn-outline-danger" type="text" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
                             </tr> `;
 
                         });
@@ -1057,7 +1057,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <td>${produto.DESCRICAO}</td>
                           <td>${produto.VALOR_UNITARIO}</td>
                           <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
-                          <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
+                          <td><input class="btn btn-outline-danger" type="text" value="${produto.CODIGO}" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecionarProduto(this.id)" ></td>
                         </tr>`;
 
                       });

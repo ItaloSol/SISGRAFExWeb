@@ -104,7 +104,6 @@ function selecionarPapel(valor) {
         <th>PRODUTO</th>
         <th>CÓDIGO PAPEL</th>
         <th>DESCRIÇÃO</th>
-        <th>TIPO</th>
         <th>CF</th>
         <th>CV</th>
         <th>FORMATO IMPRESSÃO</th>
@@ -128,11 +127,10 @@ function selecionarPapel(valor) {
         
           <tr>
             <td>${result.nomePapel}</td>
-            <td>${result.codPapel}</td>
-            <td>${result.descricao}</td>
-            <td>${result.tipo_papel}</td>
-            <td>${result.corFrente}</td>
-            <td>${result.corVerso}</td>
+            <td>${result.codPapels}</td>
+            <td>${result.nomePapel}</td>
+            <td><input class="form-control" value="${result.corFrente}" type="number"></td>
+            <td><input class="form-control" value="${result.corVerso}" type="number"></td>
             <td><input class="form-control" value="${result.formato}" type="number"></td>
             <td><input class="form-control" value="${result.orelha}" type="number"></td>
             <td><input class="form-control" value="0" type="number"></td>
@@ -153,7 +151,7 @@ function selecionarPapel(valor) {
     const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
     if(document.getElementById('PapelsSelecionado')){
       ArrayPapels.map((item) => {
-        document.getElementById('Papel' + item).removeAttribute('checked');
+        document.getElementById('Papel' + item).checked = false;
       })
       }
     // Remova o item do localStorage
@@ -407,10 +405,10 @@ function ApagarAcabamento(valor){
       // Defina o nome do item que você deseja remover
   var itemKey = valor;
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  if(document.getElementById('selecionarAcabamentos')){
+  if (document.getElementById('selecionarAcabamentos')) {
     ArrayAcabamentos.map((item) => {
-        document.getElementById('Acaba'+item).removeAttribute('checked');
-    })
+      document.getElementById('Acaba' + item).checked = false;
+    });
   }
   // Remova o item do localStorage
   localStorage.removeItem(itemKey);
