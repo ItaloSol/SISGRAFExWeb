@@ -303,10 +303,112 @@ function SelecioanrProduto(valor) {
   const SelecionadoProdutoEscolhido = Number(document.getElementById(valor).name.
   replace('Produto', ''))
   if(ativo){
-    
+
   }else{
 
   }
+  let produtoSelecionado = localStorage.getItem('produtoSelecionado');
+let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
+
+let promises = arraySelecionados.map(id => {
+  return fetch('api_produto_select.php?id=' + id + '&tipo=' + tipo)
+    .then(response => response.json())
+    .then(data => {
+      let campo = {};
+      if (data.cod_calculo) {
+        campo.cod_calculo = data.cod_calculo;
+      }
+      if (data.CODIGO) {
+        campo.CODIGO = data.CODIGO;
+      }
+      if (data.CODIGO_LI) {
+        campo.CODIGO_LI = data.CODIGO_LI;
+      }
+      if (data.DESCRICAO) {
+        campo.DESCRICAO = data.DESCRICAO;
+      }
+      if (data.LARGURA) {
+        campo.LARGURA = data.LARGURA;
+      }
+      if (data.ALTURA) {
+        campo.ALTURA = data.ALTURA;
+      }
+      if (data.ESPESSURA) {
+        campo.ESPESSURA = data.ESPESSURA;
+      }
+      if (data.PESO) {
+        campo.PESO = data.PESO;
+      }
+      if (data.QTD_PAGINAS) {
+        campo.QTD_PAGINAS = data.QTD_PAGINAS;
+      }
+      if (data.TIPO) {
+        campo.TIPO = data.TIPO;
+      }
+      if (data.VENDAS) {
+        campo.VENDAS = data.VENDAS;
+      }
+      if (data.ATIVO) {
+        campo.ATIVO = data.ATIVO;
+      }
+      if (data.USO_ECOMMERCE) {
+        campo.USO_ECOMMERCE = data.USO_ECOMMERCE;
+      }
+      if (data.PRECO_CUSTO) {
+        campo.PRECO_CUSTO = data.PRECO_CUSTO;
+      }
+      if (data.PROMOCIONAL) {
+        campo.PROMOCIONAL = data.PROMOCIONAL;
+      }
+      if (data.PRECO_PROMOCIONAL) {
+        campo.PRECO_PROMOCIONAL = data.PRECO_PROMOCIONAL;
+      }
+      if (data.ID_CATEGORIA) {
+        campo.ID_CATEGORIA = data.ID_CATEGORIA;
+      }
+      if (data.PRE_VENDA) {
+        campo.PRE_VENDA = data.PRE_VENDA;
+      }
+      if (data.PROM) {
+        campo.PROM = data.PROM;
+      }
+      if (data.VLR_PROM) {
+        campo.VLR_PROM = data.VLR_PROM;
+      }
+      if (data.INICIO_PROM) {
+        campo.INICIO_PROM = data.INICIO_PROM;
+      }
+      if (data.FIM_PROM) {
+        campo.FIM_PROM = data.FIM_PROM;
+      }
+      if (data.ESTOQUE) {
+        campo.ESTOQUE = data.ESTOQUE;
+      }
+      if (data.AVISO_ESTOQUE) {
+        campo.AVISO_ESTOQUE = data.AVISO_ESTOQUE;
+      }
+      if (data.AVISO_ESTOQUE_UN) {
+        campo.AVISO_ESTOQUE_UN = data.AVISO_ESTOQUE_UN;
+      }
+      if (data.VLR_UNIT) {
+        campo.VLR_UNIT = data.VLR_UNIT;
+      }
+      if (data.ULT_MOV) {
+        campo.ULT_MOV = data.ULT_MOV;
+      }
+      if (data.PD_QTD_MIN) {
+        campo.PD_QTD_MIN = data.PD_QTD_MIN;
+      }
+      if (data.PD_MAX) {
+        campo.PD_MAX = data.PD_MAX;
+      }
+      if (data.PD_QTD_MAX) {
+        campo.PD_QTD_MAX = data.PD_QTD_MAX;
+      }
+      
+      return campo;
+    });
+  });
 
   setTimeout(function () {
       document.getElementById('SelecioandoProduto').innerHTML = '';
