@@ -946,7 +946,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <td>${produto.DESCRICAO}</td>
                       <td>${produto.VALOR_UNITARIO}</td>
                       <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
-                      <td><input  class="btn btn-outline-danger" type="text" value="Selecionar Produto"  name="Produto${produto.CODIGO}"  id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)"    ></td>
+                      <td><input  class="btn btn-outline-danger" type="text" value="Selecionar Produto"  name="Produto${produto.CODPRODUTO}"  id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)"    ></td>
                     </tr>`;
                 });
               } else {
@@ -1021,7 +1021,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <td>${produto.DESCRICAO}</td>
                             <td>${produto.VALOR_UNITARIO}</td>
                             <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
-                            <td><input  class="btn btn-outline-danger" type="text" value="Selecionar Produto" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)" onclick="SelecionarProduto(this.id)"  ></td>
+                            <td><input  class="btn btn-outline-danger" type="text" value="Selecionar Produto" name="Produto${produto.CODPRODUTO}" id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)" onclick="SelecionarProduto(this.id)"  ></td>
                           </tr>`;
                     });
                   });
@@ -1041,7 +1041,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td>${produto.DESCRICAO}</td>
                               <td>${produto.VALOR_UNITARIO}</td>
                               <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
-                              <td><input class="btn btn-outline-danger" type="text" value="Selecionar Produto" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)" onclick="SelecionarProduto(this.id)" ></td>
+                              <td><input class="btn btn-outline-danger" type="text" value="Selecionar Produto" name="Produto${produto.CODPRODUTO}" id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)" onclick="SelecionarProduto(this.id)" ></td>
                             </tr> `;
 
                     });
@@ -1058,7 +1058,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <td>${produto.DESCRICAO}</td>
                           <td>${produto.VALOR_UNITARIO}</td>
                           <td><button class="btn btn-outline-warning" type="button" value="${produto.CODIGO}" onclick="ClonarProduto(this.value)" >CLONAR PRODUTO</button></td>
-                          <td><input class="btn btn-outline-danger" type="text" value="Selecionar Produto" name="Produto${produto.CODIGO}" id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)" onclick="SelecionarProduto(this.id)" ></td>
+                          <td><input class="btn btn-outline-danger" type="text" value="Selecionar Produto" name="Produto${produto.CODPRODUTO}" id="Produto${produto.CODIGO}" onclick="SelecioanrProduto(this.id)" onclick="SelecionarProduto(this.id)" ></td>
                         </tr>`;
 
                   });
