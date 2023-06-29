@@ -10,14 +10,14 @@ if (isset($_SESSION['msg'])) {
   unset($_SESSION['msg']);
 }
 ?>
-<div class=" nota-- "></div> 
+<div class=" nota-- "></div>
 <?php  if (isset($_GET['tp']) && !isset($_GET['id'])) {
 
   if ($_GET['tp'] == 1) {
     echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card">
     <div class=" form-check form-check-inline mt-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">NOVO ORÇAMENTO</label></a>
+      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
     </div>
     <div class=" form-check form-check-inline mt-3">
     <a href="tl-cadastro-notas.php?tp=1">
@@ -38,7 +38,7 @@ if (isset($_SESSION['msg'])) {
     echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card">
     <div class=" form-check form-check-inline mt-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">NOVO ORÇAMENTO</label></a>
+      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
     </div>
     <div class=" form-check form-check-inline mt-3">
     <a href="tl-cadastro-notas.php?tp=1">
@@ -59,7 +59,7 @@ if (isset($_SESSION['msg'])) {
     echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card">
     <div class=" form-check form-check-inline mt-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">NOVO ORÇAMENTO</label></a>
+      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
     </div>
     <div class=" form-check form-check-inline mt-3">
     <a href="tl-cadastro-notas.php?tp=1">
@@ -80,7 +80,7 @@ if (isset($_SESSION['msg'])) {
     echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card">
     <div class=" form-check form-check-inline mt-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">NOVO ORÇAMENTO</label></a>
+      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
     </div>
     <div class=" form-check form-check-inline mt-3">
     <a href="tl-cadastro-notas.php?tp=1">
@@ -102,7 +102,7 @@ if (isset($_SESSION['msg'])) {
   echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card">
   <div class=" form-check form-check-inline mt-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">NOVO ORÇAMENTO</label></a>
+      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
     </div>
   <div class=" form-check form-check-inline mt-3">
   <a href="tl-cadastro-notas.php?tp=1">
@@ -122,7 +122,7 @@ if (isset($_SESSION['msg'])) {
   echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card">
   <div class=" form-check form-check-inline mt-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">NOVO ORÇAMENTO</label></a>
+      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
     </div>
   <div class=" form-check form-check-inline mt-3">
   <a href="tl-cadastro-notas.php?tp=1">
@@ -146,73 +146,73 @@ if (isset($_SESSION['msg'])) {
 <?php 
 if ($_GET['tp'] == 5) {
   ?>
-                 <div>
-                <div>
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Selecione o CLIENTE</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="row">
-                        <div class="mb-3">
-                          <form method="POST">
-                            <select class="form-select" name="tipo_cliente" id="cliente" aria-label="Default select example">
-                              <option selected>Selecione o tipo de cliente</option>
-                              <option value="1">Pessoa Física</option>
-                              <option value="2">Pessoa Júridica</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                          <div id="juri" class="mb-3">
-                            <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o NOME do cliente  juridico" onkeyup="carregar_usuarios(this.value)" />
-                            <input id="codigo" name="numero1" class="form-control" type="text" style="display: none;" placeholder="Digite o código aqui" />
-                            <span id="resultado_pesquisa0"></span>
-                            <br>
-                            <input name="usuariosigla" id="usuariosigla" class="form-control" type="text" placeholder="Digite a SIGLA cliente  juridico" onkeyup="carregar_sigla(this.value)" />
-                            <span id="resultado_sigla"></span>
-                          </div>
-                          <div id="dis" class="mb-3">
-                            <input id="defaultInput" disabled class="form-control" type="text" placeholder="Selecione o tipo de cliente" />
-                          </div>
-                          <div id="fisc" class="mb-3">
-                            <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome do cliente fisico" onkeyup="carregar_fisico(this.value)" />
-                            <input id="codigo1" name="numero2" class="form-control" type="text" style="display: none;" placeholder="Digite o código aqui" />
-                            <span id="resultador_123"></span>
-                          </div>
+<div>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Selecione o CLIENTE</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="mb-3">
+            <form method="POST">
+              <select class="form-select" name="tipo_cliente" id="cliente" aria-label="Default select example">
+                <option selected>Selecione o tipo de cliente</option>
+                <option value="1">Pessoa Física</option>
+                <option value="2">Pessoa Júridica</option>
+              </select>
+          </div>
+          <div class="mb-3">
+            <div id="juri" class="mb-3">
+              <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o NOME do cliente  juridico" onkeyup="carregar_usuarios(this.value)" />
+              <input id="codigo" name="numero1" class="form-control" type="text" style="display: none;" placeholder="Digite o código aqui" />
+              <span id="resultado_pesquisa0"></span>
+              <br>
+              <input name="usuariosigla" id="usuariosigla" class="form-control" type="text" placeholder="Digite a SIGLA cliente  juridico" onkeyup="carregar_sigla(this.value)" />
+              <span id="resultado_sigla"></span>
+            </div>
+            <div id="dis" class="mb-3">
+              <input id="defaultInput" disabled class="form-control" type="text" placeholder="Selecione o tipo de cliente" />
+            </div>
+            <div id="fisc" class="mb-3">
+              <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome do cliente fisico" onkeyup="carregar_fisico(this.value)" />
+              <input id="codigo1" name="numero2" class="form-control" type="text" style="display: none;" placeholder="Digite o código aqui" />
+              <span id="resultador_123"></span>
+            </div>
 
-                          <a id="selecioanador_cliente" href="" class="btn btn-info">Selecionar</a>
-                        </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <script>
-        const select = document.getElementById('cliente');
-        const juri = document.getElementById('juri');
-        const dis = document.getElementById('dis');
-        const fisc = document.getElementById('fisc');
-        fisc.style.display = 'none';
-        juri.style.display = 'none';
-        select.addEventListener('click', vlr => {
-          if (select.value == 1) {
-            fisc.style.display = 'block';
-            juri.style.display = 'none';
-            dis.style.display = 'none';
-          } else {
-            fisc.style.display = 'none';
-            juri.style.display = 'block';
-            dis.style.display = 'none';
-          }
-        })
-      </script>
-  <?php
+            <a id="selecioanador_cliente" href="" class="btn btn-info">Selecionar</a>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const select = document.getElementById('cliente');
+const juri = document.getElementById('juri');
+const dis = document.getElementById('dis');
+const fisc = document.getElementById('fisc');
+fisc.style.display = 'none';
+juri.style.display = 'none';
+select.addEventListener('click', vlr => {
+  if (select.value == 1) {
+    fisc.style.display = 'block';
+    juri.style.display = 'none';
+    dis.style.display = 'none';
+  } else {
+    fisc.style.display = 'none';
+    juri.style.display = 'block';
+    dis.style.display = 'none';
+  }
+})
+</script>
+<?php
 }
 if (isset($_GET['id']) && isset($_GET['tp'])) { ?>
 
-  <?php
+<?php
   $cod_Pesquisa = $_GET['id'];
   if ($_GET['tp'] == 2) {
     $tipo_cliente_ = 2;
