@@ -459,6 +459,12 @@ $valor_total_Finalizadas = 0;
                       </div>
                       <div class="col-3  ">
                         <div class=" mb-3 ">
+                        <a class="btn btn-warning">
+                          <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
+                          Enviar para Produção
+                        </a>
+                      </div>
+                      <div class=" mb-3 ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 || $Orcamento_pesquisa['status'] == 3 || $Orcamento_pesquisa['status'] == 11 || $Orcamento_pesquisa['status'] == 4) {
                             if ($Orcamento_pesquisa['valor_total'] <= $Tabela_Clientes['credito']) { ?>
                               <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod"

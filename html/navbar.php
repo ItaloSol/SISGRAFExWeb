@@ -159,6 +159,7 @@ $refresh = 0;
               </a>
             </li>
 
+
             <!-- Sub-Menu de Dashboard -->
             <li class=" dash-g menu-item">
               <a href="../html/dashboard.php" class="menu-link">
@@ -173,6 +174,7 @@ $refresh = 0;
               </a>
             </li>
             <?php if ($COD_I == 'ADM') {  ?>
+
             <li class=" linha menu-item">
               <a href="../linhaproducao/tl-producao.php" class="menu-link">
                 <iconify-icon icon="fluent-mdl2:production-floor-management" width="20" height="20"></iconify-icon>
@@ -532,8 +534,30 @@ $refresh = 0;
 
               </li>
           </li>
+
           </li>
           </ul>
+
+      </li>
+      </li>
+      </ul>
+
+    <?php  } ?>
+      </aside>
+      <!-- / Menu -->
+
+      <!-- Layout container -->
+
+      <div class="layout-page" >
+        <!-- Navbar -->
+        <div style=" text-align:center;" class="alert alert-danger" role="alert">SISTEMA EM PROCESSO DE DESENVOLVIMENTO! <br> <span style="font-size: 13px;"> não é a versão final.</span></div>
+        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+              <i class="bx bx-menu bx-sm"></i>
+            </a>
+          </div>
+
 
           <?php  } ?>
         </aside>
@@ -644,6 +668,7 @@ $refresh = 0;
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
+
                     <div class="card">
 
                       <div class="card-body">
@@ -662,6 +687,7 @@ $refresh = 0;
                             </thead>
                             <tbody>
                               <?php
+
                             $Percorrer_Notificacao = 0;
                             while ($Total_Notificacao > $Percorrer_Notificacao) {
 
@@ -798,4 +824,6 @@ $refresh = 0;
               });
               </script>
 
+
               <?php } ?>
+
