@@ -5,7 +5,9 @@ $cod_user = $_SESSION["usuario"][2];
 $mes = date('Y-m');
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
-$CODIGO_OP = isset($_GET['cod']);
+if (isset($_GET['cod'])) {
+  $CODIGO_OP = $_GET['cod'];
+}
 if (isset($_GET['obs'])) {
   if ($_GET['obs'] == '1') {
     $cod = $_GET['cod'];
