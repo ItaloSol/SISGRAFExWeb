@@ -9,7 +9,8 @@
                 unset($_SESSION['problema']);
               }
 
-              function notificaerro(){
+              function notificaerro()
+              {
                 echo ' <div  id="alerta4"
               role="bs-toast"
               class=" bs-toast toast toast-placement-ex m-2 fade bg-danger top-0 start-50 translate-middle-x show "
@@ -283,77 +284,36 @@
                  <div class="card bg-primary text-white mb-3">
                    <div class="card-header"><i class='font-contadores bx bx-printer bx-flip-vertical bx-tada'></i></div>
                    <div class="card-body">
-                     <h5 class="card-title text-white"><span data-purecounter-start="0"
-                         data-purecounter-end="<?= $EmProducao ?>" class="purecounter" class="purecounter">0</span></h5>
+                     <h5 class="card-title text-white"><span data-purecounter-start="0" data-purecounter-end="<?= $EmProducao ?>" class="purecounter" class="purecounter">0</span></h5>
                      <div class="btn-group">
-                       <button class="btn btn-producao btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                         aria-expanded="false">
+                       <button class="btn btn-producao btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                          <span style="font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size) ;">Em
                            Produção</span>
                        </button>
                        <ul class="dropdown-menu">
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Produção</span>"
-                             class="dropdown-item" href="painel.php?ProdT=1">Todos na Produção (<?= $EmProducao ?>)</a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Produção</span>" class="dropdown-item" href="painel.php?ProdT=1">Todos na Produção (<?= $EmProducao ?>)</a>
                          </li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Seção Técnica</span>"
-                             class="dropdown-item" href="painel.php?EmProD=1">Na Seç Técnica (<?= $Na_SecTec ?>)</a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Seção Técnica</span>" class="dropdown-item" href="painel.php?EmProD=1">Na Seç Técnica (<?= $Na_SecTec ?>)</a>
                          </li>
 
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Pré Impressão</span>"
-                             class="dropdown-item" href="painel.php?EmProD=2">Na Pré-Impressão (<?= $Na_Pre_ ?>)</a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Pré Impressão</span>" class="dropdown-item" href="painel.php?EmProD=2">Na Pré-Impressão (<?= $Na_Pre_ ?>)</a>
                          </li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram em Diagramação</span>"
-                             class="dropdown-item" href="painel.php?EmProD=3">Em Diagramação (<?= $Em_Diagramacao ?>)
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram em Diagramação</span>" class="dropdown-item" href="painel.php?EmProD=3">Em Diagramação (<?= $Em_Diagramacao ?>)
                            </a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as ops que estão Produzindo Provas</span>"
-                             class="dropdown-item" href="painel.php?EmProD=4">Produzindo Prova
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as ops que estão Produzindo Provas</span>" class="dropdown-item" href="painel.php?EmProD=4">Produzindo Prova
                              (<?= $Produzindo_Prova ?>) </a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Tipografia</span>"
-                             class="dropdown-item" href="painel.php?EmProD=8">Na Tipografia (<?= $Na_Tipografia_ ?>)</a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Tipografia</span>" class="dropdown-item" href="painel.php?EmProD=8">Na Tipografia (<?= $Na_Tipografia_ ?>)</a>
                          </li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na OFFSET</span>"
-                             class="dropdown-item" href="painel.php?EmProD=6">Na Offset (<?= $Na_Ofsset_ ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Impressão Digital</span>"
-                             class="dropdown-item" href="painel.php?EmProD=7">Na Digital (<?= $Na_Digital ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Gravação de Chapas</span>"
-                             class="dropdown-item" href="painel.php?EmProD=14">Na Gravação de Chapas
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na OFFSET</span>" class="dropdown-item" href="painel.php?EmProD=6">Na Offset (<?= $Na_Ofsset_ ?>)</a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Impressão Digital</span>" class="dropdown-item" href="painel.php?EmProD=7">Na Digital (<?= $Na_Digital ?>)</a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Gravação de Chapas</span>" class="dropdown-item" href="painel.php?EmProD=14">Na Gravação de Chapas
                              (<?= $Na_CTP_ ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Plotter</span>"
-                             class="dropdown-item" href="painel.php?EmProD=16">Na Plotter (<?= $Na_PLOTTER_ ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPS que se encontram no Acabamento</span>"
-                             class="dropdown-item" href="painel.php?EmProD=9">No Acabamento (<?= $No_Acabamento_ ?>)
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Plotter</span>" class="dropdown-item" href="painel.php?EmProD=16">Na Plotter (<?= $Na_PLOTTER_ ?>)</a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPS que se encontram no Acabamento</span>" class="dropdown-item" href="painel.php?EmProD=9">No Acabamento (<?= $No_Acabamento_ ?>)
                            </a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPS que estão esperando aprovação do cliente</span>"
-                             class="dropdown-item" href="painel.php?EmProD=5">Aguardando Cliente
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPS que estão esperando aprovação do cliente</span>" class="dropdown-item" href="painel.php?EmProD=5">Aguardando Cliente
                              (<?= $Aguardando_Cliente ?>) </a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPS que estão em Produção Fora da Gráfica</span>"
-                             class="dropdown-item" href="painel.php?EmProD=19">Produzindo por Fora (<?= $Fora ?>) </a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPS que estão em Produção Fora da Gráfica</span>" class="dropdown-item" href="painel.php?EmProD=19">Produzindo por Fora (<?= $Fora ?>) </a>
                          </li>
 
 
@@ -368,24 +328,15 @@
                    <div class="card-header"><i class='font-contadores bx bx-package bx-tada'></i></div>
                    <div class="card-body">
 
-                     <h5 class="card-title text-white"> <span data-purecounter-start="0"
-                         data-purecounter-end="<?= $EmExpesicao ?>" class="purecounter" class="purecounter">0</span>
+                     <h5 class="card-title text-white"> <span data-purecounter-start="0" data-purecounter-end="<?= $EmExpesicao ?>" class="purecounter" class="purecounter">0</span>
                      </h5>
-                     <button class="btn btn-secondary btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                       <span
-                         style="font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size) ;">Expedição</span>
+                     <button class="btn btn-secondary btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                       <span style="font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size) ;">Expedição</span>
                      </button>
                      <ul class="dropdown-menu">
-                       <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                           data-bs-html="true"
-                           title="<span>Clique para visualizar as OPs que se encontram na Expedição</span>"
-                           class="dropdown-item" href="painel.php?Exp=1">Aceitas na Expedição (<?= $Aceitas_Exp ?>)</a>
+                       <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Expedição</span>" class="dropdown-item" href="painel.php?Exp=1">Aceitas na Expedição (<?= $Aceitas_Exp ?>)</a>
                        </li>
-                       <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                           data-bs-html="true"
-                           title="<span>Clique para visualizar as OPs que se encontram na Expedição</span>"
-                           class="dropdown-item" href="painel.php?Exp=2">Encaminhada a Expedição
+                       <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Expedição</span>" class="dropdown-item" href="painel.php?Exp=2">Encaminhada a Expedição
                            (<?= $Encaminhada_Exp ?>)</a></li>
                      </ul>
                    </div>
@@ -395,11 +346,8 @@
                  <div class="card bg-success text-white mb-3">
                    <div class="card-header"><i class='font-contadores bx bx-paper-plane bx-tada'></i></div>
                    <div class="card-body">
-                     <h5 class="card-title text-white"><span data-purecounter-start="0"
-                         data-purecounter-end="<?= $Entregue ?>" class="purecounter" class="purecounter">0</span></h5>
-                     <p data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true"
-                       title="<span>Clique para visualizar as OPs entregues</span>" class="card-text"><a
-                         style="color:white;" href="painel.php?Ent=1">Entregues</a></p>
+                     <h5 class="card-title text-white"><span data-purecounter-start="0" data-purecounter-end="<?= $Entregue ?>" class="purecounter" class="purecounter">0</span></h5>
+                     <p data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para visualizar as OPs entregues</span>" class="card-text"><a style="color:white;" href="painel.php?Ent=1">Entregues</a></p>
                    </div>
                  </div>
                </div>
@@ -409,87 +357,43 @@
                    <div class="card-body">
                      <div class="row">
 
-                       <div class="col-12">Total: <h5 class="card-title text-white"><span data-purecounter-start="0"
-                             data-purecounter-end="<?= $Atrasada ?>" class="purecounter" class="purecounter">0</span>
+                       <div class="col-12">Total: <h5 class="card-title text-white"><span data-purecounter-start="0" data-purecounter-end="<?= $Atrasada ?>" class="purecounter" class="purecounter">0</span>
                          </h5>
                        </div>
-                       <div class="col-6">Produção: <h6 class="card-title text-white"><span data-purecounter-start="0"
-                             data-purecounter-end="<?= $AtrasadaProd ?>" class="purecounter"
-                             class="purecounter">0</span></h6>
+                       <div class="col-6">Produção: <h6 class="card-title text-white"><span data-purecounter-start="0" data-purecounter-end="<?= $AtrasadaProd ?>" class="purecounter" class="purecounter">0</span></h6>
                        </div>
-                       <div class="col-6">Expedição:<h6 class="card-title text-white"><span data-purecounter-start="0"
-                             data-purecounter-end="<?= $AtrasadaExpd ?>" class="purecounter"
-                             class="purecounter">0</span></h6>
+                       <div class="col-6">Expedição:<h6 class="card-title text-white"><span data-purecounter-start="0" data-purecounter-end="<?= $AtrasadaExpd ?>" class="purecounter" class="purecounter">0</span></h6>
                        </div>
                      </div>
                      <div class="btn-group">
-                       <button class="btn btn-atrasadas btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                         aria-expanded="false">
-                         <span
-                           style="font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size) ;">Atrasadas</span>
+                       <button class="btn btn-atrasadas btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                         <span style="font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size) ;">Atrasadas</span>
                        </button>
                        <ul class="dropdown-menu">
 
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS na Seç Técnica</span>"
-                             class="dropdown-item" href="painel.php?Att=1">Seç Técnica (<?= $Na_Tec ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS na Pré Impressão</span>"
-                             class="dropdown-item" href="painel.php?Att=2">Na Pré-Impressão (<?= $Na_Pre ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS na Diagramação</span>"
-                             class="dropdown-item" href="painel.php?Att=3">Em Diagramação (<?= $Na_Diagramacao ?>) </a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na Seç Técnica</span>" class="dropdown-item" href="painel.php?Att=1">Seç Técnica (<?= $Na_Tec ?>)</a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na Pré Impressão</span>" class="dropdown-item" href="painel.php?Att=2">Na Pré-Impressão (<?= $Na_Pre ?>)</a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na Diagramação</span>" class="dropdown-item" href="painel.php?Att=3">Em Diagramação (<?= $Na_Diagramacao ?>) </a>
                          </li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS Produzindo Prova</span>"
-                             class="dropdown-item" href="painel.php?Att=4">Produzindo Prova
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS Produzindo Prova</span>" class="dropdown-item" href="painel.php?Att=4">Produzindo Prova
                              (<?= $Produzindo_Prova_att ?>) </a></li>
 
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na OFFSET</span>"
-                             class="dropdown-item" href="painel.php?Att=6">Na Offset (<?= $Na_Ofsset ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar fas OPs ATRASADAS na Digital</span>"
-                             class="dropdown-item" href="painel.php?Att=7">Na Digital (<?= $Na_Dig ?>) </a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS na Tipografia</span>"
-                             class="dropdown-item" href="painel.php?Att=8">Na Tipografia (<?= $Na_Tipografia ?>)</a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na OFFSET</span>" class="dropdown-item" href="painel.php?Att=6">Na Offset (<?= $Na_Ofsset ?>)</a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar fas OPs ATRASADAS na Digital</span>" class="dropdown-item" href="painel.php?Att=7">Na Digital (<?= $Na_Dig ?>) </a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na Tipografia</span>" class="dropdown-item" href="painel.php?Att=8">Na Tipografia (<?= $Na_Tipografia ?>)</a>
                          </li>
 
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS no Acabamento</span>"
-                             class="dropdown-item" href="painel.php?Att=9">No Acabamento (<?= $No_Acabamento ?>) </a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS no Acabamento</span>" class="dropdown-item" href="painel.php?Att=9">No Acabamento (<?= $No_Acabamento ?>) </a>
                          </li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS Expedição</span>"
-                             class="dropdown-item" href="painel.php?Att=10">Expedição (<?= $No_Expedicao_att ?>) </a>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS Expedição</span>" class="dropdown-item" href="painel.php?Att=10">Expedição (<?= $No_Expedicao_att ?>) </a>
                          </li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS Entrega Parcial</span>"
-                             class="dropdown-item" href="painel.php?Att=12">Entregue parcialmente
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS Entrega Parcial</span>" class="dropdown-item" href="painel.php?Att=12">Entregue parcialmente
                              (<?= $Entrega_parcial_Att ?>) </a></li>
 
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS na Gravação de Chapas</span>"
-                             class="dropdown-item" href="painel.php?Att=14">Gravação de Chapas (<?= $Na_Gravacao ?>)
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na Gravação de Chapas</span>" class="dropdown-item" href="painel.php?Att=14">Gravação de Chapas (<?= $Na_Gravacao ?>)
                            </a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs ATRASADAS na Na Plotter</span>"
-                             class="dropdown-item" href="painel.php?Att=16">Na Polotter (<?= $Na_PLOT ?>)</a></li>
-                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right"
-                             data-bs-html="true"
-                             title="<span>Clique para visualizar as OPs que se encontram na Aguardando Expedição</span>"
-                             class="dropdown-item" href="painel.php?Att=17">Aguardando Expedição
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true" title="<span>Clique para visualizar as OPs ATRASADAS na Na Plotter</span>" class="dropdown-item" href="painel.php?Att=16">Na Polotter (<?= $Na_PLOT ?>)</a></li>
+                         <li><a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="right" data-bs-html="true" title="<span>Clique para visualizar as OPs que se encontram na Aguardando Expedição</span>" class="dropdown-item" href="painel.php?Att=17">Aguardando Expedição
                              (<?= $Soliicitado_experd ?>)</a></li>
 
 
@@ -505,10 +409,10 @@
                  </div>
                </div>
                <style>
-               input::-webkit-outer-spin-button,
-               input::-webkit-inner-spin-button {
-                 -webkit-appearance: none;
-               }
+                 input::-webkit-outer-spin-button,
+                 input::-webkit-inner-spin-button {
+                   -webkit-appearance: none;
+                 }
                </style>
                <!-- Fim dos Contadores -->
                <!-- Tabela de Produção -->
@@ -527,26 +431,25 @@
                 //
                 // print_r($GET);
                 // echo $key;
-                
+
                 $tempoDeVidaMinutos = session_cache_expire();
 
-// Converte o tempo de vida em segundos
-$tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
-// echo ini_get('session.gc_maxlifetime');
-// echo "O tempo de vida da sessão é de " . $tempoDeVidaMinutos . " minutos.";
+                // Converte o tempo de vida em segundos
+                $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
+                // echo ini_get('session.gc_maxlifetime');
+                // echo "O tempo de vida da sessão é de " . $tempoDeVidaMinutos . " minutos.";
                 ?>
                <div class=" mb-2 pesquisa-painel">
                  <form action="painel.php" method="GET">
                    <div class="row">
-                     <?php  if (isset($GET)) {
-                     
-                                  echo ' <input type="hidden" name="' . $key . '" value="' . $value . '"  >';
-                                } ?>
+                     <?php if (isset($GET)) {
+
+                        echo ' <input type="hidden" name="' . $key . '" value="' . $value . '"  >';
+                      } ?>
 
                      <div class="col-3">
                        <label for="exampleFormControlSelect1" class="form-label">Pesquisar por</label>
-                       <select class="form-select" name="Tp" id="exampleFormControlSelect1"
-                         aria-label="Default select example">
+                       <select class="form-select" name="Tp" id="exampleFormControlSelect1" aria-label="Default select example">
                          <option value="cod">Código Op</option>
                          <option value="orc">Orçamento Base</option>
                          <option value="pro">Produto</option>
@@ -563,8 +466,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                      <div class="col-3">
                        <div class=" mb-6 pesquisa-painel">
                          <label class="form-label" for="basic-default-company">Digite sua Busca</label>
-                         <input type="text" class="form-control" name="PS" id="basic-default-company"
-                           placeholder="Insira Somente o Código" />
+                         <input type="text" class="form-control" name="PS" id="basic-default-company" placeholder="Insira Somente o Código" />
                        </div>
                      </div>
                      <div style="width: 10%;" class="col-1">
@@ -587,37 +489,53 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                        </div>
                      </div>
                      <script>
-                     const checkd = document.getElementById('flexSwitchCheckChecked');
-                     const cores = document.getElementById('cores');
-                     const texto =  document.getElementById('texto');
-                     checkd.addEventListener('click', vlr => {
-                       if (checkd.checked === true) {
-                         document.getElementById('texto').innerHTML = 'LIGADO';
-                         document.getElementById('cores').classList.remove('tira');
-                         cores.setAttribute('type', 'hidden');
-                         texto.style["margin-left"] = "0px";
-                       } else {
+                       const checkd = document.getElementById('flexSwitchCheckChecked');
+                       const cores = document.getElementById('cores');
+                       const texto = document.getElementById('texto');
+                       var urlAtual = window.location.href;
+                       var urlClass = new URL(urlAtual);
+                       var nome = urlClass.searchParams.get("cores");
+                       if (nome === null) {
+                         checkd.checked = false;
                          document.getElementById('texto').innerHTML = 'DESLIGADO';
                          document.getElementById('cores').classList.add('tira');
                          cores.setAttribute('type', 'reset');
                          texto.style["margin-left"] = "-9px";
+                       } else {
+                         checkd.checked = true;
+                         document.getElementById('texto').innerHTML = 'LIGADO';
+                         document.getElementById('cores').classList.remove('tira');
+                         cores.setAttribute('type', 'hidden');
+                         texto.style["margin-left"] = "0px";
                        }
-                     })
+                       checkd.addEventListener('click', vlr => {
+                         if (checkd.checked === true) {
+                           document.getElementById('texto').innerHTML = 'LIGADO';
+                           document.getElementById('cores').classList.remove('tira');
+                           cores.setAttribute('type', 'hidden');
+                           texto.style["margin-left"] = "0px";
+                         } else {
+                           document.getElementById('texto').innerHTML = 'DESLIGADO';
+                           document.getElementById('cores').classList.add('tira');
+                           cores.setAttribute('type', 'reset');
+                           texto.style["margin-left"] = "-9px";
+                         }
+                       })
                      </script>
                    </div>
                  </form>
-                 <?php 
+                 <?php
                   if (!isset($_GET['Att'])) {  ?>
-                 <nav style="margin-top: 10px; " aria-label="Page navigation">
-                   <ul class="pagination">
+                   <nav style="margin-top: 10px; " aria-label="Page navigation">
+                     <ul class="pagination">
 
 
-                     <li class="page-item prev">
-                       <?php  $V = $a - 2;
+                       <li class="page-item prev">
+                         <?php $V = $a - 2;
                           if ($V < 0) {
                             $V = 0;
                           } ?>
-                       <?php
+                         <?php
                           if (isset($_GET['Pg']) || isset($_GET['p'])) {
                             if (!isset($_GET['b']) && !isset($_GET['Tp'])) {
                               echo '<a class="page-link" href="painel.php?Pg=' . $V . '"><i class="tf-icon bx bx-chevrons-left"></i></a>';
@@ -639,8 +557,8 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
 
                           ?>
 
-                     </li>
-                     <?php  $Proximo = $Pg - 1;
+                       </li>
+                       <?php $Proximo = $Pg - 1;
                             if ($Proximo > $total_paginas) {
                               $Proximo = 0;
                             }
@@ -652,11 +570,11 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                             } else {
                               for ($a = $Anterior; $a <= $Proximo; $a++) {
                                 if ($a == $Pg) { ?>
-                     <li class="page-item active">
-                       <?php   } else { ?>
-                     <li class="page-item ">
-                       <?php    } ?>
-                       <?php
+                             <li class="page-item active">
+                             <?php   } else { ?>
+                             <li class="page-item ">
+                             <?php    } ?>
+                             <?php
                                 if (!isset($_GET['b']) && !isset($_GET['Tp'])) {
                                   echo '<a class="page-link" href="painel.php?Pg=' . $a . '">' . $a . '</a>';
                                 }
@@ -676,11 +594,11 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                 }
                               ?>
 
-                     </li>
-                     <?php   }
+                             </li>
+                         <?php   }
                             } ?>
-                     </li>
-                     <?php  if (!isset($Pg)) {
+                         </li>
+                         <?php if (!isset($Pg)) {
                               $Pg = 0;
                             }
                             $Proximo = $Pg + 5;
@@ -689,11 +607,11 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                             }
                             for ($a = $Pg; $a < $Proximo; $a++) {
                               if ($a == $Pg) { ?>
-                     <li class="page-item active">
-                       <?php   } else { ?>
-                     <li class="page-item ">
-                       <?php    } ?>
-                       <?php
+                             <li class="page-item active">
+                             <?php   } else { ?>
+                             <li class="page-item ">
+                             <?php    } ?>
+                             <?php
                               if (!isset($_GET['b']) && !isset($_GET['Tp'])) {
                                 echo '<a class="page-link" href="painel.php?Pg=' . $a . '">' . $a . '</a>';
                               }
@@ -712,12 +630,12 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                 }
                               }
                               ?>
-                       <!-- <a class="page-link" href="painel.php?Pg=<?= $a ?>"><?= $a ?></a> -->
-                     </li>
-                     <?php   }  ?>
+                             <!-- <a class="page-link" href="painel.php?Pg=<?= $a ?>"><?= $a ?></a> -->
+                             </li>
+                           <?php   }  ?>
 
-                     <li class="page-item last ">
-                       <?php
+                           <li class="page-item last ">
+                         <?php
                             if (!isset($_GET['b']) && !isset($_GET['Tp'])) {
                               echo '<a class="page-link" href="painel.php?Pg=' . $a . '"><i class="tf-icon bx bx-chevrons-right"></i></a>';
                             }
@@ -738,12 +656,12 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                           }
                         } ?>
 
-                     </li>
-                   </ul>
-                 </nav>
+                           </li>
+                     </ul>
+                   </nav>
 
-                 <div class="card">
-                   <?php
+                   <div class="card">
+                     <?php
                       if (isset($_GET['cores'])) {
                         echo '<small >Descrição das cores: <br><b class="exibir-cores" style=" background-color: blue; color: white; padding:3px;" >Azul: Atraso curto;</b> <b style="margin-left: 5px; padding:3px; border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; background-color: yellow;color: white; "class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 5px; padding:3px; border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; background-color: red; color: white;">Vermelho: Atraso Longo;</b> <b style="margin-left: 5px; padding:3px; border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; background-color: orange; color: white;">Laranja: Seção de expedição Atraso Longo</b> <b style="padding:3px; border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; background-color: green; color: white;">Verde: Não Existe Data da OP no Sistema</b></small>';
                       }
@@ -781,11 +699,11 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
 
                       ?>
 
-                   <div class="table-responsive text-nowrap">
-                     <table class="table">
-                       <thead>
-                         <tr>
-                           <?php
+                     <div class="table-responsive text-nowrap">
+                       <table class="table">
+                         <thead>
+                           <tr>
+                             <?php
                               if (!isset($_GET['Tp']) & !isset($_GET['Att']) & !isset($_GET['Exp']) & !isset($_GET['Pro']) & !isset($_GET['Ent'])) {
                                 if (isset($_GET['b'])) {
                                   if (isset($_GET['Pg'])) {
@@ -1080,14 +998,13 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                               ?>
 
 
-                           <th data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom"
-                             data-bs-html="true" title="<span>Selecione a OP para visualizar todas informações</span>">
-                             Selecionar</th>
-                         </tr>
-                       </thead>
-                       <tbody class="table-border-bottom-0">
+                             <th data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Selecione a OP para visualizar todas informações</span>">
+                               Selecionar</th>
+                           </tr>
+                         </thead>
+                         <tbody class="table-border-bottom-0">
 
-                         <?php
+                           <?php
                             if (isset($_GET['PS'])) {
                               if ($_GET['Tp'] == 'cod') {
                                 if (!is_numeric($_GET['PS'])) {
@@ -1242,10 +1159,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'STS_DESCRICAO' => $linha['STS_DESCRICAO'],
                                   'data_entrega' => date($linha['data_entrega']),
                                   'data_emissao' => date($linha['data_emissao']),
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
                                   'data_apr_cliente' => date($linha['data_apr_cliente']),
                                   'data_ent_tipografia' => date($linha['data_ent_tipografia']),
                                   'data_ent_acabamento' => date($linha['data_ent_acabamento']),
@@ -1261,7 +1174,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'data_ent_offset' => date($linha['data_ent_offset']),
                                   'data_envio_div_cmcl' => date($linha['data_envio_div_cmcl']),
                                   'DT_ENT_DIGITAL' => date($linha['DT_ENT_DIGITAL']),
-                                  'data_ent_offset' => date($linha['data_ent_offset']),
                                   'DT_TIPOGRAFIA_PROVA' => date($linha['DT_TIPOGRAFIA_PROVA']),
                                   'DT_ACABAMENTO_PROVA' => date($linha['DT_ACABAMENTO_PROVA']),
                                   'DT_SAIDA_EXPEDICAO' => date($linha['DT_SAIDA_EXPEDICAO']),
@@ -1311,11 +1223,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'cor_ativa' => $linha['cor_ativa'],
                                   'amarelo_controle' => $linha['amarelo_controle'],
                                   'vermelho_controle' => $linha['vermelho_controle'],
-                                  'STS_DESCRICAO' => $linha['STS_DESCRICAO'],
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
-                                  'data_entrega' => date($linha['data_entrega']),
-                                  'data_emissao' => date($linha['data_emissao']),
                                   'data_apr_cliente' => date($linha['data_apr_cliente']),
                                   'data_ent_tipografia' => date($linha['data_ent_tipografia']),
                                   'data_ent_acabamento' => date($linha['data_ent_acabamento']),
@@ -1331,7 +1238,6 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                                   'data_ent_offset' => date($linha['data_ent_offset']),
                                   'data_envio_div_cmcl' => date($linha['data_envio_div_cmcl']),
                                   'DT_ENT_DIGITAL' => date($linha['DT_ENT_DIGITAL']),
-                                  'data_ent_offset' => date($linha['data_ent_offset']),
                                   'DT_TIPOGRAFIA_PROVA' => date($linha['DT_TIPOGRAFIA_PROVA']),
                                   'DT_ACABAMENTO_PROVA' => date($linha['DT_ACABAMENTO_PROVA']),
                                   'DT_SAIDA_EXPEDICAO' => date($linha['DT_SAIDA_EXPEDICAO']),
@@ -1668,7 +1574,7 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
                             $valor_total_Finalizadas = 0;
 
                             ?>
-                         <?php
+                           <?php
                             if (isset($_GET['Tp'])) {
                               if ($_GET['Tp'] == 'oper') {
                                 echo "<tr><td colspan='8'>Operador Encontrado: " . $Ordens_Finalizadas[0]['op_secao'] . " </td></tr>";
@@ -1780,15 +1686,15 @@ $tempoDeVidaSegundos = $tempoDeVidaMinutos * 60;
 
 
 
-                       </tbody>
-                     </table>
+                         </tbody>
+                       </table>
+                     </div>
+
                    </div>
+                   <!-- Final da Tabela de Produção -->
+                   <!-- Import dos Contadores em JavaScript -->
 
-                 </div>
-                 <!-- Final da Tabela de Produção -->
-                 <!-- Import dos Contadores em JavaScript -->
-
-                 <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
-                 <script>
-                 new PureCounter();
-                 </script>
+                   <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
+                   <script>
+                     new PureCounter();
+                   </script>
