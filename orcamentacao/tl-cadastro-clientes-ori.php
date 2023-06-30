@@ -10,7 +10,7 @@ $_SESSION["pag"] = array(1, 0); ?>
             Cadastro de Atendentes e Operadores
           </button>
         </h2>
-        <form>
+        <form method="POST" action="save_cadastro_cliente.php">
           <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
               <div class="col-lg-12">
@@ -65,33 +65,33 @@ $_SESSION["pag"] = array(1, 0); ?>
                         <label for="Atividade" class="form-label">Selecione a atividade que o quartel exerce</label>
                         <select class="form-select" name="Atividade" id="Atividade" aria-label="Default select example">
 
-                          <option value="quartel_administrativo">Quartel Administrativo</option>
-                          <option value="quartel_de_tropa">Quartel de Tropa</option>
-                          <option value="quartel_de_defesa_cibernetica">Quartel de Defesa Cibernética</option>
-                          <option value="quartel_de_inteligencia">Quartel de Inteligência</option>
-                          <option value="quartel_de_saude">Quartel de Saúde</option>
-                          <option value="quartel_de_engenharia">Quartel de Engenharia</option>
-                          <option value="quartel_de_treinamento">Quartel de Treinamento</option>
-                          <option value="quartel_de_aviacao">Quartel de Aviação</option>
-                          <option value="quartel_de_artilharia">Quartel de Artilharia</option>
-                          <option value="quartel_de_operacoes_especiais">Quartel de Operações Especiais</option>
-                          <option value="quartel_de_comunicacoes">Quartel de Comunicações</option>
-                          <option value="quartel_de_logistica">Quartel de Logística</option>
-                          <option value="quartel_de_operacoes_navais">Quartel de Operações Navais</option>
-                          <option value="quartel_de_defesa_cbrn">Quartel de Defesa CBRN</option>
-                          <option value="quartel_de_operacoes_de_paz">Quartel de Operações de Paz</option>
-                          <option value="quartel_de_engajamento_com_a_comunidade">Quartel de Engajamento com a Comunidade</option>
-                          <option value="quartel_de_defesa_costeira">Quartel de Defesa Costeira</option>
-                          <option value="quartel_de_operacoes_de_resgate">Quartel de Operações de Resgate</option>
-                          <option value="quartel_de_treinamento_de_seguranca">Quartel de Treinamento de Segurança</option>
-                          <option value="quartel_de_operacoes_de_reconhecimento">Quartel de Operações de Reconhecimento</option>
-                          <option value="quartel_de_operacoes_de_guerra_eletronica">Quartel de Operações de Guerra Eletrônica</option>
-                          <option value="quartel_de_treinamento_de_defesa_cibernetica">Quartel de Treinamento de Operações de Defesa Cibernética</option>
+                          <option value="quartel administrativo">Quartel Administrativo</option>
+                          <option value="quartel de tropa">Quartel de Tropa</option>
+                          <option value="quartel de defesa cibernetica">Quartel de Defesa Cibernética</option>
+                          <option value="quartel de inteligencia">Quartel de Inteligência</option>
+                          <option value="quartel de saude">Quartel de Saúde</option>
+                          <option value="quartel de engenharia">Quartel de Engenharia</option>
+                          <option value="quartel de treinamento">Quartel de Treinamento</option>
+                          <option value="quartel de aviacao">Quartel de Aviação</option>
+                          <option value="quartel de artilharia">Quartel de Artilharia</option>
+                          <option value="quartel de operacoes especiais">Quartel de Operações Especiais</option>
+                          <option value="quartel de comunicacoes">Quartel de Comunicações</option>
+                          <option value="quartel de logistica">Quartel de Logística</option>
+                          <option value="quartel de operacoes navais">Quartel de Operações Navais</option>
+                          <option value="quartel de defesa cbrn">Quartel de Defesa CBRN</option>
+                          <option value="quartel de operacoes de paz">Quartel de Operações de Paz</option>
+                          <option value="quartel de engajamento com a comunidade">Quartel de Engajamento com a Comunidade</option>
+                          <option value="quartel de defesa costeira">Quartel de Defesa Costeira</option>
+                          <option value="quartel de operacoes de resgate">Quartel de Operações de Resgate</option>
+                          <option value="quartel de treinamento de seguranca">Quartel de Treinamento de Segurança</option>
+                          <option value="quartel de operacoes de reconhecimento">Quartel de Operações de Reconhecimento</option>
+                          <option value="quartel de operacoes de guerra eletronica">Quartel de Operações de Guerra Eletrônica</option>
+                          <option value="quartel de treinamento de defesa cibernetica">Quartel de Treinamento de Operações de Defesa Cibernética</option>
                         </select>
                       </div>
-                      <div>
+                      <div id="filialcoligada">
                         <label for="Filial" class="form-label">Filial/Coligada/Relacionada</label>
-                        <input type="text" class="form-control" name="Filial" id="Filial" placeholder="Insira a filiar/coligada" aria-describedby="defaultFormControlHelp" />
+                        <input type="text" class="form-control" name="Filial" id="Filial" placeholder="Insira a filial/coligada" aria-describedby="defaultFormControlHelp" />
                       </div>
                       <div class="divider divider-dark">
                         <div class="divider-text">Atendente</div>
@@ -126,7 +126,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                       </div>
                       <div class="mb-3">
                         <label for="Cep" class="form-label">CEP</label>
-                        <input class="form-control" type="number" name="Cep" id="Cep" placeholder="Insira o CEP do Cliente" />
+                        <input class="form-control" type="text" name="Cep" id="Cep" placeholder="Insira o CEP do Cliente" />
                       </div>
                       <a class="btn btn-primary" id="buscarCep" onclick="BuscarCep(document.getElementById('Cep').value)">Buscar cep</a><br><br>
                       <div id="carregando"></div>
@@ -171,6 +171,10 @@ $_SESSION["pag"] = array(1, 0); ?>
                         <input class="form-control" type="text" name="Departamento" id="Departamento" placeholder="Insira o departamento" />
                       </div>
                       <div class="mb-3">
+                        <label for="Ramal" class="form-label">Ramal</label>
+                        <input class="form-control" type="text" name="Ramal" id="Ramal" placeholder="Insira o telefone principal" />
+                      </div>
+                      <div class="mb-3">
                         <label for="Telefone" class="form-label">Telefone Principal</label>
                         <input class="form-control" type="text" name="Telefone" id="Telefone" placeholder="Insira o telefone principal" />
                       </div>
@@ -193,18 +197,15 @@ $_SESSION["pag"] = array(1, 0); ?>
 </div><br>
 
 <script>
-const cpf = document.getElementById('Acpf');
-const cnpj = document.getElementById('Acnpj');
+const Acpf = document.getElementById('Acpf');
+const Acnpj = document.getElementById('Acnpj');
 const nomedantasia = document.getElementById('Anomedantasia');
 const selecionado = document.getElementById('TipoCliente');
 const AtividadeFisico = document.getElementById('AtividadeFisico');
 const juridicoAtivi = document.getElementById('juridicoAtivi');
+const filialcoligada = document.getElementById('filialcoligada');
 document.getElementById("puxadoApi").style.display = 'none';
-const cep = document.getElementById('Cep');
-cep.addEventListener('input', () => {
-  cep.value = cep.value.replace(/[^\d]+/g, '');
-  cep.value = formataCep(cep.value);
-});
+
 
 
 async function BuscarCep(val) {
@@ -244,18 +245,20 @@ async function BuscarCep(val) {
 
 function juridico() {
   nomedantasia.style.display = 'block';
-  cnpj.style.display = 'block';
-  cpf.style.display = 'none';
+  Acnpj.style.display = 'block';
+  Acpf.style.display = 'none';
   juridicoAtivi.style.display = 'block';
+  filialcoligada.style.display = 'block';
   AtividadeFisico.style.display = 'none';
 }
 
 function fisico() {
   nomedantasia.style.display = 'none';
-  cnpj.style.display = 'none';
+  Acnpj.style.display = 'none';
+  filialcoligada.style.display = 'none';
   AtividadeFisico.style.display = 'block';
   juridicoAtivi.style.display = 'none';
-  cpf.style.display = 'block';
+  Acpf.style.display = 'block';
 }
 selecionado.addEventListener('click', vlr => {
   console.log(selecionado.value)
@@ -266,6 +269,53 @@ selecionado.addEventListener('click', vlr => {
   }
 })
 juridico();
+
+const cep = document.getElementById('Cep');
+cep.addEventListener('input', () => {
+  cep.value = cep.value.replace(/\D/g, '');
+  cep.value = formataCEP(cep.value);
+});
+
+function formataCEP(cep) {
+  //retira os caracteres indesejados...
+  return cep = cep.replace(/\D/g, '');
+  //realiza a formatação...
+}
+
+const cpf = document.getElementById('CPF');
+cpf.addEventListener('keyup', vlw => {
+  cpf.value = cpf.value.replace(/[^\d]+/g, '');
+  cpf.value = formataCPF(cpf.value);
+})
+
+function formataCPF(cpf) {
+  //retira os caracteres indesejados...
+  cpf = cpf.replace(/[^\d]+/g, '');
+  //realizar a formatação...
+
+  if (cpf.length < 10) {
+    return cpf.replace(/(\d{3})(\d{3})/, "$1.$2.");
+  } else {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+}
+const cnpj = document.getElementById('CNPJ');
+cnpj.addEventListener('keyup', vlw => {
+  cnpj.value = cnpj.value.replace(/[^\d]+/g, '');
+  cnpj.value = formataCNPJ(cnpj.value);
+})
+
+function formataCNPJ(cnpj) {
+  //retira os caracteres indesejados...
+  cnpj = cnpj.replace(/[^\d]+/g, '');
+  //realizar a formatação...
+
+  if (cnpj.length < 14) {
+    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})/, "$1.$2.$3/$4");
+  } else {
+    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+  }
+}
 </script>
 
 
