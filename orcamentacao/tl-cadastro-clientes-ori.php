@@ -38,7 +38,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                       </div>
                       <div>
                         <label for="NomeCliente" class="form-label">Nome do Cliente</label>
-                        <input type="text" class="form-control" name="NomeCliente" id="NomeCliente" placeholder="Insira o nome do Cliente" aria-describedby="defaultFormControlHelp" />
+                        <input type="text" class="form-control" name="NomeCliente" id="NomeCliente" placeholder="Insira o nome do Cliente" aria-describedby="defaultFormControlHelp" required />
                       </div>
                       <div id="Anomedantasia">
                         <label for="NomeFantasia" class="form-label">Nome Fantasia</label>
@@ -46,11 +46,11 @@ $_SESSION["pag"] = array(1, 0); ?>
                       </div>
                       <div id="Acpf">
                         <label for="CPF" class="form-label">CPF</label>
-                        <input type="text" class="form-control" name="CPF" id="CPF" placeholder="Insira o cpf do cliente" aria-describedby="defaultFormControlHelp" />
+                        <input type="text" class="form-control" name="CPF" id="CPF" placeholder="Insira o cpf do cliente" aria-describedby="defaultFormControlHelp" required />
                       </div>
                       <div id="Acnpj">
                         <label for="CNPJ" class="form-label">CNPJ</label>
-                        <input type="text" class="form-control" name="CNPJ" id="CNPJ" placeholder="Insira o cpnj do Cliente" aria-describedby="defaultFormControlHelp" />
+                        <input type="text" class="form-control" name="CNPJ" id="CNPJ" placeholder="Insira o cpnj do Cliente" aria-describedby="defaultFormControlHelp" required />
                       </div>
                       <br>
                       <div id="AtividadeFisico" class="mb-3">
@@ -118,7 +118,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                       </div>
                       <div class="mb-3">
                         <label for="TipoEndereco" class="form-label">Tipo de Endereço</label>
-                        <select class="form-select" name="TipoEndereco" id="TipoEndereco" aria-label="Default select example">
+                        <select class="form-select" name="TipoEndereco" id="TipoEndereco" aria-label="Default select example" required>
                           <option selected>Selecione o tipo...</option>
                           <option value="1">Residencial</option>
                           <option value="2">Comercial</option>
@@ -126,7 +126,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                       </div>
                       <div class="mb-3">
                         <label for="Cep" class="form-label">CEP</label>
-                        <input class="form-control" type="text" name="Cep" id="Cep" placeholder="Insira o CEP do Cliente" />
+                        <input class="form-control" type="text" name="Cep" id="Cep" placeholder="Insira o CEP do Cliente" required />
                       </div>
                       <a class="btn btn-primary" id="buscarCep" onclick="BuscarCep(document.getElementById('Cep').value)">Buscar cep</a><br><br>
                       <div id="carregando"></div>
@@ -137,7 +137,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                         </div>
                         <div class="mb-3">
                           <label for="cidade" class="form-label">Cidade</label>
-                          <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Insira a cidade do Cliente" />
+                          <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Insira a cidade do Cliente" required />
                         </div>
                         <div class="mb-3">
                           <label for="uf" class="form-label">UF</label>
@@ -160,11 +160,11 @@ $_SESSION["pag"] = array(1, 0); ?>
                       </div>
                       <div class="mb-3">
                         <label for="NomeContato" class="form-label">Nome para Contato</label>
-                        <input class="form-control" type="text" name="NomeContato" id="NomeContato" placeholder="Insira o nome para contato" />
+                        <input class="form-control" type="text" name="NomeContato" id="NomeContato" placeholder="Insira o nome para contato" required />
                       </div>
                       <div class="mb-3">
                         <label for="Email" class="form-label">Email</label>
-                        <input class="form-control" type="text" name="Email" id="Email" placeholder="Insira o email" />
+                        <input class="form-control" type="text" name="Email" id="Email" placeholder="Insira o email" required />
                       </div>
                       <div class="mb-3">
                         <label for="Departamento" class="form-label">Departamento</label>
@@ -176,7 +176,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                       </div>
                       <div class="mb-3">
                         <label for="Telefone" class="form-label">Telefone Principal</label>
-                        <input class="form-control" type="text" name="Telefone" id="Telefone" placeholder="Insira o telefone principal" />
+                        <input class="form-control" type="text" name="Telefone" id="Telefone" placeholder="Insira o telefone principal" required />
                       </div>
                       <div class="mb-3">
                         <label for="Telefone2" class="form-label">Telefone Secundário</label>
