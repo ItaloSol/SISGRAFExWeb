@@ -17,140 +17,188 @@ if (isset($_SESSION['msg'])) {
     echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b>
     <div class="card">
     <div class=" row justify-content-center ">
-      <div class="form-check col-3 ">
+      <div class=" form-check col-3">
         <a href="tl-cadastro-notas.php?tp=5">
           <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label>
-        </a>
+          </a>
       </div>
-      <div class="form-check col-3 ">
+      <div class=" form-check col-3">
         <a href="tl-cadastro-notas.php?tp=1">
-          <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="FISICO">FÍSICO</label></b>
-        </a>
+        <b> <label style="width: 100%;" class="btn btn-outline-primary form-check-label active"  for="FISICO">FÍSICO</label></></b>
       </div>
-      <div class="form-check col-3 ">
+      <div class=" form-check col-3">
         <a href="tl-cadastro-notas.php?tp=2">
-          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label>
-        </a>
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label " for="JURIDICO">JÚRIDICO</label>
+          </a>
       </div>
-      <div class="form-check col-3 ">
+      <div class=" form-check col-3">
         <a href="tl-cadastro-notas.php?tp=3">
           <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOTAS">NOTAS</label>
-        </a>
+          </a>
       </div>
-      <div class="form-check col-3 ">
+      <div class=" form-check col-3">
         <a href="tl-cadastro-notas.php?tp=4&tipo=2">
           <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="APURACAO">APURAÇÃO</label>
-        </a>
+          </a>
       </div>
       </div>
     </div>';
     include_once("b-clientes-fisicos.php");
   } elseif ($_GET['tp'] == 2) {
-    echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card row">
-    <div class=" form-check form-check-inline col-3">
-      <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
-    </div>
-    <div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=1">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
-    </div>
-    <div class=" form-check form-check-inline col-3">
-      <a href="tl-cadastro-notas.php?tp=2">
-      <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="JURIDICO">JÚRIDICO</label></a></b>
-    </div><div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=3">
-   <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOTAS">NOTAS</label></a>
-  </div><div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=4&tipo=2">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="APURACAO">APURAÇÃO</label></a>
-  </div></div>';
+    echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b>
+    <div class="card">
+    <div class=" row justify-content-center ">
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=5">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label>
+          </a>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=1">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=2">
+          <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="JURIDICO">JÚRIDICO</label>
+          </a></b>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=3">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOTAS">NOTAS</label>
+          </a>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=4&tipo=2">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="APURACAO">APURAÇÃO</label>
+          </a>
+      </div>
+      </div>
+    </div>';
     include_once("b-clientes-juridicos.php");
   } elseif ($_GET['tp'] == 3) {
-    echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card row">
-    <div class=" form-check form-check-inline col-3">
-      <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
-    </div>
-    <div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=1">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
-    </div>
-    <div class=" form-check form-check-inline col-3">
-      <a href="tl-cadastro-notas.php?tp=2">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label></a>
-    </div><div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=3">
-    <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="NOTAS">NOTAS</label></a></b>
-  </div><div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=4&tipo=2">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="APURACAO">APURAÇÃO</label></a>
-  </div></div>';
+    echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b>
+    <div class="card">
+    <div class=" row justify-content-center ">
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=5">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label>
+          </a>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=1">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=2">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label>
+          </a>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=3">
+          <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="NOTAS">NOTAS</label>
+          </a></b>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=4&tipo=2">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="APURACAO">APURAÇÃO</label>
+          </a>
+      </div>
+      </div>
+    </div>';
     include_once("b-notas.php");
   } elseif ($_GET['tp'] == 4) {
-    echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card row">
-    <div class=" form-check form-check-inline col-3">
-      <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
-    </div>
-    <div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=1">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
-    </div>
-    <div class=" form-check form-check-inline col-3">
-      <a href="tl-cadastro-notas.php?tp=2">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label></a>
-    </div><div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=3">
-    <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label " for="NOTAS">NOTAS</label></a></b>
-  </div><div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=4&tipo=2">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="APURACAO">APURAÇÃO</label></a>
-  </div></div>';
+    echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b>
+    <div class="card">
+    <div class=" row justify-content-center ">
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=5">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label>
+          </a>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=1">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=2">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label>
+          </a>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=3">
+          <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label " for="NOTAS">NOTAS</label>
+          </a></b>
+      </div>
+      <div class=" form-check col-3">
+        <a href="tl-cadastro-notas.php?tp=4&tipo=2">
+          <label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="APURACAO">APURAÇÃO</label>
+          </a>
+      </div>
+      </div>
+    </div>';
     include_once("b-apuracao.php");
   }
 } elseif ($_GET['tp'] == 5) {
-  echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card row">
-  <div class=" form-check form-check-inline col-3">
+  echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b>
+  <div class="card">
+  <div class=" row justify-content-center ">
+    <div class=" form-check col-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label>
+        </a>
     </div>
-  <div class=" form-check form-check-inline col-3">
-  <a href="tl-cadastro-notas.php?tp=1">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
-  </div>
-  <div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=2">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label></a>
-  </div><div class=" form-check form-check-inline col-3">
-  <a href="tl-cadastro-notas.php?tp=3">
-  <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label " for="NOTAS">NOTAS</label></a></b>
-</div><div class=" form-check form-check-inline col-3">
-  <a href="tl-cadastro-notas.php?tp=4&tipo=2">
-  <label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="APURACAO">APURAÇÃO</label></a>
-</div></div>';
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=1">
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></></b>
+    </div>
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=2">
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label>
+        </a>
+    </div>
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=3">
+        <b><label style="width: 100%;" class="btn btn-outline-primary form-check-label " for="NOTAS">NOTAS</label>
+        </a></b>
+    </div>
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=4&tipo=2">
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label active" for="APURACAO">APURAÇÃO</label>
+        </a>
+    </div>
+    </div>
+  </div>';
 } else {
-  echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b><div class="card row">
-  <div class=" form-check form-check-inline col-3">
+  echo '<b style="text-align: center; font-size: 24px;" class="d-block">Selecione um Menu:</b>
+  <div class="card">
+  <div class=" row justify-content-center ">
+    <div class=" form-check col-3">
       <a href="tl-cadastro-notas.php?tp=5">
-      <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label></a>
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOVO">CADASTRAR NOTA DE CRÉDITO</label>
+        </a>
     </div>
-  <div class=" form-check form-check-inline col-3">
-  <a href="tl-cadastro-notas.php?tp=1">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label></a>
-  </div>
-  <div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=2">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label></a>
-  </div><div class=" form-check form-check-inline col-3">
-  <a href="tl-cadastro-notas.php?tp=3">
-  <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOTAS">NOTAS</label></a>
-</div>
-<div class=" form-check form-check-inline col-3">
-    <a href="tl-cadastro-notas.php?tp=4&tipo=2">
-    <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="APURACAO">APURAÇÃO</label></a>
-  </div></div>';
-  //echo '<div style="text-align: center;" class="card row"><h1>Pagina em Manutenção favor usar o Sistema Antigo!<br></h1><h4>Temporariamente fora!</h4></div>';
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=1">
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="FISICO">FÍSICO</label>
+        </a>
+    </div>
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=2">
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="JURIDICO">JÚRIDICO</label>
+        </a>
+    </div>
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=3">
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="NOTAS">NOTAS</label>
+        </a>
+    </div>
+    <div class=" form-check col-3">
+      <a href="tl-cadastro-notas.php?tp=4&tipo=2">
+        <label style="width: 100%;" class="btn btn-outline-primary form-check-label" for="APURACAO">APURAÇÃO</label>
+        </a>
+    </div>
+    </div>
+  </div>';
 } ?>
 
 <div>&nbsp;</div>
