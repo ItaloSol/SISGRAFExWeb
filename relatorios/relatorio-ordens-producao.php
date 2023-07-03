@@ -215,9 +215,9 @@ if (isset($_POST['status'])) {
     if ($_POST['status'] != 'todos') {
         if (isset($_POST['statusS'])) {
             if ($_POST['statusS'] == 'producao') {
-                $Status = " status not in ('11','15','13','17','10')";
+                $Status = " AND status not in ('11','15','13','17','10')";
             } else {
-                $Status = " status = '" . $_POST['statusS'] . "'";
+                $Status = " AND status = '" . $_POST['statusS'] . "'";
             }
         }
     }
@@ -501,7 +501,7 @@ if (
     $Query_Busca_Completa = $Query_Inicio;
 }
 if (isset($Query_Cliente)) {
-    $Query_Busca_Completa = $Query_Busca_Completa . ' WHERE ' . $Query_Cliente;
+    $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Cliente;
 }
 if (isset($Query_Status)) {
     $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Status;
@@ -1576,7 +1576,7 @@ $html = $titulo . $Tabela_Completa;
 /////////////////////////////////////////////
 ///////////////// CODIGO FIXO ///////////////
 /////////////////////////////////////////////
-require_once __DIR__ . '../../vendor/autoload.php';
+ require_once __DIR__ . '../../vendor/autoload.php';
 // Create an instance of the class:
 $mpdf = new \mPDF();
 
