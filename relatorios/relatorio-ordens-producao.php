@@ -104,20 +104,20 @@ if (isset($_POST['periodo'])) {
         if (isset($Periodo)) {
             $Periodo = $Periodo . " AND data_emissao = '" . $_POST['periodoEmiss'] . "' ";
         } else {
-            $Periodo = "  data_emissao = '" . $_POST['periodoEmiss'] . "' ";
+            $Periodo = " AND  data_emissao = '" . $_POST['periodoEmiss'] . "' ";
         }
     }
     if ($_POST['periodo'] == 'EntrPer') {
         if (isset($Periodo)) {
         } else {
         }
-        $Periodo = " data_entrega = '" . $_POST['periodoEntr'] . "' ";
+        $Periodo = " AND data_entrega = '" . $_POST['periodoEntr'] . "' ";
     }
     if ($_POST['periodo'] == 'IncFimEmiss') {
         if (isset($Periodo)) {
             $Periodo = $Periodo . " AND data_emissao >= '" . $_POST['periodoIncEmiss'] . "' AND data_emissao <= '" . $_POST['periodoFimEmiss'] . "'";
         } else {
-            $Periodo = " data_emissao >= '" . $_POST['periodoIncEmiss'] . "' AND data_emissao <= '" . $_POST['periodoFimEmiss'] . "'";
+            $Periodo = " AND data_emissao >= '" . $_POST['periodoIncEmiss'] . "' AND data_emissao <= '" . $_POST['periodoFimEmiss'] . "'";
         }
     }
     if ($_POST['periodo'] == 'IncFimPer') {
@@ -125,7 +125,7 @@ if (isset($_POST['periodo'])) {
         if (isset($Periodo)) {
             $Periodo = $Periodo . " AND data_entrega >= '" . $_POST['periodoIncPer'] . "' AND data_entrega <= '" . $_POST['periodoFimPer'] . "'";
         } else {
-            $Periodo = " data_entrega >= '" . $_POST['periodoIncPer'] . "' AND data_entrega <= '" . $_POST['periodoFimPer'] . "'";
+            $Periodo = " AND data_entrega >= '" . $_POST['periodoIncPer'] . "' AND data_entrega <= '" . $_POST['periodoFimPer'] . "'";
         }
     }
     if (isset($Periodo)) {

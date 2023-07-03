@@ -7,26 +7,28 @@ $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
 $hora = date('H:i:s');
 $Solicitacao = json_decode(file_get_contents("php://input"), true);
-$query_produtos = $conexao->prepare("SELECT * FROM produtos p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO ORDER BY p.CODIGO DESC LIMIT 45");
+$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod_produto, p.* FROM produtos p
+INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO
+ORDER BY p.CODIGO DESC LIMIT 45");
 $query_produtos->execute();
 $pp = [];
 while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
     $pp[] = [
-        'CODIGO' => $linha['CODIGO'],
-        'CODPRODUTO' => $linha['cod'],
+        'CODIGO' => $linha['CODIGO'], // Ajuste para $linha['id']
+        'CODPRODUTO' => $linha['cod'], // Ajuste para $linha['cod_produto']
         'DESCRICAO' => $linha['DESCRICAO'],
         'TIPO' => 'PP',
         'VALOR_UNITARIO' => $linha['PRECO_CUSTO'],
     ];
 }
 
-$query_produtos = $conexao->prepare("SELECT * FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO ORDER BY p.CODIGO DESC LIMIT 45");
+$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod_produto, p.* FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO ORDER BY p.CODIGO DESC LIMIT 45");
 $query_produtos->execute();
 $pe = [];
 while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
     $pe[] = [
         'CODIGO' => $linha['CODIGO'],
-        'CODPRODUTO' => $linha['cod'],
+        'CODPRODUTO' => $linha['cod_produto'],
         'DESCRICAO' => $linha['DESCRICAO'],
         'TIPO' => 'PE',
         'VALOR_UNITARIO' => $linha['VLR_UNIT'],
