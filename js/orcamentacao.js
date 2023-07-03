@@ -302,6 +302,13 @@ function SelecioanrProduto(valor) {
   document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Selecionado, Produto foi Selecionado!<br> Verifique o item fora do modal.</div></div>';
   const SelecionadoProdutoEscolhido = Number(document.getElementById(valor).name.
     replace('Produto', ''))
+    console.log(document.getElementById(valor))
+    if(document.getElementById(valor).innerHTML === 'SELECIONADO'){
+      document.getElementById(valor).innerHTML = 'Selecionar Produto'
+    }else{
+      document.getElementById(valor).innerHTML = 'SELECIOANDO'
+    }
+    
   if (ativo) {
     const tipo = 'PP';
   } else {
@@ -405,6 +412,9 @@ function SelecioanrProduto(valor) {
         if (data.PD_QTD_MAX) {
           campo.PD_QTD_MAX = data.PD_QTD_MAX;
         }
+
+        console.log(campo);
+
         return campo;
       });
 
