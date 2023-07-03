@@ -160,20 +160,23 @@ $refresh = 0;
             </a>
           </li>
 
-          <!-- Sub-Menu de Dashboard -->
-          <li class=" dash-g menu-item">
-            <a href="../html/dashboard.php" class="menu-link">
-              <iconify-icon icon="mdi:monitor-dashboard" width="20" height="20"></iconify-icon>
-              <div data-i18n="Basic">&nbsp &nbsp Dashboard</div>
-            </a>
-          </li>
-          <li class=" quantidames menu-item">
-            <a href="../html/tl-quantidades.php" class="menu-link">
-              <iconify-icon icon="uil:panel-add" width="20" height="20"></iconify-icon>
-              <div data-i18n="Basic">&nbsp &nbsp Quantitativos</div>
-            </a>
-          </li>
-          <?php if ($COD_I == 'ADM') {  ?>
+
+            <!-- Sub-Menu de Dashboard -->
+            <li class=" dash-g menu-item">
+              <a href="../html/dashboard.php" class="menu-link">
+                <iconify-icon icon="mdi:monitor-dashboard" width="20" height="20"></iconify-icon>
+                <div data-i18n="Basic">&nbsp &nbsp Dashboard</div>
+              </a>
+            </li>
+            <li class=" quantidames menu-item">
+              <a href="../html/tl-quantidades.php" class="menu-link">
+                <iconify-icon icon="uil:panel-add" width="20" height="20"></iconify-icon>
+                <div data-i18n="Basic">&nbsp &nbsp Quantitativos</div>
+              </a>
+            </li>
+            <?php if ($COD_I == 'ADM') {  ?>
+
+
             <li class=" linha menu-item">
               <a href="../linhaproducao/tl-producao.php" class="menu-link">
                 <iconify-icon icon="fluent-mdl2:production-floor-management" width="20" height="20"></iconify-icon>
@@ -557,7 +560,14 @@ $refresh = 0;
 
           <li class="menu-item">
 
+            <ul class="menu-sub">
+
+              <li class="menu-item">
+
+              </li>
           </li>
+
+       </li>
       </li>
       </li>
       </ul>
@@ -578,6 +588,7 @@ $refresh = 0;
             </a>
           </div>
 
+
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <ul class="navbar-nav align-itens-center">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
@@ -587,6 +598,31 @@ $refresh = 0;
             </ul>
             <ul class="navbar-nav flex-row align-items-center ms-auto justify-content-between">
               <!-- Usuário -->
+
+      </li>
+      </li>
+      </ul>
+
+    <?php  } ?>
+      </aside>
+      <!-- / Menu -->
+
+      <!-- Layout container -->
+
+      <div class="layout-page" >
+        <!-- Navbar -->
+        <div style=" text-align:center;" class="alert alert-danger" role="alert">SISTEMA EM PROCESSO DE DESENVOLVIMENTO! <br> <span style="font-size: 13px;"> não é a versão final.</span></div>
+        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+              <i class="bx bx-menu bx-sm"></i>
+            </a>
+          </div>
+
+
+          <?php  } ?>
+        </aside>
+        <!-- / Menu -->
 
               <!-- Notificações -->
 
@@ -671,24 +707,27 @@ $refresh = 0;
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
 
-                  <div class="card">
 
-                    <div class="card-body">
-                      <div class="scroll-modal alt-modal" class="table-responsive text-nowrap">
-                        <small>Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;">Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; " class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
-                        <table class="table table-bordered table-modal">
-                          <thead>
-                            <tr>
-                              <th>Ordem de Produção</th>
-                              <th>Orçamento Base</th>
-                              <th>Data de Emissão</th>
-                              <th>Data de Entrega</th>
-                              <th>Status</th>
-                              <th>Produto</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
+                    <div class="card">
+
+                      <div class="card-body">
+                        <div class="scroll-modal alt-modal" class="table-responsive text-nowrap">
+                          <small>Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;">Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; " class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
+                          <table class="table table-bordered table-modal">
+                            <thead>
+                              <tr>
+                                <th>Ordem de Produção</th>
+                                <th>Orçamento Base</th>
+                                <th>Data de Emissão</th>
+                                <th>Data de Entrega</th>
+                                <th>Status</th>
+                                <th>Produto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+
+
                             $Percorrer_Notificacao = 0;
                             while ($Total_Notificacao > $Percorrer_Notificacao) {
 
@@ -826,3 +865,4 @@ $refresh = 0;
               </script>
 
             <?php } ?>
+
