@@ -272,21 +272,47 @@ async function NovoProduto() {
 
 }
 
-function SelecioanrProduto(valor) {
+function SelecionarProduto(valor) {
   const PP = document.getElementById('ppRadio');
   let ativo = PP.checked ? true : false;
 
-  const SelecionadoProdutoEscolhido = Number(document.getElementById(valor).name.
-    replace('Produto', ''))
+  if (ativo) {
+    const tipo = 'PP';
+  } else {
+    const tipo = 'PE';
+      replace('Produto', '')
+  }
+  const SelecionadoProdutoEscolhido = document.getElementById(valor).id;
+  
+  let ProdutoClonado = localStorage.getItem('ProdutoSelecioando');
+  let arraySelecioandos = ProdutoClonado ? JSON.parse(ProdutoClonado) : [];
+  let arraySelecioandoPP = localStorage.getItem('ProdutoSelecioandopp');
+  let arraySelecioandosPP = arraySelecioandoPP ? JSON.parse(arraySelecioandoPP) : [];
+  
+
   console.log(document.getElementById(valor))
-  if (document.getElementById(valor).innerHTML == 'SELECIOANDO') {
+  if (document.getElementById(valor).innerHTML == 'SELECIONADO') {
     document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Desmarcado!</div></div>';
     document.getElementById(valor).innerHTML = 'Selecionar Produto'
+    if (ativo) {
+      arraySelecioandosPP = arraySelecioandosPP.filter(id => id !== SelecionadoProdutoEscolhido);
+    } else {
+      arraySelecioando = arraySelecioandos.filter(id => id !== SelecionadoProdutoEscolhido);
+    }
   } else {
     document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Selecionado, Produto foi Selecionado!<br> Verifique o item fora do modal.</div></div>';
-    document.getElementById(valor).innerHTML = 'SELECIOANDO'
+    document.getElementById(valor).innerHTML = 'SELECIONADO'
+    if (ativo) {
+      arraySelecioandosPP.push(SelecionadoProdutoEscolhido);
+    } else {
+      arraySelecioando.push(SelecionadoProdutoEscolhido);
+    }
   }
-
+  setTimeout(function () {
+    document.getElementById('SelecioandoProduto').innerHTML = '';
+  }, 1000);
+}
+function RecuperaPapapelClonado() {
   if (ativo) {
     const tipo = 'PP';
   } else {
@@ -296,6 +322,8 @@ function SelecioanrProduto(valor) {
   let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
 
   let promises = arraySelecionados.map(id => {
+    console.log('aqui')
+    console.log(id);
     return fetch('api_produto_select.php?id=' + id + '&tipo=' + tipo)
       .then(response => response.json())
       .then(data => {
@@ -394,10 +422,103 @@ function SelecioanrProduto(valor) {
       });
 
   });
+  Promise.all(promises).then(campos => {
+    console.log('campos:', campos); // Verifica se os resultados estão sendo retornados corretamente
+    campos.forEach(campo => {
+      console.log('prencendo');
+      if (campo.cod_calculo) {
+        document.getElementById('Novocod_calculo').value = campo.cod_calculo;
+      }
+      if (campo.CODIGO) {
+        document.getElementById('NovoCODIGO').value = campo.CODIGO;
+      }
+      if (campo.CODIGO_LI) {
+        document.getElementById('NovoCODIGO_LI').value = campo.CODIGO_LI;
+      }
+      if (campo.DESCRICAO) {
+        document.getElementById('Novodescricao').value = campo.DESCRICAO;
+      }
+      if (campo.LARGURA) {
+        document.getElementById('NovoNovolargura').value = campo.LARGURA;
+      }
+      if (campo.ALTURA) {
+        document.getElementById('Novoaltura').value = campo.ALTURA;
+      }
+      if (campo.ESPESSURA) {
+        document.getElementById('Novoespessura').value = campo.ESPESSURA;
+      }
+      if (campo.PESO) {
+        document.getElementById('Novopeso').value = campo.PESO;
+      }
+      if (campo.QTD_PAGINAS) {
+        document.getElementById('Novoqtdfolhas').value = campo.QTD_PAGINAS;
+      }
+      if (campo.TIPO) {
+        document.getElementById('NovotipoProduto').value = campo.TIPO;
+      }
+      if (campo.VENDAS) {
+        document.getElementById('Novovendas').value = campo.VENDAS;
+      }
+      if (campo.ATIVO) {
+        document.getElementById('NovoTipoativo').checked = campo.ATIVO;
+      }
+      if (campo.USO_ECOMMERCE) {
+        document.getElementById('NovoTipoCommerce').checked = campo.USO_ECOMMERCE;
+      }
+      if (campo.PRECO_CUSTO) {
+        document.getElementById('NovoPrecoCusto').value = campo.PRECO_CUSTO;
+      }
+      if (campo.PROMOCIONAL) {
+        document.getElementById('NovoTipoPromocional').checked = campo.PROMOCIONAL;
+      }
+      if (campo.PRECO_PROMOCIONAL) {
+        document.getElementById('NovoPrecoPromocional').value = campo.PRECO_PROMOCIONAL;
+      }
+      if (campo.ID_CATEGORIA) {
+        document.getElementById('NovoIdCategoria').value = campo.ID_CATEGORIA;
+      }
+      if (campo.PRE_VENDA) {
+        document.getElementById('NovoTipoPreVenda').checked = campo.PRE_VENDA;
+      }
+      if (campo.PROM) {
+        document.getElementById('NovoProm').value = campo.PROM;
+      }
+      if (campo.VLR_PROM) {
+        document.getElementById('NovoVlrProm').value = campo.VLR_PROM;
+      }
+      if (campo.INICIO_PROM) {
+        document.getElementById('NovoInicioProm').value = campo.INICIO_PROM;
+      }
+      if (campo.FIM_PROM) {
+        document.getElementById('NovoFimProm').value = campo.FIM_PROM;
+      }
+      if (campo.ESTOQUE) {
+        document.getElementById('NovoEstoque').value = campo.ESTOQUE;
+      }
+      if (campo.AVISO_ESTOQUE) {
+        document.getElementById('NovoAvisoEstoque').checked = campo.AVISO_ESTOQUE;
+      }
+      if (campo.AVISO_ESTOQUE_UN) {
+        document.getElementById('NovoAvisoEstoqueUn').value = campo.AVISO_ESTOQUE_UN;
+      }
+      if (campo.VLR_UNIT) {
+        document.getElementById('NovoVlrUnit').value = campo.VLR_UNIT;
+      }
+      if (campo.ULT_MOV) {
+        document.getElementById('NovoUltMov').value = campo.ULT_MOV;
+      }
+      if (campo.PD_QTD_MIN) {
+        document.getElementById('NovoPdQtdMin').value = campo.PD_QTD_MIN;
+      }
+      if (campo.PD_MAX) {
+        document.getElementById('NovoPdMax').value = campo.PD_MAX;
+      }
+      if (campo.PD_QTD_MAX) {
+        document.getElementById('NovoPdQtdMax').value = campo.PD_QTD_MAX;
+      }
+    });
+  });
 
-  setTimeout(function () {
-    document.getElementById('SelecioandoProduto').innerHTML = '';
-  }, 1000);
 }
 
 async function waitForElement(elementId, timeout = 1000) {
@@ -442,9 +563,51 @@ async function SelecionarClonado() {
     }
   }
 }
-if(localStorage.getItem('ProdutoClonadoPP') != '[]'){
+async function waitForElementSelecionado(elementId, timeout = 1000) {
+  return new Promise((resolve) => {
+    const startTime = Date.now();
+
+    const checkElement = () => {
+      const element = document.getElementById(elementId);
+      if (element) {
+        resolve(element);
+        document.getElementById('ErroClonar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi clonado FOI RECUPERADO!<br> Verifique a aba "Novo Produto".</div></div>';
+      } else {
+        const elapsedTime = Date.now() - startTime;
+        if (elapsedTime >= timeout) {
+          resolve(null);
+        } else {
+          document.getElementById('ErroClonar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO CLONADO!<br> Verifique a aba "Novo Produto </div></div>';
+          setTimeout(checkElement, 100);
+        }
+      }
+    };
+
+    checkElement();
+  });
+}
+
+async function SelecionarProdutoSelecioando() {
+  if (document.getElementById('produtosTableBody')) {
+    console.log('elemento');
+    setTimeout(function () {
+      document.getElementById('ErroClonar').innerHTML = '';
+    }, 5000);
+    if (localStorage.getItem('ProdutoClonadoPP')) {
+      const ArrayClonePP = JSON.parse(localStorage.getItem('ProdutoClonadoPP'));
+
+      for (const item of ArrayClonePP) {
+        console.log('elemento1');
+        const elemento = await waitForElement(item);
+        console.log(elemento.id);
+        elemento.innerHTML = 'CLONADO';
+      }
+    }
+  }
+}
+if (localStorage.getItem('ProdutoClonadoPP') != '[]') {
   console.log('PP');
-SelecionarClonado();
+  SelecionarClonado();
 }
 async function waitForElementPE(elementId, timeout = 1000) {
   return new Promise((resolve) => {
@@ -491,7 +654,7 @@ async function SelecionarClonadoPE() {
 const PECheck = document.getElementById('peRadio');
 PECheck.addEventListener('click', vle => {
   console.log('PP'); SelecionarClonadoPE();
-}  )
+})
 
 
 async function waitForElementApagarPP(elementId, timeout = 1000) {
