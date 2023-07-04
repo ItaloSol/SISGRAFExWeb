@@ -506,6 +506,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     <div style="height: 400px; width: 100%; overflow-y: scroll; ">
                       <div id="ClonadoProduto"></div>
                       <div id="SelecioandoProduto"></div>
+                      <div id="ErroClonar"></div>
                       <table class="table table-hover table-sm table-bordered">
                         <thead>
                           <tr>
@@ -530,6 +531,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               <div class="tab-pane fade" id="novo1-produto">
                 <div class="card">
                   <h5 class="card-header">Novo Produto</h5>
+                  <div id="ApagarProdutoCloando"></div>
+                  <button style="display: block; margin-left: 5px;" class="btn btn-outline-primary" onclick="ApagarProdutoCloando()">
+                                  Limpar seleção de produto
+                                </button>
                   <div class="table-responsive text-nowrap">
                     <div class="card-body">
                       <div class="row mb-3">
