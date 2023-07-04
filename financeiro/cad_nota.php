@@ -279,7 +279,11 @@ if (isset($_POST['editar'])) {
         $endereco = $_POST['endereco'];
         $contato = $_POST['contato'];
         $data_lan = $_POST['data_lancamento'];
-        $datas = explode('-', $data_lan);
+        $data_e_hora = $_POST['data_horas'];
+        $dataHoraFormatada = date('Y-m-d H:i:s', strtotime(str_replace('T', ' ', $data_e_hora)));
+        $dataFormatada2 = date('d/m/Y', strtotime($data_e_hora));
+         echo $dataHoraFormatada . '<br>';
+        $datas = explode('-', $data_e_hora);
         $data_correta = date('d/m/Y', strtotime($datas[0] . $datas[1] . $datas[2]));
         $valorN = $_POST['valor'];
 
@@ -332,14 +336,16 @@ if (isset($_POST['editar'])) {
         } elseif ($valor == $valorN) {
             $credito = $anterios;
         }
-        echo 'Calculo: ' . $resto . '<br> Anteriores Z: ' . $anterios . '<br> novo X: ' . $valorN . '<br> valor anterior A:' . $valor . '<br>';
+      //  echo 'Calculo: ' . $resto . '<br> Anteriores Z: ' . $anterios . '<br> novo X: ' . $valorN . '<br> valor anterior A:' . $valor . '<br>';
         echo $credito;
-
-        $TABELA_notas = $conexao->prepare("UPDATE tabela_notas SET forma_pagamento = '$forma_pagamento', cod_endereco =  '$endereco', cod_contato = '$contato', observacoes = '$obs', valor = '$valorN', data = '$data_correta' WHERE cod = $cod ");
+        echo "<br> UPDATE tabela_notas SET forma_pagamento = '$forma_pagamento', cod_endereco =  '$endereco', cod_contato = '$contato', observacoes = '$obs', valor = '$valorN', data = '$dataFormatada2' WHERE cod = $cod <br>";
+        $TABELA_notas = $conexao->prepare("UPDATE tabela_notas SET forma_pagamento = '$forma_pagamento', cod_endereco =  '$endereco', cod_contato = '$contato', observacoes = '$obs', valor = '$valorN', data = '$dataFormatada2' WHERE cod = $cod ");
         $TABELA_notas->execute();
 
         if ($_POST['forma_pagamento'] == '1') {
-            $TABELA_SIAFI = $conexao->prepare("UPDATE nt_credito_lanc_siafi SET NT_CREDITO_CODIGO_SIAFI = '$siafi', CPF_USR =  '$cpf', NOME_USR = '$nome_emiss', UG = '$ug', DATA_HORA = '$horas' WHERE NT_CREDITO_CODIGO = $cod ");
+            echo 'entrou1';
+            echo "<br> UPDATE nt_credito_lanc_siafi SET NT_CREDITO_CODIGO_SIAFI = '$siafi', CPF_USR =  '$cpf', NOME_USR = '$nome_emiss', UG = '$ug', DATA_HORA = '$dataHoraFormatada' WHERE NT_CREDITO_CODIGO = $cod ";
+            $TABELA_SIAFI = $conexao->prepare("UPDATE nt_credito_lanc_siafi SET NT_CREDITO_CODIGO_SIAFI = '$siafi', CPF_USR =  '$cpf', NOME_USR = '$nome_emiss', UG = '$ug', DATA_HORA = '$dataHoraFormatada' WHERE NT_CREDITO_CODIGO = $cod ");
             $TABELA_SIAFI->execute();
             if ($tipo_cliente == '1') {
                 $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
@@ -351,7 +357,7 @@ if (isset($_POST['editar'])) {
             }
         }
         if ($_POST['forma_pagamento'] == '2') {
-            $TABELA_gru = $conexao->prepare("UPDATE nt_credito_lanc_gru SET CPF_USR = '$cpf', NOME_USR = '$nome_emiss', CODIGO_REC = '$cod_recolhimento', DATA_HORA = '$horas' WHERE NT_CREDITO_CODIGO = $cod");
+            $TABELA_gru = $conexao->prepare("UPDATE nt_credito_lanc_gru SET CPF_USR = '$cpf', NOME_USR = '$nome_emiss', CODIGO_REC = '$cod_recolhimento', DATA_HORA = '$dataHoraFormatada' WHERE NT_CREDITO_CODIGO = $cod");
             $TABELA_gru->execute();
             if ($tipo_cliente == '1') {
                 $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");

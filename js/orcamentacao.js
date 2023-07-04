@@ -26,30 +26,31 @@ function selecionarPapel(valor) {
   recuperarNomesPapel()
 }
 
-function SelecionarProduto(valor) {
-  const marcado = document.getElementById(valor).checked;
-  const selecionado = document.getElementById(valor).value;
-  let produtoSelecionado = localStorage.getItem('ProdutoSelecionado');
-  let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
+// function SelecionarProduto(valor) {
+//  // const marcado = document.getElementById(valor).checked;
+//   const selecionado = document.getElementById(valor).name.replace('Produto', '');
+//   console.log(selecionado);
+//   let produtoSelecionado = localStorage.getItem('ProdutoSelecionado');
+//   let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
 
-  if (marcado) {
-    document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Selecionado!</div></div>';
+//   if (document.getElementById(valor).innerHTML == 'Selecionar Produto') {
+//     document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Selecionado!</div></div>';
 
-    if (!arraySelecionados.includes(selecionado)) {
-      arraySelecionados.push(selecionado);
-      localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
-    }
-  } else {
-    document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Desmarcado!</div></div>';
+//     if (!arraySelecionados.includes(selecionado)) {
+//       arraySelecionados.push(selecionado);
+//       localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
+//     }
+//   } else {
+//     document.getElementById('SelecaoProdutoss').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Desmarcado!</div></div>';
 
-    arraySelecionados = arraySelecionados.filter(id => id !== selecionado);
-    localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
-  }
+//     arraySelecionados = arraySelecionados.filter(id => id !== selecionado);
+//     localStorage.setItem('ProdutoSelecionado', JSON.stringify(arraySelecionados));
+//   }
 
-  setTimeout(function () {
-    document.getElementById('SelecaoProdutoss').innerHTML = '';
-  }, 1000);
-}
+//   setTimeout(function () {
+//     document.getElementById('SelecaoProdutoss').innerHTML = '';
+//   }, 1000);
+// }
 
 
 if (localStorage.getItem('papelSelecionado')) {
@@ -299,13 +300,15 @@ async function NovoProduto() {
 function SelecioanrProduto(valor) {
   const PP = document.getElementById('ppRadio');
   let ativo = PP.checked ? true : false;
-  document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Selecionado, Produto foi Selecionado!<br> Verifique o item fora do modal.</div></div>';
+  
   const SelecionadoProdutoEscolhido = Number(document.getElementById(valor).name.
     replace('Produto', ''))
     console.log(document.getElementById(valor))
-    if(document.getElementById(valor).innerHTML === 'SELECIONADO'){
+    if(document.getElementById(valor).innerHTML == 'SELECIOANDO'){
+      document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Produto Desmarcado!</div></div>';
       document.getElementById(valor).innerHTML = 'Selecionar Produto'
     }else{
+      document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Selecionado, Produto foi Selecionado!<br> Verifique o item fora do modal.</div></div>';
       document.getElementById(valor).innerHTML = 'SELECIOANDO'
     }
     
@@ -412,9 +415,6 @@ function SelecioanrProduto(valor) {
         if (data.PD_QTD_MAX) {
           campo.PD_QTD_MAX = data.PD_QTD_MAX;
         }
-
-        console.log(campo);
-
         return campo;
       });
 
@@ -426,10 +426,31 @@ function SelecioanrProduto(valor) {
 }
 
 function ClonarProduto(valor) {
-  document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Clonado, Produto foi clonado!<br> Verifique a aba "Novo Produto".</div></div>';
+  const PP = document.getElementById('ppRadio');
+  let ativo = PP.checked ? true : false;
+
+  const SelecionadoProdutoEscolhido = Number(document.getElementById(valor).name.
+    replace('ProdutoClone', ''))
+    console.log(SelecionadoProdutoEscolhido)
+    console.log(document.getElementById(valor))
+    if(document.getElementById(valor).innerHTML == 'CLONADO'){
+      document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava clonado!</div></div>';
+      document.getElementById(valor).innerHTML = 'CLONAR PRODUTO'
+    }else{
+      document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi clonado!<br> Verifique a aba "Novo Produto".</div></div>';
+        // Usa o método scrollIntoView para rolar até o elemento
+        const elemento = document.getElementById("novo-produto");
+
+        if (elemento) {
+          var tab = new bootstrap.Tab(elemento); // Cria uma nova instância do objeto Tab
+          tab.show(); // Ativa a guia "Novo Produto"
+        }
+      document.getElementById(valor).innerHTML = 'CLONADO'
+    }
+  
   setTimeout(function () {
     document.getElementById('ClonadoProduto').innerHTML = '';
-  }, 1000);
+  }, 1500);
 }
 
 
