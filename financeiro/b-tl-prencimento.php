@@ -214,9 +214,10 @@ while($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="html5-date-input" class="col-md-2 col-form-label">Data e Hora do Lançamento</label>
+                <label for="data-hora" class="col-md-2 col-form-label">Data e Hora do Lançamento</label>
                 <div class="col-md-10">
-                  <input class="form-control" name="data_horas" type="datetime-local" value="<?= $datetime ?>" id="html5-date-input" />
+                <input type="datetime-local" id="data-hora" name="data_horas" value="<?= $datetime ?>" min="0000-01-01T00:00" max="9999-12-31T23:59">
+                  <!-- <input class="form-control" name="data_horas" type="datetime-local" value="<?= $datetime ?>" id="html5-date-input" /> -->
                 </div>
               </div>
               </div>

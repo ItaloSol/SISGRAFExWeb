@@ -7,7 +7,7 @@ $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
 $hora = date('H:i:s');
 $Solicitacao = json_decode(file_get_contents("php://input"), true);
-$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod_produto, p.* FROM produtos p
+$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod, p.*, c.* FROM produtos p
 INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO
 ORDER BY p.CODIGO DESC LIMIT 45");
 $query_produtos->execute();
@@ -22,13 +22,13 @@ while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
     ];
 }
 
-$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod_produto, p.* FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO ORDER BY p.CODIGO DESC LIMIT 45");
+$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod, p.*, c.* FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO ORDER BY p.CODIGO DESC LIMIT 45");
 $query_produtos->execute();
 $pe = [];
 while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
     $pe[] = [
-        'CODIGO' => $linha['CODIGO'],
-        'CODPRODUTO' => $linha['cod_produto'],
+        'CODIGO' => $linha['CODIGO'], // Ajuste para $linha['id']
+        'CODPRODUTO' => $linha['cod'], // Ajuste para $linha['cod_produto']
         'DESCRICAO' => $linha['DESCRICAO'],
         'TIPO' => 'PE',
         'VALOR_UNITARIO' => $linha['VLR_UNIT'],
@@ -57,7 +57,7 @@ if (!empty($Solicitacao)) {
             ];
         }
     } else {
-        $query_produtos = $conexao->prepare("SELECT * FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO  WHERE p.$Tipo_Consulta LIKE '%$pesquisa%' ORDER BY pCODIGO DESC LIMIT 45");
+        $query_produtos = $conexao->prepare("SELECT * FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO  WHERE p.$Tipo_Consulta LIKE '%$pesquisa%' ORDER BY p.CODIGO DESC LIMIT 45");
         $query_produtos->execute();
         $VALOR = [];
         while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
