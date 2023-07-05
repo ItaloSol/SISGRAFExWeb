@@ -8,8 +8,6 @@ function RecuperaPapapelClonado() {
   let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
 
   let promises = arraySelecionados.map(id => {
-    console.log('aqui')
-    console.log(id);
     return fetch('api_produto_select.php?id=' + id + '&tipo=' + tipo)
       .then(response => response.json())
       .then(data => {
@@ -109,9 +107,7 @@ function RecuperaPapapelClonado() {
 
   });
   Promise.all(promises).then(campos => {
-    console.log('campos:', campos); // Verifica se os resultados estão sendo retornados corretamente
     campos.forEach(campo => {
-      console.log('prencendo');
       if (campo.cod_calculo) {
         document.getElementById('Novocod_calculo').value = campo.cod_calculo;
       }
@@ -233,7 +229,6 @@ async function waitForElement(elementId, timeout = 1000) {
 
 async function SelecionarClonado() {
   if (document.getElementById('produtosTableBody')) {
-    console.log('elemento');
     setTimeout(function () {
       document.getElementById('ErroClonar').innerHTML = '';
     }, 5000);
@@ -241,9 +236,7 @@ async function SelecionarClonado() {
       const ArrayClonePP = JSON.parse(localStorage.getItem('ProdutoClonadoPP'));
 
       for (const item of ArrayClonePP) {
-        console.log('elemento1');
         const elemento = await waitForElement(item);
-        console.log(elemento.id);
         elemento.innerHTML = 'CLONADO';
       }
     }
@@ -275,7 +268,6 @@ async function waitForElementSelecionado(elementId, timeout = 1000) {
 
 async function SelecionarProdutoSelecioando() {
   if (document.getElementById('produtosTableBody')) {
-    console.log('elemento');
     setTimeout(function () {
       document.getElementById('ErroClonar').innerHTML = '';
     }, 5000);
@@ -283,16 +275,13 @@ async function SelecionarProdutoSelecioando() {
       const ArrayClonePP = JSON.parse(localStorage.getItem('ProdutoClonadoPP'));
 
       for (const item of ArrayClonePP) {
-        console.log('elemento1');
         const elemento = await waitForElement(item);
-        console.log(elemento.id);
         elemento.innerHTML = 'CLONADO';
       }
     }
   }
 }
 if (localStorage.getItem('ProdutoClonadoPP') != '[]') {
-  console.log('PP');
   SelecionarClonado();
 }
 async function waitForElementPE(elementId, timeout = 1000) {
@@ -329,22 +318,13 @@ async function SelecionarClonadoPE() {
       const ArrayClone = JSON.parse(localStorage.getItem('ProdutoClonado'));
 
       for (const item of ArrayClone) {
-        console.log('elemento1');
         const elemento = await waitForElementPE(item);
-        console.log(elemento.id);
         elemento.innerHTML = 'CLONADO';
       }
     }
   }
 }
-const PECheck = document.getElementById('peRadio');
-PECheck.addEventListener('click', vle => {
-  console.log('PE'); SelecionarClonadoPE();
-})
-const PPCheck = document.getElementById('ppRadio');
-PPCheck.addEventListener('click', vle => {
-  console.log('PP'); SelecionarClonadoPE();
-})
+
 
 
 async function waitForElementApagarPP(elementId, timeout = 1000) {
@@ -376,7 +356,6 @@ async function SelecionarClonadoApagarPP() {
 
       for (const item of ArrayClonePP) {
         const elemento = await waitForElementApagarPP(item);
-        console.log(elemento.id);
         elemento.innerHTML = 'CLONAR PRODUTO';
       }
     }
@@ -406,8 +385,6 @@ function ClonarProduto(valor) {
   let arrayClonadosPP = ProdutoClonadoPP ? JSON.parse(ProdutoClonadoPP) : [];
   const SelecionadoProdutoClonado = Number(document.getElementById(valor).name.
     replace('ProdutoClone', ''))
-  console.log(SelecionadoProdutoClonado)
-  console.log(document.getElementById(valor))
   if (document.getElementById(valor).innerHTML == 'CLONADO') {
     document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava clonado!</div></div>';
     if (ativo) {

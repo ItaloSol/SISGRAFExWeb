@@ -120,7 +120,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   $data30 = date('Y-m-d', strtotime('+' . 30 . 'day', strtotime($hoje)));
 
 
-  ?>
+?>
 
 
 
@@ -278,9 +278,21 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               <div class="tab-pane fade show active" id="horizontal-prod">
                 <div class="card">
                   <div id="SelecioandoProduto"></div>
-                  <h5 class="card-header">PRODUTOS <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" id="selecionar_um_produto" data-bs-target="#modal1">
-                      Selecionar um Produto
-                    </button> </h5>
+                  <h5 class="card-header">PRODUTOS
+                    <div class="row">
+                      <div class="col-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" id="selecionar_um_produto" data-bs-target="#modal1">
+                          Selecionar um Produto
+                        </button>
+                      </div>
+                      <div class="col-3">
+                        <button style="display: block; margin-left: 5px;" class="btn btn-outline-primary" onclick="ApagarProdutoSelecioando()">
+                          Limpar produtos selecioandos
+                        </button>
+                      </div>
+                    </div>
+
+                  </h5>
 
                   <div class="table-responsive text-nowrap">
                     <table class="table table-striped">
@@ -506,7 +518,9 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     <div id="SelecaoProdutoss"></div>
                     <div style="height: 400px; width: 100%; overflow-y: scroll; ">
                       <div id="ClonadoProduto"></div>
+                      <div id="ClonadoProduto"></div>
                       <div id="ErroClonar"></div>
+                      <div id="ErroSelecionar"></div>
                       <table class="table table-hover table-sm table-bordered">
                         <thead>
                           <tr>
@@ -532,9 +546,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <div class="card">
                   <h5 class="card-header">Novo Produto</h5>
                   <div id="ApagarProdutoCloando"></div>
+                  <div id="ApagarProdutoSelecioando"></div>
                   <button style="display: block; margin-left: 5px;" class="btn btn-outline-primary" onclick="ApagarProdutoCloando()">
-                                  Limpar seleção de produto
-                                </button>
+                    Limpar seleção de produto
+                  </button>
                   <div class="table-responsive text-nowrap">
                     <div class="card-body">
                       <div class="row mb-3">
@@ -908,7 +923,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 const modal2 = document.getElementById('modal2');
                 if (modal2) {
                   // Adiciona o evento 'hidden.bs.modal' ao segundo modal
-                  modal2.addEventListener('hidden.bs.modal', function (event) {
+                  modal2.addEventListener('hidden.bs.modal', function(event) {
                     // Obtém o elemento do primeiro modal
                     const modal1 = document.getElementById('modal1');
 
@@ -972,7 +987,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   const xhr = new XMLHttpRequest();
                   xhr.open('POST', 'api_produtos.php');
                   xhr.setRequestHeader('Content-Type', 'application/json');
-                  xhr.onreadystatechange = function () {
+                  xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                       const response = JSON.parse(xhr.responseText);
                       exibirBusca(response);
@@ -1012,7 +1027,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                     const peRadio = document.getElementById('peRadio');
                     if (ppRadio) {
                       // adiciona listener de eventos às mudanças nos inputs de rádio
-                      ppRadio.addEventListener('change', function () {
+                      ppRadio.addEventListener('change', function() {
                         SelecionarClonado();
                         // atualiza a tabela com os valores de pp
                         ativo_pp = 'Sim';
@@ -1033,7 +1048,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       });
                     }
                     if (ppRadio) {
-                      peRadio.addEventListener('change', function () {
+                      peRadio.addEventListener('change', function() {
                         SelecionarClonadoPE();
                         // atualiza a tabela com os valores de pe
                         TipoProdutoSelect = 'PE';
@@ -1059,7 +1074,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       tableBody.innerHTML = '';
 
                       let html = '';
-                     
+
                       pp.forEach(produto => {
                         html += `
                         <tr>
@@ -1068,7 +1083,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <td>${produto.DESCRICAO}</td>
                           <td>${produto.VALOR_UNITARIO}</td>
                           <td><button class="btn btn-outline-warning" type="button" name="ProdutoClone${produto.CODIGO}"  id="ProdutoClone${produto.CODPRODUTO}" onclick="ClonarProduto(this.id)">CLONAR PRODUTO</button></td>
-                          <td><button class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Fechar" name="Produto${produto.CODIGO}" id="Produto${produto.CODPRODUTO}" onclick="SelecionarProduto(this.id)" data-bs-dismiss="modal" aria-label="Fechar">Selecionar Produto</button></td>
+                          <td><button class="btn btn-outline-danger" name="Produto${produto.CODIGO}" id="Produto${produto.CODPRODUTO}" onclick="SelecionarProduto(this.id)" data-bs-dismiss="modal" aria-label="Fechar">Selecionar Produto</button></td>
                         </tr>`;
                       });
 
@@ -1079,30 +1094,30 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               </script>
 
               <script>
-                  // const orcamentoproduto = new Vue({
-                  //   el: "#orcamentacaoProduto",
-                  //   data: {
-                  //     produto: 'valor'
-                  //   },
-                  //   methods: {
-                  //     atualizarProduto: function (novoValor) {
-                  //       this.produto = novoValor;
-                  //       this.$emit('produto-atualizado', novoValor);
-                  //     }
-                  //   }
-                  // });
+                // const orcamentoproduto = new Vue({
+                //   el: "#orcamentacaoProduto",
+                //   data: {
+                //     produto: 'valor'
+                //   },
+                //   methods: {
+                //     atualizarProduto: function (novoValor) {
+                //       this.produto = novoValor;
+                //       this.$emit('produto-atualizado', novoValor);
+                //     }
+                //   }
+                // });
 
-                  // const orcamentoselecionado = new Vue({
-                  //   el: "#orcamentacaoselecionado",
-                  //   data: {
-                  //     produto: ''
-                  //   },
-                  //   created: function () {
-                  //     orcamentoproduto.$on('produto-atualizado', (novoValor) => {
-                  //       this.produto = novoValor;
-                  //     });
-                  //   }
-                  // });
+                // const orcamentoselecionado = new Vue({
+                //   el: "#orcamentacaoselecionado",
+                //   data: {
+                //     produto: ''
+                //   },
+                //   created: function () {
+                //     orcamentoproduto.$on('produto-atualizado', (novoValor) => {
+                //       this.produto = novoValor;
+                //     });
+                //   }
+                // });
               </script>
 
               <script>
