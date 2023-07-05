@@ -272,7 +272,21 @@ async function NovoProduto() {
 
 }
 
-
+const selecionar_um_produto = document.getElementById('selecionar_um_produto');
+selecionar_um_produto.addEventListener('click', vle => {
+   SelecionarClonadoPE();
+  SelecionarSelecioando();
+})
+const PECheck = document.getElementById('peRadio');
+PECheck.addEventListener('click', vle => {
+   SelecionarClonadoPE();
+   SelecionarSelecioandoPE();
+})
+const PPCheck = document.getElementById('ppRadio');
+PPCheck.addEventListener('click', vle => {
+   SelecionarClonadoPE();
+  SelecionarSelecioando();
+})
 //  SELECIONAR ACABAMENTO
 
 function selecionarAcabamento(valor) {
