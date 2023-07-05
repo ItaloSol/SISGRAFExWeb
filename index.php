@@ -191,11 +191,12 @@
   <script>
     const btn = document.getElementById('olho');
     const input = document.getElementById('password');
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function() { 
+      console.log(input.getAttribute('type'))
     if(input.getAttribute('type') === 'password') {
-      input.setAttribute('type', 'password');
+      input.setAttribute('type', 'text');
     } else {
-       input.setAttribute('type', 'text');
+       input.setAttribute('type', 'password');
     }
     });
   </script>
