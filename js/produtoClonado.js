@@ -1,16 +1,26 @@
 function RecuperaPapapelClonado() {
-  if (ativo) {
-    const tipo = 'PP';
+  let produto = '';
+    let tipo = '';
+  if (localStorage.getItem('ProdutoClonadoPP') != '[]') {
+    console.log('igual PP');
+     produto = 'ProdutoClonadoPP';
+     tipo = 'PP';
   } else {
-    const tipo = 'PE';
+     tipo = 'PE';
+     produto = 'ProdutoClonado';
   }
-  let produtoSelecionado = localStorage.getItem('produtoSelecionado');
+  console.log(tipo + ' ' + produto);
+  let produtoSelecionado = localStorage.getItem(produto);
   let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
-
+    console.log('etrou no RecuperaPapapelClonado ')
   let promises = arraySelecionados.map(id => {
-    return fetch('api_produto_select.php?id=' + id + '&tipo=' + tipo)
+    console.log('Producura API ');
+    const ids = Number(id.
+    replace('ProdutoClone', ''))
+    console.log('api_produto_select.php?id=' + ids + '&tipo=' + tipo);
+    return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('Resposta ' + data);
         let campo = {};
         if (data.cod_calculo) {
           campo.cod_calculo = data.cod_calculo;
@@ -108,95 +118,185 @@ function RecuperaPapapelClonado() {
   });
   Promise.all(promises).then(campos => {
     campos.forEach(campo => {
+      console.log('entrou na seleção e input');
       if (campo.cod_calculo) {
-        document.getElementById('Novocod_calculo').value = campo.cod_calculo;
+        if(document.getElementById('Novocod_calculo')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('Novocod_calculo').value = campo.cod_calculo;
+        }
       }
       if (campo.CODIGO) {
-        document.getElementById('NovoCODIGO').value = campo.CODIGO;
+        if(document.getElementById('NovoCODIGO')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoCODIGO').value = campo.CODIGO;
+        }
       }
       if (campo.CODIGO_LI) {
-        document.getElementById('NovoCODIGO_LI').value = campo.CODIGO_LI;
+        if(document.getElementById('NovoCODIGO_LI')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoCODIGO_LI').value = campo.CODIGO_LI;
+        }
       }
       if (campo.DESCRICAO) {
-        document.getElementById('Novodescricao').value = campo.DESCRICAO;
+        if(document.getElementById('Novodescricao')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('Novodescricao').value = campo.DESCRICAO;
+        }
       }
       if (campo.LARGURA) {
-        document.getElementById('NovoNovolargura').value = campo.LARGURA;
+        if(document.getElementById('NovoNovolargura')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoNovolargura').value = campo.LARGURA;
+        }
       }
       if (campo.ALTURA) {
-        document.getElementById('Novoaltura').value = campo.ALTURA;
+        if(document.getElementById('Novoaltura')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('Novoaltura').value = campo.ALTURA;
+        }
       }
       if (campo.ESPESSURA) {
-        document.getElementById('Novoespessura').value = campo.ESPESSURA;
+        if(document.getElementById('Novoespessura')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('Novoespessura').value = campo.ESPESSURA;
+        }
       }
       if (campo.PESO) {
-        document.getElementById('Novopeso').value = campo.PESO;
+        if(document.getElementById('Novopeso')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('Novopeso').value = campo.PESO;
+        }
       }
       if (campo.QTD_PAGINAS) {
-        document.getElementById('Novoqtdfolhas').value = campo.QTD_PAGINAS;
+        if(document.getElementById('Novoqtdfolhas')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('Novoqtdfolhas').value = campo.QTD_PAGINAS;
+        }
       }
       if (campo.TIPO) {
-        document.getElementById('NovotipoProduto').value = campo.TIPO;
+        if(document.getElementById('NovotipoProduto')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovotipoProduto').value = campo.TIPO;
+        }
       }
       if (campo.VENDAS) {
-        document.getElementById('Novovendas').value = campo.VENDAS;
+        if(document.getElementById('Novovendas')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('Novovendas').value = campo.VENDAS;
+        }
       }
       if (campo.ATIVO) {
-        document.getElementById('NovoTipoativo').checked = campo.ATIVO;
+        if(document.getElementById('NovoTipoativo')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoTipoativo').checked = campo.ATIVO;
+        }
       }
       if (campo.USO_ECOMMERCE) {
-        document.getElementById('NovoTipoCommerce').checked = campo.USO_ECOMMERCE;
+        if(document.getElementById('NovoTipoCommerce')){
+            document.getElementById('NovoTipoCommerce').checked = campo.USO_ECOMMERCE;
+        }
       }
       if (campo.PRECO_CUSTO) {
-        document.getElementById('NovoPrecoCusto').value = campo.PRECO_CUSTO;
+        if(document.getElementById('NovoPrecoCusto')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoPrecoCusto').value = campo.PRECO_CUSTO;
+        }
       }
       if (campo.PROMOCIONAL) {
-        document.getElementById('NovoTipoPromocional').checked = campo.PROMOCIONAL;
+        if(document.getElementById('NovoTipoPromocional')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoTipoPromocional').checked = campo.PROMOCIONAL;
+        }
       }
-      if (campo.PRECO_PROMOCIONAL) {
-        document.getElementById('NovoPrecoPromocional').value = campo.PRECO_PROMOCIONAL;
+      if (campo.PRECO_PROMOCIONAL){
+        if(document.getElementById('NovoPrecoPromocional')) {
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoPrecoPromocional').value = campo.PRECO_PROMOCIONAL;
+        }
       }
       if (campo.ID_CATEGORIA) {
-        document.getElementById('NovoIdCategoria').value = campo.ID_CATEGORIA;
+        if(document.getElementById('NovoIdCategoria')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoIdCategoria').value = campo.ID_CATEGORIA;
+        }
       }
       if (campo.PRE_VENDA) {
-        document.getElementById('NovoTipoPreVenda').checked = campo.PRE_VENDA;
+        if(document.getElementById('NovoTipoPreVenda')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoTipoPreVenda').checked = campo.PRE_VENDA;
+        }
       }
       if (campo.PROM) {
-        document.getElementById('NovoProm').value = campo.PROM;
+        if(document.getElementById('NovoProm')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoProm').value = campo.PROM;
+        }
       }
       if (campo.VLR_PROM) {
-        document.getElementById('NovoVlrProm').value = campo.VLR_PROM;
+        if(document.getElementById('NovoVlrProm')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoVlrProm').value = campo.VLR_PROM;
+        }
       }
       if (campo.INICIO_PROM) {
-        document.getElementById('NovoInicioProm').value = campo.INICIO_PROM;
+        if(document.getElementById('NovoInicioProm')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoInicioProm').value = campo.INICIO_PROM;
+        }
       }
       if (campo.FIM_PROM) {
-        document.getElementById('NovoFimProm').value = campo.FIM_PROM;
+        if(document.getElementById('NovoFimProm')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoFimProm').value = campo.FIM_PROM;
+        }
       }
       if (campo.ESTOQUE) {
-        document.getElementById('NovoEstoque').value = campo.ESTOQUE;
+        if(document.getElementById('NovoEstoque')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoEstoque').value = campo.ESTOQUE;
+        }
       }
-      if (campo.AVISO_ESTOQUE) {
+      if (campo.AVISO_ESTOQUE)  {
+      if(document.getElementById('NovoAvisoEstoque')){
+          console.log('EXISTE O CAMPO'); 
         document.getElementById('NovoAvisoEstoque').checked = campo.AVISO_ESTOQUE;
       }
-      if (campo.AVISO_ESTOQUE_UN) {
-        document.getElementById('NovoAvisoEstoqueUn').value = campo.AVISO_ESTOQUE_UN;
+      }
+      if (campo.AVISO_ESTOQUE_UN){
+        if(document.getElementById('NovoAvisoEstoqueUn')) {
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoAvisoEstoqueUn').value = campo.AVISO_ESTOQUE_UN;
+        }
       }
       if (campo.VLR_UNIT) {
-        document.getElementById('NovoVlrUnit').value = campo.VLR_UNIT;
+        if(document.getElementById('NovoVlrUnit')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoVlrUnit').value = campo.VLR_UNIT;
+        }
       }
       if (campo.ULT_MOV) {
-        document.getElementById('NovoUltMov').value = campo.ULT_MOV;
+        if(document.getElementById('NovoUltMov')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoUltMov').value = campo.ULT_MOV;
+        }
       }
       if (campo.PD_QTD_MIN) {
-        document.getElementById('NovoPdQtdMin').value = campo.PD_QTD_MIN;
+        if(document.getElementById('NovoPdQtdMin')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoPdQtdMin').value = campo.PD_QTD_MIN;
+        }
       }
       if (campo.PD_MAX) {
-        document.getElementById('NovoPdMax').value = campo.PD_MAX;
+        if(document.getElementById('NovoPdMax')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoPdMax').value = campo.PD_MAX;
+        }
       }
       if (campo.PD_QTD_MAX) {
-        document.getElementById('NovoPdQtdMax').value = campo.PD_QTD_MAX;
+        if(document.getElementById('NovoPdQtdMax')){
+          console.log('EXISTE O CAMPO');
+          document.getElementById('NovoPdQtdMax').value = campo.PD_QTD_MAX;
+        }
       }
     });
   });
@@ -217,6 +317,7 @@ async function waitForElement(elementId, timeout = 1000) {
         if (elapsedTime >= timeout) {
           resolve(null);
         } else {
+          console.log('EXISTE O CAMPO');
           document.getElementById('ErroClonar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO CLONADO!<br> Verifique a aba "Novo Produto </div></div>';
           setTimeout(checkElement, 100);
         }
@@ -234,10 +335,14 @@ async function SelecionarClonado() {
     }, 5000);
     if (localStorage.getItem('ProdutoClonadoPP')) {
       const ArrayClonePP = JSON.parse(localStorage.getItem('ProdutoClonadoPP'));
-
+      
       for (const item of ArrayClonePP) {
         const elemento = await waitForElement(item);
         elemento.innerHTML = 'CLONADO';
+      }
+      for (const item of ArrayClonePP) {
+        const elemento = await waitCampos(item);
+        RecuperaPapapelClonado();
       }
     }
   }
@@ -256,6 +361,7 @@ async function waitForElementSelecionado(elementId, timeout = 1000) {
         if (elapsedTime >= timeout) {
           resolve(null);
         } else {
+          console.log('EXISTE O CAMPO');
           document.getElementById('ErroClonar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO CLONADO!<br> Verifique a aba "Novo Produto </div></div>';
           setTimeout(checkElement, 100);
         }
@@ -298,6 +404,7 @@ async function waitForElementPE(elementId, timeout = 1000) {
         if (elapsedTime >= timeout) {
           resolve(null);
         } else {
+          console.log('EXISTE O CAMPO');
           document.getElementById('ErroClonar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO CLONADO!<br> Verifique a aba "Novo Produto </div></div>';
           setTimeout(checkElement, 100);
         }
@@ -316,6 +423,7 @@ async function SelecionarClonadoPE() {
     }, 5000);
     if (localStorage.getItem('ProdutoClonado')) {
       const ArrayClone = JSON.parse(localStorage.getItem('ProdutoClonado'));
+      RecuperaPapapelClonado();
 
       for (const item of ArrayClone) {
         const elemento = await waitForElementPE(item);
