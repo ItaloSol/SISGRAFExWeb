@@ -7,12 +7,12 @@ $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
 $hora = date('H:i:s');
 $Solicitacao = json_decode(file_get_contents("php://input"), true);
-$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod, p.*, c.* FROM produtos p
+$query_produtosa = $conexao->prepare("SELECT DISTINCT c.cod, p.*, c.* FROM produtos p
 INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO
 ORDER BY p.CODIGO DESC LIMIT 45");
-$query_produtos->execute();
+$query_produtosa->execute();
 $pp = [];
-while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
+while ($linha = $query_produtosa->fetch(PDO::FETCH_ASSOC)) {
     $pp[] = [
         'CODIGO' => $linha['CODIGO'], // Ajuste para $linha['id']
         'CODPRODUTO' => $linha['cod'], // Ajuste para $linha['cod_produto']

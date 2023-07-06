@@ -63,6 +63,10 @@ if (isset($_POST['sim'])) {
   //     // expedicao
    $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO'  ";
    }
+   if ($codSts == '13') {
+    // CTP
+    $staDe = "DT_CANCELAMENTO = '" . $data . "' ";
+  }
    if($codSts == '17'){
     //     // expedicao
      $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO' ";
