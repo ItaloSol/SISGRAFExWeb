@@ -22,6 +22,7 @@ function RecuperaPapapelClonado() {
       .then(response => response.json())
       .then(data => { console.log('Resposta ' + data);
         let campo = {};
+        console.log(data)
         if (data.cod_calculo) {
           campo.cod_calculo = data.cod_calculo;
         }
@@ -31,11 +32,13 @@ function RecuperaPapapelClonado() {
         if (data.CODIGO_LI) {
           campo.CODIGO_LI = data.CODIGO_LI;
         }
+        console.log('Valor da descrição ' + data.DESCRICAO);
         if (data.DESCRICAO) {
           campo.DESCRICAO = data.DESCRICAO;
         }
         if (data.LARGURA) {
           campo.LARGURA = data.LARGURA;
+          document.getElementById('NovoNovolargura').value = data.LARGURA;
         }
         if (data.ALTURA) {
           campo.ALTURA = data.ALTURA;
@@ -119,6 +122,7 @@ function RecuperaPapapelClonado() {
   Promise.all(promises).then(campos => {
     campos.forEach(campo => {
       console.log('entrou na seleção e input');
+      console.log(campo)
       if (campo.cod_calculo) {
         if(document.getElementById('Novocod_calculo')){
           console.log('EXISTE O CAMPO');
@@ -342,7 +346,7 @@ async function SelecionarClonado() {
       }
       for (const item of ArrayClonePP) {
         const elemento = await waitCampos(item);
-        RecuperaPapapelClonado();
+        
       }
     }
   }
@@ -423,7 +427,7 @@ async function SelecionarClonadoPE() {
     }, 5000);
     if (localStorage.getItem('ProdutoClonado')) {
       const ArrayClone = JSON.parse(localStorage.getItem('ProdutoClonado'));
-      RecuperaPapapelClonado();
+     
 
       for (const item of ArrayClone) {
         const elemento = await waitForElementPE(item);
@@ -433,7 +437,9 @@ async function SelecionarClonadoPE() {
   }
 }
 
-
+async function ativarRecuperacao(){
+  
+}
 
 async function waitForElementApagarPP(elementId, timeout = 1000) {
   return new Promise((resolve) => {
@@ -514,6 +520,7 @@ function ClonarProduto(valor) {
     if (elemento) {
       var tab = new bootstrap.Tab(elemento); // Cria uma nova instância do objeto Tab
       tab.show(); // Ativa a guia "Novo Produto"
+      
     }
     document.getElementById(valor).innerHTML = 'CLONADO'
   }
@@ -521,5 +528,6 @@ function ClonarProduto(valor) {
   localStorage.setItem('ProdutoClonadoPP', JSON.stringify(arrayClonadosPP));
   setTimeout(function () {
     document.getElementById('ClonadoProduto').innerHTML = '';
+    RecuperaPapapelClonado();
   }, 1500);
 }

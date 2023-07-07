@@ -282,6 +282,10 @@ PECheck.addEventListener('click', vle => {
    SelecionarClonadoPE();
    SelecionarSelecioandoPE();
 })
+const novoo = document.getElementById('novo-produto');
+novoo.addEventListener('click', vle => {
+  RecuperaPapapelClonado();
+})
 const PPCheck = document.getElementById('ppRadio');
 PPCheck.addEventListener('click', vle => {
    SelecionarClonadoPE();
