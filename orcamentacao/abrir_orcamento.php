@@ -575,14 +575,14 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div class="row mb-3">
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="NovoLARGURA">LARGURA</label>
-                          <input type="number" id="NovoNovolargura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                          <input type="text" id="NovoNovolargura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="NovoALTURA">ALTURA</label>
                           <input type="number" id="Novoaltura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="NovoESPESSURA">ESPESSURA</label>
+                          <label class="col-sm-2 col-form-label" for="Novoespessura">ESPESSURA</label>
                           <input type="number" id="Novoespessura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
                         <div class="col-sm-3">
