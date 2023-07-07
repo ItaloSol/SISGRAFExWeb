@@ -26,8 +26,15 @@ function selecionarPapel(valor) {
   recuperarNomesPapel()
 }
 
-
-
+function checkedAcabamento(){
+  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+  if (document.getElementById('selecionarAcabamentos')) {
+    ArrayAcabamentos.map((item) => {
+      document.getElementById('Acaba' + item).setAttribute('checked', 'checked');
+    })
+  }
+}
+function checkedPapel() {
 if (localStorage.getItem('papelSelecionado')) {
   recuperarNomesPapel();
   const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
@@ -36,6 +43,7 @@ if (localStorage.getItem('papelSelecionado')) {
       document.getElementById('Papel' + item).setAttribute('checked', 'checked');
     })
   }
+}
 }
 
 function recuperarNomesPapel() {
@@ -293,10 +301,28 @@ PPCheck.addEventListener('click', vle => {
 })
 //  SELECIONAR ACABAMENTO
 
+function adicionarAcabamentoDoClone(valor){
+    let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
+  let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
+  arraySelecionados.push(valor);
+  localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
+  recuperarNomesAcabamento();
+}
+
+function adicionarPapelDoClone(valor) {
+  let PapelSelecionado = localStorage.getItem('papelSelecionado');
+  let arraySelecionados = PapelSelecionado ? JSON.parse(PapelSelecionado) : [];
+  arraySelecionados.push(valor);
+  localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
+  recuperarNomesPapel();
+}
+
+
+
 function selecionarAcabamento(valor) {
+  
   const selecionado = document.getElementById(valor);
 
-  // console.log(selecionado.value);
   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
 
@@ -322,12 +348,6 @@ function selecionarAcabamento(valor) {
 }
 if (localStorage.getItem('AcabamentoSelecionado')) {
   recuperarNomesAcabamento();
-  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  if (document.getElementById('selecionarAcabamentos')) {
-    ArrayAcabamentos.map((item) => {
-      document.getElementById('Acaba' + item).setAttribute('checked', 'checked');
-    })
-  }
 }
 
 

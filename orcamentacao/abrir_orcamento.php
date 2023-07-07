@@ -465,8 +465,9 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   </div>
   <!-- Botão para abrir o primeiro modal -->
   <!-- Primeiro modal PRODUTOS GERAL -->
-  <div class="modal" id="modal1">
 
+  <div class="modal" id="modal1">
+  <div id="load" style="position:absolute;background-color: #0056; width: 100%; height: 100%; z-index: 1; align-items: center; justify-content: center; display: none; color: white; font-size: 40px;"><img src="../img/preloader.svg"></div>
     <div class="modal-dialog modal-fullscreen" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -542,6 +543,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 </div>
               </div>
               <!-- novo produto -->
+              
               <div class="tab-pane fade" id="novo1-produto">
                 <div class="card">
                   <h5 class="card-header">Novo Produto</h5>
@@ -568,7 +570,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="Novodescricao">DESCRIÇÃO DO PRODUTO</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="Novodescricao" placeholder="NovoDESCRIÇÃO" />
+                          <input type="text" class="form-control" id="Novodescricao" placeholder="DESCRIÇÃO" />
                           <div class="form-text">MÁXIMO 150 CARACTERES</div>
                         </div>
                       </div>
