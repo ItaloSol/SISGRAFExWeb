@@ -19,7 +19,7 @@ if (empty($Solicitacao)) {
   } else {
     $tabela = 'produtos_pr_ent';
   }
-
+  $qtd_acabamentos = 0;
   $query_produtos = $conexao->prepare("
   SELECT c.cod AS cod_calculo, 
    p.DESCRICAO AS descricao_produto,
@@ -37,6 +37,8 @@ if (empty($Solicitacao)) {
    p.PRECO_CUSTO AS PRECO_CUSTOguinho,
    p.PROMOCIONAL AS PROMOCIONALguinho,
    p.PRECO_PROMOCIONAL AS PRECO_PROMOCIONALguinho,
+   c.cod_produto AS cod_produtinho,
+   pa.*,
      pp.*,
       c.*
   FROM tabela_calculos_op c 
@@ -145,10 +147,20 @@ if (empty($Solicitacao)) {
     } else {
         $VALOR["tipo_produto_papel"] = null;
     }
-    
-    if (isset($linha['cod_produto'])) {
+   
+    if (isset($linha['cod_produtinho'])) {
+        $cod_produto = $linha['cod_produtinho'];
+        $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE cod_produto = $cod_produto  ");
+        $query_do_acabamento->execute();
+        while($linha4 = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
+            $cod_acabamento = $linha4['cod_acabamento'];
+                $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acabamento;
+            $qtd_acabamentos++;
+        }
+        $VALOR["cod_acabamentos"] = $Do_Acabamento_cod;
         $VALOR["cod_produto_papel"] = $linha['cod_produto'];
-    } else {
+    }else{
+        $VALOR["cod_acabamentos"] = null;
         $VALOR["cod_produto_papel"] = null;
     }
     
@@ -157,7 +169,11 @@ if (empty($Solicitacao)) {
     } else {
         $VALOR["cod_papel"] = null;
     }
-    
+    if (isset($linha['cod_acabamento'])) {
+        $VALOR["cod_acabamento"] = $linha['cod_acabamento'];
+    } else {
+        $VALOR["cod_acabamento"] = null;
+    }
     if (isset($linha['tipo_papel'])) {
         $VALOR["tipo_papel"] = $linha['tipo_papel'];
     } else {
