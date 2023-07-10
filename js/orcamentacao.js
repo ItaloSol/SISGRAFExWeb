@@ -1,7 +1,6 @@
 function selecionarPapel(valor) {
   const selecionado = document.getElementById(valor);
   // console.log(selecionado.checked);
-
   let papelSelecionado = localStorage.getItem('papelSelecionado');
   let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
@@ -30,7 +29,7 @@ function checkedAcabamento(){
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
   if (document.getElementById('selecionarAcabamentos')) {
     ArrayAcabamentos.map((item) => {
-      document.getElementById('Acaba' + item).setAttribute('checked', 'checked');
+      document.getElementById('Acaba' + item).checked = true;
     })
   }
 }
@@ -40,7 +39,7 @@ if (localStorage.getItem('papelSelecionado')) {
   const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
   if (document.getElementById('PapelsSelecionado')) {
     ArrayPapels.map((item) => {
-      document.getElementById('Papel' + item).setAttribute('checked', 'checked');
+      document.getElementById('Papel' + item).checked = true;
     })
   }
 }
@@ -132,6 +131,7 @@ function recuperarNomesPapel() {
 function ApagarPapel(valor) {
   // Defina o nome do item que você deseja remover
   var itemKey = valor;
+  if(localStorage.getItem('papelSelecionado') != '[]' && localStorage.getItem('papelSelecionado') != null){
   const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
   if (document.getElementById('PapelsSelecionado')) {
     ArrayPapels.map((item) => {
@@ -146,6 +146,7 @@ function ApagarPapel(valor) {
   setTimeout(function () {
     document.getElementById('mensagemPapelApagado').innerHTML = '';
   }, 1000);
+}
 }
 // Adicione event listeners aos elementos relevantes
 if (document.getElementById('descricao')) {
@@ -307,6 +308,7 @@ function adicionarAcabamentoDoClone(valor){
   arraySelecionados.push(valor);
   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
   recuperarNomesAcabamento();
+  checkedAcabamento();
 }
 
 function adicionarPapelDoClone(valor) {
@@ -315,6 +317,7 @@ function adicionarPapelDoClone(valor) {
   arraySelecionados.push(valor);
   localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
   recuperarNomesPapel();
+  checkedPapel();
 }
 
 
@@ -409,6 +412,7 @@ function recuperarNomesAcabamento() {
 function ApagarAcabamento(valor) {
   // Defina o nome do item que você deseja remover
   var itemKey = valor;
+  if(localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null){
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
   if (document.getElementById('selecionarAcabamentos')) {
     ArrayAcabamentos.map((item) => {
@@ -423,4 +427,5 @@ function ApagarAcabamento(valor) {
   setTimeout(function () {
     document.getElementById('mensagemAcabamento').innerHTML = '';
   }, 1000);
+  }
 }

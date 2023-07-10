@@ -37,7 +37,6 @@ if (empty($Solicitacao)) {
    p.PRECO_CUSTO AS PRECO_CUSTOguinho,
    p.PROMOCIONAL AS PROMOCIONALguinho,
    p.PRECO_PROMOCIONAL AS PRECO_PROMOCIONALguinho,
-   c.cod_produto AS cod_produtinho,
    pa.*,
      pp.*,
       c.*
@@ -48,7 +47,7 @@ if (empty($Solicitacao)) {
   LEFT JOIN produtos_pr_ent pp ON pp.CODIGO = p.CODIGO
   WHERE c.cod = $pesquisa
 ");
-  
+
   $query_produtos->execute();
   if ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
     $VALOR = [];
@@ -148,8 +147,8 @@ if (empty($Solicitacao)) {
         $VALOR["tipo_produto_papel"] = null;
     }
    
-    if (isset($linha['cod_produtinho'])) {
-        $cod_produto = $linha['cod_produtinho'];
+    if (isset($linha['cod_produto'])) {
+        $cod_produto = $linha['cod_produto'];
         $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE cod_produto = $cod_produto  ");
         $query_do_acabamento->execute();
         while($linha4 = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
@@ -222,7 +221,6 @@ if (empty($Solicitacao)) {
         $VALOR["DESCRICAO_calculos"] = null;
     }
       // ...
-    
     if ($tabela == 'produtos') {
       $VALOR["cod_calculo"] = $linha['cod_calculo'];
       $VALOR["CODIGO"] = $linha['CODIGOguinho'];
@@ -260,6 +258,8 @@ if (empty($Solicitacao)) {
       $VALOR["PD_MAX"] = $linha['PD_MAX'];
       $VALOR["PD_QTD_MAX"] = $linha['PD_QTD_MAX'];
     }
+  }else{
+    $VALOR = [null, 'erro'];
   }
 
   echo json_encode($VALOR);
