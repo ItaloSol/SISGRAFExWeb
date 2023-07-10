@@ -2,13 +2,16 @@ function RecuperaPapapelClonado() {
   if (localStorage.getItem('AcabamentoSelecionado')) {
     ApagarAcabamento('AcabamentoSelecionado');
   }
+  if (localStorage.getItem('papelSelecionado')) {
+    ApagarPapel('papelSelecionado');
+  }
   if (localStorage.getItem('ProdutoClonadoPP') != '[]' || localStorage.getItem('ProdutoClonado') != '[]') {
     if (localStorage.getItem('ProdutoClonadoPP') != null || localStorage.getItem('ProdutoClonado') != null) {
 
       document.getElementById('load').style.display = 'flex';
       let produto = '';
       let tipo = '';
-      if (localStorage.getItem('ProdutoClonadoPP') != '[]') {
+      if (localStorage.getItem('ProdutoClonadoPP') != '[]' && localStorage.getItem('ProdutoClonadoPP') != null) {
         produto = 'ProdutoClonadoPP';
         tipo = 'PP';
       } else {
@@ -23,6 +26,9 @@ function RecuperaPapapelClonado() {
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
+            if(data[1] == 'erro'){
+             ApagarProdutoCloando();
+            }
             let campo = {};
             if (data.cod_calculo) {
               campo.cod_calculo = data.cod_calculo;
@@ -143,8 +149,7 @@ function RecuperaPapapelClonado() {
               setTimeout(function () {
                 var elemento = document.getElementById(data.cod_papel);
                 adicionarPapelDoClone(data.cod_papel);
-                checkedPapel();
-              }, 10);
+              }, 100);
 
             }
             if (data.cod_acabamentos) {
@@ -161,8 +166,7 @@ function RecuperaPapapelClonado() {
                 setTimeout(function () {
                   var elemento = document.getElementById(valor);
                   adicionarAcabamentoDoClone(valor);
-                  checkedAcabamento();
-                }, 10);
+                }, 100);
 
               })
 
@@ -365,7 +369,7 @@ function RecuperaPapapelClonado() {
       setTimeout(function () {
         document.getElementById('ErroClonar').innerHTML = '';
       }, 5000);
-      if (localStorage.getItem('ProdutoClonadoPP')) {
+      if (localStorage.getItem('ProdutoClonadoPP') != '[]' && localStorage.getItem('ProdutoClonadoPP') != null) {
         const ArrayClonePP = JSON.parse(localStorage.getItem('ProdutoClonadoPP'));
 
         for (const item of ArrayClonePP) {
@@ -408,7 +412,7 @@ function RecuperaPapapelClonado() {
       setTimeout(function () {
         document.getElementById('ErroClonar').innerHTML = '';
       }, 5000);
-      if (localStorage.getItem('ProdutoClonadoPP')) {
+      if (localStorage.getItem('ProdutoClonadoPP') != '[]' && localStorage.getItem('ProdutoClonadoPP') != null) {
         const ArrayClonePP = JSON.parse(localStorage.getItem('ProdutoClonadoPP'));
 
         for (const item of ArrayClonePP) {
@@ -418,7 +422,7 @@ function RecuperaPapapelClonado() {
       }
     }
   }
-  if (localStorage.getItem('ProdutoClonadoPP') != '[]') {
+  if (localStorage.getItem('ProdutoClonadoPP') != '[]' && localStorage.getItem('ProdutoClonadoPP') != null) {
     SelecionarClonado();
   }
   async function waitForElementPE(elementId, timeout = 1000) {
@@ -451,7 +455,7 @@ function RecuperaPapapelClonado() {
       setTimeout(function () {
         document.getElementById('ErroClonar').innerHTML = '';
       }, 5000);
-      if (localStorage.getItem('ProdutoClonado')) {
+      if (localStorage.getItem('ProdutoClonado') != '[]' && localStorage.getItem('ProdutoClonado') != null) {
         const ArrayClone = JSON.parse(localStorage.getItem('ProdutoClonado'));
 
 
@@ -491,12 +495,14 @@ function RecuperaPapapelClonado() {
 
   async function SelecionarClonadoApagarPP() {
     if (document.getElementById('produtosTableBody')) {
-      if (localStorage.getItem('ProdutoClonadoPP')) {
+      if (localStorage.getItem('ProdutoClonadoPP') != '[]' && localStorage.getItem('ProdutoClonadoPP') != null ) {
         const ArrayClonePP = JSON.parse(localStorage.getItem('ProdutoClonadoPP'));
 
         for (const item of ArrayClonePP) {
           const elemento = await waitForElementApagarPP(item);
-          elemento.innerHTML = 'CLONAR PRODUTO';
+          if(document.getElementById(elemento)){
+            elemento.innerHTML = 'CLONAR PRODUTO';
+          }
         }
       }
     }
@@ -511,20 +517,22 @@ function RecuperaPapapelClonado() {
     localStorage.removeItem('ProdutoClonado');
     document.getElementById('ApagarProdutoCloando').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de produto Clonado Limpa</div></div>';
 
-    setTimeout(function () {
-      document.getElementById('ApagarProdutoCloando').innerHTML = '';
-    }, 1000);
+    
     ApagarPapel('papelSelecionado');
     ApagarAcabamento('AcabamentoSelecionado');
     document.getElementById('load').style.display = 'none';
+    setTimeout(function () {
+      document.getElementById('ApagarProdutoCloando').innerHTML = '';
+      window.location.reload(true);
+    }, 1000);
   }
 
   function ClonarProduto(valor) {
     document.getElementById('load').style.display = 'flex';
-    if (localStorage.getItem('ProdutoClonadoPP')) {
+    if (localStorage.getItem('ProdutoClonadoPP') != '[]' && localStorage.getItem('ProdutoClonadoPP') != null) {
       SelecionarClonadoApagarPP();
     }
-    if (localStorage.getItem('ProdutoClonado')) {
+    if (localStorage.getItem('ProdutoClonado') != '[]' && localStorage.getItem('ProdutoClonado') != null) {
       ApagarProdutoCloando();
     }
     const PP = document.getElementById('ppRadio');

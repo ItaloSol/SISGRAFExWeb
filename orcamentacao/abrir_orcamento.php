@@ -549,7 +549,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   <h5 class="card-header">Novo Produto</h5>
                   <div id="ApagarProdutoCloando"></div>
                   <div id="ApagarProdutoSelecioando"></div>
-                  <button style="display: block; margin-left: 5px;" class="btn btn-outline-primary" onclick="ApagarProdutoCloando()">
+                  <button style="display: block; margin-left: 5px;" class="btn btn-primary" onclick="ApagarProdutoCloando()">
                     Limpar seleção de produto
                   </button>
                   <div class="table-responsive text-nowrap">
