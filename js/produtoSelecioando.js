@@ -1,3 +1,311 @@
+function RecuperaProdutoSelecionado() {
+  let codigo_do_produto = [];
+  if (localStorage.getItem('AcabamentoSelecionado')) {
+    ApagarAcabamento('AcabamentoSelecionado');
+  }
+  if (localStorage.getItem('papelSelecionado')) {
+    ApagarPapel('papelSelecionado');
+  }
+  if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' || localStorage.getItem('ProdutoSelecionado') != '[]') {
+    if (localStorage.getItem('ProdutoSelecionadoPP') != null || localStorage.getItem('ProdutoSelecionado') != null) {
+
+      document.getElementById('load1').style.display = 'flex';
+      let produto = '';
+      let tipo = '';
+      if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
+        produto = 'ProdutoSelecionadoPP';
+        tipo = 'PP';
+      } else {
+        tipo = 'PE';
+        produto = 'ProdutoSelecionado';
+      }
+         tableBody = document.getElementById('tabela_campos');
+         tableBody.innerHTML = '';
+         tableBody.innerHTML += `
+      <thead>
+      <tr>
+      <th>CÓDIGO PRODUTO</th>
+        <th>CÓDIGO PAPEL</th>
+        <th>DESCRIÇÃO</th>
+        <th>CF</th>
+        <th>CV</th>
+        <th>FORMATO IMPRESSÃO</th>
+        <th>PERCA(%)</th>
+        <th>GASTO FOLHA</th>
+        <th>PREÇO FOLHA</th>
+        <th>QUANTIDADE DE CHAPAS</th>
+        <th>PREÇO CHAPA</th>
+      </tr>
+    </thead>`;
+      let produtoSelecionado = localStorage.getItem(produto);
+      let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
+      let promises = arraySelecionados.map(id => {
+  
+
+        const ids = Number(id.
+          replace('Produto', ''))
+          
+        return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
+          .then(response => response.json())
+          .then(data => {
+            if(data[1] == 'erro'){
+             ApagarProdutoSelecioando();
+            }
+            let campo = {};
+            if (data.cod_calculo) {
+              campo.cod_calculo = data.cod_calculo;
+            }
+            if (data.CODIGO) {
+              campo.CODIGO = data.CODIGO;
+            }
+            if (data.unitario) {
+              campo.unitario = data.unitario;
+            }
+            if (data.CODIGO_LI) {
+              campo.CODIGO_LI = data.CODIGO_LI;
+            }
+            if (data.DESCRICAO) {
+              campo.DESCRICAO = data.DESCRICAO;
+            }
+            if (data.LARGURA) {
+              campo.LARGURA = data.LARGURA;
+              document.getElementById('NovoNovolargura').value = data.LARGURA;
+            }
+            if (data.quantidade) {
+              campo.quantidade = data.quantidade;
+            }
+            if (data.descrisaozinha_prod) {
+              campo.descrisaozinha_prod = data.descrisaozinha_prod;
+            }
+            if (data.cod_produto) {
+              
+              campo.cod_produto = data.cod_produto;
+            }
+            if (data.observacao_produto) {
+              campo.observacao_produto = data.observacao_produto;
+            }
+            if (data.preco_unitario) {
+              campo.preco_unitario = data.preco_unitario;
+            }
+            if (data.valor_digital) {
+              campo.valor_digital = data.valor_digital;
+            }
+            if (data.tipo_trabalho) {
+              campo.tipo_trabalho = data.tipo_trabalho;
+            }
+            if (data.maquina) {
+              campo.maquina = data.maquina;
+            }
+            if (data.ESPESSURA) {
+              campo.ESPESSURA = data.ESPESSURA;
+            }
+            if (data.PESO) {
+              campo.PESO = data.PESO;
+            }
+            if (data.QTD_PAGINAS) {
+              campo.QTD_PAGINAS = data.QTD_PAGINAS;
+            }
+            if (data.TIPO) {
+              campo.TIPO = data.TIPO;
+            }
+            if (data.cod_papel) {
+              campo.cod_papel = data.cod_papel;
+            }
+            if (data.VENDAS) {
+              campo.VENDAS = data.VENDAS;
+            }
+            if (data.ATIVO) {
+              campo.ATIVO = data.ATIVO;
+            }
+            if (data.USO_ECOMMERCE) {
+              campo.USO_ECOMMERCE = data.USO_ECOMMERCE;
+            }
+            if (data.PRECO_CUSTO) {
+              campo.PRECO_CUSTO = data.PRECO_CUSTO;
+            }
+            if (data.PROMOCIONAL) {
+              campo.PROMOCIONAL = data.PROMOCIONAL;
+            }
+            if (data.PRECO_PROMOCIONAL) {
+              campo.PRECO_PROMOCIONAL = data.PRECO_PROMOCIONAL;
+            }
+            if (data.ID_CATEGORIA) {
+              campo.ID_CATEGORIA = data.ID_CATEGORIA;
+            }
+            if (data.cod_acabamentos) {
+              campo.cod_acabamentos = data.cod_acabamentos;
+            }
+            if (data.PRE_VENDA) {
+              campo.PRE_VENDA = data.PRE_VENDA;
+            }
+            if (data.cod_produto_papel) {
+              campo.cod_produto_papel = data.cod_produto_papel;
+            }
+            if (data.PROM) {
+              campo.PROM = data.PROM;
+            }
+            if (data.VLR_PROM) {
+              campo.VLR_PROM = data.VLR_PROM;
+            }
+            if (data.INICIO_PROM) {
+              campo.INICIO_PROM = data.INICIO_PROM;
+            }
+            if (data.FIM_PROM) {
+              campo.FIM_PROM = data.FIM_PROM;
+            }
+            if (data.ESTOQUE) {
+              campo.ESTOQUE = data.ESTOQUE;
+            }
+            if (data.AVISO_ESTOQUE) {
+              campo.AVISO_ESTOQUE = data.AVISO_ESTOQUE;
+            }
+            if (data.AVISO_ESTOQUE_UN) {
+              campo.AVISO_ESTOQUE_UN = data.AVISO_ESTOQUE_UN;
+            }
+            if (data.VLR_UNIT) {
+              campo.VLR_UNIT = data.VLR_UNIT;
+            }
+            if (data.ULT_MOV) {
+              campo.ULT_MOV = data.ULT_MOV;
+            }
+            if (data.PD_QTD_MIN) {
+              campo.PD_QTD_MIN = data.PD_QTD_MIN;
+            }
+            if (data.PD_MAX) {
+              campo.PD_MAX = data.PD_MAX;
+            }
+            if (data.PD_QTD_MAX) {
+              campo.PD_QTD_MAX = data.PD_QTD_MAX;
+            }
+
+            if (data.cod_papel != null) {
+
+              var inputElementPapel = document.createElement("input");
+
+              // Definindo o ID, valor e tipo do input
+              inputElementPapel.id = data.cod_papel;
+              inputElementPapel.type = "hidden";
+              inputElementPapel.value = data.cod_papel;
+
+              // Adicionando o input ao corpo do documento (body)
+              document.body.appendChild(inputElementPapel);
+
+              setTimeout(function () {
+                var elemento = document.getElementById(data.cod_papel);
+                adicionarPapelDoClone(data.cod_papel);
+              }, 100);
+
+            }
+            if (data.cod_acabamentos) {
+              data.cod_acabamentos.forEach(valor => {
+                var inputElementAcabamento = document.createElement("input");
+                inputElementAcabamento.id = valor;
+                inputElementAcabamento.value = valor;
+                inputElementAcabamento.type = "hidden";
+
+                // Adicionando o input ao corpo do documento (body)
+                document.body.appendChild(inputElementAcabamento);
+
+                // Acessando o elemento pelo ID após um pequeno atraso
+                setTimeout(function () {
+                  var elemento = document.getElementById(valor);
+                  adicionarAcabamentoDoClone(valor);
+                }, 100);
+
+              })
+
+            }
+            return campo;
+          });
+          
+      });
+      
+      Promise.all(promises).then(campos => {
+        const tableProduto = document.getElementById('SelecionadoProudutosProduto');
+        tableProduto.innerHTML = '';
+        tableProduto.innerHTML += `
+            <thead>
+              <tr>
+              <th>CÓDIGO</th>
+              <th>DESCRIÇÃO</th>
+              <th>LARGURA</th>
+              <th>ALTURA</th>
+              <th>QTD.PÁGINAS</th>
+              </tr>
+          </thead>`;
+        if (!promises || promises.length === 0) {
+          tableProduto.innerHTML += `
+            <tr>
+            <td align="center" colspan="5">
+              NENHUM SELECIONADO
+            </td>
+          </tr>`;
+        }
+        const tableTiragens = document.getElementById('ProdutoTIragens');
+        tableTiragens.innerHTML = '';
+        tableTiragens.innerHTML += `
+            <thead>
+              <tr>
+              <th>PRODUTO</th>
+                          <th>QUANTIDADE</th>
+                          <th>DIGITAL</th>
+                          <th>OFFSET</th>
+                          <th>VALOR IMPRESSÃO DIGITAL</th>
+                          <th>VALOR UNIDADE</th>
+              </tr>
+          </thead>`;
+        if (!promises || promises.length === 0) {
+          tableTiragens.innerHTML += `
+            <tr>
+            <td align="center" colspan="7">
+              NENHUM SELECIONADO
+            </td>
+          </tr>`;
+        }
+        
+        campos.forEach(campo => {
+          
+            if(campo.cod_produto){
+           codigo_do_produto.push(campo.cod_produto);
+              
+           
+           
+            }
+          tableProduto.innerHTML += `
+          <tr>
+            <td>${campo.cod_produto}</td>
+            <td>${campo.DESCRICAO}</td>
+            <td>${campo.LARGURA}</td>
+            <td>${campo.ALTURA}</td>
+            <td>${campo.QTD_PAGINAS}</td>
+          </tr>`;
+
+          tableTiragens.innerHTML += `
+          <tr>
+            <td>${campo.cod_produto}</td>
+            <td>${campo.quantidade}</td>
+            <td>${campo.maquina}</td>
+            <td>${campo.maquina}</td>
+            <td>${campo.valor_digital}</td>
+            <td>${campo.preco_unitario}</td>
+          </tr>`;
+        
+        });
+       
+    
+        setTimeout(function () {
+          console.log(codigo_do_produto);
+          recuperarNomesPapel('1', codigo_do_produto);
+        recuperarNomesAcabamento('seleccionadoacabamentos');
+        document.getElementById('load1').style.display = 'none';
+        }, 1000);
+        
+        
+      });
+    }
+  }
+  }
+
 async function waitForElement(elementId, timeout = 1000) {
   return new Promise((resolve) => {
     const startTime = Date.now();
@@ -26,14 +334,16 @@ async function SelecionarSelecioando() {
   if (document.getElementById('produtosTableBody')) {
     setTimeout(function () {
       document.getElementById('ErroSelecionar').innerHTML = '';
+      document.getElementById('load1').style.display = 'none';
     }, 5000);
-    if (localStorage.getItem('ProdutoSelecioandoPP')) {
-      const ArraySelecionadoPP = JSON.parse(localStorage.getItem('ProdutoSelecioandoPP'));
+    if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
+      const ArraySelecionadoPP = JSON.parse(localStorage.getItem('ProdutoSelecionadoPP'));
 
       for (const item of ArraySelecionadoPP) {
         const elemento = await waitForElement(item);
         elemento.innerHTML = 'Selecioando';
       }
+      document.getElementById('load1').style.display = 'none';
     }
   }
 }
@@ -66,8 +376,8 @@ async function SelecionarProdutoSelecioando() {
     setTimeout(function () {
       document.getElementById('ErroSelecionar').innerHTML = '';
     }, 5000);
-    if (localStorage.getItem('ProdutoSelecioandoPP')) {
-      const ArraySelecionadoPP = JSON.parse(localStorage.getItem('ProdutoSelecioandoPP'));
+    if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
+      const ArraySelecionadoPP = JSON.parse(localStorage.getItem('ProdutoSelecionadoPP'));
 
       for (const item of ArraySelecionadoPP) {
         const elemento = await waitForElement(item);
@@ -76,7 +386,8 @@ async function SelecionarProdutoSelecioando() {
     }
   }
 }
-if (localStorage.getItem('ProdutoSelecioandoPP') != '[]') {
+if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
+  document.getElementById('load1').style.display = 'flex';
   SelecionarSelecioando();
 }
 async function waitForElementPE(elementId, timeout = 1000) {
@@ -104,18 +415,21 @@ async function waitForElementPE(elementId, timeout = 1000) {
 }
 
 async function SelecionarSelecioandoPE() {
+  document.getElementById('load1').style.display = 'flex';
   if (document.getElementById('produtosTableBody')) {
     
     setTimeout(function () {
       document.getElementById('ErroSelecionar').innerHTML = '';
+      document.getElementById('load1').style.display = 'none';
     }, 5000);
-    if (localStorage.getItem('ProdutoSelecioando')) {
+    if (localStorage.getItem('ProdutoSelecioando') != null && localStorage.getItem('ProdutoSelecioando') != '[]') {
       const ArraySelecionado = JSON.parse(localStorage.getItem('ProdutoSelecioando'));
 
       for (const item of ArraySelecionado) {
         const elemento = await waitForElementPE(item);
         elemento.innerHTML = 'Selecioando';
       }
+      document.getElementById('load1').style.display = 'none';
     }
   }
 }
@@ -146,8 +460,8 @@ async function waitForElementApagarPP(elementId, timeout = 1000) {
 
 async function SelecionarSelecioandoApagarPP() {
   if (document.getElementById('produtosTableBody')) {
-    if (localStorage.getItem('ProdutoSelecioandoPP')) {
-      const ArraySelecionadoPP = JSON.parse(localStorage.getItem('ProdutoSelecioandoPP'));
+    if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
+      const ArraySelecionadoPP = JSON.parse(localStorage.getItem('ProdutoSelecionadoPP'));
 
       for (const item of ArraySelecionadoPP) {
         const elemento = await waitForElementApagarPP(item);
@@ -158,26 +472,31 @@ async function SelecionarSelecioandoApagarPP() {
 }
 
 function ApagarProdutoSelecioando() {
+  document.getElementById('load1').style.display = 'flex';
   // Defina o nome do item que você deseja remover
   SelecionarSelecioandoApagarPP();
   // Remova o item do localStorage
-  localStorage.removeItem('ProdutoSelecioandoPP');
+  localStorage.removeItem('ProdutoSelecionadoPP');
   localStorage.removeItem('ProdutoSelecioando');
   document.getElementById('ApagarProdutoSelecioando').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de produto Selecioando Limpa</div></div>';
-
+  ApagarPapel('papelSelecionado');
+  ApagarAcabamento('AcabamentoSelecionado');
   setTimeout(function () {
     document.getElementById('ApagarProdutoSelecioando').innerHTML = '';
+    window.location.reload(true);
+      document.getElementById('load1').style.display = 'none';
   }, 1000);
 }
 
 function SelecionarProduto(valor) {
+  document.getElementById('load1').style.display = 'flex';
   const PP = document.getElementById('ppRadio');
   let ativo = PP.checked ? true : false;
   let selecionado = document.getElementById(valor);
   let ProdutoSelecioando = localStorage.getItem('ProdutoSelecioando');
   let arraySelecioandos = ProdutoSelecioando ? JSON.parse(ProdutoSelecioando) : [];
-  let ProdutoSelecioandoPP = localStorage.getItem('ProdutoSelecioandoPP');
-  let arraySelecioandosPP = ProdutoSelecioandoPP ? JSON.parse(ProdutoSelecioandoPP) : [];
+  let ProdutoSelecionadoPP = localStorage.getItem('ProdutoSelecionadoPP');
+  let arraySelecioandosPP = ProdutoSelecionadoPP ? JSON.parse(ProdutoSelecionadoPP) : [];
   const SelecionadoProdutoSelecioando = Number(document.getElementById(valor).name.
     replace('Produto', ''))
   if (document.getElementById(valor).innerHTML == 'Selecioando') {
@@ -200,8 +519,14 @@ function SelecionarProduto(valor) {
     document.getElementById(valor).innerHTML = 'Selecioando'
   }
   localStorage.setItem('ProdutoSelecioando', JSON.stringify(arraySelecioandos));
-  localStorage.setItem('ProdutoSelecioandoPP', JSON.stringify(arraySelecioandosPP));
+  localStorage.setItem('ProdutoSelecionadoPP', JSON.stringify(arraySelecioandosPP));
   setTimeout(function () {
+    RecuperaProdutoSelecionado();
     document.getElementById('SelecioandoProduto').innerHTML = '';
+    window.location.reload(true);
   }, 1500);
+}
+
+if(localStorage.getItem('ProdutoSelecionadoPP') != null && localStorage.getItem('ProdutoSelecionadoPP') != '[]'){
+  RecuperaProdutoSelecionado();
 }

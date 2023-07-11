@@ -22,7 +22,7 @@ function selecionarPapel(valor) {
   setTimeout(function () {
     document.getElementById('mensagemPapel').innerHTML = '';
   }, 1000);
-  recuperarNomesPapel()
+  recuperarNomesPapel('personalizaPapel')
 }
 
 function checkedAcabamento(){
@@ -35,7 +35,7 @@ function checkedAcabamento(){
 }
 function checkedPapel() {
 if (localStorage.getItem('papelSelecionado')) {
-  recuperarNomesPapel();
+  recuperarNomesPapel('personalizaPapel');
   const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
   if (document.getElementById('PapelsSelecionado')) {
     ArrayPapels.map((item) => {
@@ -45,7 +45,8 @@ if (localStorage.getItem('papelSelecionado')) {
 }
 }
 
-function recuperarNomesPapel() {
+function recuperarNomesPapel(valor, codigo_do_produto) {
+  
   let papelSelecionado = localStorage.getItem('papelSelecionado');
   let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
@@ -78,13 +79,14 @@ function recuperarNomesPapel() {
       let nomePapel = results.map(result => result.nomePapel).join(', ');
       // console.log(nomePapel); // Movido para dentro do bloco `then`
       // document.getElementById('nome_papel').value = nomePapel;
-
-      const tableBody = document.getElementById('personalizaPapel');
-      tableBody.innerHTML = '';
-      tableBody.innerHTML += `
+      let tableBody = '';
+      if(valor != '1'){
+         tableBody = document.getElementById('personalizaPapel');
+         tableBody.innerHTML = '';
+         tableBody.innerHTML += `
       <thead>
       <tr>
-        <th>PRODUTO</th>
+      <th>CÓDIGO PRODUTO</th>
         <th>CÓDIGO PAPEL</th>
         <th>DESCRIÇÃO</th>
         <th>CF</th>
@@ -97,6 +99,12 @@ function recuperarNomesPapel() {
         <th>PREÇO CHAPA</th>
       </tr>
     </thead>`;
+      }else{
+         tableBody = document.getElementById('tabela_campos');
+      }
+     
+    
+      
       if (!results || results.length === 0) {
         tableBody.innerHTML += `
       <tr>
@@ -105,22 +113,42 @@ function recuperarNomesPapel() {
       </td>
     </tr>`;
       }
+      let cont = 0;
       results.forEach(result => {
-        tableBody.innerHTML += `
+        tableBody.innerHTML += `<tr>`;
+        if(codigo_do_produto){
+          tableBody.innerHTML += `
+          <td>${codigo_do_produto[cont]}</td>
+             <td>${result.codPapels}</td>
+             <td>${result.nomePapel}</td>
+             <td><input class="form-control" value="${result.corFrente}" type="number"></td>
+             <td><input class="form-control" value="${result.corVerso}" type="number"></td>
+             <td><input class="form-control" value="${result.formato}" type="number"></td>
+             <td><input class="form-control" value="${result.orelha}" type="number"></td>
+             <td><input class="form-control" value="0" type="number"></td>
+             <td>${result.preco_folha}</td>
+             <td><input class="form-control" value="0" type="number"></td>
+             <td>${result.preco_chapa}</td>
+           `;
+           cont++;
+        }else{
+          tableBody.innerHTML += `
+             <td>${result.codPapels}</td>
+             <td>${result.nomePapel}</td>
+             <td><input class="form-control" value="${result.corFrente}" type="number"></td>
+             <td><input class="form-control" value="${result.corVerso}" type="number"></td>
+             <td><input class="form-control" value="${result.formato}" type="number"></td>
+             <td><input class="form-control" value="${result.orelha}" type="number"></td>
+             <td><input class="form-control" value="0" type="number"></td>
+             <td>${result.preco_folha}</td>
+             <td><input class="form-control" value="0" type="number"></td>
+             <td>${result.preco_chapa}</td>
+           `;
+           
+        }
         
-          <tr>
-            <td>${result.nomePapel}</td>
-            <td>${result.codPapels}</td>
-            <td>${result.nomePapel}</td>
-            <td><input class="form-control" value="${result.corFrente}" type="number"></td>
-            <td><input class="form-control" value="${result.corVerso}" type="number"></td>
-            <td><input class="form-control" value="${result.formato}" type="number"></td>
-            <td><input class="form-control" value="${result.orelha}" type="number"></td>
-            <td><input class="form-control" value="0" type="number"></td>
-            <td>${result.preco_folha}</td>
-            <td><input class="form-control" value="0" type="number"></td>
-            <td>${result.preco_chapa}</td>
-          </tr>`;
+          tableBody.innerHTML += `</tr>`;
+         
       });
     })
     .catch(error => {
@@ -142,7 +170,7 @@ function ApagarPapel(valor) {
   localStorage.removeItem(itemKey);
   document.getElementById('mensagemPapelApagado').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
 
-  recuperarNomesPapel();
+  recuperarNomesPapel('personalizaPapel');
   setTimeout(function () {
     document.getElementById('mensagemPapelApagado').innerHTML = '';
   }, 1000);
@@ -307,7 +335,7 @@ function adicionarAcabamentoDoClone(valor){
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
   arraySelecionados.push(valor);
   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
-  recuperarNomesAcabamento();
+  recuperarNomesAcabamento('NovoAcabemtnoSe');
   checkedAcabamento();
 }
 
@@ -316,7 +344,7 @@ function adicionarPapelDoClone(valor) {
   let arraySelecionados = PapelSelecionado ? JSON.parse(PapelSelecionado) : [];
   arraySelecionados.push(valor);
   localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
-  recuperarNomesPapel();
+  recuperarNomesPapel('personalizaPapel');
   checkedPapel();
 }
 
@@ -347,14 +375,14 @@ function selecionarAcabamento(valor) {
   setTimeout(function () {
     document.getElementById('mensagemAcabamento').innerHTML = '';
   }, 1000);
-  recuperarNomesAcabamento()
+  recuperarNomesAcabamento('NovoAcabemtnoSe')
 }
 if (localStorage.getItem('AcabamentoSelecionado')) {
-  recuperarNomesAcabamento();
+  recuperarNomesAcabamento('NovoAcabemtnoSe');
 }
 
 
-function recuperarNomesAcabamento() {
+function recuperarNomesAcabamento(iddovalor) {
   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
 
@@ -376,7 +404,7 @@ function recuperarNomesAcabamento() {
       // console.log(nomePapel); // Movido para dentro do bloco `then`
       // document.getElementById('nome_papel').value = nomePapel;
 
-      const tableBody = document.getElementById('NovoAcabemtnoSe');
+      const tableBody = document.getElementById(iddovalor);
       tableBody.innerHTML = '';
       tableBody.innerHTML += `
     <thead>
@@ -423,7 +451,7 @@ function ApagarAcabamento(valor) {
   localStorage.removeItem(itemKey);
   document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
 
-  recuperarNomesAcabamento();
+  recuperarNomesAcabamento('NovoAcabemtnoSe');
   setTimeout(function () {
     document.getElementById('mensagemAcabamento').innerHTML = '';
   }, 1000);

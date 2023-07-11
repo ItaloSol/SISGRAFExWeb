@@ -35,9 +35,9 @@ if (empty($Solicitacao)) {
    p.ATIVO AS ATIVOguinho,
    p.USO_ECOMMERCE AS USO_ECOMMERCEguinho,
    p.PRECO_CUSTO AS PRECO_CUSTOguinho,
-   p.PROMOCIONAL AS PROMOCIONALguinho,
-   p.PRECO_PROMOCIONAL AS PRECO_PROMOCIONALguinho,
+   po.descricao_produto AS descrisaozinha_prod,
    pa.*,
+   po.*,
      pp.*,
       c.*
   FROM tabela_calculos_op c 
@@ -45,6 +45,7 @@ if (empty($Solicitacao)) {
   LEFT JOIN tabela_papeis pa ON pa.cod = c.cod_papel
   LEFT JOIN tabela_papeis_produto pap ON pap.cod_papel = pa.cod
   LEFT JOIN produtos_pr_ent pp ON pp.CODIGO = p.CODIGO
+  LEFT JOIN tabela_produtos_orcamento po ON po.cod_orcamento = c.cod_proposta AND po.cod_produto = c.cod_produto AND po.tipo_produto = c.tipo_produto
   WHERE c.cod = $pesquisa
 ");
 
@@ -62,7 +63,41 @@ if (empty($Solicitacao)) {
     } else {
         $VALOR["cod_proposta"] = null;
     }
-    
+    if (isset($linha['quantidade'])) {
+        $VALOR["quantidade"] = $linha['quantidade'];
+    } else {
+        $VALOR["quantidade"] = null;
+    }
+    if (isset($linha['descrisaozinha_prod'])) {
+        $VALOR["descrisaozinha_prod"] = $linha['descrisaozinha_prod'];
+    } else {
+        $VALOR["descrisaozinha_prod"] = null;
+    }
+    if (isset($linha['observacao_produto'])) {
+        $VALOR["observacao_produto"] = $linha['observacao_produto'];
+    } else {
+        $VALOR["observacao_produto"] = null;
+    }
+    if (isset($linha['preco_unitario'])) {
+        $VALOR["preco_unitario"] = $linha['preco_unitario'];
+    } else {
+        $VALOR["preco_unitario"] = null;
+    }
+    if (isset($linha['valor_digital'])) {
+        $VALOR["valor_digital"] = $linha['valor_digital'];
+    } else {
+        $VALOR["valor_digital"] = null;
+    }
+    if (isset($linha['tipo_trabalho'])) {
+        $VALOR["tipo_trabalho"] = $linha['tipo_trabalho'];
+    } else {
+        $VALOR["tipo_trabalho"] = null;
+    }
+     if (isset($linha['maquina'])) {
+        $VALOR["maquina"] = $linha['maquina'];
+    } else {
+        $VALOR["maquina"] = null;
+    }
     if (isset($linha['tipo_produto'])) {
         $VALOR["tipo_produto"] = $linha['tipo_produto'];
     } else {
@@ -139,6 +174,11 @@ if (empty($Solicitacao)) {
         $VALOR["unitario"] = $linha['unitario'];
     } else {
         $VALOR["unitario"] = null;
+    }
+    if (isset($linha['cod_produto'])) {
+        $VALOR["cod_produto"] = $linha['cod_produto'];
+    } else {
+        $VALOR["cod_produto"] = null;
     }
     
     if (isset($linha['tipo_produto'])) {
@@ -236,27 +276,24 @@ if (empty($Solicitacao)) {
       $VALOR["ATIVO"] = $linha['ATIVOguinho'];
       $VALOR["USO_ECOMMERCE"] = $linha['USO_ECOMMERCEguinho'];
       $VALOR["PRECO_CUSTO"] = $linha['PRECO_CUSTOguinho'];
-      $VALOR["PROMOCIONAL"] = $linha['PROMOCIONALguinho'];
-      $VALOR["PRECO_PROMOCIONAL"] = $linha['PRECO_PROMOCIONALguinho'];
+     
     }
 
     if ($tabela == 'produtos_pr_ent') {
-      $VALOR["cod_calculo"] = $linha['cod_calculo'];
-      $VALOR["ID_CATEGORIA"] = $linha['ID_CATEGORIA'];
-      $VALOR["PRE_VENDA"] = $linha['PRE_VENDA'];
-      $VALOR["LARGURA"] = $linha['LARGURA'];
-      $VALOR["PROM"] = $linha['PROM'];
-      $VALOR["VLR_PROM"] = $linha['VLR_PROM'];
-      $VALOR["INICIO_PROM"] = $linha['INICIO_PROM'];
-      $VALOR["FIM_PROM"] = $linha['FIM_PROM'];
-      $VALOR["ESTOQUE"] = $linha['ESTOQUE'];
-      $VALOR["AVISO_ESTOQUE"] = $linha['AVISO_ESTOQUE'];
-      $VALOR["AVISO_ESTOQUE_UN"] = $linha['AVISO_ESTOQUE_UN'];
-      $VALOR["VLR_UNIT"] = $linha['VLR_UNIT'];
-      $VALOR["ULT_MOV"] = $linha['ULT_MOV'];
-      $VALOR["PD_QTD_MIN"] = $linha['PD_QTD_MIN'];
-      $VALOR["PD_MAX"] = $linha['PD_MAX'];
-      $VALOR["PD_QTD_MAX"] = $linha['PD_QTD_MAX'];
+        $VALOR["cod_calculo"] = $linha['cod_calculo'];
+        $VALOR["CODIGO"] = $linha['CODIGOguinho'];
+        $VALOR["CODIGO_LI"] = $linha['CODIGO_LIguinho'];
+        $VALOR["DESCRICAO"] = $linha['descricao_produto'];
+        $VALOR["LARGURA"] = $linha['largurinha'];
+        $VALOR["ALTURA"] = $linha['alturinha'];
+        $VALOR["ESPESSURA"] = $linha['espessurinha'];
+        $VALOR["PESO"] = $linha['pesinho'];
+        $VALOR["QTD_PAGINAS"] = $linha['QTD_PAGINASguinho'];
+        $VALOR["TIPO"] = $linha['TIPOguinho'];
+        $VALOR["VENDAS"] = $linha['VENDASguinho'];
+        $VALOR["ATIVO"] = $linha['ATIVOguinho'];
+        $VALOR["USO_ECOMMERCE"] = $linha['USO_ECOMMERCEguinho'];
+        $VALOR["PRECO_CUSTO"] = $linha['PRECO_CUSTOguinho'];
     }
   }else{
     $VALOR = [null, 'erro'];

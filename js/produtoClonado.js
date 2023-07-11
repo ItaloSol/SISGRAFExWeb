@@ -26,6 +26,7 @@ function RecuperaPapapelClonado() {
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
+            console.log(data);
             if(data[1] == 'erro'){
              ApagarProdutoCloando();
             }
@@ -181,6 +182,11 @@ function RecuperaPapapelClonado() {
             if (document.getElementById('Novocod_calculo')) {
               document.getElementById('Novocod_calculo').value = campo.cod_calculo;
             }
+          }
+          if(tipo == 'PP'){
+            document.getElementById('NovoPP').checked = true;
+          }else{
+            document.getElementById('NovoPE').checked = true;
           }
           if (campo.CODIGO) {
             if (document.getElementById('NovoCODIGO')) {
@@ -520,10 +526,11 @@ function RecuperaPapapelClonado() {
     
     ApagarPapel('papelSelecionado');
     ApagarAcabamento('AcabamentoSelecionado');
-    document.getElementById('load').style.display = 'none';
+    
     setTimeout(function () {
       document.getElementById('ApagarProdutoCloando').innerHTML = '';
       window.location.reload(true);
+      document.getElementById('load').style.display = 'none';
     }, 1000);
   }
 
