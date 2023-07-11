@@ -3,6 +3,7 @@
     display: none;
   }
 </style>
+<div id="load1" class="mb-5" style="position:absolute;background-color: #0056; width: 100%; height: 200vh; z-index: 9999999999999; align-items: center; justify-content: center; display: none; color: white; font-size: 40px;"><img src="../img/preloader.svg"> </div>
 <?php include_once("../html/../html/navbar.php");
 $_SESSION["pag"] = array(1, 0);
 
@@ -276,6 +277,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
+                
                 <div class="card">
                   <div id="SelecioandoProduto"></div>
                   <h5 class="card-header">PRODUTOS
@@ -295,7 +297,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                   </h5>
 
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
+                    <table id="SelecionadoProudutosProduto" class="table table-striped">
                       <thead>
                         <tr>
                           <th>CÓDIGO</th>
@@ -303,13 +305,12 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           <th>LARGURA</th>
                           <th>ALTURA</th>
                           <th>QTD.PÁGINAS</th>
-                          <th>OBSERVAÇÕES</th>
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
 
                         <tr>
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                          <td align="center" colspan="5">NENHUM SELECIONADO</td>
 
                     </table>
                   </div>
@@ -319,7 +320,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <div class="card">
                   <h5 class="card-header">TIRAGENS</h5>
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
+                    <table id="ProdutoTIragens" class="table table-striped">
                       <thead>
                         <tr>
                           <th>PRODUTO</th>
@@ -333,7 +334,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <tbody class="table-border-bottom-0">
 
                         <tr>
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                          <td align="center" colspan="7">NENHUM SELECIONADO</td>
 
 
                     </table>
@@ -381,7 +382,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <div class="card">
                   <h5 class="card-header">ACABAMENTOS</h5>
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
+                    <table id="seleccionadoacabamentos" class="table table-striped">
                       <thead>
                         <tr>
                           <th>PRODUTO</th>
@@ -453,6 +454,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
               </div>
             </div>
+            
             <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
             <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
             <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
@@ -465,7 +467,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   </div>
   <!-- Botão para abrir o primeiro modal -->
   <!-- Primeiro modal PRODUTOS GERAL -->
-
+ 
   <div class="modal" id="modal1">
   <div id="load" style="position:absolute;background-color: #0056; width: 100%; height: 100%; z-index: 1; align-items: center; justify-content: center; display: none; color: white; font-size: 40px;"><img src="../img/preloader.svg"></div>
     <div class="modal-dialog modal-fullscreen" role="document">
