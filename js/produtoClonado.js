@@ -526,11 +526,11 @@ function RecuperaPapapelClonado() {
     
     ApagarPapel('papelSelecionado');
     ApagarAcabamento('AcabamentoSelecionado');
-    
+   
     setTimeout(function () {
+      document.getElementById('load').style.display = 'none';
       document.getElementById('ApagarProdutoCloando').innerHTML = '';
       window.location.reload(true);
-      document.getElementById('load').style.display = 'none';
     }, 1000);
   }
 
@@ -579,6 +579,7 @@ function RecuperaPapapelClonado() {
     localStorage.setItem('ProdutoClonado', JSON.stringify(arrayClonados));
     localStorage.setItem('ProdutoClonadoPP', JSON.stringify(arrayClonadosPP));
     setTimeout(function () {
+      document.getElementById('load').style.display = 'none';
       document.getElementById('ClonadoProduto').innerHTML = '';
       RecuperaPapapelClonado();
     }, 1500);
