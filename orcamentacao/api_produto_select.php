@@ -45,7 +45,7 @@ if (empty($Solicitacao)) {
   LEFT JOIN tabela_papeis pa ON pa.cod = c.cod_papel
   LEFT JOIN tabela_papeis_produto pap ON pap.cod_papel = pa.cod
   LEFT JOIN produtos_pr_ent pp ON pp.CODIGO = p.CODIGO
-  LEFT JOIN tabela_produtos_orcamento po ON po.cod_orcamento = c.cod_proposta AND po.cod_produto = c.cod_produto AND po.tipo_produto = c.tipo_produto
+  LEFT JOIN tabela_produtos_orcamento po ON  po.cod_produto = c.cod_produto AND po.tipo_produto = c.tipo_produto
   WHERE c.cod = $pesquisa
 ");
 
@@ -283,9 +283,9 @@ if (empty($Solicitacao)) {
         $VALOR["cod_calculo"] = $linha['cod_calculo'];
         $VALOR["CODIGO"] = $linha['CODIGOguinho'];
         $VALOR["CODIGO_LI"] = $linha['CODIGO_LIguinho'];
-        $VALOR["DESCRICAO"] = $linha['descricao_produto'];
+        $VALOR["DESCRICAO"] = $linha['DESCRICAO'];
         $VALOR["LARGURA"] = $linha['largurinha'];
-        $VALOR["ALTURA"] = $linha['alturinha'];
+        $VALOR["ALTURA"] = $linha['ALTURA'];
         $VALOR["ESPESSURA"] = $linha['espessurinha'];
         $VALOR["PESO"] = $linha['pesinho'];
         $VALOR["QTD_PAGINAS"] = $linha['QTD_PAGINASguinho'];

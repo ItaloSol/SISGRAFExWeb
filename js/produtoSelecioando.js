@@ -1,15 +1,16 @@
 function RecuperaProdutoSelecionado() {
+
   let codigo_do_produto = [];
   if (localStorage.getItem('AcabamentoSelecionado')) {
     ApagarAcabamento('AcabamentoSelecionado');
   }
   if (localStorage.getItem('papelSelecionado')) {
+    
     ApagarPapel('papelSelecionado');
   }
-  if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' || localStorage.getItem('ProdutoSelecionado') != '[]') {
-    if (localStorage.getItem('ProdutoSelecionadoPP') != null || localStorage.getItem('ProdutoSelecionado') != null) {
-
-      document.getElementById('load1').style.display = 'flex';
+  
+  
+     
       let produto = '';
       let tipo = '';
       if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
@@ -17,9 +18,11 @@ function RecuperaProdutoSelecionado() {
         tipo = 'PP';
       } else {
         tipo = 'PE';
-        produto = 'ProdutoSelecionado';
+        produto = 'ProdutoSelecioando';
       }
          tableBody = document.getElementById('tabela_campos');
+         
+       
          tableBody.innerHTML = '';
          tableBody.innerHTML += `
       <thead>
@@ -37,20 +40,20 @@ function RecuperaProdutoSelecionado() {
         <th>PREÇO CHAPA</th>
       </tr>
     </thead>`;
+    document.getElementById('load1').style.display = 'flex';
+  
       let produtoSelecionado = localStorage.getItem(produto);
       let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
+      console.log(arraySelecionados);
       let promises = arraySelecionados.map(id => {
-  
-
-        const ids = Number(id.
-          replace('Produto', ''))
-          
+        const ids = Number(id.replace('Produto', ''))
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
             if(data[1] == 'erro'){
              ApagarProdutoSelecioando();
             }
+            console.log(data)
             let campo = {};
             if (data.cod_calculo) {
               campo.cod_calculo = data.cod_calculo;
@@ -94,7 +97,14 @@ function RecuperaProdutoSelecionado() {
               campo.tipo_trabalho = data.tipo_trabalho;
             }
             if (data.maquina) {
-              campo.maquina = data.maquina;
+              if(data.maquina == 1){
+                campo.digital = `<input class="form-check-input" type="checkbox" value="1" checked name="digital">`;
+                campo.offset = `<input class="form-check-input" type="checkbox" value="2" name="offset">`;
+              }else{
+                campo.digital = `<input class="form-check-input" type="checkbox" value="1" name="digital">`;
+                campo.offset = `<input class="form-check-input" type="checkbox" value="2" checked name="offset">`;
+              }
+              
             }
             if (data.ESPESSURA) {
               campo.ESPESSURA = data.ESPESSURA;
@@ -137,6 +147,9 @@ function RecuperaProdutoSelecionado() {
             }
             if (data.PRE_VENDA) {
               campo.PRE_VENDA = data.PRE_VENDA;
+            }
+            if (data.ALTURA) {
+              campo.ALTURA = data.ALTURA;
             }
             if (data.cod_produto_papel) {
               campo.cod_produto_papel = data.cod_produto_papel;
@@ -284,8 +297,8 @@ function RecuperaProdutoSelecionado() {
           <tr>
             <td>${campo.cod_produto}</td>
             <td>${campo.quantidade}</td>
-            <td>${campo.maquina}</td>
-            <td>${campo.maquina}</td>
+            <td>${campo.digital}</td>
+            <td>${campo.offset}</td>
             <td>${campo.valor_digital}</td>
             <td>${campo.preco_unitario}</td>
           </tr>`;
@@ -303,8 +316,7 @@ function RecuperaProdutoSelecionado() {
         
       });
     }
-  }
-  }
+  
 
 async function waitForElement(elementId, timeout = 1000) {
   return new Promise((resolve) => {
@@ -387,7 +399,7 @@ async function SelecionarProdutoSelecioando() {
   }
 }
 if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
-  document.getElementById('load1').style.display = 'flex';
+ 
   SelecionarSelecioando();
 }
 async function waitForElementPE(elementId, timeout = 1000) {
@@ -528,5 +540,8 @@ function SelecionarProduto(valor) {
 }
 
 if(localStorage.getItem('ProdutoSelecionadoPP') != null && localStorage.getItem('ProdutoSelecionadoPP') != '[]'){
+  RecuperaProdutoSelecionado();
+}
+if(localStorage.getItem('ProdutoSelecioando') != null && localStorage.getItem('ProdutoSelecioando') != '[]'){
   RecuperaProdutoSelecionado();
 }
