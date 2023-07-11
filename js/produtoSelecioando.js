@@ -500,7 +500,7 @@ function ApagarProdutoSelecioando() {
 function SelecionarProduto(valor) {
   document.getElementById('load1').style.display = 'flex';
   const PP = document.getElementById('ppRadio');
-  let ativo = PP.checked ? true : false;
+   let ativo = PP.checked ? true : false;
   let selecionado = document.getElementById(valor);
   let ProdutoSelecioando = localStorage.getItem('ProdutoSelecioando');
   let arraySelecioandos = ProdutoSelecioando ? JSON.parse(ProdutoSelecioando) : [];
@@ -511,9 +511,10 @@ function SelecionarProduto(valor) {
   if (document.getElementById(valor).innerHTML == 'Selecioando') {
     document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava Selecioando!</div></div>';
     if (ativo) {
-      arraySelecioandosPP = arraySelecioandos.filter(id => id !== selecionado.id);
-    } else {
-      arraySelecioandos = arraySelecioandosPP.filter(id => id !== selecionado.id);
+      console.log(arraySelecioandos.filter(id => id !== selecionado.id));
+      arraySelecioandosPP = arraySelecioandosPP.filter(id => id !== selecionado.id);
+    }else{
+      ProdutoSelecioando = ProdutoSelecioando.filter(id => id !== selecionado.id);
     }
     document.getElementById(valor).innerHTML = 'Selecionar Produto'
   } else {
@@ -527,10 +528,10 @@ function SelecionarProduto(valor) {
    
     document.getElementById(valor).innerHTML = 'Selecioando'
   }
+  
   localStorage.setItem('ProdutoSelecioando', JSON.stringify(arraySelecioandos));
   localStorage.setItem('ProdutoSelecionadoPP', JSON.stringify(arraySelecioandosPP));
   setTimeout(function () {
-    RecuperaProdutoSelecionado();
     document.getElementById('SelecioandoProduto').innerHTML = '';
     window.location.reload(true);
   }, 1500);

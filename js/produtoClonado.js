@@ -553,9 +553,10 @@ function RecuperaPapapelClonado() {
     if (document.getElementById(valor).innerHTML == 'CLONADO') {
       document.getElementById('ClonadoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava clonado!</div></div>';
       if (ativo) {
-        arrayClonadosPP = arrayClonados.filter(id => id !== selecionado.id);
+        
+        arrayClonadosPP = arrayClonadosPP.filter(id => id !== selecionado.id);
       } else {
-        arrayClonados = arrayClonadosPP.filter(id => id !== selecionado.id);
+        arrayClonados = arrayClonados.filter(id => id !== selecionado.id);
       }
       document.getElementById(valor).innerHTML = 'CLONAR PRODUTO'
     } else {
