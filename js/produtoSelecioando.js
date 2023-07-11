@@ -73,7 +73,7 @@ function RecuperaProdutoSelecionado() {
               document.getElementById('NovoNovolargura').value = data.LARGURA;
             }
             if (data.quantidade) {
-              campo.quantidade = data.quantidade;
+              campo.quantidade = `<input class="form-control" type="number" id="quantidade" name="quantidade" value="${data.quantidade}">`;
             }
             if (data.descrisaozinha_prod) {
               campo.descrisaozinha_prod = data.descrisaozinha_prod;
@@ -86,10 +86,10 @@ function RecuperaProdutoSelecionado() {
               campo.observacao_produto = data.observacao_produto;
             }
             if (data.preco_unitario) {
-              campo.preco_unitario = data.preco_unitario;
+              campo.preco_unitario = `<input class="form-control" type="number" name="preco_unitario" id="preco_unitario" value="${data.preco_unitario}">`;
             }
             if (data.valor_digital) {
-              campo.valor_digital = data.valor_digital;
+              campo.valor_digital = `<input class="form-control" type="number" name="valor_digital" id="valor_digital" value="${data.valor_digital}">`;
             }
             if (data.tipo_trabalho) {
               campo.tipo_trabalho = data.tipo_trabalho;
