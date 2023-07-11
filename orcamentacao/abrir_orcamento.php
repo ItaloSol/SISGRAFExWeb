@@ -3,12 +3,10 @@
     display: none;
   }
 </style>
-<div id="load1" class="mb-5" style="position:absolute;background-color: #0056; width: 100%; height: 200vh; z-index: 9999999999999; align-items: center; justify-content: center; display: none; color: white; font-size: 40px;"><img src="../img/preloader.svg"> </div>
-<?php include_once("../html/../html/navbar.php");
-$_SESSION["pag"] = array(1, 0);
+<?php include_once("../html/navbar.php");
+?>
 
-
-
+<?php
 if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   $cod_orcamento = 000;
   if ($_POST['numero1'] != '') {
@@ -919,8 +917,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               </div>
 
 
-              <!-- Inicializa o Bootstrap -->
-              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+       
 
               <script>
                 // Obtém o elemento do segundo modal
@@ -1246,4 +1243,4 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
     <script src="../js/orcamentacao.js"></script>
     <script src="../js/produtoClonado.js"></script>
     <script src="../js/produtoSelecioando.js"></script>
-    <?php include_once("../html/../html/navbar-dow.php"); ?>
+    <?php include_once("../html/navbar-dow.php"); ?>

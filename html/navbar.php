@@ -100,6 +100,7 @@ $refresh = 0;
 </head>
 
 <body>
+<div id="load1" class="mb-5" style="position:absolute;background-color: #0056; width: 100%; height: 200vh; z-index: 9999999999999; align-items: center; justify-content: center; display: none; color: white; font-size: 40px;"><img src="../img/preloader.svg"> </div>
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
