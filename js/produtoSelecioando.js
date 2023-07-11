@@ -44,7 +44,6 @@ function RecuperaProdutoSelecionado() {
   
       let produtoSelecionado = localStorage.getItem(produto);
       let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
-      console.log(arraySelecionados);
       let promises = arraySelecionados.map(id => {
         const ids = Number(id.replace('Produto', ''))
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
@@ -53,7 +52,6 @@ function RecuperaProdutoSelecionado() {
             if(data[1] == 'erro'){
              ApagarProdutoSelecioando();
             }
-            console.log(data)
             let campo = {};
             if (data.cod_calculo) {
               campo.cod_calculo = data.cod_calculo;
@@ -307,7 +305,6 @@ function RecuperaProdutoSelecionado() {
        
     
         setTimeout(function () {
-          console.log(codigo_do_produto);
           recuperarNomesPapel('1', codigo_do_produto);
         recuperarNomesAcabamento('seleccionadoacabamentos');
         document.getElementById('load1').style.display = 'none';

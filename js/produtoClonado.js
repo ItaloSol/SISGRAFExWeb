@@ -26,7 +26,6 @@ function RecuperaPapapelClonado() {
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             if(data[1] == 'erro'){
              ApagarProdutoCloando();
             }
