@@ -790,12 +790,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <input type="text" id="Nome_papel" class="form-control phone-mask" placeholder="NOME PAPEL" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="Largura">LARGURA</label>
-                            <input type="number" id="Largura_Papel" class="form-control phone-mask" placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Altura">ALTURA</label>
-                            <input type="number" id="Altura_Papel" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="Mediada_Papel">Mediada</label>
+                            <input type="text" id="Mediada_Papel" class="form-control phone-mask" placeholder="66 x 69" />
                           </div>
                           <div class="mb-3">
                             <label class="form-label colorbranca" for="Gramatura">GRAMATURA</label>
@@ -803,10 +799,10 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </div>
                           <div class="mb-3">
                             <label class="form-label colorbranca" for="Fomato_Papel">FORMATO</label>
-                            <input type="text" id="Fomato_Papel" class="form-control phone-mask" placeholder="0" />
+                            <input type="text" id="Fomato_Papel" class="form-control phone-mask" placeholder="O Formato" />
                           </div>
                           <div class="mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="umaface_Papel" />
+                            <input class="form-check-input" type="checkbox" value="1" id="umaface_Papel" />
                             <label class="form-check-label" for="umaface_Papel"> UMA FACE? </label>
                           </div>
                           <div class="mb-3">
@@ -814,7 +810,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <input type="number" id="valor_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <button class="btn rounded-pill btn-success">CADASTRAR</button>
+                            <button class="btn rounded-pill btn-success" onclick="CadastraPapel();">CADASTRAR</button>
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
@@ -1241,6 +1237,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
 
     <script src="../js/orcamentacao.js"></script>
+    <script src="../js/cadastros.js"></script>
     <script src="../js/produtoClonado.js"></script>
     <script src="../js/produtoSelecioando.js"></script>
     <?php include_once("../html/navbar-dow.php"); ?>

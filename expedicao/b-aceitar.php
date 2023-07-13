@@ -14,7 +14,7 @@ include_once('../conexoes/conexao.php');
 
             $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '10' , DT_ENVIADO_EXPEDICAO = '$hoje' WHERE cod = $cod ");
             $atualizar_op->execute();
-            $_SESSION['msg'] = ' <div style=";" id="alerta"
+            $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -40,7 +40,7 @@ include_once('../conexoes/conexao.php');
         if($_GET['s'] == 'NEGAR'){
             $query_aceitalas = $conexao->prepare("UPDATE aceita_op SET data_aceitacao_negacao = '$dataHora' , aceitacao = 'NAO' WHERE id_espera = '$id' ");
             $query_aceitalas->execute();
-            $_SESSION['msg'] = ' <div style=";" id="alerta"
+            $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"

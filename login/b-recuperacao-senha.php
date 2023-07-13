@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 
             $senha = $conexao->prepare("UPDATE tabela_atendentes SET senha_atendente = '$senha1', mudanca_senha = '$hoje' WHERE codigo_atendente = '$id'");
             $senha->execute();
-            $_SESSION['sucesso'] = ' <div style=";" id="alerta<?=$a?>"
+            $_SESSION['sucesso'] = ' <div id="alerta<?=$a?>"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -39,7 +39,7 @@ if (isset($_GET['id'])) {
             $Atividade_Supervisao->execute();
               echo "<script>window.location = '../index.php'</script>";
         } else {
-            echo ' <div style=";" id="alerta<?=$a?>"
+            echo ' <div id="alerta<?=$a?>"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"
@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
             $id = $linha['codigo_atendente'];
             $nome = $linha['nome_atendente'];
         } else {
-            $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+            $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"
@@ -99,7 +99,7 @@ if (isset($_GET['id'])) {
                echo "<script>window.location = 'tela-recuperacao-senha.php'</script>";
         }
     } else {
-        $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+        $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
         role="bs-toast"
         class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
         role="alert"

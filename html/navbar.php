@@ -12,7 +12,7 @@ if (isset($_SESSION["usuario"]) && is_array($_SESSION["usuario"])) {
     header('location: ../login/logout.php?i=0');
   }
   if ($validacao == '0') {
-    $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+    $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
 role="bs-toast"
 class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
 role="alert"
