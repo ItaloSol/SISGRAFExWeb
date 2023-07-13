@@ -11,11 +11,11 @@ function CadastraPapel() {
     }
     const mensagemPapel = document.getElementById('mensagemPapel');
       if(Nome_papel != '' && Mediada_Papel != '' && Gramatura_Papel != '' && Fomato_Papel != '' && valor_Papel != ''){
+        console.log('cadastro_apapel.php?N='+ Nome_papel +'&M='+Mediada_Papel+'&G='+Gramatura_Papel+'&F='+Fomato_Papel+'&U='+face_papel+'&V='+valor_Papel)
       return fetch('cadastro_apapel.php?N='+ Nome_papel +'&M='+Mediada_Papel+'&G='+Gramatura_Papel+'&F='+Fomato_Papel+'&U='+face_papel+'&V='+valor_Papel).then(res => res.json()).then(result => {
         if(result['erro'] == false){
-          abriPapels()
-          
           setTimeout(() => {
+            abriPapels()
             mensagemPapel.innerHTML = '';
           }, 1000);
           return mensagemPapel.innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Papel Cadastrado!</div></div>';
@@ -31,6 +31,35 @@ function CadastraPapel() {
         mensagemPapel.innerHTML = '';
       }, 1000);
       return mensagemPapel.innerHTML = '<div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Erro!</div> <small> </small>  </div> <div class="toast-body">É necessario completar todos os campos!</div></div>';
+      
+    }
+}
+
+function CadastraAcabamento() {
+  const Nome_Acabamento = document.getElementById('Nome_Acabamento').value.toUpperCase();
+      const valor_Acabamento = document.getElementById('valor_Acabamento').value.toUpperCase();
+      
+    const mensagemAcabamento = document.getElementById('mensagemAcabamento');
+      if(Nome_Acabamento != '' && valor_Acabamento != ''){
+      return fetch('cadastro_Acabamento.php?N='+ Nome_Acabamento +'&V='+valor_Acabamento).then(res => res.json()).then(result => {
+        if(result['erro'] == false){
+          setTimeout(() => {
+            abriAcabamentos()
+            mensagemAcabamento.innerHTML = '';
+          }, 1000);
+          return mensagemAcabamento.innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Cadastrado!</div></div>';
+        }else{
+          setTimeout(() => {
+            mensagemAcabamento.innerHTML = '';
+          }, 1000);
+          return mensagemAcabamento.innerHTML = '<div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Erro!</div> <small> </small>  </div> <div class="toast-body">Não foi possivel salvar o Acabamento!</div></div>';
+        }
+      })
+    }else{
+      setTimeout(() => {
+        mensagemAcabamento.innerHTML = '';
+      }, 1000);
+      return mensagemAcabamento.innerHTML = '<div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Erro!</div> <small> </small>  </div> <div class="toast-body">É necessario completar todos os campos!</div></div>';
       
     }
 }

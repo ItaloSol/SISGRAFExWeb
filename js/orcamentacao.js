@@ -460,6 +460,7 @@ function ApagarAcabamento(valor) {
     }, 1000);
   }
 }
+
 function abriPapels() {
   document.getElementById('load1').style.display = 'flex';
   fetch('api_papel.php')
@@ -508,6 +509,49 @@ function abriPapels() {
     setTimeout(() => {
       document.getElementById('load1').style.display = 'none';
       checkedPapel();
+    }, 1000)
+   
+}
+
+function abriAcabamentos() {
+  document.getElementById('load1').style.display = 'flex';
+  fetch('api_acabamento.php')
+    .then(response => response.json())
+    .then(data => {
+      let valores = data.map(Acabamento => ({
+        CODIGO: Acabamento.CODIGO,
+        MAQUINA: Acabamento.MAQUINA,
+        ATIVA: Acabamento.ATIVA,
+        CUSTO_HORA: Acabamento.CUSTO_HORA,
+      }));
+
+      var completaInserteAcabamento = document.getElementById('selecionarAcabamentos');
+      completaInserteAcabamento.innerHTML = '';
+      completaInserteAcabamento.innerHTML += `
+        <thead>
+          <tr>
+          <th>CODIGO</th>
+          <th>MÁQUINA</th>
+          <th>ATIVA</th>
+          <th>CUSTO HORA</th>
+          <th>SELECIONAR</th>
+          </tr>
+        </thead>`;
+
+      valores.forEach(result => {
+        completaInserteAcabamento.innerHTML += `
+          <tr>
+            <td>${result.CODIGO}</td>
+            <td>${result.MAQUINA}</td>
+            <td>${result.ATIVA}</td>
+            <td>${result.CUSTO_HORA}</td>
+            <td><input type="checkbox" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+          </tr>`;
+      });
+    });
+    setTimeout(() => {
+      document.getElementById('load1').style.display = 'none';
+      checkedAcabamento();
     }, 1000)
    
 }
