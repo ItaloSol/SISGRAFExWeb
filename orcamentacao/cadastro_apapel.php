@@ -28,7 +28,7 @@ $Insere_papel->bindParam(4, $F);
 $Insere_papel->bindParam(5, $U);
 $Insere_papel->bindParam(6, $V);
 $Insere_papel->execute();
-  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade, atendente_supervisao, data_supervisao) VALUES ('Adicionou um novo Papel $N valor $V', '$cod_user', '$dataHora')");
+  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade, atendente_supervisao, data_supervisao) VALUES ('Adicionou um novo Papel $N valor R$ $V', '$cod_user', '$dataHora')");
   $Atividade_Supervisao->execute();
 if ($Insere_papel->rowCount() > 0) {
     $salvo = ['erro' => false];
