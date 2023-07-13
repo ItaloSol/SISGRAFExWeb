@@ -918,7 +918,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
 
        
-
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
               <script>
                 // Obtém o elemento do segundo modal
                 const modal2 = document.getElementById('modal2');
