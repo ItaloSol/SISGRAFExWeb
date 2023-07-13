@@ -34,8 +34,5 @@ if ($Insere_papel->rowCount() > 0) {
 } else {
     $salvo = ['erro' => true];
 }
-
-
-
   echo json_encode($salvo);
 }

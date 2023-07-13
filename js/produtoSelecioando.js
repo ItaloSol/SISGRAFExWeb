@@ -511,7 +511,6 @@ function SelecionarProduto(valor) {
   if (document.getElementById(valor).innerHTML == 'Selecioando') {
     document.getElementById('SelecioandoProduto').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava Selecioando!</div></div>';
     if (ativo) {
-      console.log(arraySelecioandos.filter(id => id !== selecionado.id));
       arraySelecioandosPP = arraySelecioandosPP.filter(id => id !== selecionado.id);
     }else{
       ProdutoSelecioando = ProdutoSelecioando.filter(id => id !== selecionado.id);

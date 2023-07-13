@@ -621,7 +621,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <!-- Botão para abrir o segundo modal -->
                             <div class="row">
                               <div class="col-3">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal2">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal2" 
+                                onclick="abriPapels()">
                                   SELECIONAR PAPEL
                                 </button>
                               </div>
@@ -765,23 +766,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div id="mensagemPapel"></div>
                     </div>
                     <div class="modal-body">
-                      <?php
-                      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
-                      $query_papel->execute();
-                      $p = 0;
-                      while ($linha = $query_papel->fetch(PDO::FETCH_ASSOC)) {
-                        $papel[$p] = [
-                          'cod' => $linha['cod'],
-                          'descricao' => $linha['descricao'],
-                          'medida' => $linha['medida'],
-                          'gramatura' => $linha['gramatura'],
-                          'formato' => $linha['formato'],
-                          'uma_face' => $linha['uma_face'],
-                          'unitario' => $linha['unitario'],
-                        ];
-                        $p++;
-                      }
-                      ?>
+                      
 
                       <div class="row">
                         <div class="col-4">
@@ -814,8 +799,24 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-
-                          <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
+                        <?php
+                      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
+                      $query_papel->execute();
+                      $p = 0;
+                      while ($linha = $query_papel->fetch(PDO::FETCH_ASSOC)) {
+                        $papel[$p] = [
+                          'cod' => $linha['cod'],
+                          'descricao' => $linha['descricao'],
+                          'medida' => $linha['medida'],
+                          'gramatura' => $linha['gramatura'],
+                          'formato' => $linha['formato'],
+                          'uma_face' => $linha['uma_face'],
+                          'unitario' => $linha['unitario'],
+                        ];
+                        $p++;
+                      }
+                      ?>
+                        <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
                               <th>DESCRIÇÃO</th>
@@ -838,7 +839,6 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td><input value="' . $papel[$i]['cod'] . '" id="Papel' . $papel[$i]['cod'] . '" onclick="selecionarPapel(this.id)"  type="checkbox" ></td>
                             </tr>';
                             } ?>
-
                           </table>
                         </div>
                       </div>
