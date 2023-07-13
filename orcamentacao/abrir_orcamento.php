@@ -873,15 +873,15 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         <div id="mensagemAcabamento"></div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">NOME DA MÁQUINA</label>
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="NOME MÁQUINA" />
+                            <label class="form-label colorbranca" for="Nome_Acabamento">NOME DA MÁQUINA</label>
+                            <input type="text" id="Nome_Acabamento" class="form-control phone-mask" placeholder="NOME MÁQUINA" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">CUSTO HORA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="0" />
+                            <label class="form-label colorbranca" for="valor_Acabamento">CUSTO HORA</label>
+                            <input type="number" id="valor_Acabamento" class="form-control phone-mask" placeholder="0" />
                           </div>
                           <div class="mb-3">
-                            <button class="btn rounded-pill btn-success">CADASTRAR</button>
+                            <button class="btn rounded-pill btn-success" onclick="CadastraAcabamento()">CADASTRAR</button>
                           </div>
                         </div>
 

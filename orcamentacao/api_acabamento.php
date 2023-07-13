@@ -10,7 +10,7 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 
 
 //DEFINE QUAL ENTRADA FOI USADO
-if ($_GET['id']) {
+if (isset($_GET['id'])) {
 
   $pesquisa = $_GET['id'];
 
@@ -31,5 +31,19 @@ if ($_GET['id']) {
 
 
 
+  echo json_encode($Do_Acabamento);
+}else{
+  $query_do_acabamento = $conexao->prepare("SELECT * FROM acabamentos ORDER BY CODIGO DESC");
+  $query_do_acabamento->execute();
+  while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
+    $Do_Acabamento[] = [
+        'CODIGO' => $linha['CODIGO'],
+        'MAQUINA' => $linha['MAQUINA'],
+        'ATIVA' => $linha['ATIVA'],
+        'CUSTO_HORA' => $linha['CUSTO_HORA'],
+      ];
+
+   
+  }
   echo json_encode($Do_Acabamento);
 }
