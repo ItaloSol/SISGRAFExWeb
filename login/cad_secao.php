@@ -40,7 +40,7 @@ if(isset($_POST['id'])){
       $query->execute();
         // echo "UPDATE tabela_atendentes SET secao_atendente='$atual' 
         // WHERE codigo_atendente = '$id_usuario'";
-      $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+      $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
       role="bs-toast"
       class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
       role="alert"
@@ -63,7 +63,7 @@ if(isset($_POST['id'])){
      
 }else{
     echo 'invalido';
-  $_SESSION['erro'] = ' <div style=";" id="alerta<?=$a?>"
+  $_SESSION['erro'] = ' <div id="alerta<?=$a?>"
   role="bs-toast"
   class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
   role="alert"

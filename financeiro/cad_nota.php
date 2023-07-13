@@ -83,7 +83,7 @@ if (isset($_POST['excluir'])) {
 
         $TABELA_notas = $conexao->prepare("DELETE FROM tabela_notas WHERE cod = $cod ");
         $TABELA_notas->execute();
-        $_SESSION['msg'] = ' <div style=";" id="alerta"
+        $_SESSION['msg'] = ' <div id="alerta"
                 role="bs-toast"
                 class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
                 role="alert"
@@ -108,7 +108,7 @@ if (isset($_POST['excluir'])) {
 
         header("Location: tl-cadastro-notas.php?tp=3");
     } else {
-        $_SESSION['msg'] = ' <div style=";" id="alerta"
+        $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"
@@ -223,7 +223,7 @@ if (isset($_POST['salvar'])) {
                 $query_aceitalas->execute();
             }
         }
-        $_SESSION['msg'] = ' <div style=";" id="alerta"
+        $_SESSION['msg'] = ' <div id="alerta"
                 role="bs-toast"
                 class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
                 role="alert"
@@ -250,7 +250,7 @@ if (isset($_POST['salvar'])) {
             header("Location: tl-cadastro-notas.php?tp=2");
         }
     } else {
-        $_SESSION['msg'] = ' <div style=";" id="alerta"
+        $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"
@@ -368,7 +368,7 @@ if (isset($_POST['editar'])) {
                 $query_aceitalas->execute();
             }
         }
-        $_SESSION['msg'] = ' <div style=";" id="alerta"
+        $_SESSION['msg'] = ' <div id="alerta"
                 role="bs-toast"
                 class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
                 role="alert"
@@ -391,7 +391,7 @@ if (isset($_POST['editar'])) {
         $Atividade_Supervisao->execute();
         header("Location: tl-cadastro-notas.php?tp=3");
     } else {
-        $_SESSION['msg'] = ' <div style=";" id="alerta"
+        $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"

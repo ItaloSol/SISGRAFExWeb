@@ -24,7 +24,7 @@ include_once('../conexoes/conexao.php');
             if(isset($_POST['datatn'])){
               $data = $_POST['datatn'];
             }else{
-              $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+              $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
               role="bs-toast"
               class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
               role="alert"
@@ -54,7 +54,7 @@ include_once('../conexoes/conexao.php');
           }
           $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Alterado algumas datas de entrega de OP para $data' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
-        $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+        $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
         role="bs-toast"
         class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
         role="alert"
@@ -75,7 +75,7 @@ include_once('../conexoes/conexao.php');
       </div>';
       header("Location: tl-relatorio-diario.php");
       }else{
-        $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+        $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
         role="bs-toast"
         class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
         role="alert"

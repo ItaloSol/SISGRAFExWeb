@@ -60,7 +60,7 @@ else if ($cpf == '00000000000' ||
   WHERE codigo_atendente = '$id_usuario' ");
   $query->execute();
     echo 'valido';
-  $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+  $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
   role="bs-toast"
   class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
   role="alert"
@@ -83,7 +83,7 @@ $_SESSION["usuario"][5] = '1';
     header("Location: ../html/painel.php?p");
  }else{
     echo 'invalido';
-  $_SESSION['erro'] = ' <div style=";" id="alerta<?=$a?>"
+  $_SESSION['erro'] = ' <div id="alerta<?=$a?>"
   role="bs-toast"
   class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
   role="alert"

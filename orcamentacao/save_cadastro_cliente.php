@@ -72,7 +72,7 @@ if (isset($_POST['NomeCliente']) && isset($_POST['Cep']) && isset($_POST['Email'
 
   $Cadatro_asociacao_contato = $conexao->prepare("INSERT INTO tabela_associacao_contatos (cod_contato , cod_cliente, tipo_cliente) VALUES ($Cod_contato, $Id_Cliente, $TipoCliente )");
   $Cadatro_asociacao_contato->execute();
-  $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+  $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
 role="bs-toast"
 class=" bs-toast toast toast-placement-ex m-3 fade bg-primary top-0 end-0 hide show "
 role="alert"
@@ -93,7 +93,7 @@ aria-atomic="true">
 </div>';
   header("Location: tl-cadastro-clientes-ori.php");
 } else {
-  $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
+  $_SESSION['msg'] = ' <div id="alerta<?=$a?>" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-header">
     <i class="bx bx-bell me-2"></i>
     <div class="me-auto fw-semibold">Aviso!</div>

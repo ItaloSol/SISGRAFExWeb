@@ -15,7 +15,7 @@ if (isset($_GET['obs'])) {
     $obs = $_POST['Observacao_nova'];
     $query_sd_posto = $conexao->prepare("INSERT INTO obs_ordem_producao (CODIGO_OP , DATA, OBSERVACAO) VALUES ('$cod','$hoje','$obs')");
     $query_sd_posto->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+    $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
 role="bs-toast"
 class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
 role="alert"
@@ -43,7 +43,7 @@ window.location = 'tl-controle-op.php?cod=" . $cod . "&Ob=S'
 }
 if (isset($_GET['Ob'])) {
   if ($_GET['Ob'] == 'S') {
-    $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
+    $_SESSION['msg'] = ' <div id="alerta<?=$a?>" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-header">
     <i class="bx bx-bell me-2"></i>
     <div class="me-auto fw-semibold">Aviso!</div>

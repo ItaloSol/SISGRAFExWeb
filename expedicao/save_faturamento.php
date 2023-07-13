@@ -27,7 +27,7 @@ if(isset($_POST['FATURAR'])|| isset($_POST['excluir'])){
         $cod_orc = $_POST['orc'];
         if ($quantidade > $quantidade_restante) {
             //cancelar
-            $_SESSION['msg'] = ' <div style=";" id="alerta"
+            $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"
@@ -51,7 +51,7 @@ if(isset($_POST['FATURAR'])|| isset($_POST['excluir'])){
         }
         if ($quantidade == 0) {
             // cancelar
-            $_SESSION['msg'] = ' <div style=";" id="alerta"
+            $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"
@@ -98,7 +98,7 @@ if(isset($_POST['FATURAR'])|| isset($_POST['excluir'])){
             $adicionar_frete->execute();
             $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '12' WHERE cod = $cod ");
             $atualizar_op->execute();
-            $_SESSION['msg'] = ' <div style=";" id="alerta"
+            $_SESSION['msg'] = ' <div id="alerta"
                 role="bs-toast"
                 class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
                 role="alert"
@@ -140,7 +140,7 @@ if(isset($_POST['FATURAR'])|| isset($_POST['excluir'])){
             $adicionar_frete->execute();
             $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '11' WHERE cod = $cod ");
             $atualizar_op->execute();
-            $_SESSION['msg'] = ' <div style=";" id="alerta"
+            $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -176,7 +176,7 @@ if(isset($_POST['FATURAR'])|| isset($_POST['excluir'])){
             $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Deletou o Faturamento da Op $op' , '$cod_user' , '$dataHora')");
             $Atividade_Supervisao->execute();
 
-            $_SESSION['msg'] = ' <div style=";" id="alerta"
+            $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"

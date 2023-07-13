@@ -39,6 +39,7 @@ while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
         $cod_contato = $linha14['cod_contato'];
         $cod_endereco = $linha14['cod_endereco'];
         $data_validade = $linha14['data_validade'];
+        $data_emissao = $linha14['data_emissao'];
         $tipo_cliente = $linha14['tipo_cliente'];
         $frete = $linha14['frete'];
         $valor_total = $linha14['valor_total'];
@@ -295,6 +296,9 @@ if (!isset($descricao_orc)) {
 if (!isset($data_validade)) {
     $data_validade = 'NÃO ENCONTRADO';
 }
+if(!isset($data_emissao)){
+    $data_emissao = 'NÃO ENCONTRADO';
+}
 if (!isset($nome_atendente)) {
     $nome_atendente = 'NÃO ENCONTRADO';
 }
@@ -304,7 +308,7 @@ if (!isset($nome_fantasia)) {
 if (!isset($nome_cliente)) {
     $nome_cliente = 'NÃO ENCONTRADO';
 }
-$parte1 = '<div  style="  margin-top: 0px; padding-top: 0px;"><img src="../assets/img/cabecalho_orcamento.png" style=" margin-left: 60px; margin-top: 0px; padding-top: 0px; top: 0px; justify-content: center; align-items: center; text-align: center; height: 150px">';
+$parte1 = '<div style="padding-top: -10px; padding-bottom: 20px; font-size: 12px; justify-content: center; align-items: center; text-align: center;"><b>EMISSÃO DO RELATÓRIO</b> CÓDIGO EMISSOR: ' . $cod_emissor_relatorio . ' DATA EMISSÃO: ' . $data . ' HORA EMISSÃO: ' . $hora . '<br></div><div  style="  margin-top: 0px; padding-top: 0px;"><img src="../assets/img/cabecalho_orcamento.png" style=" margin-left: 60px; margin-top: 0px; padding-top: 0px; top: 0px; justify-content: center; align-items: center; text-align: center; height: 150px">';
 $parte2 = '<br><div style="text-align: center;"><br><b>PROPOSTA DE ORÇAMENTO Nº ' . $cod_orcamento . '';
 if (isset($codigo_op)) {
     $arrayUnico = array_unique($codio);
@@ -326,7 +330,7 @@ if (isset($codigo_op)) {
 }
 
 $parte3 = '<div>_______________________________________________________________________________________________________</div>
-<div style=" padding-top: 10px; padding-bottom: -8px; align-items: center; justify-content: center; text-align: center;">CÓDIGO EMISSOR: ' . $cod_emissor_relatorio . ' DATA EMISSÃO: ' . $data . ' HORA EMISSÃO: ' . $hora . '</div>
+<div style=" padding-top: 10px; padding-bottom: -8px; align-items: center; justify-content: center; text-align: center;">CÓDIGO EMISSOR: ' . $cod_emissor . ' - DATA EMISSÃO: ' . date('d/m/Y', strtotime($data_emissao)) . '</div>
 <div>_______________________________________________________________________________________________________</div>
 <div style="text-align: center;"><b>INFORMAÇÕES DO CLIENTE</b></div>
 <br>

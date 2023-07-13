@@ -621,7 +621,8 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <!-- Botão para abrir o segundo modal -->
                             <div class="row">
                               <div class="col-3">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal2">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal2" 
+                                onclick="abriPapels()">
                                   SELECIONAR PAPEL
                                 </button>
                               </div>
@@ -765,7 +766,40 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div id="mensagemPapel"></div>
                     </div>
                     <div class="modal-body">
-                      <?php
+                      
+
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="Nome_papel">DESCRIÇÃO</label>
+                            <input type="text" id="Nome_papel" class="form-control phone-mask" placeholder="NOME PAPEL" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="Mediada_Papel">Mediada</label>
+                            <input type="text" id="Mediada_Papel" class="form-control phone-mask" placeholder="66 x 69" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="Gramatura">GRAMATURA</label>
+                            <input type="number" id="Gramatura_Papel" class="form-control phone-mask" placeholder="0" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="Fomato_Papel">FORMATO</label>
+                            <input type="text" id="Fomato_Papel" class="form-control phone-mask" placeholder="O Formato" />
+                          </div>
+                          <div class="mb-3">
+                            <input class="form-check-input" type="checkbox" value="1" id="umaface_Papel" />
+                            <label class="form-check-label" for="umaface_Papel"> UMA FACE? </label>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="valor_Papel">VALOR UNITÁRIO</label>
+                            <input type="number" id="valor_Papel" class="form-control phone-mask" placeholder="0" />
+                          </div>
+                          <div class="mb-3">
+                            <button class="btn rounded-pill btn-success" onclick="CadastraPapel();">CADASTRAR</button>
+                          </div>
+                        </div>
+                        <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
+                        <?php
                       $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
                       $query_papel->execute();
                       $p = 0;
@@ -782,44 +816,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         $p++;
                       }
                       ?>
-
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Nome_papel">DESCRIÇÃO</label>
-                            <input type="text" id="Nome_papel" class="form-control phone-mask" placeholder="NOME PAPEL" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Largura">LARGURA</label>
-                            <input type="number" id="Largura_Papel" class="form-control phone-mask" placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Altura">ALTURA</label>
-                            <input type="number" id="Altura_Papel" class="form-control phone-mask" placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Gramatura">GRAMATURA</label>
-                            <input type="number" id="Gramatura_Papel" class="form-control phone-mask" placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Fomato_Papel">FORMATO</label>
-                            <input type="text" id="Fomato_Papel" class="form-control phone-mask" placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="umaface_Papel" />
-                            <label class="form-check-label" for="umaface_Papel"> UMA FACE? </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="valor_Papel">VALOR UNITÁRIO</label>
-                            <input type="number" id="valor_Papel" class="form-control phone-mask" placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <button class="btn rounded-pill btn-success">CADASTRAR</button>
-                          </div>
-                        </div>
-                        <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-
-                          <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
+                        <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
                               <th>DESCRIÇÃO</th>
@@ -842,7 +839,6 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                               <td><input value="' . $papel[$i]['cod'] . '" id="Papel' . $papel[$i]['cod'] . '" onclick="selecionarPapel(this.id)"  type="checkbox" ></td>
                             </tr>';
                             } ?>
-
                           </table>
                         </div>
                       </div>
@@ -1241,6 +1237,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
 
     <script src="../js/orcamentacao.js"></script>
+    <script src="../js/cadastros.js"></script>
     <script src="../js/produtoClonado.js"></script>
     <script src="../js/produtoSelecioando.js"></script>
     <?php include_once("../html/navbar-dow.php"); ?>

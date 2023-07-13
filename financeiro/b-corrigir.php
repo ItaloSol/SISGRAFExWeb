@@ -221,7 +221,7 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
      if ($tipo_cliente == '1') {
          $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
          $query_aceitalas->execute();
-         $_SESSION['msg'] = ' <div style=";" id="alerta"
+         $_SESSION['msg'] = ' <div id="alerta"
       role="bs-toast"
       class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
       role="alert"
@@ -247,7 +247,7 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
       if ($tipo_cliente == '2') {
          $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
          $query_aceitalas->execute();
-         $_SESSION['msg'] = ' <div style=";" id="alerta"
+         $_SESSION['msg'] = ' <div id="alerta"
          role="bs-toast"
          class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
          role="alert"
@@ -273,7 +273,7 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
       
    
 }else{
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
     role="bs-toast"
     class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
     role="alert"

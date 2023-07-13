@@ -405,7 +405,7 @@ if (isset($_POST['sim'])) {
       $existe = $linha['codigo_op'];
     }
     if (isset($existe)) {
-      $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+      $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
         role="bs-toast"
         class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
         role="alert"
@@ -431,7 +431,7 @@ if (isset($_POST['sim'])) {
     $salvar_edit_op->execute();
     $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '17' WHERE cod = $cod ");
     $atualizar_op->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+    $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
       role="bs-toast"
       class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
       role="alert"
@@ -479,7 +479,7 @@ if (isset($_POST['sim'])) {
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Numero op: $cod | status: $codSts - $NOVOS_Sts  | tipo do trabalho: $tipotrabalho | prioridade op: $prioridade ' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
     $salvar_edit_op->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+    $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
       role="bs-toast"
       class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
       role="alert"

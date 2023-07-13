@@ -10,11 +10,9 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 
 
 //DEFINE QUAL ENTRADA FOI USADO
-if ($_GET['id']) {
+if (isset($_GET['id'])) {
 
   $pesquisa = $_GET['id'];
-
-
 
   $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $pesquisa  ");
   $query_do_papel->execute();
@@ -27,7 +25,7 @@ if ($_GET['id']) {
       'formato' => $linha4['formato'],
       'uma_face' => $linha4['uma_face'],
       'unitario' => $linha4['unitario']
-   ];
+    ];
 
     $query_chapa = $conexao->prepare("SELECT * FROM configuracoes WHERE  configuracao = 'valor de chapa' ");
     $query_chapa->execute();
@@ -47,11 +45,24 @@ if ($_GET['id']) {
       $Do_Papel['descricao'] = $linha3['descricao'];
       $Do_Papel['orelha'] = $linha3['orelha'];
     }
-  }else {
-    $Do_Papel = [];
-}
+  }
 
+  echo json_encode($Do_Papel);
 
-
+ 
+} else {
+  $query_papel_todos = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
+  $query_papel_todos->execute();
+  while ($linha = $query_papel_todos->fetch(PDO::FETCH_ASSOC)) {
+    $Do_Papel[] = [
+      'cod' => $linha['cod'],
+      'descricao' => $linha['descricao'],
+      'medida' => $linha['medida'],
+      'gramatura' => $linha['gramatura'],
+      'formato' => $linha['formato'],
+      'uma_face' => $linha['uma_face'],
+      'unitario' => $linha['unitario'],
+    ];
+  }
   echo json_encode($Do_Papel);
 }

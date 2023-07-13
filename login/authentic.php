@@ -21,7 +21,7 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     $_SESSION['pag'] = array(0, 0);
     $cod = $user["codigo_atendente"];
     if ($user['ativo'] == '0') {
-      $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+      $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
       role="bs-toast"
       class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
       role="alert"
@@ -144,7 +144,7 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
           </div>';
     echo "<script>window.location = '../html/painel.php?p'</script>";
   } else {
-    $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+    $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
             role="alert"
@@ -166,7 +166,7 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     echo "<script>window.location = '../index.php'</script>";
   }
 } else {
-  $_SESSION['msg'] = ' <div style=";" id="alerta<?=$a?>"
+  $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
         role="bs-toast"
         class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
         role="alert"

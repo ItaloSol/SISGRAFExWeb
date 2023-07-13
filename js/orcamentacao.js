@@ -5,12 +5,12 @@ function selecionarPapel(valor) {
   let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
   if (selecionado.checked) {
-    document.getElementById('mensagemPapel').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Papel Selecionado!</div></div>';
+    document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Papel Selecionado!</div></div>';
 
     // Adicionar o ID do item selecionado ao array de selecionados
     arraySelecionados.push(selecionado.value);
   } else {
-    document.getElementById('mensagemPapel').innerHTML = '<div style=";" id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Papel Desmarcado!</div></div>';
+    document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Papel Desmarcado!</div></div>';
 
     // Remover o ID do item desmarcado do array de selecionados
     arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
@@ -25,7 +25,7 @@ function selecionarPapel(valor) {
   recuperarNomesPapel('personalizaPapel')
 }
 
-function checkedAcabamento(){
+function checkedAcabamento() {
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
   if (document.getElementById('selecionarAcabamentos')) {
     ArrayAcabamentos.map((item) => {
@@ -34,19 +34,22 @@ function checkedAcabamento(){
   }
 }
 function checkedPapel() {
-if (localStorage.getItem('papelSelecionado')) {
-  recuperarNomesPapel('personalizaPapel');
-  const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
-  if (document.getElementById('PapelsSelecionado')) {
-    ArrayPapels.map((item) => {
-      document.getElementById('Papel' + item).checked = true;
-    })
+  if (localStorage.getItem('papelSelecionado')) {
+    recuperarNomesPapel('personalizaPapel');
+    const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
+    if (document.getElementById('PapelsSelecionado')) {
+      ArrayPapels.map((item) => {
+        document.getElementById('Papel' + item).checked = true;
+      })
+    }
   }
 }
-}
+
+
+
 
 function recuperarNomesPapel(valor, codigo_do_produto) {
-  
+
   let papelSelecionado = localStorage.getItem('papelSelecionado');
   let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
@@ -80,10 +83,10 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       // console.log(nomePapel); // Movido para dentro do bloco `then`
       // document.getElementById('nome_papel').value = nomePapel;
       let tableBody = '';
-      if(valor != '1'){
-         tableBody = document.getElementById('personalizaPapel');
-         tableBody.innerHTML = '';
-         tableBody.innerHTML += `
+      if (valor != '1') {
+        tableBody = document.getElementById('personalizaPapel');
+        tableBody.innerHTML = '';
+        tableBody.innerHTML += `
       <thead>
       <tr>
       <th>CÓDIGO PRODUTO</th>
@@ -99,12 +102,12 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         <th>PREÇO CHAPA</th>
       </tr>
     </thead>`;
-      }else{
-         tableBody = document.getElementById('tabela_campos');
+      } else {
+        tableBody = document.getElementById('tabela_campos');
       }
-     
-    
-      
+
+
+
       if (!results || results.length === 0) {
         tableBody.innerHTML += `
       <tr>
@@ -116,7 +119,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       let cont = 0;
       results.forEach(result => {
         tableBody.innerHTML += `<tr>`;
-        if(codigo_do_produto){
+        if (codigo_do_produto) {
           tableBody.innerHTML += `
           <td>${codigo_do_produto[cont]}</td>
              <td>${result.codPapels}</td>
@@ -130,8 +133,8 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
              <td><input class="form-control" value="0" type="number"></td>
              <td>${result.preco_chapa}</td>
            `;
-           cont++;
-        }else{
+          cont++;
+        } else {
           tableBody.innerHTML += `
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
@@ -144,11 +147,11 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
              <td><input class="form-control" value="0" type="number"></td>
              <td>${result.preco_chapa}</td>
            `;
-           
+
         }
-        
-          tableBody.innerHTML += `</tr>`;
-         
+
+        tableBody.innerHTML += `</tr>`;
+
       });
     })
     .catch(error => {
@@ -159,22 +162,22 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
 function ApagarPapel(valor) {
   // Defina o nome do item que você deseja remover
   var itemKey = valor;
-  if(localStorage.getItem('papelSelecionado') != '[]' && localStorage.getItem('papelSelecionado') != null){
-  const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
-  if (document.getElementById('PapelsSelecionado')) {
-    ArrayPapels.map((item) => {
-      document.getElementById('Papel' + item).checked = false;
-    })
-  }
-  // Remova o item do localStorage
-  localStorage.removeItem(itemKey);
-  document.getElementById('mensagemPapelApagado').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
+  if (localStorage.getItem('papelSelecionado') != '[]' && localStorage.getItem('papelSelecionado') != null) {
+    const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
+    if (document.getElementById('PapelsSelecionado')) {
+      ArrayPapels.map((item) => {
+        document.getElementById('Papel' + item).checked = false;
+      })
+    }
+    // Remova o item do localStorage
+    localStorage.removeItem(itemKey);
+    document.getElementById('mensagemPapelApagado').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
 
-  recuperarNomesPapel('personalizaPapel');
-  setTimeout(function () {
-    document.getElementById('mensagemPapelApagado').innerHTML = '';
-  }, 1000);
-}
+    recuperarNomesPapel('personalizaPapel');
+    setTimeout(function () {
+      document.getElementById('mensagemPapelApagado').innerHTML = '';
+    }, 1000);
+  }
 }
 // Adicione event listeners aos elementos relevantes
 if (document.getElementById('descricao')) {
@@ -311,13 +314,13 @@ async function NovoProduto() {
 
 const selecionar_um_produto = document.getElementById('selecionar_um_produto');
 selecionar_um_produto.addEventListener('click', vle => {
-   SelecionarClonadoPE();
+  SelecionarClonadoPE();
   SelecionarSelecioando();
 })
 const PECheck = document.getElementById('peRadio');
 PECheck.addEventListener('click', vle => {
-   SelecionarClonadoPE();
-   SelecionarSelecioandoPE();
+  SelecionarClonadoPE();
+  SelecionarSelecioandoPE();
 })
 const novoo = document.getElementById('novo-produto');
 novoo.addEventListener('click', vle => {
@@ -325,13 +328,13 @@ novoo.addEventListener('click', vle => {
 })
 const PPCheck = document.getElementById('ppRadio');
 PPCheck.addEventListener('click', vle => {
-   SelecionarClonadoPE();
+  SelecionarClonadoPE();
   SelecionarSelecioando();
 })
 //  SELECIONAR ACABAMENTO
 
-function adicionarAcabamentoDoClone(valor){
-    let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
+function adicionarAcabamentoDoClone(valor) {
+  let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
   arraySelecionados.push(valor);
   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
@@ -351,19 +354,19 @@ function adicionarPapelDoClone(valor) {
 
 
 function selecionarAcabamento(valor) {
-  
+
   const selecionado = document.getElementById(valor);
 
   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
 
   if (selecionado.checked) {
-    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
+    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
 
     // Adicionar o ID do item selecionado ao array de selecionados
     arraySelecionados.push(selecionado.value);
   } else {
-    document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
+    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
 
     // Remover o ID do item desmarcado do array de selecionados
     arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
@@ -440,20 +443,71 @@ function recuperarNomesAcabamento(iddovalor) {
 function ApagarAcabamento(valor) {
   // Defina o nome do item que você deseja remover
   var itemKey = valor;
-  if(localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null){
-  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  if (document.getElementById('selecionarAcabamentos')) {
-    ArrayAcabamentos.map((item) => {
-      document.getElementById('Acaba' + item).checked = false;
-    });
-  }
-  // Remova o item do localStorage
-  localStorage.removeItem(itemKey);
-  document.getElementById('mensagemAcabamento').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
+  if (localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null) {
+    const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+    if (document.getElementById('selecionarAcabamentos')) {
+      ArrayAcabamentos.map((item) => {
+        document.getElementById('Acaba' + item).checked = false;
+      });
+    }
+    // Remova o item do localStorage
+    localStorage.removeItem(itemKey);
+    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
 
-  recuperarNomesAcabamento('NovoAcabemtnoSe');
-  setTimeout(function () {
-    document.getElementById('mensagemAcabamento').innerHTML = '';
-  }, 1000);
+    recuperarNomesAcabamento('NovoAcabemtnoSe');
+    setTimeout(function () {
+      document.getElementById('mensagemAcabamento').innerHTML = '';
+    }, 1000);
   }
+}
+function abriPapels() {
+  document.getElementById('load1').style.display = 'flex';
+  fetch('api_papel.php')
+    .then(response => response.json())
+    .then(data => {
+      let valores = data.map(papel => ({
+        cod: papel.cod,
+        descricao: papel.descricao,
+        medida: papel.medida,
+        gramatura: papel.gramatura,
+        formato: papel.formato,
+        uma_face: papel.uma_face,
+        unitario: papel.unitario,
+      }));
+
+      var completaInsertePapel = document.getElementById('PapelsSelecionado');
+      completaInsertePapel.innerHTML = '';
+      completaInsertePapel.innerHTML += `
+        <thead>
+          <tr>
+            <th>CODIGO</th>
+            <th>DESCRIÇÃO</th>
+            <th>MEDIDA</th>
+            <th>GRAMATURA</th>
+            <th>FORMATO</th>
+            <th>UMA FACE</th>
+            <th>VALOR</th>
+            <th>SELECIONAR</th>
+          </tr>
+        </thead>`;
+
+      valores.forEach(result => {
+        completaInsertePapel.innerHTML += `
+          <tr>
+            <td>${result.cod}</td>
+            <td>${result.descricao}</td>
+            <td>${result.medida}</td>
+            <td>${result.gramatura}</td>
+            <td>${result.formato}</td>
+            <td>${result.uma_face}</td>
+            <td>${result.unitario}</td>
+            <td><input value="${result.cod}" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+          </tr>`;
+      });
+    });
+    setTimeout(() => {
+      document.getElementById('load1').style.display = 'none';
+      checkedPapel();
+    }, 1000)
+   
 }

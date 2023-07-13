@@ -11,7 +11,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '6') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '6'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -37,7 +37,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '13') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '13'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -65,7 +65,7 @@ if (isset($_GET['acao'])) {
     $query_aceitalas->execute();
     $query_aceitalas = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod Enviado para produção' , '$cod_user' , '$dataHora')");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -118,7 +118,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '3') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '3'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -144,7 +144,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '7') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '7'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -196,7 +196,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '4') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '4'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -222,7 +222,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '5') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '5'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -248,7 +248,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '11') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '11'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -274,7 +274,7 @@ if (isset($_GET['acao'])) {
   if ($_GET['acao'] == '12') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '12'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"
@@ -303,7 +303,7 @@ if (isset($_GET['data'])) {
   $cod = $_GET['cod'];
   $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET data_validade = '$data_validade', status = '1'  WHERE cod = '$cod' ");
   $query_aceitalas->execute();
-  $_SESSION['msg'] = ' <div style=";" id="alerta"
+  $_SESSION['msg'] = ' <div id="alerta"
           role="bs-toast"
           class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
           role="alert"

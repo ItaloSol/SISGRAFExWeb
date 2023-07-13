@@ -12,7 +12,7 @@ if(isset($_POST['observacao_orc'])){
     $cod = $_POST['cod'];
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET descricao = '$obs'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
-    $_SESSION['msg'] = ' <div style=";" id="alerta"
+    $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
             class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
             role="alert"

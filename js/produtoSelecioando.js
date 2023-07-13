@@ -323,13 +323,13 @@ async function waitForElement(elementId, timeout = 1000) {
       const element = document.getElementById(elementId);
       if (element) {
         resolve(element);
-        document.getElementById('ErroSelecionar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando FOI RECUPERADO!<br> Verifique a aba "Novo Produto".</div></div>';
+        document.getElementById('ErroSelecionar').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando FOI RECUPERADO!<br> Verifique a aba "Novo Produto".</div></div>';
       } else {
         const elapsedTime = Date.now() - startTime;
         if (elapsedTime >= timeout) {
           resolve(null);
         } else {
-          document.getElementById('ErroSelecionar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Você tem um produto Selecionado!</div></div>';
+          document.getElementById('ErroSelecionar').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Você tem um produto Selecionado!</div></div>';
           setTimeout(checkElement, 100);
         }
       }
@@ -364,13 +364,13 @@ async function waitForElementSelecionado(elementId, timeout = 1000) {
       const element = document.getElementById(elementId);
       if (element) {
         resolve(element);
-        document.getElementById('ErroSelecionar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando FOI RECUPERADO!<br> Verifique a aba "Novo Produto".</div></div>';
+        document.getElementById('ErroSelecionar').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando FOI RECUPERADO!<br> Verifique a aba "Novo Produto".</div></div>';
       } else {
         const elapsedTime = Date.now() - startTime;
         if (elapsedTime >= timeout) {
           resolve(null);
         } else {
-          document.getElementById('ErroSelecionar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO Selecionado!<br> Verifique a aba "Novo Produto </div></div>';
+          document.getElementById('ErroSelecionar').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO Selecionado!<br> Verifique a aba "Novo Produto </div></div>';
           setTimeout(checkElement, 100);
         }
       }
@@ -407,13 +407,13 @@ async function waitForElementPE(elementId, timeout = 1000) {
       const element = document.getElementById(elementId);
       if (element) {
         resolve(element);
-        document.getElementById('ErroSelecionar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando FOI RECUPERADO!<br> Verifique a aba "Novo Produto".</div></div>';
+        document.getElementById('ErroSelecionar').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando FOI RECUPERADO!<br> Verifique a aba "Novo Produto".</div></div>';
       } else {
         const elapsedTime = Date.now() - startTime;
         if (elapsedTime >= timeout) {
           resolve(null);
         } else {
-          document.getElementById('ErroSelecionar').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO Selecioando!<br> Verifique a aba "Novo Produto </div></div>';
+          document.getElementById('ErroSelecionar').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">VOCÊ TEM UM PRODUTO Selecioando!<br> Verifique a aba "Novo Produto </div></div>';
           setTimeout(checkElement, 100);
         }
       }
@@ -487,7 +487,7 @@ function ApagarProdutoSelecioando() {
   // Remova o item do localStorage
   localStorage.removeItem('ProdutoSelecionadoPP');
   localStorage.removeItem('ProdutoSelecioando');
-  document.getElementById('ApagarProdutoSelecioando').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de produto Selecioando Limpa</div></div>';
+  document.getElementById('ApagarProdutoSelecioando').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de produto Selecioando Limpa</div></div>';
   ApagarPapel('papelSelecionado');
   ApagarAcabamento('AcabamentoSelecionado');
   setTimeout(function () {
@@ -509,16 +509,15 @@ function SelecionarProduto(valor) {
   const SelecionadoProdutoSelecioando = Number(document.getElementById(valor).name.
     replace('Produto', ''))
   if (document.getElementById(valor).innerHTML == 'Selecioando') {
-    document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava Selecioando!</div></div>';
+    document.getElementById('SelecioandoProduto').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava Selecioando!</div></div>';
     if (ativo) {
-      console.log(arraySelecioandos.filter(id => id !== selecionado.id));
       arraySelecioandosPP = arraySelecioandosPP.filter(id => id !== selecionado.id);
     }else{
       ProdutoSelecioando = ProdutoSelecioando.filter(id => id !== selecionado.id);
     }
     document.getElementById(valor).innerHTML = 'Selecionar Produto'
   } else {
-    document.getElementById('SelecioandoProduto').innerHTML = '<div style=";" id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando!<br> Verifique a aba "Novo Produto".</div></div>';
+    document.getElementById('SelecioandoProduto').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso, Produto foi Selecioando!<br> Verifique a aba "Novo Produto".</div></div>';
     if (ativo) {
       arraySelecioandosPP.push(selecionado.id);
     } else {
