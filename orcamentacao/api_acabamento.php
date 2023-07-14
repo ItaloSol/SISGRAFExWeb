@@ -33,17 +33,42 @@ if (isset($_GET['id'])) {
 
   echo json_encode($Do_Acabamento);
 }else{
-  $query_do_acabamento = $conexao->prepare("SELECT * FROM acabamentos ORDER BY CODIGO DESC");
-  $query_do_acabamento->execute();
-  while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
-    $Do_Acabamento[] = [
-        'CODIGO' => $linha['CODIGO'],
-        'MAQUINA' => $linha['MAQUINA'],
-        'ATIVA' => $linha['ATIVA'],
-        'CUSTO_HORA' => $linha['CUSTO_HORA'],
-      ];
-
-   
+  if(isset($_GET['nome'])){
+    $Nome = $_GET['nome'];
+    $query_do_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE maquina LIKE '%$Nome%' ORDER BY CODIGO DESC");
+    $query_do_acabamento->execute();
+    while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
+      $Do_Acabamento[] = [
+          'CODIGO' => $linha['CODIGO'],
+          'MAQUINA' => $linha['MAQUINA'],
+          'ATIVA' => $linha['ATIVA'],
+          'CUSTO_HORA' => $linha['CUSTO_HORA'],
+        ];
+    }
+  }elseif(isset($_GET['cod'])){
+    $cod = $_GET['cod'];
+    $query_do_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE CODIGO LIKE '%$cod%' ORDER BY CODIGO DESC");
+    $query_do_acabamento->execute();
+    while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
+      $Do_Acabamento[] = [
+          'CODIGO' => $linha['CODIGO'],
+          'MAQUINA' => $linha['MAQUINA'],
+          'ATIVA' => $linha['ATIVA'],
+          'CUSTO_HORA' => $linha['CUSTO_HORA'],
+        ];
+    }
+  }else{
+    $query_do_acabamento = $conexao->prepare("SELECT * FROM acabamentos ORDER BY CODIGO DESC");
+    $query_do_acabamento->execute();
+    while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
+      $Do_Acabamento[] = [
+          'CODIGO' => $linha['CODIGO'],
+          'MAQUINA' => $linha['MAQUINA'],
+          'ATIVA' => $linha['ATIVA'],
+          'CUSTO_HORA' => $linha['CUSTO_HORA'],
+        ];
+    }
   }
+  
   echo json_encode($Do_Acabamento);
 }

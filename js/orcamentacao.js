@@ -457,6 +457,7 @@ function ApagarAcabamento(valor) {
   }
 }
 
+// funcções do papel
 function abriPapels() {
   document.getElementById('load1').style.display = 'flex';
   fetch('api_papel.php')
@@ -563,6 +564,7 @@ async function pesquisarpapel(){
     }
   })
 }
+
 async function pesquisarpapelcode() {
   const pesquisa = document.getElementById('pesquiarpapelCodigo');
   await pesquisa.addEventListener('keyup', valor => {
@@ -617,6 +619,8 @@ async function pesquisarpapelcode() {
     }
   })
 }
+
+// finções do acabamento
 function abriAcabamentos() {
   document.getElementById('load1').style.display = 'flex';
   fetch('api_acabamento.php')
@@ -660,3 +664,92 @@ function abriAcabamentos() {
    
 }
 
+async function pesquisaracabamento(){
+  const pesquisa = document.getElementById('pesquiaracabamentonome');
+  await pesquisa.addEventListener('keyup', valor => {
+    if(pesquisa.value.length >= 3){
+      fetch('api_acabamento.php?nome='+ pesquisa.value)
+      .then(response => response.json())
+      .then(data => {
+        let valores = data.map(Acabamento => ({
+          CODIGO: Acabamento.CODIGO,
+          MAQUINA: Acabamento.MAQUINA,
+          ATIVA: Acabamento.ATIVA,
+          CUSTO_HORA: Acabamento.CUSTO_HORA,
+        }));
+  
+        var completaInserteAcabamento = document.getElementById('selecionarAcabamentos');
+        completaInserteAcabamento.innerHTML = '';
+        completaInserteAcabamento.innerHTML += `
+          <thead>
+            <tr>
+            <th>CODIGO</th>
+            <th>MÁQUINA</th>
+            <th>ATIVA</th>
+            <th>CUSTO HORA</th>
+            <th>SELECIONAR</th>
+            </tr>
+          </thead>`;
+  
+        valores.forEach(result => {
+          completaInserteAcabamento.innerHTML += `
+            <tr>
+              <td>${result.CODIGO}</td>
+              <td>${result.MAQUINA}</td>
+              <td>${result.ATIVA}</td>
+              <td>${result.CUSTO_HORA}</td>
+              <td><input type="checkbox" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+            </tr>`;
+        });
+      });
+    }else{
+      if(pesquisa.value.length <= 1){
+        abriAcabamentos();
+      }
+    }
+  })
+}
+
+async function pesquisaracabamentocode(){
+  const pesquisa = document.getElementById('pesquiaracabamentoCodigo');
+  await pesquisa.addEventListener('keyup', valor => {
+    if(pesquisa.value.length >= 1){
+      fetch('api_acabamento.php?cod='+ pesquisa.value)
+      .then(response => response.json())
+      .then(data => {
+        let valores = data.map(Acabamento => ({
+          CODIGO: Acabamento.CODIGO,
+          MAQUINA: Acabamento.MAQUINA,
+          ATIVA: Acabamento.ATIVA,
+          CUSTO_HORA: Acabamento.CUSTO_HORA,
+        }));
+  
+        var completaInserteAcabamento = document.getElementById('selecionarAcabamentos');
+        completaInserteAcabamento.innerHTML = '';
+        completaInserteAcabamento.innerHTML += `
+          <thead>
+            <tr>
+            <th>CODIGO</th>
+            <th>MÁQUINA</th>
+            <th>ATIVA</th>
+            <th>CUSTO HORA</th>
+            <th>SELECIONAR</th>
+            </tr>
+          </thead>`;
+  
+        valores.forEach(result => {
+          completaInserteAcabamento.innerHTML += `
+            <tr>
+              <td>${result.CODIGO}</td>
+              <td>${result.MAQUINA}</td>
+              <td>${result.ATIVA}</td>
+              <td>${result.CUSTO_HORA}</td>
+              <td><input type="checkbox" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+            </tr>`;
+        });
+      });
+    }else{
+        abriAcabamentos();
+    }
+  })
+}
