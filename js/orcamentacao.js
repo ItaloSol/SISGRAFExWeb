@@ -568,7 +568,7 @@ async function pesquisarpapel(){
 async function pesquisarpapelcode() {
   const pesquisa = document.getElementById('pesquiarpapelCodigo');
   await pesquisa.addEventListener('keyup', valor => {
-    if(pesquisa.value.length >= 3){
+    if(pesquisa.value.length >= 1){
      fetch('api_papel.php?cod='+ pesquisa.value)
     .then(response => response.json())
     .then(data => {
