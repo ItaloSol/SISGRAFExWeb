@@ -51,18 +51,50 @@ if (isset($_GET['id'])) {
 
  
 } else {
-  $query_papel_todos = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
-  $query_papel_todos->execute();
-  while ($linha = $query_papel_todos->fetch(PDO::FETCH_ASSOC)) {
-    $Do_Papel[] = [
-      'cod' => $linha['cod'],
-      'descricao' => $linha['descricao'],
-      'medida' => $linha['medida'],
-      'gramatura' => $linha['gramatura'],
-      'formato' => $linha['formato'],
-      'uma_face' => $linha['uma_face'],
-      'unitario' => $linha['unitario'],
-    ];
+  if(isset($_GET['nome'])){
+    $nome = $_GET['nome'];
+    $query_papel_todos = $conexao->prepare("SELECT * FROM tabela_papeis WHERE descricao LIKE '%$nome%' ORDER BY cod DESC");
+    $query_papel_todos->execute();
+    while ($linha = $query_papel_todos->fetch(PDO::FETCH_ASSOC)) {
+      $Do_Papel[] = [
+        'cod' => $linha['cod'],
+        'descricao' => $linha['descricao'],
+        'medida' => $linha['medida'],
+        'gramatura' => $linha['gramatura'],
+        'formato' => $linha['formato'],
+        'uma_face' => $linha['uma_face'],
+        'unitario' => $linha['unitario'],
+      ];
+    }
+  }elseif(isset($_GET['cod'])){
+    $cod = $_GET['cod'];
+    $query_papel_todos = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod LIKE '%$cod%' ORDER BY cod DESC");
+    $query_papel_todos->execute();
+    while ($linha = $query_papel_todos->fetch(PDO::FETCH_ASSOC)) {
+      $Do_Papel[] = [
+        'cod' => $linha['cod'],
+        'descricao' => $linha['descricao'],
+        'medida' => $linha['medida'],
+        'gramatura' => $linha['gramatura'],
+        'formato' => $linha['formato'],
+        'uma_face' => $linha['uma_face'],
+        'unitario' => $linha['unitario'],
+      ];
+    }
+  }else{
+    $query_papel_todos = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
+    $query_papel_todos->execute();
+    while ($linha = $query_papel_todos->fetch(PDO::FETCH_ASSOC)) {
+      $Do_Papel[] = [
+        'cod' => $linha['cod'],
+        'descricao' => $linha['descricao'],
+        'medida' => $linha['medida'],
+        'gramatura' => $linha['gramatura'],
+        'formato' => $linha['formato'],
+        'uma_face' => $linha['uma_face'],
+        'unitario' => $linha['unitario'],
+      ];
+    }
   }
   echo json_encode($Do_Papel);
 }

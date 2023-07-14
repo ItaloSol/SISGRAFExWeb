@@ -33,6 +33,7 @@ function checkedAcabamento() {
     })
   }
 }
+
 function checkedPapel() {
   if (localStorage.getItem('papelSelecionado')) {
     recuperarNomesPapel('personalizaPapel');
@@ -44,9 +45,6 @@ function checkedPapel() {
     }
   }
 }
-
-
-
 
 function recuperarNomesPapel(valor, codigo_do_produto) {
 
@@ -179,6 +177,7 @@ function ApagarPapel(valor) {
     }, 1000);
   }
 }
+
 // Adicione event listeners aos elementos relevantes
 if (document.getElementById('descricao')) {
   document.getElementById('descricao').addEventListener('change', NovoProduto);
@@ -351,8 +350,6 @@ function adicionarPapelDoClone(valor) {
   checkedPapel();
 }
 
-
-
 function selecionarAcabamento(valor) {
 
   const selecionado = document.getElementById(valor);
@@ -383,7 +380,6 @@ function selecionarAcabamento(valor) {
 if (localStorage.getItem('AcabamentoSelecionado')) {
   recuperarNomesAcabamento('NovoAcabemtnoSe');
 }
-
 
 function recuperarNomesAcabamento(iddovalor) {
   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
@@ -513,6 +509,114 @@ function abriPapels() {
    
 }
 
+async function pesquisarpapel(){
+  const pesquisa = document.getElementById('pesquiarpapelnome');
+  await pesquisa.addEventListener('keyup', valor => {
+    if(pesquisa.value.length >= 3){
+     fetch('api_papel.php?nome='+ pesquisa.value)
+    .then(response => response.json())
+    .then(data => {
+      let valores = data.map(papel => ({
+        cod: papel.cod,
+        descricao: papel.descricao,
+        medida: papel.medida,
+        gramatura: papel.gramatura,
+        formato: papel.formato,
+        uma_face: papel.uma_face,
+        unitario: papel.unitario,
+      }));
+
+      var completaInsertePapel = document.getElementById('PapelsSelecionado');
+      completaInsertePapel.innerHTML = '';
+      completaInsertePapel.innerHTML += `
+        <thead>
+          <tr>
+            <th>CODIGO</th>
+            <th>DESCRIÇÃO</th>
+            <th>MEDIDA</th>
+            <th>GRAMATURA</th>
+            <th>FORMATO</th>
+            <th>UMA FACE</th>
+            <th>VALOR</th>
+            <th>SELECIONAR</th>
+          </tr>
+        </thead>`;
+
+      valores.forEach(result => {
+        completaInsertePapel.innerHTML += `
+          <tr>
+            <td>${result.cod}</td>
+            <td>${result.descricao}</td>
+            <td>${result.medida}</td>
+            <td>${result.gramatura}</td>
+            <td>${result.formato}</td>
+            <td>${result.uma_face}</td>
+            <td>${result.unitario}</td>
+            <td><input value="${result.cod}" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+          </tr>`;
+      });
+    });
+    }else{
+      if(pesquisa.value.length < 1){
+      abriPapels();
+      }
+    }
+  })
+}
+async function pesquisarpapelcode() {
+  const pesquisa = document.getElementById('pesquiarpapelCodigo');
+  await pesquisa.addEventListener('keyup', valor => {
+    if(pesquisa.value.length >= 3){
+     fetch('api_papel.php?cod='+ pesquisa.value)
+    .then(response => response.json())
+    .then(data => {
+      let valores = data.map(papel => ({
+        cod: papel.cod,
+        descricao: papel.descricao,
+        medida: papel.medida,
+        gramatura: papel.gramatura,
+        formato: papel.formato,
+        uma_face: papel.uma_face,
+        unitario: papel.unitario,
+      }));
+
+      var completaInsertePapel = document.getElementById('PapelsSelecionado');
+      completaInsertePapel.innerHTML = '';
+      completaInsertePapel.innerHTML += `
+        <thead>
+          <tr>
+            <th>CODIGO</th>
+            <th>DESCRIÇÃO</th>
+            <th>MEDIDA</th>
+            <th>GRAMATURA</th>
+            <th>FORMATO</th>
+            <th>UMA FACE</th>
+            <th>VALOR</th>
+            <th>SELECIONAR</th>
+          </tr>
+        </thead>`;
+
+      valores.forEach(result => {
+        completaInsertePapel.innerHTML += `
+          <tr>
+            <td>${result.cod}</td>
+            <td>${result.descricao}</td>
+            <td>${result.medida}</td>
+            <td>${result.gramatura}</td>
+            <td>${result.formato}</td>
+            <td>${result.uma_face}</td>
+            <td>${result.unitario}</td>
+            <td><input value="${result.cod}" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+          </tr>`;
+      });
+    });
+    }else{
+      if(pesquisa.value.length < 1){
+      abriPapels();
+      }
+    }
+  })
+}
 function abriAcabamentos() {
   document.getElementById('load1').style.display = 'flex';
   fetch('api_acabamento.php')
@@ -555,3 +659,4 @@ function abriAcabamentos() {
     }, 1000)
    
 }
+
