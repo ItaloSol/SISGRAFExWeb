@@ -816,6 +816,13 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         $p++;
                       }
                       ?>
+                      <div class="row">
+                        <b>Pesquisar:</b>
+                        <div class="col-6"><input type="text" class="form-control" id="pesquiarpapelnome" placeholder="Nome do papel" onkeyup="pesquisarpapel()"></div>
+                        <div class="col-6"><input type="number" class="form-control" id="pesquiarpapelCodigo" placeholder="Código do papel" onkeyup="pesquisarpapelcode()"></div>
+                      </div>
+                      
+                      
                         <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
