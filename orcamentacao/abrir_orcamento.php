@@ -893,6 +893,11 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </div>
 
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
+                        <div class="row">
+                        <b>Pesquisar:</b>
+                        <div class="col-6"><input type="text" class="form-control" id="pesquiaracabamentonome" placeholder="Nome do acabamento" onkeyup="pesquisaracabamento()"></div>
+                        <div class="col-6"><input type="number" class="form-control" id="pesquiaracabamentoCodigo" placeholder="Código do acabamento" onkeyup="pesquisaracabamentocode()"></div>
+                      </div>
                           <table id="selecionarAcabamentos" class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
