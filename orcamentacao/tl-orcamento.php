@@ -511,7 +511,12 @@ $valor_total_Finalizadas = 0;
                             }
                           } else {
                             if ($Orcamento_pesquisa['status'] == '5' || $Orcamento_pesquisa['status'] == '6' || $Orcamento_pesquisa['status'] == '12' || $Orcamento_pesquisa['status'] == '13' || $Orcamento_pesquisa['status'] == '14' || $Orcamento_pesquisa['status'] == '15') {
-                              echo ' </div>';
+                              if($ORC_ADM_I == '1'){
+                              echo '<a id="resetar" style="color: white;"
+                              class="btn btn-warning">
+                              <iconify-icon icon="carbon:reset" width="24" height="24"></iconify-icon><br> Voltar para em Avaliação!
+                            </a> </div>';
+                              }
                             } else { ?>
                         <a class="btn btn-warning">
                           <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
@@ -1779,6 +1784,10 @@ $valor_total_Finalizadas = 0;
                 const grafica1 = document.getElementById("odN");
                 const cliente1 = document.getElementById("odA");
                 const od = document.getElementById('off');
+                if(document.getElementById('resetar')){
+                  const resatura = document.getElementById('resetar');
+                  resatura.href = 'b-update.php?acao=9&cod=' + cod_orc.value + '';
+                }
                 if (od) {
 
                 } else {
@@ -1801,6 +1810,7 @@ $valor_total_Finalizadas = 0;
                     cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
                     grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
                   }
+                 
                   if (document.querySelector('off')) {
                     cliente1.href = '#';
                     grafica1.href = '#';

@@ -14,10 +14,10 @@ if (isset($_GET['id'])) {
 
   $pesquisa = $_GET['id'];
 
-  $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE CODIGO = $pesquisa  ");
+  $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE cod = $pesquisa  ");
   $query_do_acabamento->execute();
   if ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
-    $servico[$a] = [
+    $servico = [
       'cod' => $linha['cod'],
       'descricao' => $linha['descricao'],
       'valor_minimo' => $linha['valor_minimo'],
@@ -40,7 +40,7 @@ if (isset($_GET['id'])) {
     $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE descricao LIKE '%$Nome%' ORDER BY cod DESC");
     $query_do_acabamento->execute();
     while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
-      $servico[$a] = [
+      $servico[] = [
                           'cod' => $linha['cod'],
                           'descricao' => $linha['descricao'],
                           'valor_minimo' => $linha['valor_minimo'],
@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
     $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento WHERE cod LIKE '%$cod%' ORDER BY cod DESC");
     $query_do_acabamento->execute();
     while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
-      $servico[$a] = [
+      $servico[] = [
                           'cod' => $linha['cod'],
                           'descricao' => $linha['descricao'],
                           'valor_minimo' => $linha['valor_minimo'],
@@ -67,7 +67,7 @@ if (isset($_GET['id'])) {
     $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento ORDER BY cod DESC");
     $query_do_acabamento->execute();
     while ($linha = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
-      $servico[$a] = [
+      $servico[] = [
                           'cod' => $linha['cod'],
                           'descricao' => $linha['descricao'],
                           'valor_minimo' => $linha['valor_minimo'],

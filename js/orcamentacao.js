@@ -764,6 +764,82 @@ async function pesquisaracabamentocode(){
 }
 
 // funções do serviço
+function ApagarServicoSelecioando(valor) {
+  // Defina o nome do item que você deseja remover
+  var itemKey = valor;
+  if (localStorage.getItem('ServicoSelecionado') != '[]' && localStorage.getItem('ServicoSelecionado') != null) {
+    const ArrayAcabamentos = JSON.parse(localStorage.getItem('ServicoSelecionado'));
+    if (document.getElementById('selecionarServicos')) {
+      ArrayAcabamentos.map((item) => {
+        document.getElementById('Servi' + item).checked = false;
+      });
+    }
+    // Remova o item do localStorage
+    localStorage.removeItem(itemKey);
+    document.getElementById('mensagemServico').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
+
+    recuperarNomesServico('tabelaAservicos');
+    setTimeout(function () {
+      document.getElementById('mensagemServico').innerHTML = '';
+    }, 1000);
+  }
+}
+function recuperarNomesServico(iddovalor) {
+  let ServicoSelecionado = localStorage.getItem('ServicoSelecionado');
+  let arraySelecionados = ServicoSelecionado ? JSON.parse(ServicoSelecionado) : [];
+
+  let promises = arraySelecionados.map(id => {
+    return fetch('api_servico.php?id=' + id)
+      .then(response => response.json())
+      .then(data => {
+        return {
+          cod: data.cod,
+          descricao: data.descricao,
+          valor_minimo: data.valor_minimo,
+          valor_unitario: data.valor_unitario,
+          servico_geral: data.servico_geral,
+          tipo_servico: data.tipo_servico,
+        };
+      });
+  });
+  Promise.all(promises)
+    .then(results => {
+      let nomePapel = results.map(result => result.nomePapel).join(', ');
+      // console.log(nomePapel); // Movido para dentro do bloco `then`
+      // document.getElementById('nome_papel').value = nomePapel;
+
+      const tableBody = document.getElementById(iddovalor);
+      tableBody.innerHTML = '';
+      tableBody.innerHTML += `
+    <thead>
+    <tr>
+    <th>CÓDIGO SERVIÇO</th>
+    <th>DESCRIÇÃO</th>
+    <th>VALOR SERVIÇO</th>
+    </tr>
+  </thead>`;
+      if (!results || results.length === 0) {
+        tableBody.innerHTML += `
+    <tr>
+    <td align="center" colspan="3">
+      NENHUM SELECIONADO
+    </td>
+  </tr>`;
+      }
+      results.forEach(result => {
+        tableBody.innerHTML += `
+      
+        <tr>
+          <td>${result.cod}</td>
+          <td>${result.descricao}</td>
+          <td>${result.valor_unitario}</td>
+        </tr>`;
+      });
+    })
+    .catch(error => {
+      console.error('Erro ao recuperar nomes do Servico:', error);
+    });
+}
 
 function selecionarServico(valor) {
 
@@ -790,10 +866,10 @@ function selecionarServico(valor) {
   setTimeout(function () {
     document.getElementById('mensagemServico').innerHTML = '';
   }, 1000);
-  recuperarNomesServico('NovoAcabemtnoSe')
+  recuperarNomesServico('tabelaAservicos')
 }
 if (localStorage.getItem('ServicoSelecionado')) {
-  recuperarNomesServico('NovoAcabemtnoSe');
+  recuperarNomesServico('tabelaAservicos');
 }
 
 function abriServicos() {
@@ -802,10 +878,12 @@ function abriServicos() {
     .then(response => response.json())
     .then(data => {
       let valores = data.map(Servico => ({
-        CODIGO: Servico.CODIGO,
-        MAQUINA: Servico.MAQUINA,
-        ATIVA: Servico.ATIVA,
-        CUSTO_HORA: Servico.CUSTO_HORA,
+        cod: Servico.cod,
+        descricao: Servico.descricao,
+        valor_minimo: Servico.valor_minimo,
+        valor_unitario: Servico.valor_unitario,
+        servico_geral: Servico.servico_geral,
+        tipo_servico: Servico.tipo_servico,
       }));
 
       var completaInserteServico = document.getElementById('selecionarServicos');
@@ -825,12 +903,12 @@ function abriServicos() {
       valores.forEach(result => {
         completaInserteServico.innerHTML += `
           <tr>
-          <td>${$servico.cod}</td>
-          <td>${$servico.descricao}</td>
-          <td>${$servico.valor_minimo}</td>
-          <td>${$servico.valor_unitario}</td>
-          <td>${$servico.tipo_servico}</td>
-          <td><input type="checkbox"  class="form-check-input" id="Servi${$servico.cod}" value="${$servico.cod}" onclick="selecionarServico(this.id)"></td>
+          <td>${result.cod}</td>
+          <td>${result.descricao}</td>
+          <td>${result.valor_minimo}</td>
+          <td>${result.valor_unitario}</td>
+          <td>${result.tipo_servico}</td>
+          <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
         </tr>`;
       });
     });
@@ -849,10 +927,12 @@ async function pesquisarservico(){
       .then(response => response.json())
       .then(data => {
         let valores = data.map(Servico => ({
-          CODIGO: Servico.CODIGO,
-          MAQUINA: Servico.MAQUINA,
-          ATIVA: Servico.ATIVA,
-          CUSTO_HORA: Servico.CUSTO_HORA,
+           cod: Servico.cod,
+        descricao: Servico.descricao,
+        valor_minimo: Servico.valor_minimo,
+        valor_unitario: Servico.valor_unitario,
+        servico_geral: Servico.servico_geral,
+        tipo_servico: Servico.tipo_servico,
         }));
   
         var completaInserteServico = document.getElementById('selecionarServicos');
@@ -872,12 +952,12 @@ async function pesquisarservico(){
         valores.forEach(result => {
           completaInserteServico.innerHTML += `
             <tr>
-              <td>${$servico.cod}</td>
-              <td>${$servico.descricao}</td>
-              <td>${$servico.valor_minimo}</td>
-              <td>${$servico.valor_unitario}</td>
-              <td>${$servico.tipo_servico}</td>
-              <td><input type="checkbox"  class="form-check-input" id="Servi${$servico.cod}" value="${$servico.cod}" onclick="selecionarServico(this.id)"></td>
+              <td>${result.cod}</td>
+              <td>${result.descricao}</td>
+              <td>${result.valor_minimo}</td>
+              <td>${result.valor_unitario}</td>
+              <td>${result.tipo_result}</td>
+              <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
             </tr>`;
         });
       });
@@ -897,10 +977,12 @@ async function pesquisarservicocode(){
       .then(response => response.json())
       .then(data => {
         let valores = data.map(Servico => ({
-          CODIGO: Servico.CODIGO,
-          MAQUINA: Servico.MAQUINA,
-          ATIVA: Servico.ATIVA,
-          CUSTO_HORA: Servico.CUSTO_HORA,
+           cod: Servico.cod,
+        descricao: Servico.descricao,
+        valor_minimo: Servico.valor_minimo,
+        valor_unitario: Servico.valor_unitario,
+        servico_geral: Servico.servico_geral,
+        tipo_servico: Servico.tipo_servico,
         }));
   
         var completaInserteServico = document.getElementById('selecionarServicos');
@@ -920,12 +1002,12 @@ async function pesquisarservicocode(){
         valores.forEach(result => {
           completaInserteServico.innerHTML += `
             <tr>
-              <td>${$servico.cod}</td>
-              <td>${$servico.descricao}</td>
-              <td>${$servico.valor_minimo}</td>
-              <td>${$servico.valor_unitario}</td>
-              <td>${$servico.tipo_servico}</td>
-              <td><input type="checkbox"  class="form-check-input" id="Servi${$servico.cod}" value="${$servico.cod}" onclick="selecionarServico(this.id)"></td>
+              <td>${result.cod}</td>
+              <td>${result.descricao}</td>
+              <td>${result.valor_minimo}</td>
+              <td>${result.valor_unitario}</td>
+              <td>${result.tipo_result}</td>
+              <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
             </tr>`;
         });
       });
