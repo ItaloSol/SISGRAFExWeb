@@ -71,8 +71,10 @@ function CadastraServico() {
       const valor_min = document.getElementById('valor_min').value.toUpperCase();
       const Servico_Geral = document.getElementById('Servico_Geral').value.toUpperCase();
     const mensagemServico = document.getElementById('mensagemServico');
+    console.log('cadastro_Servico.php?N='+ Nome_Servico +'&V='+valorUnitario+'&T='+tipoServico + '&M='+valor_min+'&G='+Servico_Geral)
       if(Nome_Servico != '' && valorUnitario != ''){
-      return fetch('cadastro_Servico.php?N='+ Nome_Servico +'&V='+valorUnitario+'&T='+tipoServico + '&M='valor_min+'&G='+Servico_Geral).then(res => res.json()).then(result => {
+        
+      return fetch('cadastro_Servico.php?N='+ Nome_Servico +'&V='+valorUnitario+'&T='+tipoServico + '&M='+valor_min+'&G='+Servico_Geral).then(res => res.json()).then(result => {
         if(result['erro'] == false){
           setTimeout(() => {
             abriServicos()

@@ -18,12 +18,11 @@ if ($_GET['N'] != '' && $_GET['V'] != '') {
   $T = $_GET['T'];
   $V = $_GET['V'];
 
-
-  $Insere_Servico = $conexao->prepare("INSERT INTO bala_dev.tabela_servicos_orcamento (descricao, valor_minimo, valor_unitario, servico_geral, tipo_servico) VALUES (?, ?, ?, ?, ?)");
+  $Insere_Servico = $conexao->prepare("INSERT INTO tabela_servicos_orcamento (descricao, valor_minimo, valor_unitario, servico_geral, tipo_servico, excluido) VALUES (?, ?, ?, ?, ?, 0)");
 $Insere_Servico->bindParam(1, $N);
-$Insere_Servico->bindParam(2, $M);
-$Insere_Servico->bindParam(3, $v);
-$Insere_Servico->bindParam(4, $G);
+$Insere_Servico->bindParam(2, $M, PDO::PARAM_INT);
+$Insere_Servico->bindParam(3, $V, PDO::PARAM_INT);
+$Insere_Servico->bindParam(4, $G, PDO::PARAM_INT);
 $Insere_Servico->bindParam(5, $T);
 $Insere_Servico->execute();
   $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade, atendente_supervisao, data_supervisao) VALUES ('Adicionou um novo Serviço $N valor R$ $V', '$cod_user', '$dataHora')");

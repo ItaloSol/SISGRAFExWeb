@@ -418,14 +418,14 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                   <div class="table-responsive text-nowrap">
                   <div class="row">
                       <div class="col-3">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" id="selecionar_um_servico" data-bs-target="#modalServico" >
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" id="selecionar_um_servico" data-bs-target="#modalServico" onclick="abriServicos()" >
                           Selecionar um Serviço
                         </button>
                       </div>
                       <div class="col-3">
-                        <button style="display: block; margin-left: 5px;" class="btn btn-outline-primary" onclick="ApagarServicoSelecioando()">
+                        <a style="display: block; margin-left: 5px;" class="btn btn-outline-primary" onclick="ApagarServicoSelecioando('ServicoSelecionado')">
                           Limpar servicos selecioandos
-                        </button>
+                        </a>
                       </div>
                     </div>
                     <table id="tabelaAservicos" class="table table-striped">
@@ -499,7 +499,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           </div>
                          
                           <div class="mb-3">
-                            <button class="btn rounded-pill btn-success" onclick="CadastraServico()">CADASTRAR</button>
+                            <a class="btn rounded-pill btn-success" onclick="CadastraServico()">CADASTRAR</a>
                           </div>
                         </div>
 
