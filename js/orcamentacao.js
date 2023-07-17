@@ -34,6 +34,15 @@ function checkedAcabamento() {
   }
 }
 
+function checkedServico() {
+  const ArrayServicos = JSON.parse(localStorage.getItem('ServicoSelecionado'));
+  if (document.getElementById('selecionarServicos')) {
+    ArrayServicos.map((item) => {
+      document.getElementById('Servi' + item).checked = true;
+    })
+  }
+}
+
 function checkedPapel() {
   if (localStorage.getItem('papelSelecionado')) {
     recuperarNomesPapel('personalizaPapel');
@@ -499,7 +508,7 @@ function abriPapels() {
             <td>${result.formato}</td>
             <td>${result.uma_face}</td>
             <td>${result.unitario}</td>
-            <td><input value="${result.cod}" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+            <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
           </tr>`;
       });
     });
@@ -553,7 +562,7 @@ async function pesquisarpapel(){
             <td>${result.formato}</td>
             <td>${result.uma_face}</td>
             <td>${result.unitario}</td>
-            <td><input value="${result.cod}" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+            <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
           </tr>`;
       });
     });
@@ -608,7 +617,7 @@ async function pesquisarpapelcode() {
             <td>${result.formato}</td>
             <td>${result.uma_face}</td>
             <td>${result.unitario}</td>
-            <td><input value="${result.cod}" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+            <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
           </tr>`;
       });
     });
@@ -620,7 +629,7 @@ async function pesquisarpapelcode() {
   })
 }
 
-// finções do acabamento
+// funções do acabamento
 function abriAcabamentos() {
   document.getElementById('load1').style.display = 'flex';
   fetch('api_acabamento.php')
@@ -653,7 +662,7 @@ function abriAcabamentos() {
             <td>${result.MAQUINA}</td>
             <td>${result.ATIVA}</td>
             <td>${result.CUSTO_HORA}</td>
-            <td><input type="checkbox" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+            <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
           </tr>`;
       });
     });
@@ -698,7 +707,7 @@ async function pesquisaracabamento(){
               <td>${result.MAQUINA}</td>
               <td>${result.ATIVA}</td>
               <td>${result.CUSTO_HORA}</td>
-              <td><input type="checkbox" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+              <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
             </tr>`;
         });
       });
@@ -744,12 +753,184 @@ async function pesquisaracabamentocode(){
               <td>${result.MAQUINA}</td>
               <td>${result.ATIVA}</td>
               <td>${result.CUSTO_HORA}</td>
-              <td><input type="checkbox" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+              <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
             </tr>`;
         });
       });
     }else{
         abriAcabamentos();
+    }
+  })
+}
+
+// funções do serviço
+
+function selecionarServico(valor) {
+
+  const selecionado = document.getElementById(valor);
+
+  let ServicoSelecionado = localStorage.getItem('ServicoSelecionado');
+  let arraySelecionados = ServicoSelecionado ? JSON.parse(ServicoSelecionado) : [];
+
+  if (selecionado.checked) {
+    document.getElementById('mensagemServico').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Servico Selecionado!</div></div>';
+
+    // Adicionar o ID do item selecionado ao array de selecionados
+    arraySelecionados.push(selecionado.value);
+  } else {
+    document.getElementById('mensagemServico').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Servico Desmarcado!</div></div>';
+
+    // Remover o ID do item desmarcado do array de selecionados
+    arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
+  }
+
+  // Salvar o array de selecionados no localStorage
+  localStorage.setItem('ServicoSelecionado', JSON.stringify(arraySelecionados));
+
+  setTimeout(function () {
+    document.getElementById('mensagemServico').innerHTML = '';
+  }, 1000);
+  recuperarNomesServico('NovoAcabemtnoSe')
+}
+if (localStorage.getItem('ServicoSelecionado')) {
+  recuperarNomesServico('NovoAcabemtnoSe');
+}
+
+function abriServicos() {
+  document.getElementById('load1').style.display = 'flex';
+  fetch('api_servico.php')
+    .then(response => response.json())
+    .then(data => {
+      let valores = data.map(Servico => ({
+        CODIGO: Servico.CODIGO,
+        MAQUINA: Servico.MAQUINA,
+        ATIVA: Servico.ATIVA,
+        CUSTO_HORA: Servico.CUSTO_HORA,
+      }));
+
+      var completaInserteServico = document.getElementById('selecionarServicos');
+      completaInserteServico.innerHTML = '';
+      completaInserteServico.innerHTML += `
+        <thead>
+          <tr>
+          <th>CODIGO</th>
+          <th>DESCRIÇÃO</th>
+          <th>VALOR MINIMO</th>
+          <th>VALOR UNITÁRIO</th>
+          <th>TIPO DO SERVIÇO</th>
+          <th>SELECIONAR</th>
+          </tr>
+        </thead>`;
+
+      valores.forEach(result => {
+        completaInserteServico.innerHTML += `
+          <tr>
+          <td>${$servico.cod}</td>
+          <td>${$servico.descricao}</td>
+          <td>${$servico.valor_minimo}</td>
+          <td>${$servico.valor_unitario}</td>
+          <td>${$servico.tipo_servico}</td>
+          <td><input type="checkbox"  class="form-check-input" id="Servi${$servico.cod}" value="${$servico.cod}" onclick="selecionarServico(this.id)"></td>
+        </tr>`;
+      });
+    });
+    setTimeout(() => {
+      document.getElementById('load1').style.display = 'none';
+      checkedServico();
+    }, 1000)
+   
+}
+
+async function pesquisarservico(){
+  const pesquisa = document.getElementById('pesquiarserviconome');
+  await pesquisa.addEventListener('keyup', valor => {
+    if(pesquisa.value.length >= 3){
+      fetch('api_servico.php?nome='+ pesquisa.value)
+      .then(response => response.json())
+      .then(data => {
+        let valores = data.map(Servico => ({
+          CODIGO: Servico.CODIGO,
+          MAQUINA: Servico.MAQUINA,
+          ATIVA: Servico.ATIVA,
+          CUSTO_HORA: Servico.CUSTO_HORA,
+        }));
+  
+        var completaInserteServico = document.getElementById('selecionarServicos');
+        completaInserteServico.innerHTML = '';
+        completaInserteServico.innerHTML += `
+          <thead>
+            <tr>
+            <th>CODIGO</th>
+            <th>DESCRIÇÃO</th>
+            <th>VALOR MINIMO</th>
+            <th>VALOR UNITÁRIO</th>
+            <th>TIPO DO SERVIÇO</th>
+            <th>SELECIONAR</th>
+            </tr>
+          </thead>`;
+  
+        valores.forEach(result => {
+          completaInserteServico.innerHTML += `
+            <tr>
+              <td>${$servico.cod}</td>
+              <td>${$servico.descricao}</td>
+              <td>${$servico.valor_minimo}</td>
+              <td>${$servico.valor_unitario}</td>
+              <td>${$servico.tipo_servico}</td>
+              <td><input type="checkbox"  class="form-check-input" id="Servi${$servico.cod}" value="${$servico.cod}" onclick="selecionarServico(this.id)"></td>
+            </tr>`;
+        });
+      });
+    }else{
+      if(pesquisa.value.length <= 1){
+        abriServicos();
+      }
+    }
+  })
+}
+
+async function pesquisarservicocode(){
+  const pesquisa = document.getElementById('pesquiarservicoCodigo');
+  await pesquisa.addEventListener('keyup', valor => {
+    if(pesquisa.value.length >= 1){
+      fetch('api_servico.php?cod='+ pesquisa.value)
+      .then(response => response.json())
+      .then(data => {
+        let valores = data.map(Servico => ({
+          CODIGO: Servico.CODIGO,
+          MAQUINA: Servico.MAQUINA,
+          ATIVA: Servico.ATIVA,
+          CUSTO_HORA: Servico.CUSTO_HORA,
+        }));
+  
+        var completaInserteServico = document.getElementById('selecionarServicos');
+        completaInserteServico.innerHTML = '';
+        completaInserteServico.innerHTML += `
+          <thead>
+            <tr>
+            <th>CODIGO</th>
+            <th>DESCRIÇÃO</th>
+            <th>VALOR MINIMO</th>
+            <th>VALOR UNITÁRIO</th>
+            <th>TIPO DO SERVIÇO</th>
+            <th>SELECIONAR</th>
+            </tr>
+          </thead>`;
+  
+        valores.forEach(result => {
+          completaInserteServico.innerHTML += `
+            <tr>
+              <td>${$servico.cod}</td>
+              <td>${$servico.descricao}</td>
+              <td>${$servico.valor_minimo}</td>
+              <td>${$servico.valor_unitario}</td>
+              <td>${$servico.tipo_servico}</td>
+              <td><input type="checkbox"  class="form-check-input" id="Servi${$servico.cod}" value="${$servico.cod}" onclick="selecionarServico(this.id)"></td>
+            </tr>`;
+        });
+      });
+    }else{
+        abriServicos();
     }
   })
 }

@@ -416,7 +416,19 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 <div class="card">
                   <h5 class="card-header">SERVIÇOS</h5>
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
+                  <div class="row">
+                      <div class="col-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" id="selecionar_um_servico" data-bs-target="#modalServico" >
+                          Selecionar um Serviço
+                        </button>
+                      </div>
+                      <div class="col-3">
+                        <button style="display: block; margin-left: 5px;" class="btn btn-outline-primary" onclick="ApagarServicoSelecioando()">
+                          Limpar servicos selecioandos
+                        </button>
+                      </div>
+                    </div>
+                    <table id="tabelaAservicos" class="table table-striped">
                       <thead>
                         <tr>
                           <th>CÓDIGO SERVIÇO</th>
@@ -433,6 +445,99 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 </div>
               </div>
             </div>
+            <!-- MODAL SELEÇÃO DE SERVIÇO -->
+
+            <div class="modal" id="modalServico">
+                <div class="modal-dialog modal-xl" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                          <h1>SERVIÇOS</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                    <?php
+                      $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento ORDER BY cod DESC");
+                      $query_servicos->execute();
+                      $a = 0;
+                      while ($linha = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
+                        $servico[$a] = [
+                          'cod' => $linha['cod'],
+                          'descricao' => $linha['descricao'],
+                          'valor_minimo' => $linha['valor_minimo'],
+                          'valor_unitario' => $linha['valor_unitario'],
+                          'servico_geral' => $linha['servico_geral'],
+                          'tipo_servico' => $linha['tipo_servico'],
+                        ];
+                        $a++;
+                      }
+                      ?>
+                      <div class="row">
+                        <div id="mensagemServico"></div>
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="Nome_Servico">NOME DO SERVIÇO</label>
+                            <input type="text" id="Nome_Servico" class="form-control phone-mask" placeholder="Nome do serviço" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="Servico_Geral">SERVIÇO GERAL</label>
+                            <input type="checkbox" id="Servico_Geral" class="form-check-input"  />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="valor_min">Valor Minimo</label>
+                            <input type="number" id="valor_min" class="form-control phone-mask" placeholder="Valor minimo do serviço" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="valorUnitario">VALOR UNITÁRIO DO SERVIÇO</label>
+                            <input type="number" id="valorUnitario" class="form-control phone-mask" placeholder="Valor unitário do Serviço" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label colorbranca" for="tipoServico">TIPO DO SERVIÇO</label>
+                            <select class="form-select" id="tipoServico" name="tipoServico" aria-label="Default select example">
+                          <option value="Serviço Interno">Serviço Interno</option>
+                          <option value="Serviço Externo">Serviço Externo</option>
+                        </select>
+                          </div>
+                         
+                          <div class="mb-3">
+                            <button class="btn rounded-pill btn-success" onclick="CadastraServico()">CADASTRAR</button>
+                          </div>
+                        </div>
+
+                        <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
+                          <div class="row">
+                            <b>Pesquisar:</b>
+                            <div class="col-6"><input type="text" class="form-control" id="pesquiarserviconome" placeholder="Nome do servico" onkeyup="pesquisarservico()"></div>
+                            <div class="col-6"><input type="number" class="form-control" id="pesquiarservicoCodigo" placeholder="Código do servico" onkeyup="pesquisarservicocode()"></div>
+                          </div>
+                          <table id="selecionarServicos" class="colorbranca table table-sm table-houver">
+                            <tr>
+                              <th>CODIGO</th>
+                              <th>DESCRIÇÃO</th>
+                              <th>VALOR MINIMO</th>
+                              <th>VALOR UNITÁRIO</th>
+                              <th>TIPO DO SERVIÇO</th>
+                              <th>SELECIONAR</th>
+                            </tr>
+                            <?php for ($i = 0; $i < $a; $i++) {
+                              echo '<tr>
+                                <td>' . $servico[$i]['cod'] . '</td>
+                                <td>' . $servico[$i]['descricao'] . '</td>
+                                <td>' . $servico[$i]['valor_minimo'] . '</td>
+                                <td>' . $servico[$i]['valor_unitario'] . '</td>
+                                <td>' . $servico[$i]['tipo_servico'] . '</td>
+                                <td><input type="checkbox"  class="form-check-input" id="Servi' . $servico[$i]['cod'] . '" value="' . $servico[$i]['cod'] . '" onclick="selecionarServico(this.id)"></td>
+                              </tr>';
+                            } ?>
+
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             <div class="container row ">
               <div class="col-3">
                 <label class="form-label m-0 p-0">CIF (%)</label>
@@ -843,7 +948,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                               <td>' . $papel[$i]['formato'] . '</td>
                               <td>' . $papel[$i]['uma_face'] . '</td>
                               <td>' . $papel[$i]['unitario'] . '</td>
-                              <td><input value="' . $papel[$i]['cod'] . '" id="Papel' . $papel[$i]['cod'] . '" onclick="selecionarPapel(this.id)"  type="checkbox" ></td>
+                              <td><input class="form-check-input" value="' . $papel[$i]['cod'] . '" id="Papel' . $papel[$i]['cod'] . '" onclick="selecionarPapel(this.id)"  type="checkbox" ></td>
                             </tr>';
                             } ?>
                           </table>
@@ -853,7 +958,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                   </div>
                 </div>
               </div>
+              
 
+              
               <!-- terceiro modal CONTEUDO ACABAMENTO -->
               <div class="modal" id="modal23">
                 <div class="modal-dialog modal-xl" role="document">
@@ -912,7 +1019,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                                 <td>' . $acabamento[$i]['MAQUINA'] . '</td>
                                 <td>' . $acabamento[$i]['ATIVA'] . '</td>
                                 <td>' . $acabamento[$i]['CUSTO_HORA'] . '</td>
-                                <td><input type="checkbox" id="Acaba' . $acabamento[$i]['CODIGO'] . '" value="' . $acabamento[$i]['CODIGO'] . '" onclick="selecionarAcabamento(this.id)"></td>
+                                <td><input class="form-check-input" type="checkbox" id="Acaba' . $acabamento[$i]['CODIGO'] . '" value="' . $acabamento[$i]['CODIGO'] . '" onclick="selecionarAcabamento(this.id)"></td>
                               </tr>';
                             } ?>
 
