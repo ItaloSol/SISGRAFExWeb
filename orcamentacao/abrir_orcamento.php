@@ -7,7 +7,8 @@
 ?>
 
 <?php
-if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
+if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1'] != '' || $_POST['numero2'] != '')) {
+
   $cod_orcamento = 000;
   if ($_POST['numero1'] != '') {
     $Pesquisa_Cliente = $_POST['numero1'];
@@ -275,7 +276,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
-                
+
                 <div class="card">
                   <div id="SelecioandoProduto"></div>
                   <h5 class="card-header">PRODUTOS
@@ -452,7 +453,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
               </div>
             </div>
-            
+
             <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
             <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
             <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
@@ -465,9 +466,9 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
   </div>
   <!-- Botão para abrir o primeiro modal -->
   <!-- Primeiro modal PRODUTOS GERAL -->
- 
+
   <div class="modal" id="modal1">
-  <div id="load" style="position:absolute;background-color: #0056; width: 100%; height: 100%; z-index: 1; align-items: center; justify-content: center; display: none; color: white; font-size: 40px;"><img src="../img/preloader.svg"></div>
+    <div id="load" style="position:absolute;background-color: #0056; width: 100%; height: 100%; z-index: 1; align-items: center; justify-content: center; display: none; color: white; font-size: 40px;"><img src="../img/preloader.svg"></div>
     <div class="modal-dialog modal-fullscreen" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -543,7 +544,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                 </div>
               </div>
               <!-- novo produto -->
-              
+
               <div class="tab-pane fade" id="novo1-produto">
                 <div class="card">
                   <h5 class="card-header">Novo Produto</h5>
@@ -621,8 +622,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                             <!-- Botão para abrir o segundo modal -->
                             <div class="row">
                               <div class="col-3">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal2" 
-                                onclick="abriPapels()">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal2" onclick="abriPapels()">
                                   SELECIONAR PAPEL
                                 </button>
                               </div>
@@ -766,7 +766,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                       <div id="mensagemPapel"></div>
                     </div>
                     <div class="modal-body">
-                      
+
 
                       <div class="row">
                         <div class="col-4">
@@ -799,31 +799,31 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-                        <?php
-                      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
-                      $query_papel->execute();
-                      $p = 0;
-                      while ($linha = $query_papel->fetch(PDO::FETCH_ASSOC)) {
-                        $papel[$p] = [
-                          'cod' => $linha['cod'],
-                          'descricao' => $linha['descricao'],
-                          'medida' => $linha['medida'],
-                          'gramatura' => $linha['gramatura'],
-                          'formato' => $linha['formato'],
-                          'uma_face' => $linha['uma_face'],
-                          'unitario' => $linha['unitario'],
-                        ];
-                        $p++;
-                      }
-                      ?>
-                      <div class="row">
-                        <b>Pesquisar:</b>
-                        <div class="col-6"><input type="text" class="form-control" id="pesquiarpapelnome" placeholder="Nome do papel" onkeyup="pesquisarpapel()"></div>
-                        <div class="col-6"><input type="number" class="form-control" id="pesquiarpapelCodigo" placeholder="Código do papel" onkeyup="pesquisarpapelcode()"></div>
-                      </div>
-                      
-                      
-                        <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
+                          <?php
+                          $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
+                          $query_papel->execute();
+                          $p = 0;
+                          while ($linha = $query_papel->fetch(PDO::FETCH_ASSOC)) {
+                            $papel[$p] = [
+                              'cod' => $linha['cod'],
+                              'descricao' => $linha['descricao'],
+                              'medida' => $linha['medida'],
+                              'gramatura' => $linha['gramatura'],
+                              'formato' => $linha['formato'],
+                              'uma_face' => $linha['uma_face'],
+                              'unitario' => $linha['unitario'],
+                            ];
+                            $p++;
+                          }
+                          ?>
+                          <div class="row">
+                            <b>Pesquisar:</b>
+                            <div class="col-6"><input type="text" class="form-control" id="pesquiarpapelnome" placeholder="Nome do papel" onkeyup="pesquisarpapel()"></div>
+                            <div class="col-6"><input type="number" class="form-control" id="pesquiarpapelCodigo" placeholder="Código do papel" onkeyup="pesquisarpapelcode()"></div>
+                          </div>
+
+
+                          <table id="PapelsSelecionado" class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
                               <th>DESCRIÇÃO</th>
@@ -893,11 +893,11 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
                         </div>
 
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-                        <div class="row">
-                        <b>Pesquisar:</b>
-                        <div class="col-6"><input type="text" class="form-control" id="pesquiaracabamentonome" placeholder="Nome do acabamento" onkeyup="pesquisaracabamento()"></div>
-                        <div class="col-6"><input type="number" class="form-control" id="pesquiaracabamentoCodigo" placeholder="Código do acabamento" onkeyup="pesquisaracabamentocode()"></div>
-                      </div>
+                          <div class="row">
+                            <b>Pesquisar:</b>
+                            <div class="col-6"><input type="text" class="form-control" id="pesquiaracabamentonome" placeholder="Nome do acabamento" onkeyup="pesquisaracabamento()"></div>
+                            <div class="col-6"><input type="number" class="form-control" id="pesquiaracabamentoCodigo" placeholder="Código do acabamento" onkeyup="pesquisaracabamentocode()"></div>
+                          </div>
                           <table id="selecionarAcabamentos" class="colorbranca table table-sm table-houver">
                             <tr>
                               <th>CODIGO</th>
@@ -925,7 +925,7 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
               </div>
 
 
-       
+
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
               <script>
                 // Obtém o elemento do segundo modal
@@ -1175,12 +1175,17 @@ if (isset($_POST['numero1']) or isset($_POST['numero2'])) {
 
 
 
-            <?php } else { ?>
+            <?php 
+} else { if((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1'] == '' || $_POST['numero2'] == '')){ ?>
+<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Você não selecionou o cliente da forma correta!</div></div>
+  <?php } ?>
+
               <!-- Segundo modal CONTEUDO PAPEL -->
               <div>
                 <div>
                   <div class="modal-content">
                     <div class="modal-header">
+                      <div id='selecioneCerto'></div>
                       <h5 class="modal-title">Selecione o CLIENTE</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
