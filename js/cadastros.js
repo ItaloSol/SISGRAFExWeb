@@ -63,3 +63,34 @@ function CadastraAcabamento() {
       
     }
 }
+
+function CadastraServico() {
+  const Nome_Servico = document.getElementById('Nome_Servico').value.toUpperCase();
+      const valorUnitario = document.getElementById('valorUnitario').value.toUpperCase();
+      const tipoServico = document.getElementById('tipoServico').value.toUpperCase();
+      const valor_min = document.getElementById('valor_min').value.toUpperCase();
+      const Servico_Geral = document.getElementById('Servico_Geral').value.toUpperCase();
+    const mensagemServico = document.getElementById('mensagemServico');
+      if(Nome_Servico != '' && valorUnitario != ''){
+      return fetch('cadastro_Servico.php?N='+ Nome_Servico +'&V='+valorUnitario+'&T='+tipoServico + '&M='valor_min+'&G='+Servico_Geral).then(res => res.json()).then(result => {
+        if(result['erro'] == false){
+          setTimeout(() => {
+            abriServicos()
+            mensagemServico.innerHTML = '';
+          }, 1000);
+          return mensagemServico.innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Servico Cadastrado!</div></div>';
+        }else{
+          setTimeout(() => {
+            mensagemServico.innerHTML = '';
+          }, 1000);
+          return mensagemServico.innerHTML = '<div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Erro!</div> <small> </small>  </div> <div class="toast-body">Não foi possivel salvar o Servico!</div></div>';
+        }
+      })
+    }else{
+      setTimeout(() => {
+        mensagemServico.innerHTML = '';
+      }, 1000);
+      return mensagemServico.innerHTML = '<div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Erro!</div> <small> </small>  </div> <div class="toast-body">É necessario completar todos os campos!</div></div>';
+      
+    }
+}
