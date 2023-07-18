@@ -115,11 +115,10 @@ function ObterTabelaProduto() {
       altura: celulas[3].textContent,
       "qtd. páginas": celulas[4].textContent
     };
-    console.log(celulas[1].textContent)
     Produtos.push(item);
   }
-  const jsonProdutos = JSON.stringify(Produtos);
-  console.log(jsonProdutos);
+ return JSON.stringify(Produtos);
+  //console.log(jsonProdutos);
 }
   //Tabela Tiragens
 function obterTabelaTiragens() {
@@ -134,11 +133,11 @@ function obterTabelaTiragens() {
       const celulas = linha.cells;
       const item = {
         produto: celulas[0].textContent,
-        quantidade: celulas[1].textContent,
-        digital: celulas[2].textContent,
-        offset: celulas[3].textContent,
-        valorImpressaoDigital: celulas[4].textContent,
-        valorUnidade: celulas[5].textContent
+        quantidade: celulas[1].querySelector('input').value,
+        digital: celulas[2].querySelector('input').value,
+        offset: celulas[3].querySelector('input').value,
+        valorImpressaoDigital: celulas[4].querySelector('input').value,
+        valorUnidade: celulas[5].querySelector('input').value
       };
       dados.push(item);
     }
@@ -148,8 +147,8 @@ function obterTabelaTiragens() {
     return;
   }
 
-  const jsonData = JSON.stringify(dados);
-  console.log(jsonData);
+  return JSON.stringify(dados);
+  //console.log(jsonData);
 }
   // Tabela Papeis
 function obterTabelaPapeis() {
@@ -191,8 +190,8 @@ function obterTabelaPapeis() {
       return;
     }
   
-    const jsonData = JSON.stringify(dados);
-    console.log(jsonData);
+    return JSON.stringify(dados);
+    //console.log(jsonData);
  
 }
   // Tabela Acabamentos
@@ -219,8 +218,8 @@ function obterTabelaAcabamentos() {
     return;
   }
 
-  const jsonData = JSON.stringify(dados);
-  console.log(jsonData);
+  return JSON.stringify(dados);
+  //console.log(jsonData);
 }
  // Tabela Serviços
 function obterTabelaServicos() {
@@ -252,21 +251,90 @@ function obterTabelaServicos() {
     return;
   }
 
-  const jsonData = JSON.stringify(dados);
-  console.log(jsonData);
+  return JSON.stringify(dados);
+  //console.log(jsonData);
 }
   // Valor Observacao
 function obterValorObservacao() {
   const textareaObservacao = document.getElementById('observacao_orc');
-  const valorObservacao = textareaObservacao.value;
-  console.log(valorObservacao);
+  return textareaObservacao.value;
+ // console.log(valorObservacao);
 }
  // FUNÇÃO DO CALCULO
  function calcularValor(){
-    ObterTabelaProduto();
-    obterTabelaTiragens();
-    obterTabelaPapeis();
-    obterTabelaAcabamentos();
-    obterTabelaServicos();
-    obterValorObservacao();
- }
+  const JsProduto = ObterTabelaProduto();
+  const JsTiragens =  obterTabelaTiragens();
+  const JsPapeis =  obterTabelaPapeis();
+  const JsAcabamentos =  obterTabelaAcabamentos();
+  const JsServicos =  obterTabelaServicos();
+  const JsObservacao =  obterValorObservacao();
+  
+    // PRODUTO
+    const Produto = JSON.parse(JsProduto)
+    const resultadoProduto = Produto.map(item => {
+      // Realize as manipulações desejadas no objeto item
+      const novoItem = {
+        codigo: item["código"],
+        descricao: item["descrição"],
+        largura: item["largura"],
+        altura: item["altura"],
+        qtdPaginas: item["qtd. páginas"]
+      };
+      
+      // Retorne o novo objeto manipulado
+      return novoItem;
+    });
+    // TIRAGENS
+    const Tiragens = JSON.parse(JsTiragens)
+    Tiragens.map(item => {
+        const novoItem = {
+          produto: item.produto,
+          quantidade: item.quantidade,
+          digital: item.digital,
+          offset: item.offset,
+          valorImpressaoDigital: item.valorImpressaoDigital,
+          valorUnidade: item.valorUnidade
+        };
+        return novoItem;
+    });
+    // PAPEIS
+    const Papeis = JSON.parse(JsPapeis)
+    Papeis.map(item => {
+      const novoItem = {
+        produto: item.produto,
+        codigoPapel: item.codigoPapel,
+        descricao: item.descricao,
+        cf: item.cf,
+        cv: item.cv,
+        formatoImpressao: item.formatoImpressao,
+        perca: item.perca,
+        gastoFolha: item.gastoFolha,
+        precoFolha: item.precoFolha,
+        quantidadeChapas: item.quantidadeChapas,
+        precoChapa: item.precoChapa
+      };
+      return novoItem;
+    });
+    // ACABAMENTO
+    const Acabamento = JSON.parse(JsAcabamentos)
+    Acabamento.map(item => {
+      const novoItem = {
+        codigoAcabamento: item.codigoAcabamento,
+        descricao: item.descricao,
+        precoAcabamento: item.precoAcabamento
+      };
+      return novoItem;
+    });
+    // SERVIÇOS
+    const Servicos = JSON.parse(JsServicos)
+    Servicos.map(item => {
+      const novoItem = {
+        codigoServico: item.codigoServico,
+        descricao: item.descricao,
+        valorServico: item.valorServico
+      };
+      return novoItem;
+    })
+    // OBSERVAÇÃO
+    const Observacao = JsObservacao;
+}
