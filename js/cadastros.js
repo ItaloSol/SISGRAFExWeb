@@ -1,3 +1,4 @@
+// Papel
 function CadastraPapel() {
   const Nome_papel = document.getElementById('Nome_papel').value.toUpperCase();
    const Mediada_Papel = document.getElementById('Mediada_Papel').value.toUpperCase();
@@ -34,7 +35,7 @@ function CadastraPapel() {
       
     }
 }
-
+// Acabamento
 function CadastraAcabamento() {
   const Nome_Acabamento = document.getElementById('Nome_Acabamento').value.toUpperCase();
       const valor_Acabamento = document.getElementById('valor_Acabamento').value.toUpperCase();
@@ -63,7 +64,7 @@ function CadastraAcabamento() {
       
     }
 }
-
+// Servico
 function CadastraServico() {
   const Nome_Servico = document.getElementById('Nome_Servico').value.toUpperCase();
       const valorUnitario = document.getElementById('valorUnitario').value.toUpperCase();

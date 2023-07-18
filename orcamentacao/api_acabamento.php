@@ -22,14 +22,10 @@ if (isset($_GET['id'])) {
         'MAQUINA' => $linha['MAQUINA'],
         'ATIVA' => $linha['ATIVA'],
         'CUSTO_HORA' => $linha['CUSTO_HORA'],
-      ];
-
-   
+      ]; 
   }else {
     $Do_Acabamento = [];
 }
-
-
 
   echo json_encode($Do_Acabamento);
 }else{
