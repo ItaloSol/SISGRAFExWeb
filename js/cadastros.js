@@ -97,3 +97,176 @@ function CadastraServico() {
       
     }
 }
+
+// CALCULO ORÇAMENTO
+  // Tabela Produto
+function ObterTabelaProduto() {
+    // PRODUTOS
+  const tabelaProdutoSelecionado = document.getElementById('SelecionadoProudutosProduto');
+  const Produtos = [];
+
+  for (let i = 1; i < tabelaProdutoSelecionado.rows.length; i++) {
+    const linha = tabelaProdutoSelecionado.rows[i];
+    const celulas = linha.cells;
+    const item = {
+      código: celulas[0].textContent,
+      descrição: celulas[1].textContent,
+      largura: celulas[2].textContent,
+      altura: celulas[3].textContent,
+      "qtd. páginas": celulas[4].textContent
+    };
+    console.log(celulas[1].textContent)
+    Produtos.push(item);
+  }
+  const jsonProdutos = JSON.stringify(Produtos);
+  console.log(jsonProdutos);
+}
+  //Tabela Tiragens
+function obterTabelaTiragens() {
+  const tabela = document.getElementById('ProdutoTIragens');
+  const dados = [];
+
+  // Verificar se a tabela possui dados
+  if (tabela.rows.length > 1) {
+    // Loop começa a partir de 1 para ignorar a primeira linha de cabeçalho
+    for (let i = 1; i < tabela.rows.length; i++) {
+      const linha = tabela.rows[i];
+      const celulas = linha.cells;
+      const item = {
+        produto: celulas[0].textContent,
+        quantidade: celulas[1].textContent,
+        digital: celulas[2].textContent,
+        offset: celulas[3].textContent,
+        valorImpressaoDigital: celulas[4].textContent,
+        valorUnidade: celulas[5].textContent
+      };
+      dados.push(item);
+    }
+  } else {
+    // A tabela não possui dados
+    console.log('Nenhum produto selecionado.');
+    return;
+  }
+
+  const jsonData = JSON.stringify(dados);
+  console.log(jsonData);
+}
+  // Tabela Papeis
+function obterTabelaPapeis() {
+    // Selecionar o elemento pai (table) que contém o elemento a ser removido
+    const tableElement = document.getElementById('tabela_campos');
+
+    // Selecionar o elemento a ser removido (tbody)
+    const tbodyElement = tableElement.querySelectorAll('tbody');
+    if(tbodyElement.length == 2){
+      // Remover o elemento (tbody) do elemento pai (table)
+      tableElement.removeChild(tbodyElement[0]);
+    }
+    const tabela = document.getElementById('tabela_campos');
+    const dados = [];
+    // Verificar se a tabela possui dados
+    if (tabela.rows[1]) {
+      // Loop começa a partir de 1 para ignorar a primeira linha de cabeçalho
+     
+        const linha = tabela.rows[1];
+        const celulas = linha.cells;
+        const item = {
+          produto: celulas[0].textContent,
+          codigoPapel: celulas[1].textContent,
+          descricao: celulas[2].textContent,
+          cf: celulas[3].querySelector('input').value,
+          cv: celulas[4].querySelector('input').value,
+          formatoImpressao: celulas[5].querySelector('input').value,
+          perca: celulas[6].querySelector('input').value,
+          gastoFolha: celulas[7].querySelector('input').value,
+          precoFolha: celulas[8].textContent,
+          quantidadeChapas: celulas[9].querySelector('input').value,
+          precoChapa: celulas[10].textContent
+        };
+        dados.push(item);
+      
+    } else {
+      // A tabela não possui dados
+      console.log('Nenhum papel selecionado.');
+      return;
+    }
+  
+    const jsonData = JSON.stringify(dados);
+    console.log(jsonData);
+ 
+}
+  // Tabela Acabamentos
+function obterTabelaAcabamentos() {
+  const tabela = document.getElementById('seleccionadoacabamentos');
+  const dados = [];
+
+  // Verificar se a tabela possui dados
+  if (tabela.rows.length > 1) {
+    // Loop começa a partir de 1 para ignorar a primeira linha de cabeçalho
+    for (let i = 1; i < tabela.rows.length; i++) {
+      const linha = tabela.rows[i];
+      const celulas = linha.cells;
+      const item = {
+        codigoAcabamento: celulas[0].textContent,
+        descricao: celulas[1].textContent,
+        precoAcabamento: celulas[2].textContent
+      };
+      dados.push(item);
+    }
+  } else {
+    // A tabela não possui dados
+    console.log('Nenhum acabamento selecionado.');
+    return;
+  }
+
+  const jsonData = JSON.stringify(dados);
+  console.log(jsonData);
+}
+ // Tabela Serviços
+function obterTabelaServicos() {
+  const tabela = document.getElementById('tabelaAservicos');
+  const dados = [];
+
+  // Verificar se a tabela possui dados
+  if (tabela.rows.length > 1) {
+    // Loop começa a partir de 1 para ignorar a primeira linha de cabeçalho
+    for (let i = 1; i < tabela.rows.length; i++) {
+      const linha = tabela.rows[i];
+      const celulas = linha.cells;
+
+      if (celulas[0].textContent === '') {
+        console.log('Nenhum serviço selecionado.');
+        return;
+      }
+      
+      const item = {
+        codigoServico: celulas[0].textContent,
+        descricao: celulas[1].textContent,
+        valorServico: celulas[2].textContent
+      };
+      dados.push(item);
+    }
+  } else {
+    // A tabela não possui dados
+    console.log('Nenhum serviço selecionado.');
+    return;
+  }
+
+  const jsonData = JSON.stringify(dados);
+  console.log(jsonData);
+}
+  // Valor Observacao
+function obterValorObservacao() {
+  const textareaObservacao = document.getElementById('observacao_orc');
+  const valorObservacao = textareaObservacao.value;
+  console.log(valorObservacao);
+}
+ // FUNÇÃO DO CALCULO
+ function calcularValor(){
+    ObterTabelaProduto();
+    obterTabelaTiragens();
+    obterTabelaPapeis();
+    obterTabelaAcabamentos();
+    obterTabelaServicos();
+    obterValorObservacao();
+ }

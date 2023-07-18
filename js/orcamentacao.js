@@ -236,7 +236,7 @@ function recuperarNomesAcabamento(iddovalor) {
       tableBody.innerHTML += `
     <thead>
     <tr>
-    <th>CÓDIGO</th>
+    <th>CÓDIGO ACABAMENTO</th>
     <th>MÁQUINA</th>
     <th>CUSTO</th>
     </tr>

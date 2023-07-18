@@ -121,16 +121,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
 
 ?>
-
-
-
   <div class=" orcamento-- "></div>
-
   <!-- Tela de Orçamento -->
-
-
-
-  <!--  -->
+  <!-- INFORMAÇÃO DO CLIENTE  -->
   <div class="col-md mb-4 mb-md-0">
     <div class="accordion mt-3" id="accordionExample">
       <div class="card accordion-item active">
@@ -306,7 +299,6 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <th>QTD.PÁGINAS</th>
                         </tr>
                       </thead>
-                      <tbody class="table-border-bottom-0">
 
                         <tr>
                           <td align="center" colspan="5">NENHUM SELECIONADO</td>
@@ -330,11 +322,10 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <th>VALOR UNIDADE</th>
                         </tr>
                       </thead>
-                      <tbody class="table-border-bottom-0">
 
                         <tr>
                           <td align="center" colspan="7">NENHUM SELECIONADO</td>
-
+                          </tr>
 
                     </table>
                   </div>
@@ -345,11 +336,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 <div class="card">
                   <div id="mensagemPapelApagado"></div>
                   <h5 style="display: flex; align-items: center;" class="card-header">PAPEL
-
                   </h5>
-
-
-
                   <div class="table-responsive text-nowrap">
                     <table id="tabela_campos" class="table table-striped">
                       <thead>
@@ -384,15 +371,15 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                     <table id="seleccionadoacabamentos" class="table table-striped">
                       <thead>
                         <tr>
-                          <th>PRODUTO</th>
                           <th>CÓDIGO ACABAMENTO</th>
                           <th>DESCRIÇÃO</th>
                           <th>PREÇO ACABAMENTO</th>
                         </tr>
                       </thead>
-                      <tbody class="table-border-bottom-0">
+                      
                         <tr>
                           <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                          <tr>
                     </table>
                   </div>
                 </div>
@@ -404,8 +391,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <form method="POST" action="saveobs.php">
-                            <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc" class="col-12"></textarea>
+                            <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc"  id="observacao_orc" class="col-12"></textarea>
                             <input type="hidden" name="cod">
                         </tr>
                     </table>
@@ -416,9 +402,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 <div class="card">
                   <h5 class="card-header">SERVIÇOS</h5>
                   <div class="table-responsive text-nowrap">
-                  <div class="row">
+                    <div class="row">
                       <div class="col-3">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" id="selecionar_um_servico" data-bs-target="#modalServico" onclick="abriServicos()" >
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" id="selecionar_um_servico" data-bs-target="#modalServico" onclick="abriServicos()">
                           Selecionar um Serviço
                         </button>
                       </div>
@@ -436,7 +422,6 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <th>VALOR SERVIÇO</th>
                         </tr>
                       </thead>
-                      <tbody class="table-border-bottom-0">
                         <tr>
                           <td colspan="3" align="center">NENHUM SELECIONADO</td>
                         </tr>
@@ -448,78 +433,78 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             <!-- MODAL SELEÇÃO DE SERVIÇO -->
 
             <div class="modal" id="modalServico">
-                <div class="modal-dialog modal-xl" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                          <h1>SERVIÇOS</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1>SERVIÇOS</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                  </div>
+                  <div class="modal-body">
                     <?php
-                      $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento ORDER BY cod DESC");
-                      $query_servicos->execute();
-                      $a = 0;
-                      while ($linha = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
-                        $servico[$a] = [
-                          'cod' => $linha['cod'],
-                          'descricao' => $linha['descricao'],
-                          'valor_minimo' => $linha['valor_minimo'],
-                          'valor_unitario' => $linha['valor_unitario'],
-                          'servico_geral' => $linha['servico_geral'],
-                          'tipo_servico' => $linha['tipo_servico'],
-                        ];
-                        $a++;
-                      }
-                      ?>
-                      <div class="row">
-                        <div id="mensagemServico"></div>
-                        <div class="col-4">
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Nome_Servico">NOME DO SERVIÇO</label>
-                            <input type="text" id="Nome_Servico" class="form-control phone-mask" placeholder="Nome do serviço" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="Servico_Geral">SERVIÇO GERAL</label>
-                            <input type="checkbox" id="Servico_Geral" class="form-check-input"  />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="valor_min">Valor Minimo</label>
-                            <input type="number" id="valor_min" class="form-control phone-mask" placeholder="Valor minimo do serviço" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="valorUnitario">VALOR UNITÁRIO DO SERVIÇO</label>
-                            <input type="number" id="valorUnitario" class="form-control phone-mask" placeholder="Valor unitário do Serviço" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="tipoServico">TIPO DO SERVIÇO</label>
-                            <select class="form-select" id="tipoServico" name="tipoServico" aria-label="Default select example">
-                          <option value="Serviço Interno">Serviço Interno</option>
-                          <option value="Serviço Externo">Serviço Externo</option>
-                        </select>
-                          </div>
-                         
-                          <div class="mb-3">
-                            <a class="btn rounded-pill btn-success" onclick="CadastraServico()">CADASTRAR</a>
-                          </div>
+                    $query_servicos = $conexao->prepare("SELECT * FROM tabela_servicos_orcamento ORDER BY cod DESC");
+                    $query_servicos->execute();
+                    $a = 0;
+                    while ($linha = $query_servicos->fetch(PDO::FETCH_ASSOC)) {
+                      $servico[$a] = [
+                        'cod' => $linha['cod'],
+                        'descricao' => $linha['descricao'],
+                        'valor_minimo' => $linha['valor_minimo'],
+                        'valor_unitario' => $linha['valor_unitario'],
+                        'servico_geral' => $linha['servico_geral'],
+                        'tipo_servico' => $linha['tipo_servico'],
+                      ];
+                      $a++;
+                    }
+                    ?>
+                    <div class="row">
+                      <div id="mensagemServico"></div>
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <label class="form-label colorbranca" for="Nome_Servico">NOME DO SERVIÇO</label>
+                          <input type="text" id="Nome_Servico" class="form-control phone-mask" placeholder="Nome do serviço" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label colorbranca" for="Servico_Geral">SERVIÇO GERAL</label>
+                          <input type="checkbox" id="Servico_Geral" class="form-check-input" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label colorbranca" for="valor_min">Valor Minimo</label>
+                          <input type="number" id="valor_min" class="form-control phone-mask" placeholder="Valor minimo do serviço" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label colorbranca" for="valorUnitario">VALOR UNITÁRIO DO SERVIÇO</label>
+                          <input type="number" id="valorUnitario" class="form-control phone-mask" placeholder="Valor unitário do Serviço" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label colorbranca" for="tipoServico">TIPO DO SERVIÇO</label>
+                          <select class="form-select" id="tipoServico" name="tipoServico" aria-label="Default select example">
+                            <option value="Serviço Interno">Serviço Interno</option>
+                            <option value="Serviço Externo">Serviço Externo</option>
+                          </select>
                         </div>
 
-                        <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-                          <div class="row">
-                            <b>Pesquisar:</b>
-                            <div class="col-6"><input type="text" class="form-control" id="pesquiarserviconome" placeholder="Nome do servico" onkeyup="pesquisarservico()"></div>
-                            <div class="col-6"><input type="number" class="form-control" id="pesquiarservicoCodigo" placeholder="Código do servico" onkeyup="pesquisarservicocode()"></div>
-                          </div>
-                          <table id="selecionarServicos" class="colorbranca table table-sm table-houver">
-                            <tr>
-                              <th>CODIGO</th>
-                              <th>DESCRIÇÃO</th>
-                              <th>VALOR MINIMO</th>
-                              <th>VALOR UNITÁRIO</th>
-                              <th>TIPO DO SERVIÇO</th>
-                              <th>SELECIONAR</th>
-                            </tr>
-                            <?php for ($i = 0; $i < $a; $i++) {
-                              echo '<tr>
+                        <div class="mb-3">
+                          <a class="btn rounded-pill btn-success" onclick="CadastraServico()">CADASTRAR</a>
+                        </div>
+                      </div>
+
+                      <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
+                        <div class="row">
+                          <b>Pesquisar:</b>
+                          <div class="col-6"><input type="text" class="form-control" id="pesquiarserviconome" placeholder="Nome do servico" onkeyup="pesquisarservico()"></div>
+                          <div class="col-6"><input type="number" class="form-control" id="pesquiarservicoCodigo" placeholder="Código do servico" onkeyup="pesquisarservicocode()"></div>
+                        </div>
+                        <table id="selecionarServicos" class="colorbranca table table-sm table-houver">
+                          <tr>
+                            <th>CODIGO</th>
+                            <th>DESCRIÇÃO</th>
+                            <th>VALOR MINIMO</th>
+                            <th>VALOR UNITÁRIO</th>
+                            <th>TIPO DO SERVIÇO</th>
+                            <th>SELECIONAR</th>
+                          </tr>
+                          <?php for ($i = 0; $i < $a; $i++) {
+                            echo '<tr>
                                 <td>' . $servico[$i]['cod'] . '</td>
                                 <td>' . $servico[$i]['descricao'] . '</td>
                                 <td>' . $servico[$i]['valor_minimo'] . '</td>
@@ -527,47 +512,49 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                                 <td>' . $servico[$i]['tipo_servico'] . '</td>
                                 <td><input type="checkbox"  class="form-check-input" id="Servi' . $servico[$i]['cod'] . '" value="' . $servico[$i]['cod'] . '" onclick="selecionarServico(this.id)"></td>
                               </tr>';
-                            } ?>
+                          } ?>
 
-                          </table>
-                        </div>
+                        </table>
                       </div>
-                    </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-            <div class="container row ">
-              <div class="col-3">
-                <label class="form-label m-0 p-0">CIF (%)</label>
-                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
-              </div>
-              <div class="col-3">
-                <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
-                <input class="form-check-input mt-0" id="arte" type="checkbox" aria-label="checkbox button for following text input" />
-                <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
-              </div>
-              <div class="col-3">
-                <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
-                <input class="form-check-input mt-0" type="checkbox" id="frete" aria-label="checkbox button for following text input" />
-                <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00" aria-label="Text input with radio button" />
-              </div>
-              <div class="col-3">
-                <label class="form-label m-0 p-0">Desconto (%)</label>
-                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
-              </div>
             </div>
-
-            <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
-            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
-            <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
-            <!-- <button type="submit" class="btn btn-success">Salvar</button> -->
-            </form>
           </div>
+
+          <div class="container row ">
+            <button style="margin-bottom: 20px;" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
+                          CALCULAR VALOR DO ORÇAMENTO
+                        </button>
+            <div class="col-3">
+              <label class="form-label m-0 p-0">CIF (%)</label>
+              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+            </div>
+            <div class="col-3">
+              <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
+              <input class="form-check-input mt-0" id="arte" type="checkbox" aria-label="checkbox button for following text input" />
+              <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
+            </div>
+            <div class="col-3">
+              <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
+              <input class="form-check-input mt-0" type="checkbox" id="frete" aria-label="checkbox button for following text input" />
+              <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00" aria-label="Text input with radio button" />
+            </div>
+            <div class="col-3">
+              <label class="form-label m-0 p-0">Desconto (%)</label>
+              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+            </div>
+          </div>
+
+          <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
+          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
+          <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
+          <!-- <button type="submit" class="btn btn-success">Salvar</button> -->
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Botão para abrir o primeiro modal -->
   <!-- Primeiro modal PRODUTOS GERAL -->
@@ -958,9 +945,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                   </div>
                 </div>
               </div>
-              
 
-              
+
+
               <!-- terceiro modal CONTEUDO ACABAMENTO -->
               <div class="modal" id="modal23">
                 <div class="modal-dialog modal-xl" role="document">
@@ -1282,10 +1269,17 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
 
 
-            <?php 
-} else { if((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1'] == '' || $_POST['numero2'] == '')){ ?>
-<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Você não selecionou o cliente da forma correta!</div></div>
-  <?php } ?>
+              <?php
+            } else {
+              if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1'] == '' || $_POST['numero2'] == '')) { ?>
+                <div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast-header"> <i class="bx bx-bell me-2"></i>
+                    <div class="me-auto fw-semibold">Aviso!</div> <small> </small>
+                  </div>
+                  <div class="toast-body">Você não selecionou o cliente da forma correta!</div>
+                </div>
+              <?php
+              } ?>
 
               <!-- Segundo modal CONTEUDO PAPEL -->
               <div>
