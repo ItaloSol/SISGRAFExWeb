@@ -527,7 +527,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             
             <div class="col-3">
               <label class="form-label m-0 p-0">CIF (%)</label>
-              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+              <input type="text" class="form-control" id="cif" placeholder="0%" aria-describedby="defaultFormControlHelp" />
             </div>
             <div class="col-3">
               <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
@@ -541,7 +541,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             </div>
             <div class="col-3">
               <label class="form-label m-0 p-0">Desconto (%)</label>
-              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+              <input type="text" class="form-control" id="desconto" placeholder="0%" aria-describedby="defaultFormControlHelp" />
             </div>
             <div>
               <br>
