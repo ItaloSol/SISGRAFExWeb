@@ -395,6 +395,12 @@ $refresh = 0;
               <div data-i18n="Basic">Modificação de Op</div>
             </a>
           </li>
+          <li class=" modifca menu-item">
+            <a href="../expedicao/resolver_expedicao.php" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-notepad"></i>
+              <div data-i18n="Basic">Cancelar ou Faturar Op</div>
+            </a>
+          </li>
         <?php  } ?>
         <li class=" faturamento menu-item">
           <a href="../expedicao/tl-faturadas.php" class="menu-link">
