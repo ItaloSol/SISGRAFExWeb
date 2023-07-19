@@ -524,9 +524,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
           </div>
 
           <div class="container row ">
-            <button style="margin-bottom: 20px;" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
-                          CALCULAR VALOR DO ORÇAMENTO
-                        </button>
+            
             <div class="col-3">
               <label class="form-label m-0 p-0">CIF (%)</label>
               <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
@@ -545,8 +543,13 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
               <label class="form-label m-0 p-0">Desconto (%)</label>
               <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" aria-describedby="defaultFormControlHelp" />
             </div>
+            <div>
+              <br>
+            <button style="margin-bottom: 20px;" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
+                          CALCULAR VALOR DO ORÇAMENTO
+                        </button><br>
+                        </div>
           </div>
-
           <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
           <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
           <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->

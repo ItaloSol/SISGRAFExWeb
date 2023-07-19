@@ -268,7 +268,22 @@ function obterValorObservacao() {
   const JsAcabamentos =  obterTabelaAcabamentos();
   const JsServicos =  obterTabelaServicos();
   const JsObservacao =  obterValorObservacao();
-  
+    // CIF
+  const ValorCif = document.getElementById('cif');
+    // Arte
+  if(document.getElementById('check_arte').value){
+    const ValorArte = Number(document.getElementById('arte').value);
+  }else{
+    const ValorArte = 0;
+  }
+    // FRETE
+  if(document.getElementById('check_frete').value){
+    const ValorFrete = Number(document.getElementById('frete').value);
+  }else{
+    const ValorFrete = 0;
+  }
+    // DESCONTO
+  const ValorDesconto = Number(document.getElementById('desconto').value);
     // PRODUTO
     const Produto = JSON.parse(JsProduto)
     const resultadoProduto = Produto.map(item => {
