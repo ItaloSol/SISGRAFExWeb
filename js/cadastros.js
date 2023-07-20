@@ -150,38 +150,37 @@ function obterTabelaTiragens() {
   return JSON.stringify(dados);
   //console.log(jsonData);
 }
+
+// Tabela Papeis
 function ObsertPapelCorreto() {
 const tabela = document.getElementById('tabela_campos');
 const linhas = tabela.getElementsByTagName('tr');
 const tbodys = tabela.getElementsByTagName('tbody');
 // Passo 2: Iterar sobre as linhas e células da tabela
-let valorPapeis = 0;
+let item = [];
 for (let i = 0; i < linhas.length; i++) {
-  
     const celulas = linhas[i].getElementsByTagName('td');
     // Passo 3: Acessar e manipular os valores contidos em cada célula
-  
     for (let j = 0; j < celulas.length; j++) {
-    //  valorPapeis += +celulas[i][8].innerText;
         const valorCelula = celulas[j].innerText;
-        if(j == 8){
-          valorPapeis += +valorCelula;
-        }
-        // console.log(`Valor da célula [${i}][${j}]: ${valorCelula}`);
-        // Exemplo de manipulação:
-        // Se a célula contém um input, você pode obter o valor do input assim:
-        const input = celulas[j].querySelector('input');
-        if (input) {
-            // const valorInput = input.value;
-            //  console.log(`Valor do input da célula [${i}][${j}]: ${valorInput}`);
-            // Aqui você pode fazer qualquer manipulação desejada com o valor do input.
-            // Por exemplo, pode convertê-lo para um número, fazer cálculos, etc.
-        }
+         item[i] = {
+          produto: celulas[0].textContent,
+          cod: celulas[1].textContent,
+          descricao: celulas[2].textContent,
+          cf: celulas[3].querySelector('input').value,
+          cv: celulas[4].querySelector('input').value,
+          for_impres: celulas[5].querySelector('input').value,
+          perca: celulas[6].querySelector('input').value,
+          gasto: celulas[7].querySelector('input').value,
+          preco: celulas[8].textContent,
+          qtd_chapa: celulas[9].querySelector('input').value,
+          valo_chapa: celulas[10].textContent,
+        };
     }
 }
-return valorPapeis;
+return item;
 }
-  // Tabela Papeis
+  
 function obterTabelaPapeis() {
     // Selecionar o elemento pai (table) que contém o elemento a ser removido
     const tableElement = document.getElementById('tabela_campos');
@@ -296,12 +295,11 @@ function obterValorObservacao() {
  function calcularValor(){
   const JsProduto = ObterTabelaProduto();
   const JsTiragens =  obterTabelaTiragens();
- // const JsPapeis =  obterTabelaPapeis();
-  const valorPapeis = ObsertPapelCorreto();
+  const JsPapeis =  JSON.stringify(ObsertPapelCorreto());
   const JsAcabamentos =  obterTabelaAcabamentos();
   const JsServicos =  obterTabelaServicos();
   const JsObservacao =  obterValorObservacao();
-  console.log('VALOR DO PAPEL -----' + valorPapeis)
+ 
     // CIF
   const ValorCif = document.getElementById('cif').value;
     // Arte
@@ -351,25 +349,32 @@ function obterValorObservacao() {
         return novoItem;
     });
     // PAPEIS
-    // const Papeis = JSON.parse(JsPapeis)
-    // let ValorPapel = 0;
-    // Papeis.map(item => {
-    //   ValorPapel += +item.precoFolha;
-    //   const novoItem = {
-    //     produto: item.produto,
-    //     codigoPapel: item.codigoPapel,
-    //     descricao: item.descricao,
-    //     cf: item.cf,
-    //     cv: item.cv,
-    //     formatoImpressao: item.formatoImpressao,
-    //     perca: item.perca,
-    //     gastoFolha: item.gastoFolha,
-    //     precoFolha: item.precoFolha,
-    //     quantidadeChapas: item.quantidadeChapas,
-    //     precoChapa: item.precoChapa
-    //   };
-    //   return novoItem;
-    // });
+    const Papeis = JSON.parse(`[${JsPapeis}]`)
+    let ValorPapel = 0;
+    let novoItem = [];
+    Papeis.map(item => {
+      for(i = 0; i < item.length; i++){ 
+      if(item[i]){
+        ValorPapel += +item[i].preco;
+      }
+      
+      novoItem = {
+        produto: item.produto,
+        codigoPapel: item.cod,
+        descricao: item.descricao,
+        cf: item.cf,
+        cv: item.cv,
+        formatoImpressao: item.for_impres,
+        perca: item.perca,
+        gastoFolha: item.gasto,
+        precoFolha: item.preco,
+        quantidadeChapas: item.qtd_chapa,
+        precoChapa: item.valo_chapa
+      };
+    }
+      return novoItem;
+    });
+
     // ACABAMENTO
     const Acabamento = JSON.parse(JsAcabamentos)
     let ValorAcabamento = 0;
@@ -396,23 +401,31 @@ function obterValorObservacao() {
     const Observacao = JsObservacao;
 
     // FORMULA PARA O VALOR
-    console.log('Valor arte R$ ' + ValorArte);
-    console.log('Valor frete R$ ' + ValorFrete);
-    console.log('Valor desconto R$ ' + ValorDesconto);
-    console.log('Valor acabamento R$ ' + ValorAcabamento);
-    console.log('Valor Impressão R$ '+ ValorImpressao);
-     console.log('Valor Papel R$ '+ valorPapeis);
-    let SomaValor = ValorAcabamento + ValorImpressao + +valorPapeis;
+    // console.log('Valor arte R$ ' + ValorArte);
+    // console.log('Valor frete R$ ' + ValorFrete);
+    // console.log('Valor desconto R$ ' + ValorDesconto);
+    // console.log('Valor acabamento R$ ' + ValorAcabamento);
+    // console.log('Valor Impressão R$ '+ ValorImpressao);
+    //  console.log('Valor Papel R$ '+ ValorPapel);
+    
+    let SomaValor = ValorAcabamento + ValorImpressao + +ValorPapel;
+    
     let ConversaoDesconto = +ValorDesconto / 100;
-    console.log('Valor Conversão do Desconto R$ '+ ConversaoDesconto);
+  
     let DescontoBruto = ConversaoDesconto * SomaValor;
-    console.log('Desconto Bruto' + DescontoBruto);
+   
     let ConversaoCif = +ValorCif / 100;
-    console.log('Valor Conversão do cif R$ '+ ConversaoCif);
+   
     let CifBruto = ConversaoCif * SomaValor;
-     console.log('Valor do cif R$ '+ CifBruto);
+    
     let Total = CifBruto + SomaValor + +ValorArte + +ValorFrete - DescontoBruto;
-    console.log('Soma Valor R$ '+ SomaValor)
-    console.log('Valor Total R$ '+ Total.toFixed(2));
+    
+    // console.log('Desconto Bruto' + DescontoBruto);
+    // console.log('Valor Conversão do cif R$ '+ ConversaoCif);
+    // console.log('Valor do cif R$ '+ CifBruto);
+    // console.log('Soma Valor R$ '+ SomaValor)
+    // console.log('Valor Total R$ '+ Total.toFixed(2));
+    
+    // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
     document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
 }
