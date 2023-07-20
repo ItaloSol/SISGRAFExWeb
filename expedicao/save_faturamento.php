@@ -122,8 +122,8 @@ if(isset($_POST['FATURAR'])|| isset($_POST['excluir'])){
         
         if ($quantidade == $quantidade_restante) {
             // 100%
-            $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Faturamento da Op $cod' , '$cod_user' , '$dataHora')");
-            $Atividade_Supervisao->execute();
+            // $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Faturamento da Op $cod' , '$cod_user' , '$dataHora')");
+            // $Atividade_Supervisao->execute();
             $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos ORDER BY CODIGO DESC");
             $query_faturamento->execute();
 
