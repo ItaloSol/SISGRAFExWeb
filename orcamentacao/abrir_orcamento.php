@@ -531,13 +531,13 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             </div>
             <div class="col-3">
               <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
-              <input class="form-check-input mt-0" id="arte" type="checkbox" aria-label="checkbox button for following text input" />
-              <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
+              <input class="form-check-input mt-0" id="check_arte" type="checkbox" aria-label="checkbox button for following text input" />
+              <input type="text" class="form-control" disabled id="arte" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
             </div>
             <div class="col-3">
               <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
-              <input class="form-check-input mt-0" type="checkbox" id="frete" aria-label="checkbox button for following text input" />
-              <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00" aria-label="Text input with radio button" />
+              <input class="form-check-input mt-0" type="checkbox" id="check_frete" aria-label="checkbox button for following text input" />
+              <input type="text" class="form-control" disabled id="frete" placeholder="R$ 00,00" aria-label="Text input with radio button" />
             </div>
             <div class="col-3">
               <label class="form-label m-0 p-0">Desconto (%)</label>
@@ -551,7 +551,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                         </div>
           </div>
           <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
-          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
+          <input type="text" class="form-control" id="ValorTotalOrc" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
           <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
           <!-- <button type="submit" class="btn btn-success">Salvar</button> -->
         </div>

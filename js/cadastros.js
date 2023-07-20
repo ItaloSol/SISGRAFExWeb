@@ -150,6 +150,37 @@ function obterTabelaTiragens() {
   return JSON.stringify(dados);
   //console.log(jsonData);
 }
+function ObsertPapelCorreto() {
+const tabela = document.getElementById('tabela_campos');
+const linhas = tabela.getElementsByTagName('tr');
+const tbodys = tabela.getElementsByTagName('tbody');
+// Passo 2: Iterar sobre as linhas e células da tabela
+let valorPapeis = 0;
+for (let i = 0; i < linhas.length; i++) {
+  
+    const celulas = linhas[i].getElementsByTagName('td');
+    // Passo 3: Acessar e manipular os valores contidos em cada célula
+  
+    for (let j = 0; j < celulas.length; j++) {
+    //  valorPapeis += +celulas[i][8].innerText;
+        const valorCelula = celulas[j].innerText;
+        if(j == 8){
+          valorPapeis += +valorCelula;
+        }
+        // console.log(`Valor da célula [${i}][${j}]: ${valorCelula}`);
+        // Exemplo de manipulação:
+        // Se a célula contém um input, você pode obter o valor do input assim:
+        const input = celulas[j].querySelector('input');
+        if (input) {
+            // const valorInput = input.value;
+            //  console.log(`Valor do input da célula [${i}][${j}]: ${valorInput}`);
+            // Aqui você pode fazer qualquer manipulação desejada com o valor do input.
+            // Por exemplo, pode convertê-lo para um número, fazer cálculos, etc.
+        }
+    }
+}
+return valorPapeis;
+}
   // Tabela Papeis
 function obterTabelaPapeis() {
     // Selecionar o elemento pai (table) que contém o elemento a ser removido
@@ -261,26 +292,31 @@ function obterValorObservacao() {
  // console.log(valorObservacao);
 }
  // FUNÇÃO DO CALCULO
+ 
  function calcularValor(){
   const JsProduto = ObterTabelaProduto();
   const JsTiragens =  obterTabelaTiragens();
-  const JsPapeis =  obterTabelaPapeis();
+ // const JsPapeis =  obterTabelaPapeis();
+  const valorPapeis = ObsertPapelCorreto();
   const JsAcabamentos =  obterTabelaAcabamentos();
   const JsServicos =  obterTabelaServicos();
   const JsObservacao =  obterValorObservacao();
+  console.log('VALOR DO PAPEL -----' + valorPapeis)
     // CIF
-  const ValorCif = document.getElementById('cif');
+  const ValorCif = document.getElementById('cif').value;
     // Arte
+    let ValorArte = null;
   if(document.getElementById('check_arte').value){
-    const ValorArte = Number(document.getElementById('arte').value);
+     ValorArte = Number(document.getElementById('arte').value);
   }else{
-    const ValorArte = 0;
+     ValorArte = 0;
   }
     // FRETE
+    let ValorFrete = null;
   if(document.getElementById('check_frete').value){
-    const ValorFrete = Number(document.getElementById('frete').value);
+     ValorFrete = Number(document.getElementById('frete').value);
   }else{
-    const ValorFrete = 0;
+     ValorFrete = 0;
   }
     // DESCONTO
   const ValorDesconto = Number(document.getElementById('desconto').value);
@@ -301,7 +337,9 @@ function obterValorObservacao() {
     });
     // TIRAGENS
     const Tiragens = JSON.parse(JsTiragens)
+    let ValorImpressao = 0;
     Tiragens.map(item => {
+      ValorImpressao += +item.valorImpressaoDigital;
         const novoItem = {
           produto: item.produto,
           quantidade: item.quantidade,
@@ -313,26 +351,30 @@ function obterValorObservacao() {
         return novoItem;
     });
     // PAPEIS
-    const Papeis = JSON.parse(JsPapeis)
-    Papeis.map(item => {
-      const novoItem = {
-        produto: item.produto,
-        codigoPapel: item.codigoPapel,
-        descricao: item.descricao,
-        cf: item.cf,
-        cv: item.cv,
-        formatoImpressao: item.formatoImpressao,
-        perca: item.perca,
-        gastoFolha: item.gastoFolha,
-        precoFolha: item.precoFolha,
-        quantidadeChapas: item.quantidadeChapas,
-        precoChapa: item.precoChapa
-      };
-      return novoItem;
-    });
+    // const Papeis = JSON.parse(JsPapeis)
+    // let ValorPapel = 0;
+    // Papeis.map(item => {
+    //   ValorPapel += +item.precoFolha;
+    //   const novoItem = {
+    //     produto: item.produto,
+    //     codigoPapel: item.codigoPapel,
+    //     descricao: item.descricao,
+    //     cf: item.cf,
+    //     cv: item.cv,
+    //     formatoImpressao: item.formatoImpressao,
+    //     perca: item.perca,
+    //     gastoFolha: item.gastoFolha,
+    //     precoFolha: item.precoFolha,
+    //     quantidadeChapas: item.quantidadeChapas,
+    //     precoChapa: item.precoChapa
+    //   };
+    //   return novoItem;
+    // });
     // ACABAMENTO
     const Acabamento = JSON.parse(JsAcabamentos)
+    let ValorAcabamento = 0;
     Acabamento.map(item => {
+      ValorAcabamento += +item.precoAcabamento;
       const novoItem = {
         codigoAcabamento: item.codigoAcabamento,
         descricao: item.descricao,
@@ -352,4 +394,25 @@ function obterValorObservacao() {
     })
     // OBSERVAÇÃO
     const Observacao = JsObservacao;
+
+    // FORMULA PARA O VALOR
+    console.log('Valor arte R$ ' + ValorArte);
+    console.log('Valor frete R$ ' + ValorFrete);
+    console.log('Valor desconto R$ ' + ValorDesconto);
+    console.log('Valor acabamento R$ ' + ValorAcabamento);
+    console.log('Valor Impressão R$ '+ ValorImpressao);
+     console.log('Valor Papel R$ '+ valorPapeis);
+    let SomaValor = ValorAcabamento + ValorImpressao + +valorPapeis;
+    let ConversaoDesconto = +ValorDesconto / 100;
+    console.log('Valor Conversão do Desconto R$ '+ ConversaoDesconto);
+    let DescontoBruto = ConversaoDesconto * SomaValor;
+    console.log('Desconto Bruto' + DescontoBruto);
+    let ConversaoCif = +ValorCif / 100;
+    console.log('Valor Conversão do cif R$ '+ ConversaoCif);
+    let CifBruto = ConversaoCif * SomaValor;
+     console.log('Valor do cif R$ '+ CifBruto);
+    let Total = CifBruto + SomaValor + +ValorArte + +ValorFrete - DescontoBruto;
+    console.log('Soma Valor R$ '+ SomaValor)
+    console.log('Valor Total R$ '+ Total.toFixed(2));
+    document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
 }
