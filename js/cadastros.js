@@ -291,7 +291,6 @@ function obterValorObservacao() {
  // console.log(valorObservacao);
 }
  // FUNÇÃO DO CALCULO
- 
  function calcularValor(){
   const JsProduto = ObterTabelaProduto();
   const JsTiragens =  obterTabelaTiragens();
@@ -336,7 +335,9 @@ function obterValorObservacao() {
     // TIRAGENS
     const Tiragens = JSON.parse(JsTiragens)
     let ValorImpressao = 0;
+    let Quantidade = 0;
     Tiragens.map(item => {
+      Quantidade +=  +item.quantidade;
       ValorImpressao += +item.valorImpressaoDigital;
         const novoItem = {
           produto: item.produto,
@@ -352,10 +353,12 @@ function obterValorObservacao() {
     const Papeis = JSON.parse(`[${JsPapeis}]`)
     let ValorPapel = 0;
     let novoItem = [];
+    let ValorChapa = 0;
     Papeis.map(item => {
       for(i = 0; i < item.length; i++){ 
       if(item[i]){
         ValorPapel += +item[i].preco;
+        ValorChapa += +item[i].valo_chapa;
       }
       
       novoItem = {
@@ -399,26 +402,34 @@ function obterValorObservacao() {
     })
     // OBSERVAÇÃO
     const Observacao = JsObservacao;
-
-    // FORMULA PARA O VALOR
-    // console.log('Valor arte R$ ' + ValorArte);
-    // console.log('Valor frete R$ ' + ValorFrete);
-    // console.log('Valor desconto R$ ' + ValorDesconto);
     // console.log('Valor acabamento R$ ' + ValorAcabamento);
-    // console.log('Valor Impressão R$ '+ ValorImpressao);
-    //  console.log('Valor Papel R$ '+ ValorPapel);
-    
-    let SomaValor = ValorAcabamento + ValorImpressao + +ValorPapel;
-    
-    let ConversaoDesconto = +ValorDesconto / 100;
-  
-    let DescontoBruto = ConversaoDesconto * SomaValor;
-   
-    let ConversaoCif = +ValorCif / 100;
-   
-    let CifBruto = ConversaoCif * SomaValor;
-    
-    let Total = CifBruto + SomaValor + +ValorArte + +ValorFrete - DescontoBruto;
+    // FORMULA PARA O VALOR
+    console.log('Quantidade de tiragens '+Quantidade);
+    console.log('Valor arte R$ ' + ValorArte);
+    console.log('Valor frete R$ ' + ValorFrete);
+    console.log('Valor desconto R$ ' + ValorDesconto);
+    console.log('Valor acabamento R$ ' + ValorAcabamento);
+    console.log('Valor Impressão R$ '+ ValorImpressao);
+    console.log('Valor ValorChapa R$ '+ ValorChapa);
+    ValorPapel += (ValorPapel * 5) / 100;
+    console.log('Valor Papel R$ '+ ValorPapel);
+    let SomaValor = ValorAcabamento * Quantidade;
+    console.log('ValorAcabamento * Quantidade '+ SomaValor)
+    SomaValor += ValorPapel;
+    console.log(' + ValorPapel '+ SomaValor)
+    SomaValor += ValorChapa;
+    console.log(' + ValorChapa '+ SomaValor)
+    SomaValor /= Quantidade;
+    console.log('SomaValor / Quantidade '+ SomaValor)
+    SomaValor += ValorImpressao;
+    console.log(' + ValorImpressao '+ SomaValor)
+    SomaValor += (SomaValor * +ValorCif) / 100;
+    console.log('(SomaValor * +ValorCif) / 100 R$ '+ SomaValor)
+
+    SomaValor -= (SomaValor * +ValorDesconto) / 100;
+    console.log('- (SomaValor * +ValorDesconto) R$ '+ SomaValor)
+
+    let Total = SomaValor;
     
     // console.log('Desconto Bruto' + DescontoBruto);
     // console.log('Valor Conversão do cif R$ '+ ConversaoCif);
