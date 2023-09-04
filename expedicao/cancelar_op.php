@@ -28,8 +28,8 @@ include_once('../conexoes/conexao.php');
             </div>
           </div>';
            
-            // $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Cancelou a OP $cod para solucuinar problemas' , '$cod_user' , '$dataHora')");
-            // $Atividade_Supervisao->execute();
+            $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Cancelou a OP $cod para solucuinar problemas' , '$cod_user' , '$dataHora')");
+            $Atividade_Supervisao->execute();
            
             $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '13' WHERE cod = $cod ");
             $atualizar_op->execute();
