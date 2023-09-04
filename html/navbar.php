@@ -796,7 +796,7 @@ $refresh = 0;
                   <button v-if="confirmado == true" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div v-if="confirmado == false">
-                  <div class="toast-body">Qual a satisfação quanto as funções e consultas do Sistema?</div>
+                  <div class="toast-body">Qual a satisfação quanto a ultilização do sistema e as funções?</div>
                   <div style="padding-left: 20px;" v-if="respondido == false">É necessário enviar um feedback</div>
                   <div style="padding-left: 20px;" v-else>Clique em Enviar Feedback</div>
                   <div style="padding-left: 20px;" class="row ">

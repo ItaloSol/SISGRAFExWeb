@@ -97,7 +97,22 @@ function CadastraServico() {
       
     }
 }
-
+const freteObserva = document.getElementById('check_frete');
+const arteObserva = document.getElementById('check_arte');
+freteObserva.addEventListener('click', vlr => {
+  if(freteObserva.checked){
+    document.getElementById('frete').disabled = false
+  }else{
+    document.getElementById('frete').disabled = true
+  }
+})
+arteObserva.addEventListener('click', vlr => {
+  if(arteObserva.checked){
+    document.getElementById('arte').disabled = false
+  }else{
+    document.getElementById('arte').disabled = true
+  }
+})
 // CALCULO ORÇAMENTO
   // Tabela Produto
 function ObterTabelaProduto() {
@@ -336,9 +351,11 @@ function obterValorObservacao() {
     const Tiragens = JSON.parse(JsTiragens)
     let ValorImpressao = 0;
     let Quantidade = 0;
+    let ValorUnitario = 0;
     Tiragens.map(item => {
       Quantidade +=  +item.quantidade;
       ValorImpressao += +item.valorImpressaoDigital;
+      ValorUnitario = item.valorUnidade;
         const novoItem = {
           produto: item.produto,
           quantidade: item.quantidade,
@@ -402,33 +419,41 @@ function obterValorObservacao() {
     })
     // OBSERVAÇÃO
     const Observacao = JsObservacao;
+    let SomaValor = 0;
     // console.log('Valor acabamento R$ ' + ValorAcabamento);
     // FORMULA PARA O VALOR
-    console.log('Quantidade de tiragens '+Quantidade);
-    console.log('Valor arte R$ ' + ValorArte);
-    console.log('Valor frete R$ ' + ValorFrete);
-    console.log('Valor desconto R$ ' + ValorDesconto);
-    console.log('Valor acabamento R$ ' + ValorAcabamento);
-    console.log('Valor Impressão R$ '+ ValorImpressao);
-    console.log('Valor ValorChapa R$ '+ ValorChapa);
-    ValorPapel += (ValorPapel * 5) / 100;
-    console.log('Valor Papel R$ '+ ValorPapel);
-    let SomaValor = ValorAcabamento * Quantidade;
-    console.log('ValorAcabamento * Quantidade '+ SomaValor)
-    SomaValor += ValorPapel;
-    console.log(' + ValorPapel '+ SomaValor)
-    SomaValor += ValorChapa;
-    console.log(' + ValorChapa '+ SomaValor)
-    SomaValor /= Quantidade;
-    console.log('SomaValor / Quantidade '+ SomaValor)
-    SomaValor += ValorImpressao;
-    console.log(' + ValorImpressao '+ SomaValor)
-    SomaValor += (SomaValor * +ValorCif) / 100;
-    console.log('(SomaValor * +ValorCif) / 100 R$ '+ SomaValor)
+    // console.log('Quantidade de tiragens '+Quantidade);
+    // console.log('Valor arte R$ ' + ValorArte);
+    // console.log('Valor frete R$ ' + ValorFrete);
+    // console.log('Valor desconto R$ ' + ValorDesconto);
+    // console.log('Valor acabamento R$ ' + ValorAcabamento);
+    // console.log('Valor Impressão R$ '+ ValorImpressao);
+    // console.log('Valor ValorChapa R$ '+ ValorChapa);
+    // ValorPapel += (ValorPapel * 5) / 100;
+    // console.log('Valor Papel R$ '+ ValorPapel);
+    // let SomaValor = ValorAcabamento * Quantidade;
+    // console.log('ValorAcabamento * Quantidade '+ SomaValor)
+    // SomaValor += ValorPapel;
+    // console.log(' + ValorPapel '+ SomaValor)
+    // SomaValor += ValorChapa;
+    // console.log(' + ValorChapa '+ SomaValor)
+    // SomaValor /= Quantidade;
+    // console.log('SomaValor / Quantidade '+ SomaValor)
+    // SomaValor += ValorImpressao;
+    // console.log(' + ValorImpressao '+ SomaValor)
+    // SomaValor += (SomaValor * +ValorCif) / 100;
+    // console.log('(SomaValor * +ValorCif) / 100 R$ '+ SomaValor)
 
-    SomaValor -= (SomaValor * +ValorDesconto) / 100;
-    console.log('- (SomaValor * +ValorDesconto) R$ '+ SomaValor)
-
+    // SomaValor -= (SomaValor * +ValorDesconto) / 100;
+    // console.log('- (SomaValor * +ValorDesconto) R$ '+ SomaValor)
+    SomaValor += (ValorUnitario * +ValorCif) / 100;
+    SomaValor += ValorArte;
+    SomaValor += ValorFrete;
+    console.log('SomaValor R$ '+ SomaValor)
+    SomaValor -= (ValorUnitario * +ValorDesconto) / 100;
+    console.log('SomaValor R$ '+ SomaValor)
+    SomaValor += ValorUnitario * Quantidade;
+    console.log('SomaValor R$ '+ SomaValor)
     let Total = SomaValor;
     
     // console.log('Desconto Bruto' + DescontoBruto);

@@ -87,8 +87,10 @@ if (isset($_SESSION['msg'])) {
               <tbody>
               <?php
                $numeroResultados = $query_ordens_finalizadas->rowCount();
+               $Numero = '(';
                echo '<tr ><td align="center" colspan="8"> TOTAL DE OP PARA ANALISAR: <br><b>' . $numeroResultados . '</b></td></tr>';
               while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
+                 $cod = $linha['cod'];
                 $Ordens_Finalizadas[$i] = [
                   'cod' => $linha['cod'],
                   'orcamento_base' => $linha['orcamento_base'],
@@ -164,10 +166,14 @@ if (isset($_SESSION['msg'])) {
                     </div>
                         </td>
                       </tr>';
-
-
-                $i++;
-              }
+                      $Numero = $Numero ." '" . $cod ."', ";
+                      
+                      $i++;
+                    }
+                    $Numero = $Numero ." )";
+                    echo "DELETE FROM faturamentos WHERE CODIGO_OP = '$Numero'";
+// echo "DELETE FROM faturamentos WHERE CODIGO_OP = '$cod'";
+                
 
               if (!isset($Ordens_Finalizadas[0]['cod'])) {
                 echo '<tr>

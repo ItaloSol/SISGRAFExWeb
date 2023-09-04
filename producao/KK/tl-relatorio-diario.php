@@ -7,7 +7,7 @@ date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
 
 $query_atendent = $conexao->prepare("SELECT * FROM relatorio_diario r INNER JOIN tabela_atendentes a ON a.codigo_atendente = r.atendente_relatorio ORDER BY r.data_relatorio DESC");
-// $query_atendent->execute();
+$query_atendent->execute();
 
 
 if (isset($_SESSION['msg'])) {
