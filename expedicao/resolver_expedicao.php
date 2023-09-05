@@ -87,7 +87,7 @@ if (isset($_SESSION['msg'])) {
               <tbody>
               <?php
                $numeroResultados = $query_ordens_finalizadas->rowCount();
-               $Numero = '(';
+               $Numero = "(";
                echo '<tr ><td align="center" colspan="8"> TOTAL DE OP PARA ANALISAR: <br><b>' . $numeroResultados . '</b></td></tr>';
               while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                  $cod = $linha['cod'];
