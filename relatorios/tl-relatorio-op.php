@@ -12,8 +12,7 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
   $Nome_Atem[$Operadores] = $Nome_Atendente;
   $Codigo[$Operadores] = $codigo_aten;
   $Operadores++;
-}
-;
+};
 $i = 0;
 $query_Sts = $conexao->prepare("SELECT * FROM sts_op  ORDER BY CODIGO ASC ");
 $query_Sts->execute();
@@ -174,7 +173,7 @@ $hoje = date('Y-m-d');
                 <div class="mb-3">
                   <select class="form-select" name="emissorCod">
                     <option selected>Selecione o Operador</option>
-                    <?php /* |-aaa! SISTEMA DE ESCALA DE SERVIÇO CRIADO POR SD ÍTALO SOL SCLOCOO *DANTAS* !-! */
+                    <?php 
                     while ($a < $Operadores) {
                       echo '<option value="' . $Codigo[$a] . '">' . $Codigo[$a] . ' - ' . $Nome_Atem[$a] . '</option>';
                       $a++;
@@ -336,7 +335,7 @@ $hoje = date('Y-m-d');
                   <select class="form-select" name="statusS">
                     <option selected>Selecione o status</option>
                     <option value="producao">0 - TODOS EM PRODUÇÃO</option>
-                    <?php /* |-aaa! SISTEMA DE ESCALA DE SERVIÇO CRIADO POR SD ÍTALO SOL SCLOCOO *DANTAS* !-! */
+                    <?php 
                     $i = 0;
                     while ($i < $Sts) {
                       echo '<option value="' . $Codigo_Sts_[$i] . '">' . $Codigo_Sts_[$i] . ' - ' . $Nome_Sts_[$i] . '</option>';
@@ -581,4 +580,4 @@ $hoje = date('Y-m-d');
 </div>
 
 
-<?php /* |-aaa! SISTEMA DE ESCALA DE SERVIÇO CRIADO POR SD ÍTALO SOL SCLOCOO *DANTAS* !-! */include_once("../html/../html/navbar-dow.php"); ?>
+<?php include_once("../html/../html/navbar-dow.php"); ?>

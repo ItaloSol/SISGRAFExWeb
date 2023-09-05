@@ -113,7 +113,7 @@ $hoje = date('Y-m-d'); ?>
             <option value="2">Pessoa Júridica</option>
           </select><br>
           <hr>
-          <!-- <button type="submit" name="submit" class="btn btn-info">Gerar Relatório</button> -->
+          <button type="submit" name="submit" class="btn btn-info">Gerar Relatório</button>
         </div><br><br>
         <br>
 

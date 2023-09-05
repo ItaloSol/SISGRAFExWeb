@@ -118,7 +118,7 @@ if ($false == 't') {
     $Principal = 0;
     while ($Total_de_Clientes > $Principal) {
         $Cliente = $tablea_cliente[$Principal]['cod'];
-        echo "SELECT * FROM tabela_notas n WHERE $Where AND n.tipo_pessoa = '$tipo_cliente' AND cod_cliente = '$Cliente' AND $Periodo_Total_Notas ORDER BY $Order ";
+       // echo "SELECT * FROM tabela_notas n WHERE $Where AND n.tipo_pessoa = '$tipo_cliente' AND cod_cliente = '$Cliente' AND $Periodo_Total_Notas ORDER BY $Order ";
         /////////////////////////////////// NOTAS DE CREDITO //////////////////////////////////////////////////////
         $query_Notas = $conexao->prepare("SELECT * FROM tabela_notas n WHERE $Where AND n.tipo_pessoa = '$tipo_cliente' AND cod_cliente = '$Cliente' AND $Periodo_Total_Notas ORDER BY $Order ");
         $query_Notas->execute();
