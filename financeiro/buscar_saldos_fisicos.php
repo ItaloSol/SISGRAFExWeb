@@ -143,6 +143,29 @@ while ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
             'data_emissao' => date($linha['data_emissao']),
 
         ];
+         if($linha['status'] == '12'){
+       $cod_produto_QQ = $linha['cod_produto'];
+        $Cod_Op_QQ = $linha['cod'];
+        $Pesquisa_Orc_QQ = $linha['orcamento_base'];
+
+            $query_Pesquisa_Orc_QQ = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento  WHERE cod_produto = '$cod_produto_QQ' AND cod_orcamento = $Pesquisa_Orc_QQ ");
+            $query_Pesquisa_Orc_QQ->execute();
+           // echo "codigo op: ". $Cod_Op_QQ ."<br>";
+
+            
+        if ($linha_QQ2 = $query_Pesquisa_Orc_QQ->fetch(PDO::FETCH_ASSOC)) {
+            $Valor_QQ = $linha_QQ2['quantidade'] * $linha_QQ2['preco_unitario'];
+               
+         //   echo "Valor Total: ". $Valor_QQ . "<br>";
+            $QQvalor_total_Faturamentos = $conexao->prepare("SELECT * FROM faturamentos f WHERE  f.CODIGO_OP = '$Cod_Op_QQ'");
+            $QQvalor_total_Faturamentos->execute();
+            while ($linhaQQ = $QQvalor_total_Faturamentos->fetch(PDO::FETCH_ASSOC)) {
+               // echo "Valores de fatuamento: ". $linhaQQ['VLR_FAT']. "<br>";
+             //   echo 'CALCULO: '. $Valor_QQ .' - '. $linhaQQ['VLR_FAT'] ;
+                $Valor_QQ = $Valor_QQ - $linhaQQ['VLR_FAT'];
+            }
+        }
+    }
         $Pesquisa_Produto = $Ordens_Abertas[$numero_clientes]['cod_produto'];
         $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
         $query_PRODUTOS->execute();
@@ -158,10 +181,12 @@ while ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
         $query_Pesquisa_Orc->execute();
             
         while ($linha2 = $query_Pesquisa_Orc->fetch(PDO::FETCH_ASSOC)) {
-            $Tabela_Orc_Abertas[$numero_clientes] = [
-                'valor_total' => $linha2['VLR_PARC']
-            ];
-            $valor_emproducao = $valor_emproducao + $linha2['VLR_PARC'];
+             if($linha['status'] == '12'){
+            $valor =  $Valor_QQ;
+            }else{
+                $valor = $linha2['VLR_PARC'];
+            }
+            $valor_emproducao = $valor_emproducao + $valor;
         }
         $Total_EmProducao[$numero_clientes] = $valor_emproducao;
         $i++;
