@@ -4,13 +4,63 @@ include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
 /////////////////////////////////////////////
 // CODIGO VARIAVEL // $html => VARIAVEL OBRIGATORIA PARA CRIAÇÃO DO PDF, INTRUÇÕES EM HTML 
-if (isset($_POST['submit'])) {
-    
 
+if (isset($_POST['submit'])) {
+    if($_POST['tipo_cliente'] == 'por_cliente'){
+         $cod = $_POST['numero'];
+         $tipo = $_POST['tipo_cliente_'];
+       $cliente = ' cod_cliente = '. $cod .' AND tipo_cliente = '.$tipo.'';
+    }elseif($_POST['tipo_cliente'] == 'tipo_pessoa'){
+        $tipo = $_POST['tipo_cliente_cli'];
+        $cliente = ' tipo cliente = '. $tipo;
+    }else{
+        $cliente = '';
+    }
+
+    if($_POST['por_emissor'] == 'por_operador'){
+        $emissor = $_POST['emissorCod'];
+        $Emissor = ' AND cod_emissor = "'.  $emissor .'"';
+    }else{
+        $Emissor = '';
+    }
+
+    if($_POST['periodo'] == 'por_dia'){
+        $data_lan = $_POST['data_por_dia'];
+        $datas = explode('-', $data_lan);
+        $data_correta = date('d/m/Y', strtotime($datas[0] . $datas[1] . $datas[2]));
+        $Periodo = ' AND data = "' . $data . '"';
+    }elseif($_POST['periodo'] == 'por_periodo'){
+        $data_lan = $_POST['data_por_inicio'];
+        $datas = explode('-', $data_lan);
+        $data_correta = date('d/m/Y', strtotime($datas[0] . $datas[1] . $datas[2]));
+        $data_lan2 = $_POST['data_por_fim'];
+        $datas2 = explode('-', $data_lan2);
+        $data_correta2 = date('d/m/Y', strtotime($datas2[0] . $datas2[1] . $datas2[2]));
+        $Periodo = ' AND data BETWEEN "'. $data_correta . '" AND "'. $data_correta2 .'"';
+    }else{
+        $Periodo = '';
+    }
+
+    if($_POST['por_forma_pagamento'] == 'forma_pagamento'){
+        $forma = $_POST['Forma_pagamento_'];
+        $Forma_de_Pagamento = ' AND forma_pagamento = '. $forma;
+    }else{
+        $Forma_de_Pagamento = '';
+    }
+
+    $Campos = 'cod, ';
+
+    if(isset($_POST['forma_de_pagamento'])){
+
+    }else{
+        
+    }
+    
+}
     /////////////////////////////////////////////
     /////// BUSCAR NO BANCO DE DADOS ////////////
     /////////////////////////////////////////////
-    $a = 0;
+  /*  $a = 0;
     if ($tipo_cliente == '1') {
 
 
@@ -143,4 +193,4 @@ if (isset($_POST['submit'])) {
                                 $Percorrer_Notas++;
                             }
                             echo $titulo . $sub_titulo . $Relatorio_Financeiro . $relatorio;
-                        }
+                        */ 
