@@ -36,7 +36,7 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
                 </div>
                 <div class="mb-3">
                            <label class="form-check-label" name="codigo" value="cod" for="defaultCheck1"> Tipo de Cliente </label>
-                            <select class="form-select" name="tipo_cliente" id="cliente" aria-label="Default select example">
+                            <select class="form-select" name="tipo_cliente_" id="cliente" aria-label="Default select example">
                               <option selected>Selecione o tipo de cliente</option>
                               <option value="1">Pessoa Física</option>
                               <option value="2">Pessoa Júridica</option>
@@ -120,7 +120,7 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
                   <label class="form-check-label" for="todos_emisro">Todos</label>
                 </div>
               </div>
-              <!--Período-->
+              <!--Forma de pagamento-->
               <div class="tab-pane fade" id="horizontal-pagamento">
                 <div class="form-check mt-3 ">
         
@@ -148,7 +148,7 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
                    
                  
                 <div class="form-check mt-3 ">
-                <input class="form-check-input" type="radio" checked name="periodo" value="por_dia" id="por_dia" />
+                <input class="form-check-input" type="radio"  name="periodo" value="por_dia" id="por_dia" />
                   <label  for="por_dia" class="col-md-2 col-form-label">Por dia</label>
                   </div>
                   <div class="col-md-10">
@@ -156,7 +156,7 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
               
                 </div>
                 <div class="form-check mt-3 ">
-                <input class="form-check-input" type="radio" checked name="periodo" value="por_periodo" id="por_periodo" />
+                <input class="form-check-input" type="radio"  name="periodo" value="por_periodo" id="por_periodo" />
                   <label  for="por_periodo" class="col-md-2 col-form-label">Por Período</label>
                 </div>
                   <div class="col-md-10">
@@ -257,7 +257,7 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
                   </div>
                   <br></br>
                 </div>
-                <button type="submit" class="btn btn-info">Gerar Relatório</button>
+                <button type="submit" name="submit" class="btn btn-info">Gerar Relatório</button>
               </div>
             </div>
 
