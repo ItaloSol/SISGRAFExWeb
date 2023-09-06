@@ -35,3 +35,32 @@ if(isset($_POST['observacao_orc'])){
     $Atividade_Supervisao->execute();
     header("Location: tl-orcamento.php?cod=$cod");
 }
+
+if(isset($_POST['alterar_status'])){
+  $status = $_POST['Status_selecionado'];
+  $cod = $_POST['cod'];
+  $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '$status'  WHERE cod = '$cod' ");
+  $query_aceitalas->execute();
+  $_SESSION['msg'] = ' <div id="alerta"
+          role="bs-toast"
+          class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true">
+          <div class="toast-header">
+            <i class="bx bx-bell me-2"></i>
+            <div class="me-auto fw-semibold">Aviso!</div>
+            <small>
+              
+              </small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          
+          <div class="toast-body">
+               Status Alterado com sucesso!  
+          </div>
+        </div>';
+  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Atualizou o Status do Orçamento $cod' , '$cod_user' , '$dataHora')");
+  $Atividade_Supervisao->execute();
+  header("Location: tl-orcamento.php?cod=$cod");
+}

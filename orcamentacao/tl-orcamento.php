@@ -52,7 +52,7 @@ while ($linha = $query_Sts->fetch(PDO::FETCH_ASSOC)) {
 }
 $configuracoes = $conexao->prepare("SELECT * FROM configuracoes WHERE configuracao = 'valor de chapa' ");
 $configuracoes->execute();
-$Sts = 0;
+
 while ($linha = $configuracoes->fetch(PDO::FETCH_ASSOC)) {
   $preco_chapa = $linha['parametro'];
 }
@@ -381,17 +381,23 @@ $valor_total_Finalizadas = 0;
 
                     <div class="mb-3 row">
                       <label for="html5-date-input" class="col-md-2 col-form-label">Status</label>
+                     
                       <div class="col-md-10">
-                        <select>
+                       <?php if($ORC_ADM_I == '1'){  ?> <form method="POST" action="saveobs.php"> <?php } ?>
+                       <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
+                        <select name="Status_selecionado" class="form-select">
                           <option>
                             <?= $Orcamento_pesquisa['status'] ?> -
                             <?= $Orcamento_pesquisa['STS_DESCRICAO'] ?>
                           </option>
                           <?php for ($i = 0; $i < $Sts; $i++) {
-                            echo '<option>' . $Codigo_Sts_P[$i] . ' - ' . $Nome_Sts_P[$i] . '</option>';
+                            echo '<option value="' . $Codigo_Sts_P[$i] . '" >' . $Codigo_Sts_P[$i] . ' - ' . $Nome_Sts_P[$i] . '</option>';
                           } ?>
 
                         </select>
+                        <?php if($ORC_ADM_I == '1'){ ?>  <button type="submit" name="alterar_status" style="color: aliceblue;" class="btn rounded-pill btn-warning">ALTERAR</button>
+                        </form>
+                        <?php } ?>
                       </div>
                     </div>
 

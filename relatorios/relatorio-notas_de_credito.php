@@ -135,27 +135,9 @@ if (isset($_POST['submit'])) {
                 'FAT_FRETE' => $linha['FAT_FRETE'],
                 'FAT_SERVICOS' => $linha['FAT_SERVICOS']
             ];
-            if (isset($Tabela_Notas[$nt_total]['valor'])) {
-                if (isset($Total_Notas_Solo[$Principal])) {
-                    $Total_Notas_Solo[$Principal] = $Total_Notas_Solo[$Principal] + $Tabela_Notas[$nt_total]['valor'];
-                } else {
-                    $Total_Notas_Solo[$Principal] = $Tabela_Notas[$nt_total]['valor'];
-                }
-            }
-            $nt_total++;
+            
         }
-        if (!isset($Total_Notas_Solo[$Principal])) {
-            $Total_Notas_Solo[$Principal] = 0;
-        }
-        $Total_Notas_Geral = array_sum($Total_Notas_Solo);
-        if (isset($Tabela_Notas)) {
-            $Total_Notas = count($Tabela_Notas);
-        } else {
-            $Total_Notas = 0;
-        }
-        $Percorrer_Notas = 0;
-        $valor_total_Notas = 0;
-        //  while($Total_Notas > $Percorrer_Notas){  
+      
         /////////////////////////////////////// FIM NOTAS ///////////////////////////////////////////////////////////////
 
        
