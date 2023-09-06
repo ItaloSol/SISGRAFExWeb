@@ -6,12 +6,15 @@ include_once('../conexoes/conn.php');
 // CODIGO VARIAVEL // $html => VARIAVEL OBRIGATORIA PARA CRIAÇÃO DO PDF, INTRUÇÕES EM HTML 
 
 if (isset($_POST['submit'])) {
+    $WHERE = '';
     if($_POST['tipo_cliente'] == 'por_cliente'){
-         $cod = $_POST['numero'];
+         $cod = $_POST['numerodocliente'];
          $tipo = $_POST['tipo_cliente_'];
+         $WHERE = ' WHERE ';
        $cliente = ' cod_cliente = '. $cod .' AND tipo_cliente = '.$tipo.'';
     }elseif($_POST['tipo_cliente'] == 'tipo_pessoa'){
         $tipo = $_POST['tipo_cliente_cli'];
+        $WHERE = ' WHERE ';
         $cliente = ' tipo cliente = '. $tipo;
     }else{
         $cliente = '';
@@ -19,16 +22,26 @@ if (isset($_POST['submit'])) {
 
     if($_POST['por_emissor'] == 'por_operador'){
         $emissor = $_POST['emissorCod'];
-        $Emissor = ' AND cod_emissor = "'.  $emissor .'"';
+        if($WHERE == ' WHERE '){
+            $Emissor = ' AND cod_emissor = "'.  $emissor .'"';
+        }else{
+            $Emissor = '  cod_emissor = "'.  $emissor .'"';
+        }
+        $WHERE = ' WHERE ';
     }else{
         $Emissor = '';
     }
-
+   
     if($_POST['periodo'] == 'por_dia'){
         $data_lan = $_POST['data_por_dia'];
         $datas = explode('-', $data_lan);
         $data_correta = date('d/m/Y', strtotime($datas[0] . $datas[1] . $datas[2]));
-        $Periodo = ' AND data = "' . $data . '"';
+        if($WHERE == ' WHERE '){
+            $Periodo = ' AND data = "' . $data_correta . '"';
+        }else{
+            $Periodo = '  data = "' . $data_correta . '"';
+        }
+        $WHERE = ' WHERE ';
     }elseif($_POST['periodo'] == 'por_periodo'){
         $data_lan = $_POST['data_por_inicio'];
         $datas = explode('-', $data_lan);
@@ -36,66 +49,69 @@ if (isset($_POST['submit'])) {
         $data_lan2 = $_POST['data_por_fim'];
         $datas2 = explode('-', $data_lan2);
         $data_correta2 = date('d/m/Y', strtotime($datas2[0] . $datas2[1] . $datas2[2]));
-        $Periodo = ' AND data BETWEEN "'. $data_correta . '" AND "'. $data_correta2 .'"';
+        if($WHERE == ' WHERE '){
+        $Periodo = ' AND  data BETWEEN "'. $data_correta . '" AND "'. $data_correta2 .'"';
+            
+        }else{
+        $Periodo = '  data BETWEEN "'. $data_correta . '" AND "'. $data_correta2 .'"';
+            
+        }
+        $WHERE = ' WHERE ';
     }else{
         $Periodo = '';
     }
 
     if($_POST['por_forma_pagamento'] == 'forma_pagamento'){
         $forma = $_POST['Forma_pagamento_'];
-        $Forma_de_Pagamento = ' AND forma_pagamento = '. $forma;
+        if($WHERE == ' WHERE '){
+        $Forma_de_Pagamento = ' AND  forma_pagamento = '. $forma;
+            
+        }else{
+        $Forma_de_Pagamento = '  forma_pagamento = '. $forma;
+            
+        }
+        $WHERE = ' WHERE ';
     }else{
         $Forma_de_Pagamento = '';
     }
 
-    $Campos = 'cod, ';
-
+    $Campos = 'cod, cod_cliente ';
+    $Inner = '';
     if(isset($_POST['forma_de_pagamento'])){
-
-    }else{
-        
+        $Inner = 'INNER JOIN configuracoes ON tabela_notas.forma_pagamento = configuracoes.id_configuracao';
+        $Campos = $Campos . ' forma_pagamento, ';
+    }
+    if(isset($_POST['emissor'])){
+        $Inner = $Inner . ' INNET JOIN tabela_atendentes ON tabela_atendentes.codigo_atendente = tabela_notas.cod_emissor ';
+        $Campos = $Campos . ' cod_emissor, ';
+    }
+    if(isset($_POST['codigo_do_cliente'])){
+        $Campos = $Campos . 'cod_cliente, ';
+    }
+    
+    if(isset($_POST['tipo_de_pessoa'])){
+        $Inner = $Inner . ' INNER JOIN configuracoes x ON x.configuracao = tabela_notas.tipo_pessoa ';
+        $Campos = $Campos . ' tipo_pessoa, ';
+    }
+    if(isset($_POST['valor'])){
+        $Campos = $Campos . 'valor, ';
+    }
+    if(isset($_POST['data'])){
+        $Campos = $Campos . 'data, ';
+    }
+    $ORDER = '';
+    if($_POST['order'] != 'null'){
+        $ORDER = ' ORDER BY '. $_POST['order']; 
     }
     
 }
     /////////////////////////////////////////////
     /////// BUSCAR NO BANCO DE DADOS ////////////
     /////////////////////////////////////////////
-  /*  $a = 0;
-    if ($tipo_cliente == '1') {
+  //  echo "SELECT $Campos FROM tabela_notas $Inner $WHERE $cliente $Emissor $Periodo $Forma_de_Pagamento $ORDER ";
 
-
-        $query_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes ORDER BY cod ASC");
-        $query_Clientes->execute();
-    }
-
-    if ($tipo_cliente == '2') {
-
-        $query_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos  ORDER BY cod ASC ");
-        $query_Clientes->execute();
-    }
-    while ($linha = $query_Clientes->fetch(PDO::FETCH_ASSOC)) {
-        $tablea_cliente[$a] = [
-            'cod' => $linha['cod'],
-            'nome' => $linha['nome'],
-            'cnpj' => $linha['cnpj'],
-            'atividade' => $linha['atividade'],
-            'filial_coligada' => $linha['filial_coligada'],
-            'cod_atendente' => $linha['cod_atendente'],
-            'nome_atendente' => $linha['nome_atendente'],
-            'observacao' => $linha['observacao'],
-            'credito' => $linha['credito'],
-            'senha' => $linha['senha'],
-            'excluido' => $linha['excluido']
-        ];
-        $a++;
-    }
-
-    $Total_de_Clientes = count($tablea_cliente);
-    $Principal = 0;
-    while ($Total_de_Clientes > $Principal) {
-        $Cliente = $tablea_cliente[$Principal]['cod'];
         /////////////////////////////////// NOTAS DE CREDITO //////////////////////////////////////////////////////
-        $query_Notas = $conexao->prepare("SELECT * FROM tabela_notas n WHERE $Where AND n.tipo_pessoa = '$tipo_cliente' AND cod_cliente = '$Cliente' AND $Periodo_Total_Notas ORDER BY $Order ");
+        $query_Notas = $conexao->prepare("SELECT $Campos FROM tabela_notas $Inner $WHERE $cliente $Emissor $Periodo $Forma_de_Pagamento $ORDER ");
         $query_Notas->execute();
         $nt_total = 0;
         while ($linha = $query_Notas->fetch(PDO::FETCH_ASSOC)) {
@@ -144,7 +160,7 @@ if (isset($_POST['submit'])) {
 
        
         $Principal++;
-    }
+   
     /// FIM BANCO DE DADOS///
     date_default_timezone_set('America/Sao_Paulo');
     $data_hora   = date('d/m/Y H:i:s ', time());
@@ -193,4 +209,4 @@ if (isset($_POST['submit'])) {
                                 $Percorrer_Notas++;
                             }
                             echo $titulo . $sub_titulo . $Relatorio_Financeiro . $relatorio;
-                        */ 
+                        
