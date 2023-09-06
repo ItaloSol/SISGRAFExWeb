@@ -86,7 +86,7 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
                   <label class="form-check-label" for="tipo_pessoa"> Por Tipo de Pessoa</label>
                 </div>
                 <div class="mb-3">
-                  <select class="form-select" id="tipo_cliente_cli" aria-label="Default select example">
+                  <select class="form-select" name="tipo_cliente_cli" id="tipo_cliente_cli" aria-label="Default select example">
                     <option selected>Selecione o Tipo de Pessoa</option>
                     <option value="1">Pessoa Física</option>
                     <option value="2">Pessoa Jurídica</option>
@@ -216,43 +216,43 @@ while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
                 <div class="col-md">
                   <small class="text-light fw-semibold d-block">Ordenar por:</small>
                   <div class="form-check form-check-inline mt-3">
-                    <input class="form-check-input" type="radio" id="Gasta" name="order" value=" ORDER BY tabela_calculos_op.qtd_folhas_total ASC" />
+                    <input class="form-check-input" type="radio" id="Gasta" name="order" value=" tabela_notas.cod ASC  " />
                     <label class="form-check-label" for="Gasta">Por Código Crescente</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="Decrescente" name="order" value=" ORDER BY tabela_calculos_op.qtd_folhas_total DESC" />
+                    <input class="form-check-input" type="radio" id="Decrescente" name="order" value=" tabela_notas.cod DESC  " />
                     <label class="form-check-label" for="Decrescente">Por Código Decrescente</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="descricaoAsc" name="order" value=" ORDER BY tabela_papeis.descricao ASC" />
+                    <input class="form-check-input" type="radio" id="descricaoAsc" name="order" value=" tabela_notas.forma_pagamento ASC  " />
                     <label class="form-check-label" for="descricaoAsc">Por Forma de Pagamento</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="codigoasc" name="order" value=" ORDER BY tabela_papeis.cod ASC" />
+                    <input class="form-check-input" type="radio" id="codigoasc" name="order" value=" tabela_notas.cod_emissor ASC  " />
                     <label class="form-check-label" for="codigoasc">Por Emissor</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio"  id="semordem" name="order" value="semordem" />
+                    <input class="form-check-input" type="radio"  id="semordem" name="order" value=" tabela_notas.tipo_pessoa DESC " />
                     <label class="form-check-label" for="semordem">Por Tipo de Pessoa</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="Crescente" name="order" value=" ORDER BY tabela_papeis.cod ASC" />
+                    <input class="form-check-input" type="radio" id="Crescente" name="order" value=" tabela_notas.valor ASC  " />
                     <label class="form-check-label" for="Crescente">Por Valor Crescente</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="Decrescente" name="order" value=" ORDER BY tabela_papeis.cod ASC" />
-                    <label class="form-check-label" for="Decrescente">Por Valor Decrescente</label>
+                    <input class="form-check-input" type="radio" id="Decrescente__" name="order" value=" tabela_notas.valor DESC " />
+                    <label class="form-check-label" for="Decrescente__">Por Valor Decrescente</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="Atual" name="order" value=" ORDER BY tabela_papeis.cod ASC" />
+                    <input class="form-check-input" type="radio" id="Atual" name="order" value=" tabela_notas.data DESC " />
                     <label class="form-check-label" for="Atual">Por Data Mais Atual</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="Antiga" name="order" value=" ORDER BY tabela_papeis.cod ASC" />
+                    <input class="form-check-input" type="radio" id="Antiga" name="order" value=" tabela_notas.data ASC " />
                     <label class="form-check-label" for="Antiga">Por Data Mais Antiga</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" checked id="Ordenação" name="order" value=" ORDER BY tabela_papeis.cod ASC" />
+                    <input class="form-check-input" type="radio" checked id="Ordenação" name="order" value="null" />
                     <label class="form-check-label" for="Ordenação">Sem Ordenação</label>
                   </div>
                   <br></br>
