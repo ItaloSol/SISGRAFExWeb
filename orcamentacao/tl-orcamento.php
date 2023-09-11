@@ -378,7 +378,10 @@ $valor_total_Finalizadas = 0;
                   <div class="card-header d-flex align-items-center justify-content-between">
                   </div>
                   <div class="card-body">
-
+                  <?php if (isset($_SESSION['msg'])) {
+                      echo $_SESSION['msg'];
+                      unset($_SESSION['msg']);
+                    } ?>
                     <div class="mb-3 row">
                       <label for="html5-date-input" class="col-md-2 col-form-label">Status</label>
                      
