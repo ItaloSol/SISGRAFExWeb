@@ -57,8 +57,9 @@ function get_id_usuario0(cod, nome, cnpj, nome_fantasia, credito, atividade, fil
     document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
     }
 }
-
-const fechar = document.getElementById('usuario0');
+    if(document.getElementById('usuario0')){
+        const fechar = document.getElementById('usuario0');
+    }
 if(document.getElementById('resultado_pesquisa0')){
 document.addEventListener('click', function (event) {
     
@@ -122,8 +123,10 @@ function get_id_usuario1(cod, nome,) {
     }
     
 }
+if( document.getElementById('usuario1')){
+    const fechar1 = document.getElementById('usuario1');
+}
 
-const fechar1 = document.getElementById('usuario1');
 if(document.getElementById('resultador_123')){
 document.addEventListener('click', function (event) {
         const validar_clique = fechar1.contains(event.target);
@@ -137,6 +140,33 @@ document.addEventListener('click', function (event) {
 // 
 
 // 
+async function carregar_atendentes(valor) {
+    if (valor.length >= 3) {
+        //    console.log("Pesquisar: " + valor);
+    
+            const dados = await fetch('../administrador/listar_usuarios.php?codigo=' + valor);
+            const resposta = await dados.json();
+        //    console.log(resposta);
+    
+            var html = "<ul style='z-index: 99999;' class='list-group position-absolute'>";
+    
+            if (resposta['erro']) {
+                html += "<li class='list-group-item list-group-item-dark'>" + resposta['msg'] + "</li>";
+            } else {
+                for (i = 0; i < resposta['dados'].length; i++) {
+                    html += "<li class='list-group-item list-group-item-dark' onclick='get_id_usuario1(" + resposta['dados'][i].codigo + ","
+                        + JSON.stringify(resposta['dados'][i].cnpj) +
+                        ")'>" + resposta['dados'][i].codigo + "</li>";
+                }
+    
+            }
+            html += "</ul>";
+   
+            document.getElementById('resultado').innerHTML = html;
+            
+        }
+}
+
 
 
 async function carregar_sigla(valor) {
@@ -195,8 +225,11 @@ function get_id_usuariosigla(cod, nome, cnpj, nome_fantasia, credito, atividade,
     }
 
 }
-
+if( document.getElementById('usuariosigla')){
 const fecharsigla = document.getElementById('usuariosigla');
+
+}
+
 if(document.getElementById('resultado_sigla')){
 document.addEventListener('click', function (event) {
     
