@@ -386,7 +386,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         tableBody.innerHTML += `<tr>`;
         if (codigo_do_produto) {
           tableBody.innerHTML += `
-          <td>${codigo_do_produto[cont]}</td>
+          <td>${codigo_do_produto}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
              <td><input class="form-control" value="${result.corFrente}" type="number"></td>
