@@ -270,33 +270,24 @@ function obterTabelaAcabamentos() {
 function obterTabelaServicos() {
   const tabela = document.getElementById('tabelaAservicos');
   const dados = [];
-
+  let TOTAL_valor = 0;
   // Verificar se a tabela possui dados
   if (tabela.rows.length > 1) {
     // Loop começa a partir de 1 para ignorar a primeira linha de cabeçalho
     for (let i = 1; i < tabela.rows.length; i++) {
       const linha = tabela.rows[i];
       const celulas = linha.cells;
-
-      if (celulas[0].textContent === '') {
-        console.log('Nenhum serviço selecionado.');
-        return;
+      console.log(' 1 = ' + celulas[1] +' 2 = ' + celulas[2] +' 3 = ' + celulas[3] )
+      if(celulas[1] != undefined){
+        dados.push(celulas[2].textContent)
       }
-      
-      const item = {
-        codigoServico: celulas[0].textContent,
-        descricao: celulas[1].textContent,
-        valorServico: celulas[2].textContent
-      };
-      dados.push(item);
     }
-  } else {
-    // A tabela não possui dados
-    console.log('Nenhum serviço selecionado.');
-    return;
-  }
+    dados.map( valor => {
+      TOTAL_valor += +valor      
+    })
+      return TOTAL_valor;
+  }  
 
-  return JSON.stringify(dados);
   //console.log(jsonData);
 }
   // Valor Observacao
@@ -408,59 +399,59 @@ function obterValorObservacao() {
       return novoItem;
     });
     // SERVIÇOS
-    const Servicos = JSON.parse(JsServicos)
-    Servicos.map(item => {
-      const novoItem = {
-        codigoServico: item.codigoServico,
-        descricao: item.descricao,
-        valorServico: item.valorServico
-      };
-      return novoItem;
-    })
+    
+    ValorServico =  JsServicos;
+    
+    
     // OBSERVAÇÃO
     const Observacao = JsObservacao;
     let SomaValor = 0;
-    // console.log('Valor acabamento R$ ' + ValorAcabamento);
+     console.log('Valor acabamento R$ ' + ValorAcabamento);
     // FORMULA PARA O VALOR
-    // console.log('Quantidade de tiragens '+Quantidade);
-    // console.log('Valor arte R$ ' + ValorArte);
-    // console.log('Valor frete R$ ' + ValorFrete);
-    // console.log('Valor desconto R$ ' + ValorDesconto);
-    // console.log('Valor acabamento R$ ' + ValorAcabamento);
-    // console.log('Valor Impressão R$ '+ ValorImpressao);
-    // console.log('Valor ValorChapa R$ '+ ValorChapa);
-    // ValorPapel += (ValorPapel * 5) / 100;
-    // console.log('Valor Papel R$ '+ ValorPapel);
-    // let SomaValor = ValorAcabamento * Quantidade;
-    // console.log('ValorAcabamento * Quantidade '+ SomaValor)
-    // SomaValor += ValorPapel;
-    // console.log(' + ValorPapel '+ SomaValor)
-    // SomaValor += ValorChapa;
-    // console.log(' + ValorChapa '+ SomaValor)
-    // SomaValor /= Quantidade;
-    // console.log('SomaValor / Quantidade '+ SomaValor)
-    // SomaValor += ValorImpressao;
-    // console.log(' + ValorImpressao '+ SomaValor)
-    // SomaValor += (SomaValor * +ValorCif) / 100;
-    // console.log('(SomaValor * +ValorCif) / 100 R$ '+ SomaValor)
+    console.log('Quantidade de tiragens '+Quantidade);
+    console.log('Valor arte R$ ' + ValorArte);
+    
+    console.log('Valor frete R$ ' + ValorFrete);
+    console.log('Valor desconto R$ ' + ValorDesconto);
+    console.log('Valor acabamento R$ ' + ValorAcabamento);
+    console.log('Valor Impressão R$ '+ ValorImpressao);
+    console.log('Valor ValorChapa R$ '+ ValorChapa);
+     ValorPapel += (ValorPapel * 5) / 100;
+     console.log('ValorPapel += (ValorPapel * 5) / 100')
+     console.log('Valor Papel R$ '+ ValorPapel);
+     SomaValor = ValorAcabamento * Quantidade;
+     console.log('ValorAcabamento * Quantidade '+ SomaValor)
+     SomaValor += ValorServico;
+     console.log(' + Valor Servico R$ ' + ValorServico);
+     SomaValor += ValorPapel;
+     console.log(' + ValorPapel '+ SomaValor)
+     SomaValor += ValorChapa;
+     console.log(' + ValorChapa '+ SomaValor)
+     let descontoQuantidade =  SomaValor / Quantidade;
+     console.log('SomaValor / Quantidade '+ descontoQuantidade)
+     SomaValor -= descontoQuantidade;
+     console.log('SomaValor - desconto POR Quantidade '+ SomaValor)
+     SomaValor += ValorImpressao;
+     console.log(' + ValorImpressao '+ SomaValor)
+     SomaValor += (SomaValor * +ValorCif) / 100;
+     console.log('(SomaValor * +ValorCif) / 100 R$ '+ SomaValor)
 
-    // SomaValor -= (SomaValor * +ValorDesconto) / 100;
-    // console.log('- (SomaValor * +ValorDesconto) R$ '+ SomaValor)
+     SomaValor -= (SomaValor * +ValorDesconto) / 100;
+     console.log('- (SomaValor * ValorDesconto) R$ '+ SomaValor)
     SomaValor += (ValorUnitario * +ValorCif) / 100;
     SomaValor += ValorArte;
     SomaValor += ValorFrete;
-    console.log('SomaValor R$ '+ SomaValor)
     SomaValor -= (ValorUnitario * +ValorDesconto) / 100;
     console.log('SomaValor R$ '+ SomaValor)
-    SomaValor += ValorUnitario * Quantidade;
-    console.log('SomaValor R$ '+ SomaValor)
+    // SomaValor += ValorUnitario * Quantidade;
+    // console.log('SomaValor R$ '+ SomaValor)
     let Total = SomaValor;
-    
-    // console.log('Desconto Bruto' + DescontoBruto);
-    // console.log('Valor Conversão do cif R$ '+ ConversaoCif);
-    // console.log('Valor do cif R$ '+ CifBruto);
-    // console.log('Soma Valor R$ '+ SomaValor)
-    // console.log('Valor Total R$ '+ Total.toFixed(2));
+    console.log('---------------------------------------------');
+   // console.log('Desconto Bruto' + DescontoBruto);
+   // console.log('Valor Conversão do cif R$ '+ ConversaoCif);
+   // console.log('Valor do cif R$ '+ CifBruto);
+   // console.log('Soma Valor R$ '+ SomaValor)
+   // console.log('Valor Total R$ '+ Total.toFixed(2));
     
     // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
     document.getElementById('ValorTotalOrc').value = Total.toFixed(2);

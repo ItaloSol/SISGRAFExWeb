@@ -268,12 +268,12 @@ $refresh = 0;
 
             <?php  } ?>
             <?php if ($FIN_I == '1' || $ORD_I == '1') {  ?>
-              <!-- <li class="menu-item">
-                <a href="../relatorios/tl-relatorio-notas.php" class="menu-link">
+               <li class="menu-item">
+                <a href="../relatorios/tl-relatorio-notas_de_credito.php" class="menu-link">
                   <div data-i18n="Accordion">Notas de Crédito</div>
                 </a>
               </li>
-              <li class="menu-item">
+            <!--  <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-faturamentos.php" class="menu-link">
                   <div data-i18n="Accordion">Faturamentos</div>
                 </a>

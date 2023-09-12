@@ -167,8 +167,8 @@ if (isset($_POST['submit'])) {
                                 /////////////////////////////////////////// NOTAS //////////////////////
 
                                 $Relatorio_Financeiro = "<table style=' solid black;  border-collapse:collapse; font-size: 10; 
-                    text-align: center;
-                    color: black;' border='1' class='table'>
+                                text-align: center;
+                                color: black;' border='1' class='table'>
         <tr>
         <th  style=' color:Black'>CÓDIGO</th>
         <th style=' color:Black'>EMISSOR</th>
@@ -203,19 +203,23 @@ if (isset($_POST['submit'])) {
                                         '<td >' . $Tabela_Notas[$Percorrer_Notas]["parametro"] .'</tr>' ;
                                 }
                             }
-                            $html = $titulo  . $relatorio;
+                            $html =  $titulo . $Relatorio_Financeiro . $relatorio . '</table>';
                         
-
+                            // echo $html;
                             require_once __DIR__ . '../../vendor/autoload.php';
                             // Create an instance of the class:
                             $mpdf = new \mPDF();
-                                    // Write some HTML code:
+                            
                                     $mpdf = new mPDF('C', 'A4');
+                            
                             $mpdf->SetDisplayMode('fullpage');
+                            
                             $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
                             //level of a list
+                            
                             // LOAD a stylesheet
+                            
                             $mpdf->WriteHTML($html, 2);
-                            $nome = 'NOTAS DE CRÉDITO';
+                            $nome = 'Relatorio_Notas_Credito' ;
                             $mpdf->Output($nome, 'I');
                             exit;
