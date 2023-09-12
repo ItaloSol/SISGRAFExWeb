@@ -231,7 +231,7 @@ async function SelecionarSelecioando() {
 }
 
 function RecuperaProdutoSelecionado() {
-
+  
   let codigo_do_produto = [];
   if (localStorage.getItem('AcabamentoSelecionado')) {
     ApagarAcabamento('AcabamentoSelecionado');
@@ -281,6 +281,8 @@ function RecuperaProdutoSelecionado() {
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
+            console.log('Dados JSON recebidos:', data); // Adicione esta linha para imprimir os dados JSON
+
             if(data[1] == 'erro'){
              ApagarProdutoSelecioando();
             }
@@ -348,9 +350,7 @@ function RecuperaProdutoSelecionado() {
             if (data.TIPO) {
               campo.TIPO = data.TIPO;
             }
-            if (data.cod_papel) {
-              campo.cod_papel = data.cod_papel;
-            }
+            
             if (data.VENDAS) {
               campo.VENDAS = data.VENDAS;
             }
@@ -374,6 +374,9 @@ function RecuperaProdutoSelecionado() {
             }
             if (data.cod_acabamentos) {
               campo.cod_acabamentos = data.cod_acabamentos;
+            }
+            if (data.cod_papels) {
+              campo.cod_papels = data.cod_papels;
             }
             if (data.PRE_VENDA) {
               campo.PRE_VENDA = data.PRE_VENDA;
@@ -421,23 +424,20 @@ function RecuperaProdutoSelecionado() {
               campo.PD_QTD_MAX = data.PD_QTD_MAX;
             }
 
-            if (data.cod_papel != null) {
-
+            if (data.cod_papels) {
+              data.cod_papels.forEach(valor => {
               var inputElementPapel = document.createElement("input");
-
               // Definindo o ID, valor e tipo do input
-              inputElementPapel.id = data.cod_papel;
-              inputElementPapel.type = "hidden";
-              inputElementPapel.value = data.cod_papel;
-
+              inputElementPapel.id = valor;
+              inputElementPapel.value = valor;
               // Adicionando o input ao corpo do documento (body)
               document.body.appendChild(inputElementPapel);
-
+                // Acessando o elemento pelo ID após um pequeno atraso
               setTimeout(function () {
-                var elemento = document.getElementById(data.cod_papel);
-                adicionarPapelDoClone(data.cod_papel);
+                var elemento = document.getElementById(valor);
+                adicionarPapelDoClone(valor);
               }, 100);
-
+              })
             }
             if (data.cod_acabamentos) {
               data.cod_acabamentos.forEach(valor => {
@@ -462,7 +462,6 @@ function RecuperaProdutoSelecionado() {
           });
           
       });
-      
       Promise.all(promises).then(campos => {
         const tableProduto = document.getElementById('SelecionadoProudutosProduto');
         tableProduto.innerHTML = '';

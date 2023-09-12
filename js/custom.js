@@ -57,9 +57,9 @@ function get_id_usuario0(cod, nome, cnpj, nome_fantasia, credito, atividade, fil
     document.getElementById("selecioanador_cliente").href = "tl-cadastro-notas.php?tp=2&id="+cod;
     }
 }
-    if(document.getElementById('usuario0')){
+   
         const fechar = document.getElementById('usuario0');
-    }
+    
 if(document.getElementById('resultado_pesquisa0')){
 document.addEventListener('click', function (event) {
     
@@ -123,9 +123,9 @@ function get_id_usuario1(cod, nome,) {
     }
     
 }
-if( document.getElementById('usuario1')){
+
     const fechar1 = document.getElementById('usuario1');
-}
+
 
 if(document.getElementById('resultador_123')){
 document.addEventListener('click', function (event) {
@@ -225,12 +225,11 @@ function get_id_usuariosigla(cod, nome, cnpj, nome_fantasia, credito, atividade,
     }
 
 }
-if( document.getElementById('usuariosigla')){
+
 const fecharsigla = document.getElementById('usuariosigla');
 
-}
 
-if(document.getElementById('resultado_sigla')){
+
 document.addEventListener('click', function (event) {
     
         const validar_clique = fecharsigla.contains(event.target);
@@ -240,5 +239,5 @@ document.addEventListener('click', function (event) {
    
 
 })
-}
+
 
