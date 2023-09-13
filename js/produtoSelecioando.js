@@ -281,7 +281,6 @@ function RecuperaProdutoSelecionado() {
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
-            console.log('Dados JSON recebidos:', data); // Adicione esta linha para imprimir os dados JSON
 
             if(data[1] == 'erro'){
              ApagarProdutoSelecioando();
