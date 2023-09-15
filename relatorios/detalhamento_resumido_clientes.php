@@ -210,7 +210,7 @@ $valor_total_Faturamentos = 0;
 /////////////////////////////////////////FIM FATURAMENTOS ////////////////////////////////////////////////////////
 
 /////////////////////////////////// OP FINALIZADAS //////////////////////////////////////////////////////
-$query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$seleciona_por' AND o.status = '11'");
+$query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$seleciona_por' AND o.tipo_cliente = '$tipo_cliente' AND o.status = '11'");
 $query_ordens_finalizadas->execute();
 $i = 0;
 while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
