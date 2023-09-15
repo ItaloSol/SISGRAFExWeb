@@ -366,6 +366,7 @@ function obterValorObservacao() {
     Papeis.map(item => {
       for(i = 0; i < item.length; i++){ 
       if(item[i]){
+        console.log('PRECO ' + item[i].preco);
         ValorPapel += +item[i].preco * +item[i].gasto;
         ValorChapa += +item[i].valo_chapa;
       }
@@ -409,8 +410,10 @@ function obterValorObservacao() {
     
     //CALCULO
     let SomaValor = 0;
+    console.log(ValorAcabamento + ' * ' + Quantidade);
     SomaValor += ValorAcabamento * Quantidade;
     console.log("SomaValor += ValorAcabamento * Quantidade;" +SomaValor );
+    console.log(ValorPapel);
     SomaValor += ValorPapel;
     console.log("SomaValor " + ValorPapel +  " = "+ SomaValor )
     SomaValor += ValorChapa;
