@@ -133,7 +133,7 @@ function ObterTabelaProduto() {
     Produtos.push(item);
   }
  return JSON.stringify(Produtos);
-  //console.log(jsonProdutos);
+  //(jsonProdutos);
 }
   //Tabela Tiragens
 function obterTabelaTiragens() {
@@ -149,8 +149,8 @@ function obterTabelaTiragens() {
       const item = {
         produto: celulas[0].textContent,
         quantidade: celulas[1].querySelector('input').value,
-        digital: celulas[2].querySelector('input').value,
-        offset: celulas[3].querySelector('input').value,
+        digital: celulas[2].querySelector('input').checked,
+        offset: celulas[3].querySelector('input').checked,
         valorImpressaoDigital: celulas[4].querySelector('input').value,
         valorUnidade: celulas[5].querySelector('input').value
       };
@@ -158,12 +158,12 @@ function obterTabelaTiragens() {
     }
   } else {
     // A tabela não possui dados
-    console.log('Nenhum produto selecionado.');
+    ('Nenhum produto selecionado.');
     return;
   }
 
   return JSON.stringify(dados);
-  //console.log(jsonData);
+  //(jsonData);
 }
 
 // Tabela Papeis
@@ -231,12 +231,12 @@ function obterTabelaPapeis() {
       
     } else {
       // A tabela não possui dados
-      console.log('Nenhum papel selecionado.');
+      ('Nenhum papel selecionado.');
       return;
     }
   
     return JSON.stringify(dados);
-    //console.log(jsonData);
+    //(jsonData);
  
 }
   // Tabela Acabamentos
@@ -259,12 +259,12 @@ function obterTabelaAcabamentos() {
     }
   } else {
     // A tabela não possui dados
-    console.log('Nenhum acabamento selecionado.');
+    ('Nenhum acabamento selecionado.');
     return;
   }
 
   return JSON.stringify(dados);
-  //console.log(jsonData);
+  //(jsonData);
 }
  // Tabela Serviços
 function obterTabelaServicos() {
@@ -287,13 +287,13 @@ function obterTabelaServicos() {
       return TOTAL_valor;
   }  
 
-  //console.log(jsonData);
+  //(jsonData);
 }
   // Valor Observacao
 function obterValorObservacao() {
   const textareaObservacao = document.getElementById('observacao_orc');
   return textareaObservacao.value;
- // console.log(valorObservacao);
+ // (valorObservacao);
 }
  // FUNÇÃO DO CALCULO
  function calcularValor(){
@@ -343,11 +343,15 @@ function obterValorObservacao() {
     const Tiragens = JSON.parse(JsTiragens)
     let ValorImpressao = 0;
     let Quantidade = 0;
+    let digital = 0;
+    let offset = 0;
     let ValorUnitario = 0;
     Tiragens.map(item => {
       Quantidade +=  +item.quantidade;
       ValorImpressao += +item.valorImpressaoDigital;
       ValorUnitario = item.valorUnidade;
+      digital = item.digital;
+      offset = item.offset;
         const novoItem = {
           produto: item.produto,
           quantidade: item.quantidade,
@@ -358,17 +362,23 @@ function obterValorObservacao() {
         };
         return novoItem;
     });
+   
+    console.log('digital = ' + digital + ' offset = ' + offset)
     // PAPEIS
     const Papeis = JSON.parse(`[${JsPapeis}]`)
     let ValorPapel = 0;
     let novoItem = [];
     let ValorChapa = 0;
+   
+    console.log('------------------------------PAPEL------------------------------')
     Papeis.map(item => {
       for(i = 0; i < item.length; i++){ 
       if(item[i]){
-        console.log('PRECO ' + item[i].preco);
-        ValorPapel += +item[i].preco * +item[i].gasto;
-        ValorChapa += +item[i].valo_chapa;
+        let pr = item[i].preco;
+        let gt = item[i].valo_chapa;
+        ValorPapel =  +ValorPapel + +pr;
+        console.log('Valores a calcular: Preço do papel * quantidade gasta ' + pr + ' = ' + ValorPapel );
+        ValorChapa = +item[i].valo_chapa;
       }
       
       novoItem = {
@@ -385,14 +395,18 @@ function obterValorObservacao() {
         precoChapa: item.valo_chapa
       };
     }
-      return novoItem;
+      return ValorPapel;
     });
-
+    console.log('-- TOTAL PAPEL = ' + ValorPapel);
+    console.log('------------------------------FIM PAPEL------------------------------')
+    console.log('------------------------------------------------------------')
     // ACABAMENTO
     const Acabamento = JSON.parse(JsAcabamentos)
     let ValorAcabamento = 0;
+    console.log('------------------------------ACABAMENTO------------------------------')
     Acabamento.map(item => {
-      ValorAcabamento += +item.precoAcabamento;
+      ValorAcabamento += +item.precoAcabamento ;
+      console.log('Valores a calcular: Preço do acabamento * Quantidade ' + item.precoAcabamento + ' * ' + Quantidade + ' = ' + ValorAcabamento );
       const novoItem = {
         codigoAcabamento: item.codigoAcabamento,
         descricao: item.descricao,
@@ -400,6 +414,9 @@ function obterValorObservacao() {
       };
       return novoItem;
     });
+    console.log('-- TOTAL ACABAMENTO = ' + ValorAcabamento);
+    console.log('------------------------------FIM ACABAMENTO------------------------------')
+    console.log('------------------------------------------------------------')
     // SERVIÇOS
     
     ValorServico =  JsServicos;
@@ -407,25 +424,51 @@ function obterValorObservacao() {
     
     // OBSERVAÇÃO
     const Observacao = JsObservacao;
-    
+    console.log(' --- QUANTIDADE ---');
+    console.log(Quantidade);
+    console.log(' ------');
+    console.log(' --- CHAPA ---');
+    console.log(ValorChapa);
+    console.log(' ------');
     //CALCULO
     let SomaValor = 0;
-    console.log(ValorAcabamento + ' * ' + Quantidade);
-    SomaValor += ValorAcabamento * Quantidade;
-    console.log("SomaValor += ValorAcabamento * Quantidade;" +SomaValor );
-    console.log(ValorPapel);
-    SomaValor += ValorPapel;
-    console.log("SomaValor " + ValorPapel +  " = "+ SomaValor )
-    SomaValor += ValorChapa;
-    console.log("SomaValor += ValorChapa;"+ SomaValor)
-    SomaValor /= Quantidade;
-    console.log("SomaValor /= Quantidade;"+ SomaValor)
-    SomaValor += (SomaValor * +CifConvertido) / 100;
-    console.log("SomaValor += (SomaValor * +CifConvertido) / 100;"+ SomaValor)
-    SomaValor -= (SomaValor * DescontoConvertido) / 100;
-    console.log("SomaValor -= (SomaValor * DescontoConvertido) / 100;"+ SomaValor)
-    
     let Total = SomaValor;
+    if(digital === false && offset === false){
+      alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
+      Total = 'ERRO';
+    }else{
+      if(digital === true){
+        SomaValor += ValorAcabamento ;
+        console.log(' + acabamento  ' + ValorAcabamento + ' = ' + SomaValor)
+        SomaValor += ValorPapel;
+        console.log(' + valor do apapel = ' + SomaValor);
+        SomaValor += ValorImpressao;
+        console.log(' + Valor de impressao ' + ValorImpressao + ' = ' + SomaValor)
+        SomaValor += (ValorPapel * 0.0102) / 100;
+        console.log(' + Valor de impressao ' + ValorPapel + ' = ' + (ValorPapel * 0.0102) / 100 + ' = ' + SomaValor)
+        Total = SomaValor;
+      }
+      if(offset === true){
+        SomaValor += ValorAcabamento * Quantidade;
+        console.log('acabamento * quantidade ' + ValorAcabamento + ' * ' + Quantidade + ' = ' + SomaValor)
+        
+        SomaValor += ValorPapel;
+        console.log(' + valor do apapel = ' + SomaValor);
+        SomaValor += ValorChapa;
+        console.log(' + valor da Chapa = ' + SomaValor);
+        SomaValor /= Quantidade;
+        console.log(' Valor dividido pela quantidade '+Quantidade+' = ' + SomaValor)
+        SomaValor += ValorImpressao;
+        console.log(' + Valor de impressao ' + ValorImpressao + ' = ' + SomaValor)
+         SomaValor += (SomaValor * +CifConvertido) / 100;
+        console.log("SomaValor += (SomaValor * +CifConvertido "+CifConvertido+") / 100;"+ SomaValor)
+         SomaValor -= (SomaValor * DescontoConvertido) / 100;
+        console.log("SomaValor -= (SomaValor * DescontoConvertido"+DescontoConvertido+") / 100;"+ SomaValor)
+        
+         Total = SomaValor;
+      }
+    }
+
     console.log('---------------------------------------------');
     // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
     document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
