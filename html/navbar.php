@@ -273,16 +273,17 @@ $refresh = 0;
                   <div data-i18n="Accordion">Notas de Crédito</div>
                 </a>
               </li>
+              <li class="menu-item">
+                <a href="../relatorios/tl-relatorio-financeiro.php" class="menu-link">
+                  <div data-i18n="Accordion">Financeiro</div>
+                </a>
+              </li>
             <!--  <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-faturamentos.php" class="menu-link">
                   <div data-i18n="Accordion">Faturamentos</div>
                 </a>
               </li>
-              <li class="menu-item">
-                <a href="../relatorios/tl-relatorio-financeiro.php" class="menu-link">
-                  <div data-i18n="Accordion">Financeiro</div>
-                </a>
-              </li> -->
+               -->
             <?php  } ?>
             <li class="menu-item">
               <a href="../relatorios/tl-relatorio-detalhamento-de-cliente.php" class="menu-link">

@@ -7,20 +7,29 @@ include_once('../conexoes/conn.php');
 // CODIGO VARIAVEL // $html => VARIAVEL OBRIGATORIA PARA CRIAÇÃO DO PDF, INTRUÇÕES EM HTML 
 if (isset($_POST['submit'])) {
     if (isset($_POST['tipo_cliente'])) {
-        $Tipo_cliente = $_POST['tipo_cliente'];
-        if ($Tipo_cliente == '1') {
+        $tipo_cliente = $_POST['tipo_cliente'];
+        if ($tipo_cliente == '1') {
             $Cliente = 'fisicos';
         } else {
             $Cliente = 'juridicos';
         }
     }
     if (isset($_POST['diferente'])) {
-        $Diferente = "tabela_clientes_" . $Cliente . ".credito != 0";
+        if ($_POST['pordata'] != 'mes') {
+        $Creditos = ' WHERE ';
+        $Creditos = $Creditos . "credito != 0";
+        }else{
+            $Creditos = '';
+        }
     } else {
-        $Diferente = "";
+        $Creditos = '';
     }
     if (isset($_POST['periodo'])) {
-        $Creditos = ' WHERE ';
+        if ($Creditos == '') {
+            $Creditos = ' WHERE ';
+        } else {
+            $Creditos = $Creditos . ' AND ';
+        }
         if ($_POST['periodo'] == 'entreate') {
             $Valor1 = $_POST['entre'];
             $Valor2 = $_POST['ate'];
@@ -38,9 +47,9 @@ if (isset($_POST['submit'])) {
             $Valor = $_POST['vlrigual'];
             $Creditos = $Creditos . "tabela_clientes_" . $Cliente . ".credito = " . $Valor;
         }
-    } else {
-        $Creditos = '';
     }
+    $Debitos_Att = '';
+    $Debitos_Dp = '';
     if (isset($_POST['pordata'])) {
         if (isset($_POST['periodo'])) {
             $DATA = " AND ";
@@ -52,53 +61,97 @@ if (isset($_POST['submit'])) {
             $Valor2 = $_POST['ano/mes'];
             $dia1 = '01';
             $dia2 = '31';
+            $Ano = $Valor2;
+            $Ate = $Valor1 . '/' . $Ano;
+            $Em_Abrido = "AND o.data_emissao <= '$Ano-$Valor1-01'";
+            $Debitos_Att = " AND f.DT_FAT BETWEEN '$Ano-$Valor1-01' AND '$Ano-$Valor1-31'";
+            $Debitos_Dp = " AND f.DT_FAT < '$Ano-$Valor1-01'";
+            $Notas_Credito = " STR_TO_DATE(data, '%d/%m/%Y') BETWEEN STR_TO_DATE('" . $dia1 . '/' . $Valor1 . '/' . $Valor2 . "', '%d/%m/%Y') AND STR_TO_DATE('" . $dia2 . '/' . $Valor1 . '/' . $Valor2 . "', '%d/%m/%Y')";
             $DATA = $DATA . " STR_TO_DATE(data, '%d/%m/%Y') BETWEEN STR_TO_DATE('" . $dia1 . '/' . $Valor1 . '/' . $Valor2 . "', '%d/%m/%Y') AND STR_TO_DATE('" . $dia2 . '/' . $Valor1 . '/' . $Valor2 . "', '%d/%m/%Y')";
+            $Notas_Credito2 = " AND STR_TO_DATE(data, '%d/%m/%Y') < STR_TO_DATE('" . $dia1 . '/' . $Valor1 . '/' . $Valor2 . "', '%d/%m/%Y')";
         } else {
             $Valor = $_POST['ano'];
             $dia = '01';
             $mes = '01';
             $dia1 = '31';
             $mes1 = '12';
+            $Ano = $Valor;
+            $Ate = $Ano;
+            $Em_Abrido = "";
+            $Debitos_Att = " AND f.DT_FAT >= '$Ano-$mes-01'";
+            $Debitos_Dp = " AND f.DT_FAT < '$Ano-01-01'";
+            $Notas_Credito = " STR_TO_DATE(data, '%d/%m/%Y') BETWEEN STR_TO_DATE('" . $dia . '/' . $mes . '/' . $Valor . "', '%d/%m/%Y') AND STR_TO_DATE('" . $dia1 . '/' . $mes1 . '/' . $Valor . "', '%d/%m/%Y')";
             $DATA = $DATA . " STR_TO_DATE(data, '%d/%m/%Y') BETWEEN STR_TO_DATE('" . $dia . '/' . $mes . '/' . $Valor . "', '%d/%m/%Y') AND STR_TO_DATE('" . $dia1 . '/' . $mes1 . '/' . $Valor . "', '%d/%m/%Y')";
+            $Notas_Credito2 = "";
         }
     }
+   
     if (isset($_POST['ordenar'])) {
         $Ordernar = " ORDER BY tabela_clientes_" . $Cliente . ".credito DESC";
     } else {
         $Ordernar = '';
     }
-    if (isset($_POST['orientacao'])) {
-        $Orientacao = $_POST['orientacao'];
-    }
+   
 }
-$Principal = 0;
-$numero_clientes = 0;
-$Valor_Notas_Totais[$numero_clientes] = array();
+
+//////// CRIAR TABELA /////////
+$Corpo = '';
+date_default_timezone_set('America/Sao_Paulo');
+$data_hora   = date('d/m/Y H:i:s ', time());
+$data_horaa = (string) $data_hora;
+$titulo = "<h5>DETALHAMENTO DE CLIENTE - DATA E HORA DE EMISSÃO: " . $data_horaa . " - SISGRAFEX</h5><br>
+<h1 style='text-transform: uppercase; text-align: center;' >RELATÓRIO FINANCEIRO <br>
+$Ate - PESSOAS $Cliente</h1>";
+$Cabesalho = "<table style=' solid black;  border-collapse:collapse; font-size: 10; 
+text-align: center;
+color: black;' border='1' class='table'>
+<tr>
+<th style=' color:Black'>CÓDIGO</th>
+<th style=' color:Black'>NOME</th>
+<th style=' color:Black'>SALDO ACUMULADO ANTERIOR</th>
+<th style=' color:Black'>CRÉDITO</th>
+<th style=' color:Black'>DÉBITO</th>
+<th style=' color:Black'>EM ABERTO ATÉ $Ate</th>
+<th style=' color:Black'>SALDO ACUMULADO ATUAL</th>
+</tr>
+";
+
 //     /////////////////////////////////////////////
 //     /////// BUSCAR NO BANCO DE DADOS ////////////
 //     /////////////////////////////////////////////
+$Clientes_Busca = $conexao->prepare("SELECT * FROM tabela_clientes_$Cliente  $Creditos   $Ordernar");
+$Clientes_Busca->execute();
 
-$query_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_$Cliente $Creditos $Ordernar ");
-$query_Clientes->execute();
+while ($linha = $Clientes_Busca->fetch(PDO::FETCH_ASSOC)) {
+    $Tabela_Notas = [];
+    $Tabela_Faturamentos = [];
+    $Tabela_Produtos = [];
+    $Ordens_Finalizadas = [];
+    $Tabela_Orc_Finalizados = [];
+    $valor_fata = [];
+    $Tabela_Produtos_Finalizados = [];
+    $Ordens_Abertas = [];
+    $Tabela_Produtos_Abertas = [];
+    $Tabela_Orc_Abertas = [];
 
-$a = 0;
-while ($linha = $query_Clientes->fetch(PDO::FETCH_ASSOC)) {
-    $cod_cliente = $linha['cod'];
-    $valor_todo = 0;
-    $Tabela_Clientes[$numero_clientes] = [
-        'cod' => $linha['cod'],
-        'nome' => $linha['nome'],
-        'atividade' => $linha['atividade'],
-        'credito' => $linha['credito'],
-    ];
+    $cod = $linha['cod'];
+    $nome = $linha['nome'];
+    $credito = $linha['credito'];
 
-    $cod = $Tabela_Clientes[$numero_clientes]['cod'];
 
-    $query_Notas = $conexao->prepare("SELECT * FROM tabela_notas $DATA AND tipo_pessoa = '$Tipo_cliente' AND cod_cliente = $cod_cliente");
+
+
+
+
+
+    /////////////////////////////////// NOTAS DE CREDITO //////////////////////////////////////////////////////
+
+    $query_Notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod_cliente = '$cod'  AND tipo_pessoa = '$tipo_cliente' AND $Notas_Credito ");
     $query_Notas->execute();
-    $nt_total = 0;
+    $Tabela_Notas = [];
+
     while ($linha = $query_Notas->fetch(PDO::FETCH_ASSOC)) {
-        $Tabela_Notas[$i] = [
+        $Tabela_Notas[] = [
             'cod' => $linha['cod'],
             'serie' => $linha['serie'],
             'tipo' => $linha['tipo'],
@@ -118,22 +171,60 @@ while ($linha = $query_Clientes->fetch(PDO::FETCH_ASSOC)) {
             'FAT_FRETE' => $linha['FAT_FRETE'],
             'FAT_SERVICOS' => $linha['FAT_SERVICOS']
         ];
-        $valor_ = $linha['valor'];
-           
-          $valor_todo = $valor_todo + $valor_;
-        $i++;
     }
-    $Valor_Notas_Totais[$numero_clientes] =  $valor_todo;
+    if (isset($Tabela_Notas)) {
+        $Total_Notas = count($Tabela_Notas);
+    } else {
+        $Total_Notas = 0;
+    }
     $Percorrer_Notas = 0;
     $valor_total_Notas = 0;
+    /////////////////////////////////////// FIM NOTAS ///////////////////////////////////////////////////////////////
+    /////////////////////////////////// 2 NOTAS DE CREDITO 2 //////////////////////////////////////////////////////
+    $query_Notas2 = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod_cliente = '$cod'  AND tipo_pessoa = '$tipo_cliente' $Notas_Credito2 ");
+    $query_Notas2->execute();
+    $Tabela_Notas2 = [];
 
-    $query_Ordens_Producao = $conexao->prepare("SELECT * FROM faturamentos f INNER JOIN tabela_ordens_producao o  ON o.cod = f.CODIGO_OP WHERE o.cod_cliente = '$cod' AND o.tipo_cliente = '$Tipo_cliente'");
+    while ($linha2 = $query_Notas2->fetch(PDO::FETCH_ASSOC)) {
+        $Tabela_Notas2[] = [
+            'cod' => $linha2['cod'],
+            'serie' => $linha2['serie'],
+            'tipo' => $linha2['tipo'],
+            'forma_pagamento' => $linha2['forma_pagamento'],
+            'cod_op' => $linha2['cod_op'],
+            'cod_orcamento' => $linha2['cod_orcamento'],
+            'COD_PRODUTO' => $linha2['COD_PRODUTO'],
+            'cod_emissor' => $linha2['cod_emissor'],
+            'cod_cliente' => $linha2['cod_cliente'],
+            'cod_endereco' => $linha2['cod_endereco'],
+            'cod_contato' => $linha2['cod_contato'],
+            'tipo_pessoa' => $linha2['tipo_pessoa'],
+            'quantidade_entregue' => $linha2['quantidade_entregue'],
+            'valor' => $linha2['valor'],
+            'data' => $linha2['data'],
+            'observacoes' => $linha2['observacoes'],
+            'FAT_FRETE' => $linha2['FAT_FRETE'],
+            'FAT_SERVICOS' => $linha2['FAT_SERVICOS']
+        ];
+    }
+    if (isset($Tabela_Notas2)) {
+        $Total_Notas2 = count($Tabela_Notas2);
+    } else {
+        $Total_Notas2 = 0;
+    }
+    $Percorrer_Notas2 = 0;
+    $valor_total_Notas2 = 0;
+    /////////////////////////////////////// FIM NOTAS ///////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////// FATURAMENTOS ////////////////////////////////////////////////////////////
+
+    $query_Ordens_Producao = $conexao->prepare("SELECT * FROM faturamentos f INNER JOIN tabela_ordens_producao o  ON o.cod = f.CODIGO_OP WHERE o.cod_cliente = '$cod' AND o.tipo_cliente = '$tipo_cliente'  ");
     $query_Ordens_Producao->execute();
     $i = 0;
-    $valor_faturamento = 0;
+    $Tabela_Faturamentos = [];
     while ($linha = $query_Ordens_Producao->fetch(PDO::FETCH_ASSOC)) {
 
-        $Tabela_Faturamentos[$numero_clientes] = [
+        $Tabela_Faturamentos[$i] = [
             'CODIGO' => $linha['CODIGO'],
             'CODIGO_ORC' => $linha['CODIGO_ORC'],
             'cod' => $linha['cod'],
@@ -146,49 +237,95 @@ while ($linha = $query_Clientes->fetch(PDO::FETCH_ASSOC)) {
             'VLR_FAT' => $linha['VLR_FAT'],
             'DT_FAT' => $linha['DT_FAT'],
             'FRETE_FAT' => $linha['FRETE_FAT'],
-            'SERVICOS_FAT' => $linha['SERVICOS_FAT'],
-            'OBSERVACOES' => $linha['OBSERVACOES'],
         ];
-        $Pesquisa_Produto = $Tabela_Faturamentos[$numero_clientes]['cod_produto'];
-        $Tipo_Produto = $Tabela_Faturamentos[$numero_clientes]['tipo_produto'];
-        if ($Tipo_Produto == '2') {
-            $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos_pr_ent  WHERE CODIGO = '$Pesquisa_Produto'");
-            $query_PRODUTOS->execute();
 
-            while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
-                $Tabela_Produtos[$numero_clientes] = [
-                    'descricao' => $linha2['DESCRICAO']
-                ];
-            }
-        }
-        if ($Tipo_Produto == '1') {
-            $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
-            $query_PRODUTOS->execute();
-
-            while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
-                $Tabela_Produtos[$numero_clientes] = [
-                    'descricao' => $linha2['DESCRICAO']
-                ];
-            }
-        }
-        $valor_faturamento = $valor_faturamento + $linha['VLR_FAT'];
-
-        //echo $linha['cod'].' '.$linha['VLR_FAT'] .'<br>';
         $i++;
     }
-    $Total_Faturamentos[$numero_clientes] = $valor_faturamento;
+    if (isset($Tabela_Faturamentos)) {
+        $Total_Faturamentos = count($Tabela_Faturamentos);
+    } else {
+        $Total_Faturamentos = 0;
+    }
 
+    $Percorrer_Faturamentos = 0;
+    $valor_total_Faturamentos = 0;
 
+    /////////////////////////////////////////FIM FATURAMENTOS ////////////////////////////////////////////////////////
+    /////////////////////////////////////// FATURAMENTOS 2 ////////////////////////////////////////////////////////////
 
-    // /////////////////////////////////////// FIM OP FINALZIADAS ///////////////////////////////////////////////////////////////
-
-    // /////////////////////////////////// OP ABERTAS //////////////////////////////////////////////////////
-    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.status != '11' AND o.status != '13'");
-    $query_ordens_Abertas->execute();
+    $query_Ordens_Producao2 = $conexao->prepare("SELECT * FROM faturamentos f INNER JOIN tabela_ordens_producao o  ON o.cod = f.CODIGO_OP WHERE o.cod_cliente = '$cod' AND o.tipo_cliente = '$tipo_cliente' $Debitos_Att ");
+    $query_Ordens_Producao2->execute();
     $i = 0;
-    $valor_emproducao = 0;
-    while ($linha = $query_ordens_Abertas->fetch(PDO::FETCH_ASSOC)) {
-        $Ordens_Abertas[$numero_clientes] = [
+    $Tabela_Faturamentos2 = [];
+    while ($linha2 = $query_Ordens_Producao2->fetch(PDO::FETCH_ASSOC)) {
+
+        $Tabela_Faturamentos2[$i] = [
+            'CODIGO' => $linha2['CODIGO'],
+            'CODIGO_ORC' => $linha2['CODIGO_ORC'],
+            'cod' => $linha2['cod'],
+            'cod_produto' => $linha2['cod_produto'],
+            'orcamento_base' => $linha2['orcamento_base'],
+            'CODIGO_OP' => $linha2['CODIGO_OP'],
+            'tipo_produto' => $linha2['tipo_produto'],
+            'EMISSOR' => $linha2['EMISSOR'],
+            'QTD_ENTREGUE' => $linha2['QTD_ENTREGUE'],
+            'VLR_FAT' => $linha2['VLR_FAT'],
+            'DT_FAT' => $linha2['DT_FAT'],
+        ];
+
+        $i++;
+    }
+    if (isset($Tabela_Faturamentos2)) {
+        $Total_Faturamentos2 = count($Tabela_Faturamentos2);
+    } else {
+        $Total_Faturamentos2 = 0;
+    }
+
+    $Percorrer_Faturamentos2 = 0;
+    $valor_total_Faturamentos2 = 0;
+
+    /////////////////////////////////////////FIM FATURAMENTOS ////////////////////////////////////////////////////////
+ /////////////////////////////////////// FATURAMENTOS 3 ////////////////////////////////////////////////////////////
+
+ $query_Ordens_Producao3 = $conexao->prepare("SELECT * FROM faturamentos f INNER JOIN tabela_ordens_producao o  ON o.cod = f.CODIGO_OP WHERE o.cod_cliente = '$cod' AND o.tipo_cliente = '$tipo_cliente' $Debitos_Dp ");
+ $query_Ordens_Producao3->execute();
+ $i = 0;
+ $Tabela_Faturamentos3 = [];
+ while ($linha3 = $query_Ordens_Producao3->fetch(PDO::FETCH_ASSOC)) {
+
+     $Tabela_Faturamentos3[$i] = [
+         'CODIGO' => $linha3['CODIGO'],
+         'CODIGO_ORC' => $linha3['CODIGO_ORC'],
+         'cod' => $linha3['cod'],
+         'cod_produto' => $linha3['cod_produto'],
+         'orcamento_base' => $linha3['orcamento_base'],
+         'CODIGO_OP' => $linha3['CODIGO_OP'],
+         'tipo_produto' => $linha3['tipo_produto'],
+         'EMISSOR' => $linha3['EMISSOR'],
+         'QTD_ENTREGUE' => $linha3['QTD_ENTREGUE'],
+         'VLR_FAT' => $linha3['VLR_FAT'],
+         'DT_FAT' => $linha3['DT_FAT'],
+     ];
+
+     $i++;
+ }
+ if (isset($Tabela_Faturamentos3)) {
+     $Total_Faturamentos3 = count($Tabela_Faturamentos3);
+ } else {
+     $Total_Faturamentos3 = 0;
+ }
+
+ $Percorrer_Faturamentos3 = 0;
+ $valor_total_Faturamentos3 = 0;
+
+ /////////////////////////////////////////FIM FATURAMENTOS ////////////////////////////////////////////////////////
+    /////////////////////////////////// OP FINALIZADAS //////////////////////////////////////////////////////
+    $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.tipo_cliente = '$tipo_cliente' AND o.status = '11'");
+    $query_ordens_finalizadas->execute();
+    $i = 0;
+    $Ordens_Finalizadas = [];
+    while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
+        $Ordens_Finalizadas[$i] = [
             'cod' => $linha['cod'],
             'orcamento_base' => $linha['orcamento_base'],
             'tipo_produto' => $linha['tipo_produto'],
@@ -201,6 +338,91 @@ while ($linha = $query_Clientes->fetch(PDO::FETCH_ASSOC)) {
             'data_emissao' => date($linha['data_emissao']),
 
         ];
+        $Pesquisa_Produto = $Ordens_Finalizadas[$i]['cod_produto'];
+        $Tipo_Produto = $Ordens_Finalizadas[$i]['tipo_produto'];
+        if ($Tipo_Produto == '2') {
+            $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos_pr_ent  WHERE CODIGO = '$Pesquisa_Produto'");
+            $query_PRODUTOS->execute();
+
+            while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+                $Tabela_Produtos_Finalizados[$i] = [
+                    'descricao' => $linha2['DESCRICAO']
+                ];
+            }
+        }
+        if ($Tipo_Produto == '1') {
+            $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
+            $query_PRODUTOS->execute();
+
+            while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+                $Tabela_Produtos_Finalizados[$i] = [
+                    'descricao' => $linha2['DESCRICAO']
+                ];
+            }
+        }
+        $Cod_opr = $Ordens_Finalizadas[$i]['cod'];
+        $Pesquisa_Orc = $Ordens_Finalizadas[$i]['orcamento_base'];
+        $query_Pesquisa_Orc = $conexao->prepare("SELECT * FROM tabela_orcamentos  WHERE cod = '$Pesquisa_Orc'");
+        $query_Pesquisa_Orc->execute();
+
+        while ($linha2 = $query_Pesquisa_Orc->fetch(PDO::FETCH_ASSOC)) {
+            $Tabela_Orc_Finalizados[$i] = [
+                'valor_total' => $linha2['valor_total']
+            ];
+            $VVvalor_total_Faturamentos = $conexao->prepare("SELECT * FROM faturamentos f WHERE  f.CODIGO_OP = '$Cod_opr'");
+            $VVvalor_total_Faturamentos->execute();
+            while ($linha77 = $VVvalor_total_Faturamentos->fetch(PDO::FETCH_ASSOC)) {
+                $valor_fata[$i] = [
+                    'valor_total' => $linha77['VLR_FAT']
+                ];
+            }
+        }
+        if (!isset($valor_fata[$i]['valor_total'])) {
+            $valor_fata[$i] = [
+                'valor_total' => '0.00'
+            ];
+        }
+        $ak = (int)$Tabela_Orc_Finalizados[$i]["valor_total"];
+        $bk = (int)$valor_fata[$i]["valor_total"];
+        $vkasd = $ak - $bk;
+        if ($vkasd == 0) {
+            $Relatorio_Faturada[$i] = '(TOTAL) R$ ' . $Tabela_Orc_Finalizados[$i]["valor_total"] . '<br>(FATURADA) R$ ' . $valor_fata[$i]["valor_total"];
+        } else {
+            $Relatorio_Faturada[$i] = '(TOTAL) R$ ' . $Tabela_Orc_Finalizados[$i]["valor_total"] . '<br>(FATURADA) R$ ' . $valor_fata[$i]["valor_total"] . ' <br>(PRODUÇÃO) R$ ' . number_format($vkasd, 2, ',', '.');
+        }
+
+        $i++;
+    }
+
+    if (isset($Ordens_Finalizadas)) {
+        $Total_Finalizadas = count($Ordens_Finalizadas);
+    } else {
+        $Total_Finalizadas = 0;
+    }
+    $Percorrer_Finalizadas = 0;
+    $valor_total_Finalizadas = 0;
+    /////////////////////////////////////// FIM OP FINALZIADAS ///////////////////////////////////////////////////////////////
+
+    /////////////////////////////////// OP ABERTAS //////////////////////////////////////////////////////
+    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.status != '11' AND o.status != '13' $Em_Abrido ");
+    $query_ordens_Abertas->execute();
+    $i = 0;
+    while ($linha = $query_ordens_Abertas->fetch(PDO::FETCH_ASSOC)) {
+        $Ordens_Abertas[$i] = [
+            'cod' => $linha['cod'],
+            'orcamento_base' => $linha['orcamento_base'],
+            'tipo_produto' => $linha['tipo_produto'],
+            'cod_produto' => $linha['cod_produto'],
+            'cod_cliente' => $linha['cod_cliente'],
+            'tipo_cliente' => $linha['tipo_cliente'],
+            'status' => $linha['status'],
+            'STS_DESCRICAO' => $linha['STS_DESCRICAO'],
+            'data_entrega' => date($linha['data_entrega']),
+            'data_emissao' => date($linha['data_emissao']),
+        ];
+
+        $Valor_QQ = 0; // Inicializa a variável $Valor_QQ
+
         if ($linha['status'] == '12') {
             $cod_produto_QQ = $linha['cod_produto'];
             $Cod_Op_QQ = $linha['cod'];
@@ -208,118 +430,142 @@ while ($linha = $query_Clientes->fetch(PDO::FETCH_ASSOC)) {
 
             $query_Pesquisa_Orc_QQ = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento  WHERE cod_produto = '$cod_produto_QQ' AND cod_orcamento = $Pesquisa_Orc_QQ ");
             $query_Pesquisa_Orc_QQ->execute();
-            // echo "codigo op: ". $Cod_Op_QQ ."<br>";
-
 
             if ($linha_QQ2 = $query_Pesquisa_Orc_QQ->fetch(PDO::FETCH_ASSOC)) {
                 $Valor_QQ = $linha_QQ2['quantidade'] * $linha_QQ2['preco_unitario'];
 
-                //   echo "Valor Total: ". $Valor_QQ . "<br>";
                 $QQvalor_total_Faturamentos = $conexao->prepare("SELECT * FROM faturamentos f WHERE  f.CODIGO_OP = '$Cod_Op_QQ'");
                 $QQvalor_total_Faturamentos->execute();
                 while ($linhaQQ = $QQvalor_total_Faturamentos->fetch(PDO::FETCH_ASSOC)) {
-                    // echo "Valores de fatuamento: ". $linhaQQ['VLR_FAT']. "<br>";
-                    //   echo 'CALCULO: '. $Valor_QQ .' - '. $linhaQQ['VLR_FAT'] ;
                     $Valor_QQ = $Valor_QQ - $linhaQQ['VLR_FAT'];
                 }
             }
         }
-        $Pesquisa_Produto = $Ordens_Abertas[$numero_clientes]['cod_produto'];
+        // echo 'Valor Total do calculo = '. $Valor_QQ .'<br>';
+        $Pesquisa_Produto = $Ordens_Abertas[$i]['cod_produto'];
         $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
         $query_PRODUTOS->execute();
 
         while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
-            $Tabela_Produtos_Abertas[$numero_clientes] = [
+            $Tabela_Produtos_Abertas[$i] = [
                 'descricao' => $linha2['DESCRICAO']
             ];
         }
-        $Pesquisa_Orc = $Ordens_Abertas[$numero_clientes]['orcamento_base'];
-        $Pesquisa_Tipo_prod = $Ordens_Abertas[$numero_clientes]['tipo_produto'];
+        $Pesquisa_Orc = $Ordens_Abertas[$i]['orcamento_base'];
+        $Pesquisa_Tipo_prod = $Ordens_Abertas[$i]['tipo_produto'];
         $query_Pesquisa_Orc = $conexao->prepare("SELECT cod_orcamento, cod_produto, tipo_produto, (quantidade * preco_unitario) AS VLR_PARC FROM tabela_produtos_orcamento WHERE cod_orcamento = '$Pesquisa_Orc' AND cod_produto = '$Pesquisa_Produto' AND tipo_produto = '$Pesquisa_Tipo_prod' ");
         $query_Pesquisa_Orc->execute();
 
         while ($linha2 = $query_Pesquisa_Orc->fetch(PDO::FETCH_ASSOC)) {
             if ($linha['status'] == '12') {
-                $valor =  $Valor_QQ;
+                $Tabela_Orc_Abertas[$i] = [
+                    'valor_total' => $Valor_QQ
+                ];
             } else {
-                $valor = $linha2['VLR_PARC'];
+                $Tabela_Orc_Abertas[$i] = [
+                    'valor_total' => $linha2['VLR_PARC']
+                ];
             }
-            $valor_emproducao = $valor_emproducao + $valor;
         }
-        $Total_EmProducao[$numero_clientes] = $valor_emproducao;
         $i++;
     }
-    if (!isset($Total_EmProducao[$numero_clientes])) {
-        $Total_EmProducao[$numero_clientes] = 0;
+    if (isset($Ordens_Abertas)) {
+        $Total_Abertas = count($Ordens_Abertas);
+    } else {
+        $Total_Abertas = 0;
     }
-    if (!isset($Tabela_Clientes[$numero_clientes])) {
-        $Tabela_Clientes[$numero_clientes] = 0;
-    }
-    if (!isset($Valor_Notas_Totais[$numero_clientes])) {
-        $Valor_Notas_Totais[$numero_clientes] = 0;
-    }
-    echo $cod_cliente.' - '. $Valor_Notas_Totais[$numero_clientes] .' - '. $Total_Faturamentos[$numero_clientes]. ' - ' . $Total_EmProducao[$numero_clientes]. '<br>';
-    // $Saldo_Correto[$numero_clientes] = $Valor_Notas_Totais[$numero_clientes] - $Total_Faturamentos[$numero_clientes] - $Total_EmProducao[$numero_clientes];
-    // $Diferenca_Correcao[$numero_clientes] = $Saldo_Correto[$numero_clientes] - $Tabela_Clientes[$numero_clientes]['credito'];
+    $Percorrer_Notas = 0;
+    $Percorrer_Faturamentos = 0;
+    $Percorrer_Abertas = 0;
+    $valor_total_Abertas = 0;
+    $valor_total_Faturamentos = 0;
+    $valor_total_Notas = 0;
+    $Acumulado_Anterior = 0;
+    /////////////////////////////////////// FIM OP ABERTAS ///////////////////////////////////////////////////////////////
 
-    $numero_clientes++;
+
+    while ($Total_Notas > $Percorrer_Notas) {
+        $valor_total_Notas =  $valor_total_Notas + $Tabela_Notas[$Percorrer_Notas]["valor"];
+        $Percorrer_Notas++;
+    }
+    while ($Total_Notas2 > $Percorrer_Notas2) {
+        $valor_total_Notas2 =  $valor_total_Notas2 + $Tabela_Notas2[$Percorrer_Notas2]["valor"];
+        $Percorrer_Notas2++;
+    }
+    while ($Total_Faturamentos > $Percorrer_Faturamentos) {
+        $valor_total_Faturamentos =  $valor_total_Faturamentos + $Tabela_Faturamentos[$Percorrer_Faturamentos]["VLR_FAT"];
+        $Percorrer_Faturamentos++;
+    }
+    while ($Total_Faturamentos2 > $Percorrer_Faturamentos2) {
+        $valor_total_Faturamentos2 =  $valor_total_Faturamentos2 + $Tabela_Faturamentos2[$Percorrer_Faturamentos2]["VLR_FAT"];
+        $Percorrer_Faturamentos2++;
+    }
+    while ($Total_Faturamentos3 > $Percorrer_Faturamentos3) {
+        $valor_total_Faturamentos3 =  $valor_total_Faturamentos3 + $Tabela_Faturamentos3[$Percorrer_Faturamentos3]["VLR_FAT"];
+        $Percorrer_Faturamentos3++;
+    }
+    while ($Total_Abertas > $Percorrer_Abertas) {
+        $valor_total_Abertas =  $valor_total_Abertas + $Tabela_Orc_Abertas[$Percorrer_Abertas]["valor_total"];
+        $Percorrer_Abertas++;
+    }
+ //  echo 'Valor notas anterior = ' . $valor_total_Notas2 . '<br> valor de faturamentos anterior = '. $valor_total_Faturamentos2 . '<br> valor atual de notas = '. $valor_total_Notas . '<br> valor de faturamentos atual = '. $valor_total_Faturamentos;
+   
+    $Calculo_Total = 0;
+    if ($_POST['pordata'] == 'mes') {
+        $debito = $valor_total_Faturamentos2;
+        $Acumulado_Anterior = $valor_total_Notas2 - $valor_total_Faturamentos3;
+        $Calculo_Total =  $Acumulado_Anterior - $valor_total_Faturamentos2 - $valor_total_Abertas;
+    } else {
+         $debito = $valor_total_Faturamentos2;
+         $Acumulado_Anterior = ($valor_total_Notas2 - $valor_total_Notas) - $valor_total_Faturamentos3;
+        $Calculo_Total =  $valor_total_Notas2 - $valor_total_Faturamentos - $valor_total_Abertas;
+    }
+    $Corpo = $Corpo . '<tr>
+        <td>' . $cod . '</td>
+        <td>' . $nome . '</td>
+        <td>R$ ' . number_format($Acumulado_Anterior, 2, ',', '.') . ' </td>
+        <td>R$ ' . number_format($valor_total_Notas, 2, ',', '.') . ' </td>
+        <td> R$ ' . number_format($debito, 2, ',', '.') . ' </td>
+        <td> R$ ' . number_format($valor_total_Abertas, 2, ',', '.') . ' </td>
+        <td> R$ ' . number_format($Calculo_Total, 2, ',', '.') . ' </td>
+        </tr>
+        ';
+    $valor_total_Faturamentos = 0;
+    $Calculo_Total = 0;
+    $Calculo_Total = 0;
+}
+$html = $titulo .  $Cabesalho . $Corpo . '</table>';
+
+//echo $html;
+/////////////////////////////////////////////
+///////////////// CODIGO FIXO ///////////////
+/////////////////////////////////////////////
+require_once __DIR__ . '../../vendor/autoload.php';
+// Create an instance of the class:
+$mpdf = new \mPDF();
+
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'retrato') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4');
+    }
+}
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'paisagem') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4-L');
+    }
 }
 
 
+$mpdf->SetDisplayMode('fullpage');
 
+$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+//level of a list
 
+// LOAD a stylesheet
 
-
-
-
-
-//     /// FIM BANCO DE DADOS///
-//     date_default_timezone_set('America/Sao_Paulo');
-//     $data_hora   = date('d/m/Y H:i:s ', time());
-//     $data_horaa = (string) $data_hora;
-
-//     $titulo = "<h5>RELATÓRIO FINANCEIRO - DATA E HORA DE EMISSÃO: " . $data_horaa . " - SISGRAFEX</h5><br>";
-
-// 
-?><title><?= $titulo ?></title><?php
-
-//                                 $sub_titulo = "<h2>RELATÓRIO FINANCEIRO <br>." . $Mes . "/" . $Ano . " - PESSOAS " . $Tipo_Pessoa_ . "</h2><br>";
-
-//                                 /////////////////////////////////////////// NOTAS //////////////////////
-
-//                                 $Relatorio_Financeiro = "<table style=' solid black;  border-collapse:collapse; font-size: 10; 
-//                     text-align: center;
-//                     color: black;' border='1' class='table'>
-//         <tr>
-//         <th  style=' color:Black'>CÓDIGO</th>
-//         <th style=' color:Black'>NOME</th>
-//         <th  style=' color:Black'>SALDO ACUMULADO ANTERIOR</th>
-//         <th  style=' color:Black'>CRÉDITO</th>
-//         <th  style=' color:Black'>DÉBITO</th>
-//         <th  style=' color:Black'>EM ABERTO ABERTO ATÉ " . $Mes . "/" . $Ano . " </th>
-//         <th style=' color:Black'>SALDO ACUMULADO ATUAL</th>
-//         </tr>
-//         <tr>";
-//                             }
-//                             while ($Principal > $Percorrer_Notas) {
-//                                 if ($Percorrer_Notas == 0) {
-//                                     $relatorio =  '<tr><td >' . $tablea_cliente[$Percorrer_Notas]["cod"] . ' </td>' .
-//                                         '<td >' . $tablea_cliente[$Percorrer_Notas]["nome"] . ' </td>' .
-//                                         '<td > R$ 0 </td>' .
-//                                         '<td > R$ ' . number_format($Total_Notas_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td>' .
-//                                         '<td > R$ ' . number_format($Total_Faturamento_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td>' .
-//                                         '<td > R$ ' . number_format($Total_Op_Aberta_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td>' .
-//                                         '<td > R$ ' . number_format($Total_Geral_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td></tr>';
-//                                 } else {
-//                                     $relatorio = $relatorio .  '<tr><td colspan="1">' . $tablea_cliente[$Percorrer_Notas]["cod"] . ' </td>' .
-//                                         '<td >' . $tablea_cliente[$Percorrer_Notas]["nome"] . ' </td>' .
-//                                         '<td > R$ 0 </td>' .
-//                                         '<td > R$ ' . number_format($Total_Notas_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td>' .
-//                                         '<td > R$ ' . number_format($Total_Faturamento_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td>' .
-//                                         '<td > R$ ' . number_format($Total_Op_Aberta_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td>' .
-//                                         '<td > R$ ' . number_format($Total_Geral_Solo[$Percorrer_Notas], 2, ',', '.') . ' </td></tr>';
-//                                 }
-//                                 $Percorrer_Notas++;
-//                             }
-//                             echo $titulo . $sub_titulo . $Relatorio_Financeiro . $relatorio;
-// //print_r($Total_Notas_Solo). '<br>';
+$mpdf->WriteHTML($html, 2);
+$nome = 'Relatorio_fianceiro_de_'.$Ate .'pdf';
+$mpdf->Output($nome, 'I');
+exit;
