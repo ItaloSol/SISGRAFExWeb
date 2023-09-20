@@ -227,6 +227,9 @@ function RecuperaPapapelClonado() {
             if (data.cod_calculo) {
               campo.cod_calculo = data.cod_calculo;
             }
+            if(data.TIPO_PRODUTO){
+              campo.TIPO_PRODUTO = data.TIPO_PRODUTO
+            }
             if (data.CODIGO) {
               campo.CODIGO = data.CODIGO;
             }

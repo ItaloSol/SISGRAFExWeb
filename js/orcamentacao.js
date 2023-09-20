@@ -357,6 +357,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       <th>CÓDIGO PRODUTO</th>
         <th>CÓDIGO PAPEL</th>
         <th>DESCRIÇÃO</th>
+        <th>TIPO</th>
         <th>CF</th>
         <th>CV</th>
         <th>FORMATO IMPRESSÃO</th>
@@ -389,6 +390,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
           <td>${codigo_do_produto}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
+             <td>${result.tipo_papel}</td>
              <td><input class="form-control" value="${result.corFrente}" type="number"></td>
              <td><input class="form-control" value="${result.corVerso}" type="number"></td>
              <td><input class="form-control" value="${result.formato}" type="number"></td>
@@ -403,6 +405,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
           tableBody.innerHTML += `
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
+             <td>${result.tipo_papel}</td>
              <td><input class="form-control" value="${result.corFrente}" type="number"></td>
              <td><input class="form-control" value="${result.corVerso}" type="number"></td>
              <td><input class="form-control" value="${result.formato}" type="number"></td>
