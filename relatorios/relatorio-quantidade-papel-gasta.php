@@ -4,7 +4,9 @@ include_once('../conexoes/conn.php');
 if (isset($_POST['tipopapel'])) {
     if ($_POST['tipopapel'] == 'codpapel') {
         $cod = $_POST['papelcod'];
+      
         $Where_Tipo = " tabela_papeis.cod = '" . $cod . "' ";
+      
     }
     if ($_POST['tipopapel'] == 'descpapel') {
         $desc = $_POST['papeldesc'];
@@ -81,11 +83,10 @@ if (!isset($Campos)) {
 
 $Query_Slect = "SELECT ";
 if (isset($Campos)) {
-    $Query_Slect = $Query_Slect . $Campos;
+    $Query_Slect = $Query_Slect . ' *';
 }
 $Query_Inner = " FROM tabela_papeis 
-    INNER JOIN tabela_calculos_op ON tabela_calculos_op.cod_papel = tabela_papeis.cod 
-    INNER JOIN tabela_ordens_producao ON tabela_calculos_op.cod_op = tabela_ordens_producao.cod ";
+    ";
 
 if (isset($Where_Tipo)) {
     $Query_Where = " WHERE " . $Where_Tipo;
@@ -112,15 +113,13 @@ if (isset($OrderBy)) {
     $Query_Completa = $Query_Completa . $OrderBy;
 }
 if(!isset($Query_Completa)){
-    $Query_Completa = 'SELECT * FROM tabela_papeis 
-    INNER JOIN tabela_calculos_op ON tabela_calculos_op.cod_papel = tabela_papeis.cod 
-    INNER JOIN tabela_ordens_producao ON tabela_calculos_op.cod_op = tabela_ordens_producao.cod ';
+    $Query_Completa = 'SELECT * FROM tabela_papeis  GROUP BY cod
+    ';
 }
 // echo $Query_Completa . '<br>';
 $Query_Consumo_Papeis = $conexao->prepare("$Query_Completa");
 $Query_Consumo_Papeis->execute();
 $i = 0;
-
 while ($linha = $Query_Consumo_Papeis->fetch(PDO::FETCH_ASSOC)) {
 
     if (isset($_POST['campos2'])) {
@@ -161,6 +160,7 @@ while ($linha = $Query_Consumo_Papeis->fetch(PDO::FETCH_ASSOC)) {
         $Descricao[$i] = $Descricao_;
         $cod_ = $linha['cod'];
         $cod[$i] = $cod_;
+        
         $query_PRODUTOS = $conexao->prepare("SELECT qtd_folhas_total FROM tabela_calculos_op  WHERE cod_papel = '$cod_'");
         $query_PRODUTOS->execute();
 
@@ -186,7 +186,7 @@ while ($linha = $Query_Consumo_Papeis->fetch(PDO::FETCH_ASSOC)) {
 date_default_timezone_set('America/Sao_Paulo');
 $data_hora   = date('d/m/Y H:i:s ', time());
 $data_horaa = (string) $data_hora;
-$titulo = "<h5>RELATÓRIO DE CONSUMO DE PAPÉIS - SISGRAFEX</h5><br>";
+$titulo = "<h5>RELATÓRIO DE CONSUMO DE PAPÉIS - SISGRAFEX " . $data_horaa . "</h5><br>";
 $Inicio_Tabela = "<table style=' solid black; width: 100%;  border-collapse:collapse; font-size: 10; 
     text-align: center;
     color: black;' border='1' class='table'>
@@ -232,49 +232,57 @@ if (!isset($Cabesalhos)) {
 }
 $Fecha_Inicio = "</tr>";
 //
-$Exibir = $i;
-$i = 0;
-while ($Exibir > $i) {
+$Exibir = 0;
+
+while ($Exibir < $i) {
 
     if (isset($_POST['campos3'])) {
         if (isset($Dados)) {
-            $Dados = $Dados . "<tr><td>" . $cod[$i] . "</td>";
+            $Dados = $Dados . "<tr><td>" . $cod[$Exibir] . "</td>";
         } else {
-            $Dados = "<tr><td>" . $cod[$i] . "</td>";
+            $Dados = "<tr><td>" . $cod[$Exibir] . "</td>";
         }
     }
 
     if (isset($_POST['campos2'])) {
         if (isset($Dados)) {
-            $Dados = $Dados . "<td>" . $Descricao[$i] . "</td>";
+            $Dados = $Dados . "<td>" . $Descricao[$Exibir] . "</td>";
         } else {
-            $Dados = "<td>" . $Descricao[$i] . "</td>";
+            $Dados = "<td>" . $Descricao[$Exibir] . "</td>";
         }
     }
     if (isset($_POST['campos5'])) {
         if (isset($Dados)) {
-            $Dados = $Dados . "<td>" . $gramatura[$i] . "</td>";
+            $Dados = $Dados . "<td>" . $gramatura[$Exibir] . "</td>";
         } else {
-            $Dados = "<td>" . $gramatura[$i] . "</td>";
+            $Dados = "<td>" . $gramatura[$Exibir] . "</td>";
         }
     }
     if (isset($_POST['campos1'])) {
         if (isset($Dados)) {
-            $Dados = $Dados . "<td>" . $Qtd[$i] . "</td>";
+            if(isset($Qtd[$Exibir])){
+                $Dados = $Dados . "<td>" . $Qtd[$Exibir] . "</td>";
+            }else{
+                $Dados = $Dados . "<td>0</td>";
+            }
         } else {
-            $Dados = "<td>" . $Qtd[$i] . "</td>";
+            if(isset($Qtd[$Exibir])){
+            $Dados = "<td>" . $Qtd[$Exibir] . "</td>";
+            }else{
+                $Dados = $Dados . "<td>0</td>";
+            }
         }
     }
     if (isset($_POST['campos4'])) {
         if (isset($Dados)) {
-            $Dados = $Dados . "<td>" . $preco[$i] . "</td></tr>";
+            $Dados = $Dados . "<td>" . $preco[$Exibir] . "</td></tr>";
         } else {
-            $Dados = "<td>" . $preco[$i] . "</td></tr>";
+            $Dados = "<td>" . $preco[$Exibir] . "</td></tr>";
         }
     }
 
 
-    $i++;
+    $Exibir++;
 }
 
 if (!isset($Dados)) {
@@ -288,41 +296,41 @@ $Tabela_Completa = $Inicio_Tabela . $Cabesalhos .  $Fecha_Inicio . $Dados . $Fim
 $html = $titulo . $Tabela_Completa;
 
 
-echo $html;
+// echo $html;
 /// FIM CODIGO VARIAVEL///
 /////////////////////////////////////////////
 ///////////////// CODIGO FIXO ///////////////
 /////////////////////////////////////////////
-// require_once __DIR__ . '../../vendor/autoload.php';
-// // Create an instance of the class:
-// $mpdf = new \mPDF();
+require_once __DIR__ . '../../vendor/autoload.php';
+// Create an instance of the class:
+$mpdf = new \mPDF();
 
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'retrato') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4');
-//     }
-// }
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'paisagem') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4-L');
-//     }
-// } else {
-//     if ($_POST['orientacao'] == 'retrato') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4');
-//     }
-// }
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'retrato') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4');
+    }
+}
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'paisagem') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4-L');
+    }
+} else {
+    if ($_POST['orientacao'] == 'retrato') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4');
+    }
+}
 
-// $mpdf->SetDisplayMode('fullpage');
+$mpdf->SetDisplayMode('fullpage');
 
-// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-// //level of a list
+$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+//level of a list
 
-// // LOAD a stylesheet
+// LOAD a stylesheet
 
-// $mpdf->WriteHTML($html, 2);
-// $nome = 'RELATORIO_DE_CONSUMO_DE_PAPEIS.pdf';
-// $mpdf->Output($nome, 'I');
-// exit;
+$mpdf->WriteHTML($html, 2);
+$nome = 'RELATORIO_DE_CONSUMO_DE_PAPEIS.pdf';
+$mpdf->Output($nome, 'I');
+exit;
