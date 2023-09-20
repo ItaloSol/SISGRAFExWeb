@@ -262,6 +262,7 @@ function RecuperaProdutoSelecionado() {
       <th>CÓDIGO PRODUTO</th>
         <th>CÓDIGO PAPEL</th>
         <th>DESCRIÇÃO</th>
+        <th>TIPO</th>
         <th>CF</th>
         <th>CV</th>
         <th>FORMATO IMPRESSÃO</th>
@@ -289,6 +290,9 @@ function RecuperaProdutoSelecionado() {
             if (data.cod_calculo) {
               campo.cod_calculo = data.cod_calculo;
             }
+            if(data.TIPO_PRODUTO){
+              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="tipo_produto" name="tipo_produto" value="${data.TIPO_PRODUTO}">`;
+            }
             if (data.CODIGO) {
               campo.CODIGO = data.CODIGO;
             }
@@ -304,6 +308,9 @@ function RecuperaProdutoSelecionado() {
             if (data.LARGURA) {
               campo.LARGURA = data.LARGURA;
               document.getElementById('NovoNovolargura').value = data.LARGURA;
+            }
+            if(data.tipo_papel){
+              campo.tipo_papel = data.tipo_papel;
             }
             if (data.quantidade) {
               campo.quantidade = `<input class="form-control" type="number" id="quantidade" name="quantidade" value="${data.quantidade}">`;
@@ -524,7 +531,7 @@ function RecuperaProdutoSelecionado() {
           tableTiragens.innerHTML += `
           <tr>
             <td>${campo.cod_produto}</td>
-            <td>${campo.quantidade}</td>
+            <td>${campo.quantidade}${campo.TIPO_PRODUTO}</td>
             <td>${campo.digital}</td>
             <td>${campo.offset}</td>
             <td>${campo.valor_digital}</td>
