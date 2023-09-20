@@ -4,14 +4,21 @@
 include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
 /////////////////////////////////////////////
+$Total_Anteriror = 0;
+$Total_total_Notas = 0;
+$Total_debito = 0;
+$Total_total_Abertas = 0;
+$Total_Calculo = 0;
 // CODIGO VARIAVEL // $html => VARIAVEL OBRIGATORIA PARA CRIAÇÃO DO PDF, INTRUÇÕES EM HTML 
 if (isset($_POST['submit'])) {
     if (isset($_POST['tipo_cliente'])) {
         $tipo_cliente = $_POST['tipo_cliente'];
         if ($tipo_cliente == '1') {
             $Cliente = 'fisicos';
+            $Pessoa = 'FISICAS';
         } else {
             $Cliente = 'juridicos';
+            $Pessoa = 'JURÍDICAS';
         }
     }
     if (isset($_POST['diferente'])) {
@@ -87,7 +94,12 @@ if (isset($_POST['submit'])) {
     }
    
     if (isset($_POST['ordenar'])) {
-        $Ordernar = " ORDER BY tabela_clientes_" . $Cliente . ".credito DESC";
+        if($_POST['ordenar'] == 'Decescente'){
+            $Ordernar = " ORDER BY tabela_clientes_" . $Cliente . ".credito DESC";
+        }else{
+            $Ordernar = " ORDER BY tabela_clientes_" . $Cliente . ".credito ASC";
+        }
+        
     } else {
         $Ordernar = '';
     }
@@ -101,7 +113,7 @@ $data_hora   = date('d/m/Y H:i:s ', time());
 $data_horaa = (string) $data_hora;
 $titulo = "<h5>DETALHAMENTO DE CLIENTE - DATA E HORA DE EMISSÃO: " . $data_horaa . " - SISGRAFEX</h5><br>
 <h1 style='text-transform: uppercase; text-align: center;' >RELATÓRIO FINANCEIRO <br>
-$Ate - PESSOAS $Cliente</h1>";
+$Ate - PESSOAS $Pessoa</h1>";
 $Cabesalho = "<table style=' solid black;  border-collapse:collapse; font-size: 10; 
 text-align: center;
 color: black;' border='1' class='table'>
@@ -530,11 +542,25 @@ while ($linha = $Clientes_Busca->fetch(PDO::FETCH_ASSOC)) {
         <td> R$ ' . number_format($Calculo_Total, 2, ',', '.') . ' </td>
         </tr>
         ';
+        $Total_Anteriror = $Total_Anteriror + $Acumulado_Anterior;
+        $Total_total_Notas = $Total_total_Notas + $valor_total_Notas;
+        $Total_debito = $Total_debito + $debito;
+        $Total_total_Abertas = $Total_total_Abertas + $valor_total_Abertas;
+        $Total_Calculo = $Total_Calculo + $Calculo_Total;
     $valor_total_Faturamentos = 0;
     $Calculo_Total = 0;
     $Calculo_Total = 0;
 }
-$html = $titulo .  $Cabesalho . $Corpo . '</table>';
+$TotalFinal = '<tr>
+<td colspan="2" style="text-allign: center;"><b>TOTAL</b></td>
+<td><b>R$ ' . number_format($Total_Anteriror, 2, ',', '.') . ' </b></td>
+<td><b>R$ ' . number_format($Total_total_Notas, 2, ',', '.') . ' </b></td>
+<td><b> R$ ' . number_format($Total_debito, 2, ',', '.') . ' </b></td>
+<td><b> R$ ' . number_format($Total_total_Abertas, 2, ',', '.') . ' </b></td>
+<td><b> R$ ' . number_format($Total_Calculo, 2, ',', '.') . ' </b></td>
+</tr>
+';
+$html = $titulo .  $Cabesalho . $Corpo . $TotalFinal.  '</table>';
 
 //echo $html;
 /////////////////////////////////////////////
