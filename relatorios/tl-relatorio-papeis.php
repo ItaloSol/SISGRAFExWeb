@@ -10,8 +10,8 @@ $_SESSION["pag"] = array(1, 0); ?>
         <div class="demo-inline-spacing mt-3">
           <div class="list-group list-group-horizontal-md text-md-center">
             <a class="list-group-item list-group-item-action active" id="home-list-item" data-bs-toggle="list" href="#horizontal-home">Papel</a>
-            <a class="list-group-item list-group-item-action" id="profile-list-item" data-bs-toggle="list" href="#horizontal-profile">Ordem de Produção</a>
-            <a class="list-group-item list-group-item-action" id="messages-list-item" data-bs-toggle="list" href="#horizontal-messages">Período</a>
+            <!-- <a class="list-group-item list-group-item-action" id="profile-list-item" data-bs-toggle="list" href="#horizontal-profile">Ordem de Produção</a> -->
+            <!-- <a class="list-group-item list-group-item-action" id="messages-list-item" data-bs-toggle="list" href="#horizontal-messages">Período</a> -->
             <a class="list-group-item list-group-item-action" id="settings-list-item" data-bs-toggle="list" href="#horizontal-campos">Campos</a>
             <a class="list-group-item list-group-item-action" id="settings-list-item" data-bs-toggle="list" href="#horizontal-ordenar">Ordenar</a>
           </div>
@@ -141,20 +141,20 @@ $_SESSION["pag"] = array(1, 0); ?>
               <div class="tab-pane fade" id="horizontal-ordenar">
                 <div class="col-md">
                   <small class="text-light fw-semibold d-block">Ordenar por:</small>
-                  <div class="form-check form-check-inline mt-3">
+                  <!-- <div class="form-check form-check-inline mt-3">
                     <input class="form-check-input" type="radio" id="Gasta" name="order" value=" ORDER BY tabela_calculos_op.qtd_folhas_total ASC" />
                     <label class="form-check-label" for="Gasta">Quantidade Gasta Crescente</label>
-                  </div>
-                  <div class="form-check form-check-inline">
+                  </div> -->
+                  <!-- <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" id="Decrescente" name="order" value=" ORDER BY tabela_calculos_op.qtd_folhas_total DESC" />
                     <label class="form-check-label" for="Decrescente">Quantidade Gasta Decrescente</label>
-                  </div>
+                  </div> -->
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" id="descricaoAsc" name="order" value=" ORDER BY tabela_papeis.descricao ASC" />
                     <label class="form-check-label" for="descricaoAsc">Descrição do Papel</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="codigoasc" name="order" value=" ORDER BY tabela_papeis.cod ASC" />
+                    <input class="form-check-input" type="radio" id="codigoasc" name="order" value=" ORDER BY tabela_papeis.cod DESC" />
                     <label class="form-check-label" for="codigoasc">Código do Papel</label>
                   </div>
                   <div class="form-check form-check-inline">
