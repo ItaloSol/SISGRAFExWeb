@@ -228,16 +228,13 @@ function get_id_usuariosigla(cod, nome, cnpj, nome_fantasia, credito, atividade,
 
 const fecharsigla = document.getElementById('usuariosigla');
 
-
-
 document.addEventListener('click', function (event) {
-    
+    if (fecharsigla) {
         const validar_clique = fecharsigla.contains(event.target);
         if (!validar_clique) {
             document.getElementById('resultado_sigla').innerHTML = '';
         }
-   
-
-})
+    }
+});
 
 

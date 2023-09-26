@@ -15,7 +15,10 @@
   
 }
 /* Navbar */
-
+.formato-impressao {
+  margin-bottom: 15px;
+  border-color: red;
+}
 .brasao {
   margin-bottom: 35px;
   max-width: 55px;

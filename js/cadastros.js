@@ -406,51 +406,73 @@ return valorQuantidade;
 }
 //CALCULO MASTER QUANTIDADE DE PAPEL E DE CHAPA UTILIZADA
 function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, formatoImpressao, tiragem, numeroVias, perca) {
-  const quantidadeFolhasF1 = 0;
+  let quantidadeFolhasF1 = 0;
 
-  switch (tipoProduto) {
-      case 1:
-          quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
-          quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
-          break;
-      case 2:
-          switch (tipoPapel) {
-              case 1:
-              case 2:
-                  quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
-                  quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
-                  break;
-              case 3:
-                  quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
-                  quantidadeFolhasF1 /= 2;
-                  quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
-                  break;
-          }
-          break;
-      case 3:
-          switch (tipoPapel) {
-              case 2:
-                  quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
-                  quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
-                  break;
-              case 4:
-              case 5:
-              case 6:
-                  quantidadeFolhas /= numeroVias;
-                  quantidadeFolhasF1 = Math.ceil((tiragem * quantidadeFolhas) / formatoImpressao);
-                  quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
-                  break;
-          }
-          break;
-      case 4:
-          break;
-      default:
-          break;
-  }
+  if (tipoProduto == 1) {
+    quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
+    quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+
+  } else if (tipoProduto == 2) {
+    if (tipoPapel == 1 || tipoPapel == 2) {
+      quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+    } else if (tipoPapel == 3) {
+      quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
+      quantidadeFolhasF1 /= 2;
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+    }
+  } else if (tipoProduto == 3) {
+    if (tipoPapel == 2) {
+      quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+    } else if (tipoPapel == 4 || tipoPapel == 5 || tipoPapel == 6) {
+      quantidadeFolhas /= numeroVias;
+      quantidadeFolhasF1 = Math.ceil((tiragem * quantidadeFolhas) / formatoImpressao);
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+    }
+  } 
+
   console.log('Quantidade de papel gasto = ' + quantidadeFolhasF1);
   return quantidadeFolhasF1;
 }
+function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas) {
+  let quantidadeChapas = 0;
+  let coresTotal = numeroCoresFrente + numeroCoresVerso;
 
+  switch (tipoProduto) {
+    case 1:
+      quantidadeChapas = coresTotal;
+      break;
+    case 2:
+      switch (tipoPapel) {
+        case 2:
+          quantidadeChapas = coresTotal;
+          break;
+        case 3:
+          quantidadeChapas = (quantidadePaginas / formatoImpressao) * coresTotal;
+          break;
+      }
+      break;
+    case 3:
+      switch (tipoPapel) {
+        case 2:
+          quantidadeChapas = coresTotal;
+          break;
+        case 4:
+        case 5:
+        case 6:
+          quantidadeChapas = coresTotal;
+          break;
+      }
+      break;
+    case 4:
+    case 5:
+      quantidadeChapas = 0;
+      break;
+  }
+
+  return quantidadeChapas;
+}
 
 // FUNÇÃO DO CALCULO
 function calcularValor() {
@@ -463,6 +485,9 @@ function calcularValor() {
 
   // CIF
   let ValorCif = calcularCif();
+
+  // Quantidade
+  let Quantidade = document.getElementById('quantidade').value
 
   // Arte
   let ValorArte = clacularArte();
@@ -481,9 +506,8 @@ function calcularValor() {
   
   // TIRAGENS
   const Tiragens = JSON.parse(JsTiragens)
-  let ValorImpressao , Quantidade , digital , offset , ValorUnitario = 0;
+  let ValorImpressao , digital , offset , ValorUnitario = 0;
   Tiragens.map(item => {
-    Quantidade += +item.quantidade;
     ValorImpressao += +item.valorImpressaoDigital;
     ValorUnitario = item.valorUnidade;
     digital = item.digital;
@@ -494,12 +518,11 @@ function calcularValor() {
   // PAPEIS
   
   const Papeis = JSON.parse(`[${JsPapeis}]`)
-  let ValorPapel ,ValorChapa, numeroVias = 0;
-  let QuantidadeGasta = [];
+  let ValorPapel ,ValorChapa, numeroVias, QuantidadeGastaChapa, QuantidadeGasta = 0;
   Papeis.map(item => {
     for (i = 0; i < item.length; i++) {
       if (item[i]) {
-        let tipoProduto = document.getElementById('tipo_produto').value;
+        let tipoProduto = document.getElementById('TIPO_PRODUTO').value;
         if (tipoProduto === 3) {
           for (let j = 0; j < tabelaPapeis.getRowCount(); j++) {
            let tipoPapelAux = item[i].tipo_papel;
@@ -510,23 +533,31 @@ function calcularValor() {
         }
         let tipoPapel = item[i].tipo_papel;
         let formatoImpressao = item[i].formatoImpressao;
-        let quantidadeFolhas = pegarQtdPaginas();
+        let quantidadePaginas  = pegarQtdPaginas();
         let tiragem = pegarQtdTiragem();
         let perca = item[i].perca;
-         QuantidadeGasta[i] = retornaQuantidadeFolhas(
+        let numeroCoresFrente = item[i].cf;
+        let numeroCoresVerso = item[i].cv;
+        if(digital == true){
+         QuantidadeGasta = retornaQuantidadeFolhas(
           tipoProduto,
           tipoPapel,
-          quantidadeFolhas,
+          quantidadePaginas,
           formatoImpressao,
           tiragem,
           numeroVias,
           perca
         );
+        console.log('Quantidade Gasta de Folha' + QuantidadeGasta)
+        document.getElementById('GFolha'+item[i].codigoPapel).value = QuantidadeGasta;
+         }else{
+          QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
+          console.log('Quantidade Gasta de Chapa' + QuantidadeGastaChapa)
+          document.getElementById('GChapa'+item[i].codigoPapel).value = QuantidadeGastaChapa;
+         }
       }
     }
-    return ValorPapel;
   });
-  console.log('-- TOTAL PAPEL = ' + ValorPapel);
   console.log('------------------------------FIM PAPEL------------------------------')
   console.log('------------------------------------------------------------')
   
@@ -548,6 +579,8 @@ function calcularValor() {
   // OBSERVAÇÃO
   const Observacao = JsObservacao;
   console.log(' --- QUANTIDADE ---');
+  console.log(document.getElementById('quantidade').value);
+  
   console.log(Quantidade);
   console.log(' ------');
   console.log(' --- CHAPA ---');

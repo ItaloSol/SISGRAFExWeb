@@ -31,6 +31,18 @@ if (isset($_POST['submit'])) {
     } else {
         $Creditos = '';
     }
+    if(isset($_POST['numerodocliente'])){
+        if($_POST['numerodocliente'] != null && $_POST['numerodocliente'] != 0 ){
+            $ccliente = $_POST['numerodocliente'];
+            if($Creditos != ''){
+                $Creditos = $Creditos . "cod = $ccliente";
+            }else{
+                $Creditos = ' WHERE ';
+                $Creditos = $Creditos . "cod = $ccliente";
+            }
+        }
+    }
+    
     if (isset($_POST['periodo'])) {
         if ($Creditos == '') {
             $Creditos = ' WHERE ';
