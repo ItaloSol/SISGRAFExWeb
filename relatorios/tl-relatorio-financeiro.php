@@ -114,24 +114,61 @@ $mes = date('m');
           <label class="form-check-label" for="Orientação Retrato">Orientação Retrato</label>
         </div>
         <hr>
-        <div class="form-check mt-3">
-        <label class="form-check-label" for="Tipo de Cliente">Tipo de Cliente</label>
-          
-        </div>
-        <div class="form-check mt-3">
-        <input class="form-check-input" name="tipo_cliente" checked type="radio" value="2" id="Tipo de Cliente" required />
-          <label class="form-check-label" for="Tipo de Cliente">Juridico</label>
-          </div>
-          <div class="form-check mt-3">
-          <input class="form-check-input" name="tipo_cliente" type="radio" value="1" id="Tipo de Cliente" required />
-          <label class="form-check-label" for="Tipo de Cliente">Fisico</label>
+          <div>
+          <div class="row">
+                        <div class="mb-3">
+                           <label class="form-check-label" name="codigo" value="cod" for="defaultCheck1"> Tipo de Cliente </label>
+                            <select class="form-select" name="tipo_cliente" id="cliente" aria-label="Default select example">
+                              <option selected>Selecione o tipo de cliente</option>
+                              <option value="1">Pessoa Física</option>
+                              <option value="2">Pessoa Júridica</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+
+                          <div id="juri" class="mb-3">
+                            <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o NOME do cliente  juridico" onkeyup="carregar_usuarios(this.value)" />
+                            <span id="resultado_pesquisa0"></span>
+                            <br>
+                            <input name="usuariosigla" id="usuariosigla" class="form-control" type="text" placeholder="Digite a SIGLA cliente  juridico" onkeyup="carregar_sigla(this.value)" />
+                            <span id="resultado_sigla"></span>
+                          </div>
+                          <div id="dis" class="mb-3">
+                            <input id="defaultInput" disabled class="form-control" type="text" placeholder="Selecione o tipo de cliente" />
+                          </div>
+                          <div id="fisc" class="mb-3">
+                            <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome do cliente fisico" onkeyup="carregar_fisico(this.value)" />
+                            <input id="codigo1" name="numero" class="form-control" type="text" style="display: none;" placeholder="Digite o código aqui" />
+                            <span id="resultador_123"></span>
+                          </div>
+                          <input id="numerodocliente" name="numerodocliente" class="form-control" type="text"  placeholder="Digite o código aqui" />
+
+                        </div>
           </div>
         <div class="mb-3">
           <button type="submit" name="submit" class="btn btn-info">Gerar Relatório</button>
         </div><br><br>
         <br>
 
-
+        <script>
+        const selectir = document.getElementById('cliente');
+        const juri = document.getElementById('juri');
+        const dist = document.getElementById('dis');
+        const fisc = document.getElementById('fisc');
+        fisc.style.display = 'none';
+        juri.style.display = 'none';
+        selectir.addEventListener('click', vlr => {
+          if (selectir.value == 1) {
+            fisc.style.display = 'block';
+            juri.style.display = 'none';
+            dist.style.display = 'none';
+          } else {
+            fisc.style.display = 'none';
+            juri.style.display = 'block';
+            dist.style.display = 'none';
+          }
+        })
+      </script>
       </div>
 
   </div>

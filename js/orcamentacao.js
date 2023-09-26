@@ -100,16 +100,16 @@ async function NovoProduto() {
     tableBody.innerHTML += `
         
           <tr>
-            <td>${Selecionardos.nomePapel}</td>
-            <td>${Selecionardos.codPapel}</td>
-            <td>${Selecionardos.descricao}</td>
-            <td>${Selecionardos.tipo_papel}</td>
-            <td>${Selecionardos.corFrente}</td>
-            <td>${Selecionardos.corVerso}</td>
-            <td><input class="form-control" value="${Selecionardos.formato}" type="number"></td>
-            <td><input class="form-control" value="${Selecionardos.orelha}" type="number"></td>
+            <td>${Selecionados.nomePapel}</td>
+            <td>${Selecionados.codPapel}</td>
+            <td>${Selecionados.descricao}</td>
+            <td>${Selecionados.tipo_papel}</td>
+            <td>${Selecionados.corFrente}</td>
+            <td>${Selecionados.corVerso}</td>
+            <td><input class="form-control" value="${Selecionados.formato}" type="number"></td>
+            <td><input class="form-control" value="${Selecionados.orelha}" type="number"></td>
             <td><input class="form-control" value="0" type="number"></td>
-            <td>${Selecionardos.preco_folha}</td>
+            <td>${Selecionados.preco_folha}</td>
             <td><input class="form-control" type="number" placeholder="0"></td>
              <td><input class="form-control" type="number" placeholder="0"></td>
           </tr>`;
@@ -393,11 +393,11 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
              <td>${result.tipo_papel}</td>
              <td><input class="form-control" value="${result.corFrente}" type="number"></td>
              <td><input class="form-control" value="${result.corVerso}" type="number"></td>
-             <td><input class="form-control" value="${result.formato}" type="number"></td>
-             <td><input class="form-control" value="${result.orelha}" type="number"></td>
-             <td><input class="form-control" value="0" type="number"></td>
+             <td><input class="form-control formato-impressao" id="Impre${result.codPapels}"  type="number"></td>
+             <td><input class="form-control" value="5" type="number"></td>
+             <td><input class="form-control" id="GFolha${result.codPapels}" value="0" type="number"></td>
              <td>${result.preco_folha}</td>
-             <td><input class="form-control" value="0" type="number"></td>
+             <td><input class="form-control" id="GChapa${result.codPapels}" value="0" type="number"></td>
              <td>${result.preco_chapa}</td>
            `;
           cont++;
@@ -1020,3 +1020,30 @@ async function pesquisarservicocode(){
     }
   })
 }
+
+// FUNÇÕES PARA VALIDADAR CALCULO
+setTimeout(function() {
+  const elementos = document.querySelectorAll('.formato-impressao');
+
+  elementos.forEach(function(elemento) {
+    elemento.addEventListener('keydown', function(event) {
+      // Verifique se o código da tecla pressionada não está na faixa dos números (48-57)
+      if (event.keyCode < 48 || event.keyCode > 57 || event.key === '0') {
+        elemento.classList.add('formato-impressao');
+      } else {
+        elemento.classList.remove('formato-impressao');
+      }
+
+      // Verifique se todas as classes 'formato-impressao' não existem mais
+      const todasClassesRemovidas = document.querySelectorAll('.formato-impressao').length === 0;
+      // Atualize o estilo do botão 'calcularValor' com base na verificação
+      if (todasClassesRemovidas) {
+        document.getElementById('calcularValor').style.display = 'block';
+        document.getElementById('AlertaCampos').style.display = 'none';
+      } else {
+        document.getElementById('calcularValor').style.display = 'none';
+        document.getElementById('AlertaCampos').style.display = 'block';
+      }
+    });
+  });
+}, 3000); // Atraso

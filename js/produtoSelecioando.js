@@ -290,8 +290,8 @@ function RecuperaProdutoSelecionado() {
             if (data.cod_calculo) {
               campo.cod_calculo = data.cod_calculo;
             }
-            if(data.TIPO_PRODUTO){
-              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="tipo_produto" name="tipo_produto" value="${data.TIPO_PRODUTO}">`;
+            if(data.tipo_produto_papel){
+              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="TIPO_PRODUTO" name="TIPO_PRODUTO" value="${data.tipo_produto_papel}">`;
             }
             if (data.CODIGO) {
               campo.CODIGO = data.CODIGO;
