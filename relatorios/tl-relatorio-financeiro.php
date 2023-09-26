@@ -127,21 +127,21 @@ $mes = date('m');
                         <div class="mb-3">
 
                           <div id="juri" class="mb-3">
-                            <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o NOME do cliente  juridico" onkeyup="carregar_usuarios(this.value)" />
+                            <input name="usuario0" id="usuario0" class="form-control" type="text" placeholder="Digite o NOME do cliente  juridico (opcional)" onkeyup="carregar_usuarios(this.value)" />
                             <span id="resultado_pesquisa0"></span>
                             <br>
-                            <input name="usuariosigla" id="usuariosigla" class="form-control" type="text" placeholder="Digite a SIGLA cliente  juridico" onkeyup="carregar_sigla(this.value)" />
+                            <input name="usuariosigla" id="usuariosigla" class="form-control" type="text" placeholder="Digite a SIGLA cliente  juridico (opcional)" onkeyup="carregar_sigla(this.value)" />
                             <span id="resultado_sigla"></span>
                           </div>
                           <div id="dis" class="mb-3">
-                            <input id="defaultInput" disabled class="form-control" type="text" placeholder="Selecione o tipo de cliente" />
+                            <input id="defaultInput" disabled class="form-control" type="text" placeholder="Selecione o tipo de cliente (opcional)" />
                           </div>
                           <div id="fisc" class="mb-3">
-                            <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome do cliente fisico" onkeyup="carregar_fisico(this.value)" />
-                            <input id="codigo1" name="numero" class="form-control" type="text" style="display: none;" placeholder="Digite o código aqui" />
+                            <input name="usuario1" id="usuario1" class="form-control" type="text" placeholder="Digite o nome do cliente fisico (opcional)" onkeyup="carregar_fisico(this.value)" />
+                            <input id="codigo1" name="numero" class="form-control" type="text" style="display: none;" placeholder="Digite o código aqui (opcional)" />
                             <span id="resultador_123"></span>
                           </div>
-                          <input id="numerodocliente" name="numerodocliente" class="form-control" type="text"  placeholder="Digite o código aqui" />
+                          <input id="numerodocliente" name="numerodocliente" class="form-control" type="text"  placeholder="Digite o código aqui (opcional)" />
 
                         </div>
           </div>
