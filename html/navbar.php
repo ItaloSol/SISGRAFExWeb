@@ -604,10 +604,10 @@ $refresh = 0;
                 <span><?= $Total_Notificacao ?></span>
               </button>
             </ul>
+            
             <ul class="navbar-nav flex-row align-items-center ms-auto justify-content-between">
               <!-- Usuário -->
 
-      </li>
       </li>
       </ul>
 
@@ -631,6 +631,7 @@ $refresh = 0;
           <?php  } ?>
         </aside>
         <!-- / Menu -->
+
 
               <!-- Notificações -->
 
@@ -716,6 +717,72 @@ $refresh = 0;
                   </div>
 
 
+                  <div class="card">
+
+                    <div class="card-body">
+                      <div class="scroll-modal alt-modal" class="table-responsive text-nowrap">
+                        <?php 
+                         $ATIVIDADE_Notificacao = '<table class="table table-bordered">
+                         <thead>
+                         <tr bgcolor="yellow" align="center">
+                         <th colspan="5" >ULTIMA ATIVIDADE NO SISTEMA</th>
+                         </tr>
+                         </thead>
+                           <tr>
+                             <th>Id</th>
+                             <th>Nome Usuario</th>
+                             <th>Data da Alteração</th>
+                             <th>Descrição da Alteração</th>
+                           </tr>
+                         <tbody>';
+                         $Percorrer_Notificacao = 0;
+                          $atualizacoes = $conexao->prepare("SELECT * FROM supervisao_atividade s INNER JOIN tabela_atendentes a ON a.codigo_atendente = s.atendente_supervisao WHERE alteracao_atividade not like '%deletou%' and alteracao_atividade not like '%senha%' ORDER BY s.id_supervisao DESC LIMIT 1");
+               $atualizacoes->execute();
+               $atualizacoes_obs = $conexao->prepare("SELECT * FROM supervisao_atividade s INNER JOIN tabela_atendentes a ON a.codigo_atendente = s.atendente_supervisao WHERE alteracao_atividade like '%observação%' ORDER BY s.id_supervisao DESC LIMIT 1");
+               $atualizacoes_obs->execute(); 
+                if ($linha = $atualizacoes->fetch(PDO::FETCH_ASSOC)) {
+                 $NAM = $linha['nome_atendente'];
+                 $DATA = $linha['data_supervisao'];
+                 $ID = $linha['id_supervisao'];
+                 $DESCRICAO = $linha['alteracao_atividade'];
+                 $ATN = $linha['atendente_supervisao'];
+                 $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao .  "<tr>
+                 <td>" . $ID . "</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
+                 </tr>";
+               }
+               
+          
+                if ($linha = $atualizacoes_obs->fetch(PDO::FETCH_ASSOC)) {
+                 $NAM = $linha['nome_atendente'];
+                 $DATA = $linha['data_supervisao'];
+                 $ID = $linha['id_supervisao'];
+                 $DESCRICAO = $linha['alteracao_atividade'];
+                 $ATN = $linha['atendente_supervisao'];
+                 $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . "<tr>
+                 <td>" . $ID . "</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
+                 </tr>";
+               }
+               $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . '</table>';
+                      echo  $ATIVIDADE_Notificacao; ?>
+                        <small>Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;">Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; " class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
+                        <table class="table table-bordered table-modal">
+                          <thead>
+                            <tr>
+                              <th>Ordem de Produção</th>
+                              <th>Orçamento Base</th>
+                              <th>Data de Emissão</th>
+                              <th>Data de Entrega</th>
+                              <th>Status</th>
+                              <th>Produto</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $relatorio_Notificacao = '';
+                           
+             
+
+
                     <div class="card">
 
                       <div class="card-body">
@@ -737,6 +804,7 @@ $refresh = 0;
 
 
                             $Percorrer_Notificacao = 0;
+
                             while ($Total_Notificacao > $Percorrer_Notificacao) {
 
                               if ($Percorrer_Notificacao == 0) {
@@ -745,7 +813,7 @@ $refresh = 0;
                                 } else {
                                   $tr = '<tr style="color: white;" bgcolor="' . $cor[$Percorrer_Notificacao]['cor'] . '">';
                                 }
-                                $relatorio_Notificacao = $tr .
+                                $relatorio_Notificacao = $relatorio_Notificacao . $tr .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] . '</td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['orcamento_base'] . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_emissao'])) . '</td>' .
