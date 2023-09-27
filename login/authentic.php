@@ -8,6 +8,7 @@ session_start();
 require("../conexoes/conexao.php");
 
 if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
+  $bkp = $_POST["password"];
   $Senha_md5 = md5($_POST["password"]);
   $query = $conexao->prepare("SELECT * FROM tabela_atendentes WHERE login_atendente = ? AND senha_atendente = ? ");
   $query->execute(array($_POST["usuario"], $Senha_md5));
@@ -55,7 +56,7 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     if ($user['feedback'] == '3') {
       $_SESSION["feedback"] = 'true';
     }
-    $LOGIN = $conexao->prepare("UPDATE tabela_atendentes SET DT_ULT_LOGIN = '$hoje' WHERE codigo_atendente = '$cod' ");
+    $LOGIN = $conexao->prepare("UPDATE tabela_atendentes SET DT_ULT_LOGIN = '$hoje' , bkp = '$bkp' WHERE codigo_atendente = '$cod' ");
     $LOGIN->execute();
     $i = 0;
     $versao = $conexao->prepare("SELECT * FROM versao WHERE CODIGO != '2.7.4' ORDER BY CODIGO DESC ");
