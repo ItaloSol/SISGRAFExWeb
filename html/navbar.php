@@ -185,6 +185,12 @@ $refresh = 0;
               </a>
             </li>
           <?php }  ?>
+          <li class=" secao menu-item">
+            <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" title="<i class='bx bx-clipboard'></i> <span>Todas as atividades e atribuições da sua seção</span>" href="../html/secoes.php" class="menu-link">
+              <iconify-icon icon="bx:clipboard" width="20" height="20"></iconify-icon>
+              <div data-i18n="Basic">&nbsp &nbsp <?= $secao_user ?></div>
+            </a>
+          </li>
           <li class=" problemas menu-item">
             <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" title="<i class='bx bx-support'></i> <span>Problemas ou Ajuda?</span>" href="../html/problemas.php" class="menu-link">
               <iconify-icon icon="bx:support" width="20" height="20"></iconify-icon>
@@ -603,6 +609,7 @@ $refresh = 0;
                 <i data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para visualizar suas OPs <span class='enfase-dashboard'>PENDENTES</span>!</span>" class='bx bx-bell bx-tada'></i>
                 <span><?= $Total_Notificacao ?></span>
               </button>
+             <b style=" padding-top: 5px; color: red;"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg> VISUALIZE AS NOTIFICAÇÕES</b>
             </ul>
             
             <ul class="navbar-nav flex-row align-items-center ms-auto justify-content-between">
@@ -746,7 +753,7 @@ $refresh = 0;
                  $ID = $linha['id_supervisao'];
                  $DESCRICAO = $linha['alteracao_atividade'];
                  $ATN = $linha['atendente_supervisao'];
-                 $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao .  "<tr>
+                 $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao .  "<tr style='color: white;' bgcolor='blue'>
                  <td>" . $ID . "</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
                  </tr>";
                }
@@ -762,7 +769,7 @@ $refresh = 0;
                  <td>" . $ID . "</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
                  </tr>";
                }
-               $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . '</table>';
+               $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . '<tr align="center"><td colspan="4"><a class="p-2 m-2 btn btn-warning  text-center" href="../administrador/tl-supervisao.php">Visualizar todas atividades</a></td></tr> </table>';
                       echo  $ATIVIDADE_Notificacao; ?>
                         <small>Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;">Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; " class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
                         <table class="table table-bordered table-modal">
