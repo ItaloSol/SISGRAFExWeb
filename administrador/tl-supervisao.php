@@ -1,4 +1,7 @@
 <?php /*   */ include_once("../html/navbar.php");
+if($Admin_User != 1){
+  ?> <script>window.location = '../html/painel.php'</script> <?php
+}
 $query_atendent = $conexao->prepare("SELECT * FROM supervisao_atividade s INNER JOIN tabela_atendentes a ON a.codigo_atendente = s.atendente_supervisao ORDER BY s.id_supervisao DESC LIMIT 1000");
 $query_atendent->execute();
 

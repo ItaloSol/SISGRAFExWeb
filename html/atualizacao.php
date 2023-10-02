@@ -30,7 +30,7 @@ $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_produ
                               if($ss != $secao){
                                 echo $status . ' -> '. $ss . ' -> ' .$secao . '<br>';
                                 $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET secao_op = '$secao' WHERE cod = $cod ");
-                                $atualizar_op->execute();
+                             //   $atualizar_op->execute();
                                 $i ++;
                               }
                             }
