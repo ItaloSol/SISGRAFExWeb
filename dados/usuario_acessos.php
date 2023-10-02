@@ -1,9 +1,10 @@
 <?php //**   */ 
 include_once('../conexoes/conexao.php');
 
-$query_acesso = $conexao->prepare("SELECT * FROM usuario_acessos "); 
+$query_acesso = $conexao->prepare("SELECT * FROM usuario_acessos WHERE CODIGO_USR = '$cod_user'"); 
 $query_acesso->execute(); 
 $i = 0;
+$Admin_User = 0;
  while($linha = $query_acesso->fetch(PDO::FETCH_ASSOC)) {
     $u_cod = $linha['CODIGO_USR'];
     $u_ORC = $linha['ORC'];
@@ -47,7 +48,9 @@ while($a < $Total_Acessos){
      $FIN_ADM_I  =     $FIN_ADM[$a]; 
      $EST_I =       $EST[$a]; 
      $ORD_I =      $ORD[$a]; 
-
+      if($ORC_ADM_I == '1' || $PROD_ADM_I == '1' ||$EXP_ADM_I == '1' ||$FIN_ADM_I == '1'){
+         $Admin_User = 1;
+      }
      $query_secao = $conexao->prepare("SELECT * FROM tabela_atendentes WHERE codigo_atendente = '$cod_user' "); 
 $query_secao->execute(); 
 $i = 0;

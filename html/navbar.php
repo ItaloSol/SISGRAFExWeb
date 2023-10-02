@@ -754,7 +754,7 @@ $refresh = 0;
                  $DESCRICAO = $linha['alteracao_atividade'];
                  $ATN = $linha['atendente_supervisao'];
                  $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao .  "<tr style='color: white;' bgcolor='blue'>
-                 <td>" . $ID . "</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
+                 <td>Geral</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
                  </tr>";
                }
                
@@ -766,10 +766,15 @@ $refresh = 0;
                  $DESCRICAO = $linha['alteracao_atividade'];
                  $ATN = $linha['atendente_supervisao'];
                  $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . "<tr>
-                 <td>" . $ID . "</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
+                 <td>Observação</td><td>" . $ATN . " - " . $NAM . "</td><td>" . $DATA . "</td><td>" . $DESCRICAO . "</td>
                  </tr>";
                }
-               $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . '<tr align="center"><td colspan="4"><a class="p-2 m-2 btn btn-warning  text-center" href="../administrador/tl-supervisao.php">Visualizar todas atividades</a></td></tr> </table>';
+               if($Admin_User == 1){
+                $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . '<tr align="center"><td colspan="4"><a class="p-2 m-2 btn btn-warning  text-center" href="../administrador/tl-supervisao.php">Visualizar todas atividades</a></td></tr> </table>';
+               }else{
+                $ATIVIDADE_Notificacao = $ATIVIDADE_Notificacao . '</table>';
+               }
+               
                       echo  $ATIVIDADE_Notificacao; ?>
                         <small>Descrição das cores: <br> <b style="background-color: blue; color: white; padding: 4px; border-radius:20px;">Azul: Atraso curto;</b> <b style="margin-left: 3px; background-color: yellow; color: white; padding: 4px; border-radius:20px; " class="contorno">Amarelo: Atraso medio;</b> <b style="margin-left: 3px; background-color: red; color: white; padding: 4px; border-radius:20px;">Vermelho: Atraso Longo;</b> <b style="margin-left: 3px; background-color: orange; color: white; padding: 4px; border-radius:20px;">Laranja: Seção de expedição Atraso Longo</b><b style="margin-left: 3px; background-color: green; color: white; padding: 4px; border-radius:20px;">Verde: Não Existe Data da OP no Sistema</b></small><br><br>
                         <table class="table table-bordered table-modal">
