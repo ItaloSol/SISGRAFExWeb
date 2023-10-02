@@ -333,15 +333,36 @@ while ($linha = $query_ordens_Abertas->fetch(PDO::FETCH_ASSOC)) {
         }
     }
    // echo 'Valor Total do calculo = '. $Valor_QQ .'<br>';
+   $Tipo_Produto = $Ordens_Abertas[$i]['tipo_produto'];
     $Pesquisa_Produto = $Ordens_Abertas[$i]['cod_produto'];
-    $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
-    $query_PRODUTOS->execute();
+    if ($Tipo_Produto == '2') {
+        $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos_pr_ent  WHERE CODIGO = '$Pesquisa_Produto'");
+        $query_PRODUTOS->execute();
 
-    while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
-        $Tabela_Produtos_Abertas[$i] = [
-            'descricao' => $linha2['DESCRICAO']
-        ];
+        while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+            $Tabela_Produtos_Abertas[$i] = [
+                'descricao' => $linha2['DESCRICAO']
+            ];
+        }
     }
+    if ($Tipo_Produto == '1') {
+        $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
+        $query_PRODUTOS->execute();
+
+        while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+            $Tabela_Produtos_Abertas[$i] = [
+                'descricao' => $linha2['DESCRICAO']
+            ];
+        }
+    }
+    // $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
+    // $query_PRODUTOS->execute();
+
+    // while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+    //     $Tabela_Produtos_Abertas[$i] = [
+    //         'descricao' => $linha2['DESCRICAO']
+    //     ];
+    // }
     $Pesquisa_Orc = $Ordens_Abertas[$i]['orcamento_base'];
     $Pesquisa_Tipo_prod = $Ordens_Abertas[$i]['tipo_produto'];
     $query_Pesquisa_Orc = $conexao->prepare("SELECT cod_orcamento, cod_produto, tipo_produto, (quantidade * preco_unitario) AS VLR_PARC FROM tabela_produtos_orcamento WHERE cod_orcamento = '$Pesquisa_Orc' AND cod_produto = '$Pesquisa_Produto' AND tipo_produto = '$Pesquisa_Tipo_prod' ");
