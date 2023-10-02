@@ -215,9 +215,9 @@ if (isset($_POST['status'])) {
     if ($_POST['status'] != 'todos') {
         if (isset($_POST['statusS'])) {
             if ($_POST['statusS'] == 'producao') {
-                $Status = " AND status not in ('11','15','13','17','10')";
+                $Status = " status not in ('11','15','13','17','10')";
             } else {
-                $Status = " AND status = '" . $_POST['statusS'] . "'";
+                $Status = " status = '" . $_POST['statusS'] . "'";
             }
         }
     }
@@ -504,7 +504,12 @@ if (isset($Query_Cliente)) {
     $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Cliente;
 }
 if (isset($Query_Status)) {
-    $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Status;
+    if (isset($Query_Cliente)) {
+        $Query_Busca_Completa = $Query_Busca_Completa  .' AND '. $Query_Status;
+    }else{
+        $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Status;
+    }
+    
 }
 if (isset($Query_OpOrc)) {
     if (
@@ -541,7 +546,7 @@ if (isset($Query_Periodo)) {
         isset($Query_OpOrc) || isset($Query_Produto) || isset($Query_Emissor) ||
         isset($Query_Status)
     ) {
-        $Query_Busca_Completa = $Query_Busca_Completa . ' AND ';
+        $Query_Busca_Completa = $Query_Busca_Completa . '  ';
     }
     $Query_Busca_Completa = $Query_Busca_Completa . $Query_Periodo;
 }
@@ -554,7 +559,7 @@ if (isset($OrderBy)) {
     $Query_Busca_Completa = $Query_Busca_Completa . ' ';
 }
 //
-// echo $Query_Busca_Completa . '<br>';
+ echo $Query_Busca_Completa . '<br>';
 $Query_Busca_Completa_Executavel = $conexao->prepare("$Query_Busca_Completa");
 $Query_Busca_Completa_Executavel->execute();
 //   echo '<br><b>'.$Campos.'</b>';
