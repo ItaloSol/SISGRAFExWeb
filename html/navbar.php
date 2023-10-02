@@ -609,7 +609,7 @@ $refresh = 0;
                 <i data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para visualizar suas OPs <span class='enfase-dashboard'>PENDENTES</span>!</span>" class='bx bx-bell bx-tada'></i>
                 <span><?= $Total_Notificacao ?></span>
               </button>
-             <b style=" padding-top: 5px; color: red;"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg> VISUALIZE AS NOTIFICAÇÕES</b>
+             <b style=" padding-top: 5px; color: red;"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg> VISUALIZE AS NOTIFICAÇÕES</b>
             </ul>
             
             <ul class="navbar-nav flex-row align-items-center ms-auto justify-content-between">
@@ -650,48 +650,7 @@ $refresh = 0;
                 <i class="bx bx-power-off me-2"></i>
                 <span class="align-middle">Sair</span>
               </a>
-              <!-- Final das notificações -->
-              <!-- <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                  <div class="avatar avatar-online">
-                    <img src="../img/user.png" alt class="w-px-40 h-auto rounded-circle" />
-                  </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <div class="d-flex">
-                        <div class="flex-shrink-0 me-3">
-                          <div class="avatar avatar-online">
-                            <img src="../img/user.png" alt class="w-px-40 h-auto rounded-circle" />
-                          </div>
-                        </div>
-                        <div class="flex-grow-1">
-                          <span class="fw-semibold d-block"><?= $nome_user ?></span>
-                          <small class="text-muted"><?= $tipo_user . ' - ' . $cod_user ?></small>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="bx bx-cog me-2"></i>
-                      <span class="align-middle">Configurações</span>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="<span>Clique para sair de sua conta</span>" class="dropdown-item" href="../login/logout.php">
-                      <i class="bx bx-power-off me-2"></i>
-                      <span class="align-middle">Sair</span>
-                    </a>
-                  </li>
-                </ul> -->
+            
               </li>
               <!-- Final de usuários -->
             </ul>
@@ -780,8 +739,8 @@ $refresh = 0;
                         <table class="table table-bordered table-modal">
                           <thead>
                             <tr>
+                              <th>Selecionar</th>
                               <th>Ordem de Produção</th>
-                              <th>Orçamento Base</th>
                               <th>Data de Emissão</th>
                               <th>Data de Entrega</th>
                               <th>Status</th>
@@ -826,8 +785,8 @@ $refresh = 0;
                                   $tr = '<tr style="color: white;" bgcolor="' . $cor[$Percorrer_Notificacao]['cor'] . '">';
                                 }
                                 $relatorio_Notificacao = $relatorio_Notificacao . $tr .
+                                  '<td><a class="btn rounded-pill btn-info " id="pesquisarOp" href="../producao/tl-controle-op.php?cod=' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] . '"><i class="bx bx-edit-alt me-1"></i>Administrar</a></td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] . '</td>' .
-                                  '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['orcamento_base'] . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_emissao'])) . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_entrega'])) . '</td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['status'] . ' - ' . $Ordens_Notificacao[$Percorrer_Notificacao]["STS_DESCRICAO"] . ' </td>' .
@@ -839,8 +798,8 @@ $refresh = 0;
                                   $tr = '<tr style="color: white;" bgcolor="' . $cor[$Percorrer_Notificacao]['cor'] . '">';
                                 }
                                 $relatorio_Notificacao = $relatorio_Notificacao . $tr .
+                                  '<td><a class="btn rounded-pill btn-info " id="pesquisarOp" href="../producao/tl-controle-op.php?cod=' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] . '"><i class="bx bx-edit-alt me-1"></i>Administrar</a></td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['cod'] . '</td>' .
-                                  '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['orcamento_base'] . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_emissao'])) . '</td>' .
                                   '<td>' . date('d/m/Y', strtotime($Ordens_Notificacao[$Percorrer_Notificacao]['data_entrega'])) . '</td>' .
                                   '<td>' . $Ordens_Notificacao[$Percorrer_Notificacao]['status'] . ' - ' . $Ordens_Notificacao[$Percorrer_Notificacao]["STS_DESCRICAO"] . ' </td>' .
