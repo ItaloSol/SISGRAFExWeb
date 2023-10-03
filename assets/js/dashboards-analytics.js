@@ -429,7 +429,387 @@
     );
     profileReportChart.render();
   }
+ 
+    // Função para obter o valor do span com um determinado ID
+    function obterValor(id) {
+        var span = document.getElementById(id);
+        if (span) {
+            // Remove pontos de milhares e converte para número inteiro
+            return parseInt(span.textContent.replace(/\./g, ''));
+        }
+        return 0; // Retorna 0 se o elemento não for encontrado
+    }
 
+    // Obtém os valores para cada ano
+    
+      // ORCAMENTO
+    const QtdP0 = obterValor('QtdP0');
+    const QtdPo1 = obterValor('QtdPo1');
+    const QtdPo2 = obterValor('QtdPo2');
+    const QtdPo3 = obterValor('QtdPo3');
+    const QtdPo4 = obterValor('QtdPo4');
+    //// PRODUCAO
+    const QtdPP = obterValor('QtdPP');
+    const QtdPP1 = obterValor('QtdPP1');
+    const QtdPP2 = obterValor('QtdPP2');
+    const QtdPP3 = obterValor('QtdPP3');
+    const QtdPP4 = obterValor('QtdPP4');
+     //// Blocos
+     const Qtdbloo1 = obterValor('Qtdbloo1');
+     const Qtdbloo2 = obterValor('Qtdbloo2');
+     const Qtdbloo3 = obterValor('Qtdbloo3');
+     const Qtdbloo4 = obterValor('Qtdbloo4');
+     const Qtdbloo5 = obterValor('Qtdbloo5');
+     //// LIVROS
+     const QtdLIVRO1 = obterValor('QtdLIVRO1');
+     const QtdLIVRO2 = obterValor('QtdLIVRO2');
+     const QtdLIVRO3 = obterValor('QtdLIVRO3');
+     const QtdLIVRO4 = obterValor('QtdLIVRO4');
+     const QtdLIVRO5 = obterValor('QtdLIVRO5');
+      //// FOLHA
+      const QtdFOLHA1 = obterValor('QtdFOLHA1');
+      const QtdFOLHA2 = obterValor('QtdFOLHA2');
+      const QtdFOLHA3 = obterValor('QtdFOLHA3');
+      const QtdFOLHA4 = obterValor('QtdFOLHA4');
+      const QtdFOLHA5 = obterValor('QtdFOLHA5');
+  /// QUANTITATIVOS
+  const QtdPos = document.querySelector("#Qtd_PO"),
+  QtdPo = {
+    chart: {
+      height: 80,
+      // width: 175,
+      type: "line",
+      toolbar: {
+        show: false,
+      },
+      dropShadow: {
+        enabled: true,
+        top: 10,
+        left: 5,
+        blur: 3,
+        color: config.colors.warning,
+        opacity: 0.15,
+      },
+      sparkline: {
+        enabled: true,
+      },
+    },
+    grid: {
+      show: false,
+      padding: {
+        right: 8,
+      },
+    },
+    colors: [config.colors.warning],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 5,
+      curve: "smooth",
+    },
+    series: [
+      {
+        data: [QtdP0, QtdPo1, QtdPo2, QtdPo3, QtdPo4]
+      },
+    ],
+    xaxis: {
+      show: false,
+      lines: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: false,
+    },
+  };
+  if (
+  typeof QtdPos !== undefined &&
+  QtdPos !== null
+  ) {
+  const profileReportChart = new ApexCharts(
+    QtdPos,
+    QtdPo
+  );
+  profileReportChart.render();
+  }
+  // PRODUÇÃO
+  const QtdOps = document.querySelector("#Qtd_Op"),
+  QtdOp = {
+    chart: {
+      height: 80,
+      // width: 175,
+      type: "line",
+      toolbar: {
+        show: false,
+      },
+      dropShadow: {
+        enabled: true,
+        top: 10,
+        left: 5,
+        blur: 3,
+        color: config.colors.warning,
+        opacity: 0.15,
+      },
+      sparkline: {
+        enabled: true,
+      },
+    },
+    grid: {
+      show: false,
+      padding: {
+        right: 8,
+      },
+    },
+    colors: [config.colors.warning],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 5,
+      curve: "smooth",
+    },
+    series: [
+      {
+        data: [QtdPP, QtdPP1, QtdPP2, QtdPP3, QtdPP4]
+      },
+    ],
+    xaxis: {
+      show: false,
+      lines: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: false,
+    },
+  };
+  if (
+  typeof QtdOps !== undefined &&
+  QtdOps !== null
+  ) {
+  const profileReportChart = new ApexCharts(
+    QtdOps,
+    QtdOp
+  );
+  profileReportChart.render();
+  }
+  /// BLOCOS
+  const Qtdblocos = document.querySelector("#Qtd_Blocs"),
+  Qtdbloco = {
+    chart: {
+      height: 80,
+      // width: 175,
+      type: "line",
+      toolbar: {
+        show: false,
+      },
+      dropShadow: {
+        enabled: true,
+        top: 10,
+        left: 5,
+        blur: 3,
+        color: config.colors.warning,
+        opacity: 0.15,
+      },
+      sparkline: {
+        enabled: true,
+      },
+    },
+    grid: {
+      show: false,
+      padding: {
+        right: 8,
+      },
+    },
+    colors: [config.colors.warning],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 5,
+      curve: "smooth",
+    },
+    series: [
+      {
+        data: [Qtdbloo1, Qtdbloo4, Qtdbloo2, Qtdbloo3, Qtdbloo5]
+      },
+    ],
+    xaxis: {
+      show: false,
+      lines: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: false,
+    },
+  };
+  if (
+  typeof Qtdblocos !== undefined &&
+  Qtdblocos !== null
+  ) {
+  const profileReportChart = new ApexCharts(
+    Qtdblocos,
+    Qtdbloco
+  );
+  profileReportChart.render();
+  }
+/// LIVROS
+const Qtdlivros = document.querySelector("#Qtd_livors"),
+Qtdlivro = {
+  chart: {
+    height: 80,
+    // width: 175,
+    type: "line",
+    toolbar: {
+      show: false,
+    },
+    dropShadow: {
+      enabled: true,
+      top: 10,
+      left: 5,
+      blur: 3,
+      color: config.colors.warning,
+      opacity: 0.15,
+    },
+    sparkline: {
+      enabled: true,
+    },
+  },
+  grid: {
+    show: false,
+    padding: {
+      right: 8,
+    },
+  },
+  colors: [config.colors.warning],
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    width: 5,
+    curve: "smooth",
+  },
+  series: [
+    {
+      data: [QtdLIVRO1, QtdLIVRO4, QtdLIVRO2, QtdLIVRO3, QtdLIVRO5]
+    },
+  ],
+  xaxis: {
+    show: false,
+    lines: {
+      show: false,
+    },
+    labels: {
+      show: false,
+    },
+    axisBorder: {
+      show: false,
+    },
+  },
+  yaxis: {
+    show: false,
+  },
+};
+if (
+typeof Qtdlivros !== undefined &&
+Qtdlivros !== null
+) {
+const profileReportChart = new ApexCharts(
+  Qtdlivros,
+  Qtdlivro
+);
+profileReportChart.render();
+}
+/// FOLHAS/// LIVROS
+const Qtdfolhas = document.querySelector("#Qtd_folhas"),
+Qtdfolha = {
+  chart: {
+    height: 80,
+    // width: 175,
+    type: "line",
+    toolbar: {
+      show: false,
+    },
+    dropShadow: {
+      enabled: true,
+      top: 10,
+      left: 5,
+      blur: 3,
+      color: config.colors.warning,
+      opacity: 0.15,
+    },
+    sparkline: {
+      enabled: true,
+    },
+  },
+  grid: {
+    show: false,
+    padding: {
+      right: 8,
+    },
+  },
+  colors: [config.colors.warning],
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    width: 5,
+    curve: "smooth",
+  },
+  series: [
+    {
+      data: [QtdFOLHA1, QtdFOLHA4, QtdFOLHA2, QtdFOLHA3, QtdFOLHA5]
+    },
+  ],
+  xaxis: {
+    show: false,
+    lines: {
+      show: false,
+    },
+    labels: {
+      show: false,
+    },
+    axisBorder: {
+      show: false,
+    },
+  },
+  yaxis: {
+    show: false,
+  },
+};
+if (
+typeof Qtdfolhas !== undefined &&
+Qtdfolhas !== null
+) {
+const profileReportChart = new ApexCharts(
+  Qtdfolhas,
+  Qtdfolha
+);
+profileReportChart.render();
+}
+
+
+  ///
   // Order Statistics Chart
   // --------------------------------------------------------------------
   const chartOrderStatistics = document.querySelector("#orderStatisticsChart"),
