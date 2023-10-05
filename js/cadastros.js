@@ -506,9 +506,10 @@ function calcularValor() {
   
   // TIRAGENS
   const Tiragens = JSON.parse(JsTiragens)
-  let ValorImpressao , digital , offset , ValorUnitario = 0;
+  let ValorImpressao = 0
+  let digital, offset, ValorUnitario = 0;
   Tiragens.map(item => {
-    ValorImpressao += +item.valorImpressaoDigital;
+    ValorImpressao += +item.valorImpressaoDigital * Quantidade;
     ValorUnitario = item.valorUnidade;
     digital = item.digital;
     offset = item.offset;
@@ -518,7 +519,9 @@ function calcularValor() {
   // PAPEIS
   
   const Papeis = JSON.parse(`[${JsPapeis}]`)
-  let ValorPapel ,ValorChapa, numeroVias, QuantidadeGastaChapa, QuantidadeGasta = 0;
+  let ValorPapel = 0;
+  let PapelUnita = 0;
+  let ValorChapa, numeroVias, QuantidadeGastaChapa, QuantidadeGasta = 0;
   Papeis.map(item => {
     for (i = 0; i < item.length; i++) {
       if (item[i]) {
@@ -531,6 +534,7 @@ function calcularValor() {
             }
           }
         }
+        let ValorFolha = item[i].precoFolha;
         let tipoPapel = item[i].tipo_papel;
         let formatoImpressao = item[i].formatoImpressao;
         let quantidadePaginas  = pegarQtdPaginas();
@@ -548,6 +552,10 @@ function calcularValor() {
           numeroVias,
           perca
         );
+        PapelUnita += +ValorFolha;
+        console.log(ValorFolha + ' A ' + QuantidadeGasta);
+        ValorPapel +=  +ValorFolha * +QuantidadeGasta;
+        console.log('valor em papel' + ValorPapel)
         console.log('Quantidade Gasta de Folha' + QuantidadeGasta)
         document.getElementById('GFolha'+item[i].codigoPapel).value = QuantidadeGasta;
          }else{
@@ -558,15 +566,18 @@ function calcularValor() {
       }
     }
   });
+  
   console.log('------------------------------FIM PAPEL------------------------------')
   console.log('------------------------------------------------------------')
   
   // ACABAMENTO
   const Acabamento = JSON.parse(JsAcabamentos)
   let ValorAcabamento = 0;
+  let AcabamentoUnita = 0;
   console.log('------------------------------ACABAMENTO------------------------------')
   Acabamento.map(item => {
-    ValorAcabamento += +item.precoAcabamento;
+    ValorAcabamento += Quantidade * +item.precoAcabamento;
+    AcabamentoUnita += +item.precoAcabamento;
     console.log('Valores a calcular: Preço do acabamento * Quantidade ' + item.precoAcabamento + ' * ' + Quantidade + ' = ' + ValorAcabamento);
   });
   console.log('-- TOTAL ACABAMENTO = ' + ValorAcabamento);
@@ -590,20 +601,24 @@ function calcularValor() {
   //CALCULO
   let SomaValor = 0;
   let Total = SomaValor;
+  let UnitaTotais = Math.ceil(+PapelUnita) + Math.ceil(ValorImpressao);
   if (digital === false && offset === false) {
     alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
     Total = 'ERRO';
   } else {
     if (digital === true) {
+      console.log('papel = ' + Math.ceil(PapelUnita) + ' Acabamento = ' + Math.ceil(AcabamentoUnita) + ' = ' + UnitaTotais)
       SomaValor += ValorAcabamento;
-      console.log(' + acabamento  ' + ValorAcabamento + ' = ' + SomaValor)
+      console.log(' + acabamento  ' + ValorAcabamento)
       SomaValor += ValorPapel;
-      console.log(' + valor do apapel = ' + SomaValor);
+      console.log(' + valor do apapel  '+ValorPapel+' = ' +  SomaValor);
       SomaValor += ValorImpressao;
       console.log(' + Valor de impressao ' + ValorImpressao + ' = ' + SomaValor)
       SomaValor += (ValorPapel * 0.0102) / 100;
       console.log(' + Valor de impressao ' + ValorPapel + ' = ' + (ValorPapel * 0.0102) / 100 + ' = ' + SomaValor)
       Total = SomaValor;
+      console.log('Valor dividido para o unitario é = ' + SomaValor / Quantidade)
+      console.log('Math.floor está abaixando 0,2 a mais que na versão Java')
     }
     if (offset === true) {
       SomaValor += ValorAcabamento * Quantidade;
