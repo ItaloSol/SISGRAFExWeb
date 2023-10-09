@@ -1041,7 +1041,7 @@ setTimeout(function() {
         document.getElementById('calcularValor').style.display = 'block';
         document.getElementById('AlertaCampos').style.display = 'none';
       } else {
-        document.getElementById('calcularValor').style.display = 'none';
+      //  document.getElementById('calcularValor').style.display = 'none';
         document.getElementById('AlertaCampos').style.display = 'block';
       }
     });

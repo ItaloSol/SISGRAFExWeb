@@ -547,7 +547,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
               <br>
               <span id="AlertaCampos" class="badge bg-warning">Prencha todos os campos para calcular o valor do orçamento.</span>
               
-            <button style="margin-bottom: 20px; display: none" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
+            <button style="margin-bottom: 20px; display: block" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
                           CALCULAR VALOR DO ORÇAMENTO
                         </button><br>
                         </div>
@@ -1357,8 +1357,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
         }
       </script>
     <?php } ?>
-
-
+    <script src="../node_modules/bignumber.js/bignumber.js"></script>
     <script src="../js/orcamentacao.js"></script>
     <script src="../js/cadastros.js"></script>
     <script src="../js/produtoClonado.js"></script>
