@@ -392,7 +392,7 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                             </div>
                                                             <div class="mt-sm-auto">
                                                                 <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_Op ?>%</small>
-                                                                <h3 class="mb-0"><?= number_format($QtdPo4, 0, ".", ".");  ?> O.P</h3>
+                                                                <h3 class="mb-0"><?= number_format($QtdPP4, 0, ".", ".");  ?> O.P</h3>
                                                             </div>
 
                                                         </div>
@@ -497,7 +497,7 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                     </div>
                                                     <div class="mt-sm-auto">
                                                         <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_Livros ?>%</small>
-                                                        <h3 class="mb-0"><?= number_format($Qtdbloo5, 0, ".", "."); ?> Livros</h3>
+                                                        <h3 class="mb-0"><?= number_format($QtdLIVRO5, 0, ".", "."); ?> Livros</h3>
                                                     </div>
 
                                                 </div>
@@ -517,7 +517,7 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                 </div>
                                                 <div class="mt-sm-auto">
                                                     <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_MANUAL ?>%</small>
-                                                    <h3 class="mb-0"><?= number_format($Qtdbloo5, 0, ".", "."); ?> FOLHAS</h3>
+                                                    <h3 class="mb-0"><?= number_format($QtdFOLHA5, 0, ".", "."); ?> FOLHAS</h3>
                                                 </div>
 
                                             </div>
