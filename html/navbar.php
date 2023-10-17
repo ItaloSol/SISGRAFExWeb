@@ -594,7 +594,7 @@ $refresh = 0;
 
       <div class="layout-page">
         <!-- Navbar -->
-        <div style=" text-align:center;" class="alert alert-danger" role="alert">SISTEMA EM PROCESSO DE DESENVOLVIMENTO! <br> <span style="font-size: 13px;"> não é a versão final.</span></div>
+        <div style=" text-align:center;" class="alert alert-danger" role="alert">SISTEMA ESTÁ NA VERSÃO RC! <br> <span style="font-size: 13px;"> Para a versão final <br> nos informe as irregularidades.</span></div>
         <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
           <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
             <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
