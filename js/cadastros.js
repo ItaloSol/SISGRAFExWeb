@@ -410,34 +410,50 @@ return valorQuantidade;
 //CALCULO MASTER QUANTIDADE DE PAPEL E DE CHAPA UTILIZADA
 
 function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, formatoImpressao, tiragem, numeroVias, perca) {
-  let quantidadeFolhasF1 = new BigNumber(10);
-
+  let quantidadeFolhasF1 = 0;
+  let CalculoF1 = 0;
+  let Impar = formatoImpressao % 2;
+  if(Impar == 0){
+    formatoImpressao++;
+  }
   if (tipoProduto == 1) {
-    quantidadeFolhasF1 = new BigNumber(tiragem).dividedBy(formatoImpressao).integerValue(BigNumber.ROUND_CEIL);
-    console.log('Formato = ' + formatoImpressao + 'Tiragem = ' + tiragem + ' total = ' + tiragem / formatoImpressao)
-    quantidadeFolhasF1 = quantidadeFolhasF1.plus(new BigNumber(quantidadeFolhasF1).times(perca).dividedBy(100).integerValue(BigNumber.ROUND_FLOOR));
-    console.log('Quantide = ' + quantidadeFolhasF1 + ' Perca = ' + perca + ' total = ' + (quantidadeFolhasF1 / perca) / 100)
+    quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
+    console.log('--------------------------------------');
+    console.log('VALOR QUANTIDADE DE FOLHAS F1 tiragem / formatoImpressao = ' + tiragem / formatoImpressao)
+    console.log('Bruto = ' + Math.ceil(tiragem / formatoImpressao))
+    CalculoF1 = Math.floor((quantidadeFolhasF1 * perca) / 100);
+    quantidadeFolhasF1 +=  CalculoF1;
+    console.log('Valor do calculo final = (quantidadeFolhasF1 * perca) / 100' + (quantidadeFolhasF1 * perca) / 100);
+    if(quantidadeFolhasF1 == 0){
+      quantidadeFolhasF1 = 1;
+    }
+    
+    console.log('Bruto = ' + Math.floor((quantidadeFolhasF1 * perca) / 100))
+    console.log('--------------------------------------');
+    
   } else if (tipoProduto == 2) {
+    console.log('tipo 2')
     if (tipoPapel == 1 || tipoPapel == 2) {
-      quantidadeFolhasF1 = new BigNumber(tiragem).dividedBy(formatoImpressao).integerValue(BigNumber.ROUND_CEIL);
-      quantidadeFolhasF1 = quantidadeFolhasF1.plus(new BigNumber(quantidadeFolhasF1).times(perca).dividedBy(100).integerValue(BigNumber.ROUND_FLOOR));
+      quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     } else if (tipoPapel == 3) {
-      quantidadeFolhasF1 = new BigNumber(quantidadeFolhas).dividedBy(formatoImpressao).times(tiragem).integerValue(BigNumber.ROUND_CEIL).dividedBy(2);
-      quantidadeFolhasF1 = quantidadeFolhasF1.plus(new BigNumber(quantidadeFolhasF1).times(perca).dividedBy(100).integerValue(BigNumber.ROUND_FLOOR));
+      quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
+      quantidadeFolhasF1 /= 2;
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     }
   } else if (tipoProduto == 3) {
     if (tipoPapel == 2) {
-      quantidadeFolhasF1 = new BigNumber(tiragem).dividedBy(formatoImpressao).integerValue(BigNumber.ROUND_CEIL);
-      quantidadeFolhasF1 = quantidadeFolhasF1.plus(new BigNumber(quantidadeFolhasF1).times(perca).dividedBy(100).integerValue(BigNumber.ROUND_FLOOR));
+      quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     } else if (tipoPapel == 4 || tipoPapel == 5 || tipoPapel == 6) {
-      quantidadeFolhas = new BigNumber(quantidadeFolhas).dividedBy(numeroVias);
-      quantidadeFolhasF1 = new BigNumber(tiragem).times(quantidadeFolhas).dividedBy(formatoImpressao).integerValue(BigNumber.ROUND_CEIL);
-      quantidadeFolhasF1 = quantidadeFolhasF1.plus(new BigNumber(quantidadeFolhasF1).times(perca).dividedBy(100).integerValue(BigNumber.ROUND_FLOOR));
+      quantidadeFolhas /= numeroVias;
+      quantidadeFolhasF1 = Math.ceil((tiragem * quantidadeFolhas) / formatoImpressao);
+      quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     }
   } 
 
   console.log('Quantidade de papel gasto = ' + quantidadeFolhasF1.toString());
-  return quantidadeFolhasF1;
+  return quantidadeFolhasF1; // Converte a string de volta para número
 }
 function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas) {
   let quantidadeChapas = 0;
@@ -475,7 +491,7 @@ function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, nume
       break;
   }
 
-  return quantidadeChapas;
+  return quantidadeChapas.toFixed(2);
 }
 
 // FUNÇÃO DO CALCULO
@@ -620,13 +636,15 @@ function calcularValor() {
       SomaValor += ValorImpressao;
       console.log(' + Valor de impressao ' + ValorImpressao + ' = ' + SomaValor)
       SomaValor += (ValorPapel * 0.0102) / 100;
-      console.log(' + Valor de impressao ' + ValorPapel + ' = ' + (ValorPapel * 0.0102) / 100 + ' = ' + SomaValor.toFixed(2))
+      console.log(' + Valor de impressao ' + ValorPapel + ' = ' + (ValorPapel * 0.0102) / 100 + ' = ' + SomaValor)
       Total = SomaValor;
-      let ValorUnitario_Final = SomaValor / Quantidade;
-      Total = ValorUnitario_Final.toFixed(2) * Quantidade;
-      document.getElementById('preco_unitario').value = ValorUnitario_Final.toFixed(2)
-      console.log('Valor dividido para o unitario é = ' + ValorUnitario_Final.toFixed(2))
-      console.log('Valor adptado = ' + ValorUnitario_Final.toFixed(2) * Quantidade);
+      let ValorUnitario_Final =  parseFloat((Total / Quantidade).toFixed(2));
+      Total = ValorUnitario_Final * Quantidade;
+      
+      console.log('Total está em = ' + Total)
+      document.getElementById('preco_unitario').value = ValorUnitario_Final
+      console.log('Valor dividido para o unitario é = ' + ValorUnitario_Final)
+      console.log('Valor adptado = ' + ValorUnitario_Final * Quantidade);
       console.log('Math.floor está abaixando 0,2 a mais que na versão Java')
     }
     if (offset === true) {
