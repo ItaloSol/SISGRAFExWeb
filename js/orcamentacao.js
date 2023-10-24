@@ -1024,22 +1024,14 @@ async function pesquisarservicocode(){
 // FUNÇÕES PARA VALIDADAR CALCULO
 setTimeout(function() {
   const elementos = document.querySelectorAll('.formato-impressao');
-   function ativar(elemento){
-    if(elemento.length == 0){
-      document.getElementById('calcularValor').style.display = 'block';
-      document.getElementById('AlertaCampos').style.display = 'none';
-    }
-  }
+  
   elementos.forEach(function(elemento) {
     elemento.addEventListener('keydown', function(event) {
       // Verifique se o código da tecla pressionada não está na faixa dos números (48-57)
       if (event.keyCode < 48 || event.keyCode > 57 || event.key === '0') {
         elemento.classList.add('formato-impressao');
-        document.getElementById('calcularValor').style.display = 'none';
-        document.getElementById('AlertaCampos').style.display = 'block';
       } else {
         elemento.classList.remove('formato-impressao');
-        ativar(document.querySelectorAll('.formato-impressao'));
       }
     });
   });
