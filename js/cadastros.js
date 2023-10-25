@@ -409,20 +409,39 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
     console.log('Bruto = ' + Math.floor((quantidadeFolhasF1 * perca) / 100))
     console.log('--------------------------------------');
 
-  } else if (tipoProduto == 2) {
+  }
+  if (tipoPapel == 2) {
+    console.log('Entrou1');
+    quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
+    quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+  } else if (tipoPapel == 3) {
+    console.log('Entrou');
+    quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
+    console.log('Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem) = ' + quantidadeFolhasF1 + ' | ' + quantidadeFolhas +' / '+ formatoImpressao +' * ' + tiragem);
+    quantidadeFolhasF1 /= 2;
+    console.log('/2 = ' + quantidadeFolhasF1)
+    console.log('Math.floor((quantidadeFolhasF1 * perca) / 100); = ' + quantidadeFolhasF1 + ' | ' + quantidadeFolhasF1 + ' - ' + perca )
+    quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+   
+  }
+  if (tipoProduto == 2) {
     if (tipoPapel == 1 || tipoPapel == 2) {
+      console.log('Entrou3');
       quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     } else if (tipoPapel == 3) {
+      console.log('Entrou4');
       quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
       quantidadeFolhasF1 /= 2;
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     }
   } else if (tipoProduto == 3) {
     if (tipoPapel == 2) {
+      console.log('Entrou4');
       quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     } else if (tipoPapel == 4 || tipoPapel == 5 || tipoPapel == 6) {
+      console.log('Entrou5');
       quantidadeFolhas /= numeroVias;
       quantidadeFolhasF1 = Math.ceil((tiragem * quantidadeFolhas) / formatoImpressao);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
