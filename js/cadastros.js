@@ -390,38 +390,27 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
   let quantidadeFolhasF1 = 0;
   let CalculoF1 = 0;
   let Impar = formatoImpressao % 2;
-  if (Impar == 0) {
-    formatoImpressao++;
+  if (Impar == 1) {
+  //  formatoImpressao++;
   }
-  console.log(tipoProduto + ' papel -> ' + tipoPapel)
   if (tipoProduto == 1) {
+    console.log('Entrou100');
     quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
-    console.log('--------------------------------------');
-    console.log('VALOR QUANTIDADE DE FOLHAS F1 tiragem / formatoImpressao = ' + tiragem / formatoImpressao)
-    console.log('Bruto = ' + Math.ceil(tiragem / formatoImpressao))
     CalculoF1 = Math.floor((quantidadeFolhasF1 * perca) / 100);
     quantidadeFolhasF1 += CalculoF1;
-    console.log('Valor do calculo final = (quantidadeFolhasF1 * perca) / 100' + (quantidadeFolhasF1 * perca) / 100);
-    if (quantidadeFolhasF1 == 0) {
-      quantidadeFolhasF1 = 1;
-    }
-
-    console.log('Bruto = ' + Math.floor((quantidadeFolhasF1 * perca) / 100))
-    console.log('--------------------------------------');
-
   }
   if (tipoPapel == 2) {
     console.log('Entrou1');
     quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
     quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
   } else if (tipoPapel == 3) {
-    console.log('Entrou');
+    console.log('Entrou33');
     quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
-    console.log('Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem) = ' + quantidadeFolhasF1 + ' | ' + quantidadeFolhas +' / '+ formatoImpressao +' * ' + tiragem);
-    quantidadeFolhasF1 /= 2;
-    console.log('/2 = ' + quantidadeFolhasF1)
-    console.log('Math.floor((quantidadeFolhasF1 * perca) / 100); = ' + quantidadeFolhasF1 + ' | ' + quantidadeFolhasF1 + ' - ' + perca )
+    ///  
+    quantidadeFolhasF1 = Math.ceil( quantidadeFolhasF1 / 2);
+    ///
     quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+    ///
    
   }
   if (tipoProduto == 2) {
@@ -432,7 +421,7 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
     } else if (tipoPapel == 3) {
       console.log('Entrou4');
       quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
-      quantidadeFolhasF1 /= 2;
+      quantidadeFolhasF1 = Math.ceil( quantidadeFolhasF1 / 2);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     }
   } else if (tipoProduto == 3) {
@@ -448,7 +437,7 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
     }
   }
 
-  console.log('Quantidade de papel gasto = ' + quantidadeFolhasF1.toString());
+  console.log('Quantidade de papel gasto = ' +  Math.ceil((quantidadeFolhasF1).toFixed(2)).toString());
   return quantidadeFolhasF1; // Converte a string de volta para número
 }
 function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas) {
