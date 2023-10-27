@@ -307,7 +307,6 @@ function obterValorObservacao() {
 function calcularCif() {
   const ValorCif = document.getElementById('cif').value;
   let CifConvertido = +ValorCif / 100;
-  console.log('Valor do cif = ' + CifConvertido);
   return CifConvertido;
 }
 
@@ -318,7 +317,6 @@ function clacularArte() {
   } else {
     ValorArte = 0;
   }
-  console.log('Valor de arte = ' + ValorArte);
   return ValorArte;
 }
 
@@ -329,13 +327,11 @@ function caluclarFrete() {
   } else {
     ValorFrete = 0;
   }
-  console.log('Valor de frete = ' + ValorFrete);
   return ValorFrete;
 }
 function calcularDesconto() {
   const ValorDesconto = Number(document.getElementById('desconto').value);
   let DescontoConvertido = +ValorDesconto / 100;
-  console.log('Valor de desconto = ' + DescontoConvertido);
   return DescontoConvertido;
 }
 function pegarQtdPaginas() {
@@ -354,7 +350,6 @@ function pegarQtdPaginas() {
     var valorQuantidadePaginas = celulaQuantidadePaginas.textContent;
 
     // Faça algo com o valor (por exemplo, exiba-o no console)
-    console.log("Quantidade de Páginas: " + valorQuantidadePaginas);
   }
   return valorQuantidadePaginas;
 }
@@ -379,7 +374,6 @@ function pegarQtdTiragem() {
       var valorQuantidade = inputQuantidade.value;
 
       // Faça algo com o valor (por exemplo, exiba-o no console)
-      console.log("Quantidade: " + valorQuantidade);
     }
   }
   return valorQuantidade;
@@ -391,70 +385,61 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
   let CalculoF1 = 0;
   let Impar = formatoImpressao % 2;
   if (Impar == 1) {
-  //  formatoImpressao++;
+    //  formatoImpressao++;
   }
   if (tipoProduto == 1) {
-    console.log('Entrou100');
     quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
     CalculoF1 = Math.floor((quantidadeFolhasF1 * perca) / 100);
     quantidadeFolhasF1 += CalculoF1;
   }
   if (tipoPapel == 2) {
-    console.log('Entrou1');
     quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
     quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
   } else if (tipoPapel == 3) {
-    console.log('Entrou33');
     quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
     ///  
-    quantidadeFolhasF1 = Math.ceil( quantidadeFolhasF1 / 2);
+    quantidadeFolhasF1 = Math.ceil(quantidadeFolhasF1 / 2);
     ///
     quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     ///
-   
+
   }
   if (tipoProduto == 2) {
     if (tipoPapel == 1 || tipoPapel == 2) {
-      console.log('Entrou3');
       quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     } else if (tipoPapel == 3) {
-      console.log('Entrou4');
       quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
-      quantidadeFolhasF1 = Math.ceil( quantidadeFolhasF1 / 2);
+      quantidadeFolhasF1 = Math.ceil(quantidadeFolhasF1 / 2);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     }
   } else if (tipoProduto == 3) {
     if (tipoPapel == 2) {
-      console.log('Entrou4');
       quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     } else if (tipoPapel == 4 || tipoPapel == 5 || tipoPapel == 6) {
-      console.log('Entrou5');
       quantidadeFolhas /= numeroVias;
       quantidadeFolhasF1 = Math.ceil((tiragem * quantidadeFolhas) / formatoImpressao);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     }
   }
 
-  console.log('Quantidade de papel gasto = ' +  Math.ceil((quantidadeFolhasF1).toFixed(2)).toString());
   return quantidadeFolhasF1; // Converte a string de volta para número
 }
 function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas) {
   var quantidadeChapas = 0;
   var coresTotal = +numeroCoresFrente + +numeroCoresVerso;
-  console.log('Cv ' + numeroCoresVerso + ' CF ' + numeroCoresFrente + ' Total = ' + coresTotal);
   if (tipoProduto === 1) {
     quantidadeChapas = coresTotal;
   }
- 
-    if (tipoPapel === 2) {
-      quantidadeChapas = coresTotal;
-    } else if (tipoPapel === 3) {
-      quantidadeChapas = Math.ceil(+quantidadePaginas / +formatoImpressao);
-      quantidadeChapas =  quantidadeChapas * +coresTotal;
-    }
-  
+
+  if (tipoPapel === 2) {
+    quantidadeChapas = coresTotal;
+  } else if (tipoPapel === 3) {
+    quantidadeChapas = Math.ceil(+quantidadePaginas / +formatoImpressao);
+    quantidadeChapas = quantidadeChapas * +coresTotal;
+  }
+
   if (tipoProduto === 3) {
     if (tipoPapel === 2 || tipoPapel === 4 || tipoPapel === 5 || tipoPapel === 6) {
       quantidadeChapas = coresTotal;
@@ -466,6 +451,9 @@ function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, nume
   return quantidadeChapas;
 }
 
+function SalvarPO() {
+  document.getElementById('SalvarPO').style.display = 'block';
+}
 
 // FUNÇÃO DO CALCULO
 function calcularValor() {
@@ -507,7 +495,6 @@ function calcularValor() {
     digital = item.digital;
     offset = item.offset;
   });
-  console.log('digital = ' + digital + ' | offset = ' + offset)
 
   // PAPEIS
 
@@ -521,7 +508,7 @@ function calcularValor() {
     for (i = 0; i < item.length; i++) {
       if (item[i]) {
         let tipoProduto = document.getElementById('TIPO_PRODUTO').value;
-        
+
         ValorChapa = item[i].precoChapa;
         let ValorFolha = item[i].precoFolha;
         let formatoImpressao = item[i].formatoImpressao;
@@ -531,7 +518,6 @@ function calcularValor() {
         let numeroCoresFrente = item[i].cf;
         let numeroCoresVerso = item[i].cv;
         let tipoProdutoString = item[i].tipo;
-        console.log('O produto - ' + item[i].tipo)
         if (tipoProdutoString === "FOLHA") {
           tipoProduto = 1;
         } else if (tipoProdutoString === "LIVRO") {
@@ -542,13 +528,12 @@ function calcularValor() {
           tipoProduto = 4;
         } else if (tipoProdutoString === "OUTROS") {
           tipoProduto = 5;
-        }else if(tipoProduto != Number){
+        } else if (tipoProduto != Number) {
           tipoProduto = 1;
         }
 
         let tipoPapel = 0;
         let tipoPapelAux = item[i].tipo;
-        console.log('o papel = ' + item[i].tipo)
         if (tipoPapelAux === "FOLHA") {
           tipoPapel = 1;
         } else if (tipoPapelAux === "CAPA") {
@@ -561,7 +546,7 @@ function calcularValor() {
           tipoPapel = 5;
         } else if (tipoPapelAux === "3ª VIA") {
           tipoPapel = 6;
-        }else if(tipoPapel != Number){
+        } else if (tipoPapel != Number) {
           tipoPapel = 1;
         }
         if (tipoProduto === 3) {
@@ -572,127 +557,100 @@ function calcularValor() {
             }
           }
         }
-        console.log('O tipo --:>' + tipoProduto)
-       
-          QuantidadeGasta = retornaQuantidadeFolhas(
-            tipoProduto,
-            tipoPapel,
-            quantidadePaginas,
-            formatoImpressao,
-            tiragem,
-            numeroVias,
-            perca
-          );
-          PapelUnita += +ValorFolha;
-          console.log(ValorFolha + ' A ' + QuantidadeGasta);
-          ValorPapel += +ValorFolha * +QuantidadeGasta;
-          console.log('valor em papel' + ValorPapel)
-          console.log('Quantidade Gasta de Folha' + QuantidadeGasta)
-          document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
-        
-          console.log('--------------------');
-          console.log('tipoProduto = ' + tipoProduto);
-          console.log('tipoPapel = ' + tipoPapel);
-          console.log('numeroCoresFrente = ' + numeroCoresFrente);
-          console.log('numeroCoresVerso = ' + numeroCoresVerso);
-          console.log('formatoImpressao = ' + formatoImpressao);
-          console.log('quantidadePaginas = ' + quantidadePaginas);
-          console.log('--------------------');
-          QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
-          QtdChapa += QuantidadeGastaChapa;
-          console.log('Quantidade Gasta de Chapa' + QuantidadeGastaChapa +' Total: ' + QtdChapa)
-          document.getElementById('GChapa' + item[i].codigoPapel).value = QuantidadeGastaChapa;
-        
+
+        QuantidadeGasta = retornaQuantidadeFolhas(
+          tipoProduto,
+          tipoPapel,
+          quantidadePaginas,
+          formatoImpressao,
+          tiragem,
+          numeroVias,
+          perca
+        );
+        PapelUnita += +ValorFolha;
+        ValorPapel += +ValorFolha * +QuantidadeGasta;
+        console.log(document.getElementById('Impre' + item[i].codigoPapel).value)
+        if (document.getElementById('Impre' + item[i].codigoPapel).value === '') {
+          alert('FORMATO DE IMPRESSÃO NÃO FOI INSERIDO!')
+          break;
+        }
+        document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
+        QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
+        QtdChapa += QuantidadeGastaChapa;
+        document.getElementById('GChapa' + item[i].codigoPapel).value = QuantidadeGastaChapa;
+
       }
     }
   });
 
-  console.log('------------------------------FIM PAPEL------------------------------')
-  console.log('------------------------------------------------------------')
 
   // ACABAMENTO
   const Acabamento = JSON.parse(JsAcabamentos)
   let ValorAcabamento = 0;
   let AcabamentoUnita = 0;
-  console.log('------------------------------ACABAMENTO------------------------------')
   Acabamento.map(item => {
     ValorAcabamento += Quantidade * +item.precoAcabamento;
     AcabamentoUnita += +item.precoAcabamento;
-    console.log('Valores a calcular: Preço do acabamento * Quantidade ' + item.precoAcabamento + ' * ' + Quantidade + ' = ' + ValorAcabamento);
   });
-  console.log('-- TOTAL ACABAMENTO = ' + ValorAcabamento);
-  console.log('------------------------------FIM ACABAMENTO------------------------------')
-  console.log('------------------------------------------------------------')
 
   // SERVIÇOS
   ValorServico = JsServicos;
 
   // OBSERVAÇÃO
   const Observacao = JsObservacao;
-  console.log(' --- QUANTIDADE ---');
-  console.log(document.getElementById('quantidade').value);
 
-  console.log(Quantidade);
-  console.log(' ------');
-  console.log(' --- CHAPA ---');
-  console.log(ValorChapa);
-  console.log(' ------');
+
 
   //CALCULO
+  let Manual = document.getElementById('ValorManual').checked;
   let SomaValor = 0;
+  let ValorUnitario_Final = 0;
   let Total = SomaValor;
   let UnitaTotais = Math.ceil(+PapelUnita) + Math.ceil(ValorImpressao);
-  console.log('Valor unitario bruto = ' + UnitaTotais);
-  if (digital === false && offset === false) {
+  if (digital === false && offset === false || digital === true && offset === true) {
     alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
     Total = 'ERRO';
   } else {
-    if (digital === true) {
-      console.log('papel = ' + Math.ceil(PapelUnita) + ' Acabamento = ' + Math.ceil(AcabamentoUnita) + ' = ' + UnitaTotais)
-      SomaValor += ValorAcabamento;
-      console.log(' + acabamento  ' + ValorAcabamento)
-      SomaValor += ValorPapel;
-      console.log(' + valor do apapel  ' + ValorPapel + ' = ' + SomaValor);
-      SomaValor += ValorImpressao;
-      console.log(' + Valor de impressao ' + ValorImpressao + ' = ' + SomaValor)
-      SomaValor += (ValorPapel * 0.0102) / 100;
-      console.log(' + Valor de impressao ' + ValorPapel + ' = ' + (ValorPapel * 0.0102) / 100 + ' = ' + SomaValor)
-      SomaValor += (SomaValor * +CifConvertido) / 100;
-      console.log("SomaValor += (SomaValor * +CifConvertido " + CifConvertido + ") / 100;" + SomaValor)
-      SomaValor -= (SomaValor * DescontoConvertido) / 100;
-      console.log("SomaValor -= (SomaValor * DescontoConvertido" + DescontoConvertido + ") / 100;" + SomaValor)
-      Total = SomaValor;
-      let ValorUnitario_Final = parseFloat((Total / Quantidade).toFixed(2));
-      Total = ValorUnitario_Final * Quantidade;
-
-      console.log('Total está em = ' + Total)
-      document.getElementById('preco_unitario').value = ValorUnitario_Final
-      console.log('Valor dividido para o unitario é = ' + ValorUnitario_Final)
-      console.log('Valor adptado = ' + ValorUnitario_Final * Quantidade);
-      console.log('Math.floor está abaixando 0,2 a mais que na versão Java')
+    if (Manual == false) {
+      if (digital === true) {
+        SomaValor += ValorAcabamento;
+        SomaValor += ValorPapel;
+        SomaValor += ValorImpressao;
+        SomaValor += (ValorPapel * 0.0102) / 100;
+        Total = SomaValor;
+        Total += (Total * CifConvertido) ;
+        Total += ValorFrete;
+        Total += ValorArte;
+        Total -= (Total * DescontoConvertido) ;
+        ValorUnitario_Final = parseFloat((Total / Quantidade).toFixed(2));
+        Total = ValorUnitario_Final * Quantidade;
+        document.getElementById('preco_unitario').value = ValorUnitario_Final
+      }
+      if (offset === true) {
+        SomaValor += ValorAcabamento;
+        SomaValor += ValorPapel;
+        SomaValor += (QtdChapa * ValorChapa);
+        Total = SomaValor;
+        Total += (Total * CifConvertido) ;
+        Total += ValorFrete;
+        Total += ValorArte;
+        Total -= (Total * DescontoConvertido) ;
+        ValorUnitario_Final = parseFloat((Total / Quantidade).toFixed(2));
+        Total = ValorUnitario_Final * Quantidade;
+        document.getElementById('preco_unitario').value = ValorUnitario_Final
+      }
+    } else {
+      Total = document.getElementById('preco_unitario').value * Quantidade;
     }
-    if (offset === true) {
-      SomaValor += ValorAcabamento;
-      console.log(' + acabamento  ' + ValorAcabamento)
-      SomaValor += ValorPapel;
-      SomaValor += (QtdChapa * ValorChapa);
-     console.log(QtdChapa +' X ' + ValorChapa + ' = ' + QtdChapa * ValorChapa +' Bruto até agora =   ' + SomaValor)
-     
-      console.log('PAPEL = ' + ValorPapel)
-      Total = SomaValor;
-      let ValorUnitario_Final = parseFloat((Total / Quantidade).toFixed(2));
-      Total = ValorUnitario_Final * Quantidade;
-      document.getElementById('preco_unitario').value = ValorUnitario_Final
-      console.log('Valor dividido para o unitario é = ' + ValorUnitario_Final)
-      console.log('Valor adptado = ' + ValorUnitario_Final * Quantidade);
-      console.log('Total está em = ' + Total)
-      
+    console.log(CifConvertido)
 
-      Total = SomaValor;
-    }
   }
 
-  console.log('---------------------------------------------');
   // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
-  document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
+  if (Total.toFixed(2) != 'NaN') {
+    document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
+    SalvarPO();
+  }
 }
+
+// ENVIAR PARA O BANCO DE DADOS/SALVAR
