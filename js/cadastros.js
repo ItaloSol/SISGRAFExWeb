@@ -569,7 +569,6 @@ function calcularValor() {
         );
         PapelUnita += +ValorFolha;
         ValorPapel += +ValorFolha * +QuantidadeGasta;
-        console.log(document.getElementById('Impre' + item[i].codigoPapel).value)
         if (document.getElementById('Impre' + item[i].codigoPapel).value === '') {
           alert('FORMATO DE IMPRESSÃO NÃO FOI INSERIDO!')
           break;
@@ -642,7 +641,6 @@ function calcularValor() {
     } else {
       Total = document.getElementById('preco_unitario').value * Quantidade;
     }
-    console.log(CifConvertido)
 
   }
 
