@@ -319,7 +319,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <th>DIGITAL</th>
                           <th>OFFSET</th>
                           <th>VALOR IMPRESSÃO DIGITAL</th>
-                          <th>VALOR UNIDADE</th>
+                          <th>VALOR UNITÁRIO</th>
                         </tr>
                       </thead>
 
@@ -337,6 +337,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                   <div id="mensagemPapelApagado"></div>
                   <h5 style="display: flex; align-items: center;" class="card-header">PAPEL
                   </h5>
+                  <span id="AlertaCampos" class="badge bg-danger">Preencha todos os campos em vermelho para calcular o valor do orçamento.</span>
                   <div class="table-responsive text-nowrap">
                     <table id="tabela_campos" class="table table-striped">
                       <thead>
@@ -545,15 +546,19 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             </div>
             <div>
               <br>
-              <span id="AlertaCampos" class="badge bg-danger">Prencha todos os campos em vermelho para calcular o valor do orçamento.</span> <br>
+               <br>
               
             <button style="margin-bottom: 20px; display: block" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
                           CALCULAR VALOR DO ORÇAMENTO
                         </button><br>
                         </div>
+                       
           </div>
           <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
           <input type="text" class="form-control" id="ValorTotalOrc" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
+          <button style="margin-bottom: 20px; display: none" type="button" class="btn btn-success" id="SalvarPO" >
+                          Salvar orçamento
+                        </button>
           <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
           <!-- <button type="submit" class="btn btn-success">Salvar</button> -->
         </div>

@@ -499,7 +499,7 @@ function RecuperaProdutoSelecionado() {
                           <th>DIGITAL</th>
                           <th>OFFSET</th>
                           <th>VALOR IMPRESSÃO DIGITAL</th>
-                          <th>VALOR UNIDADE</th>
+                          <th>VALOR UNITÁRIO | INSERIR MANUALMENTE <input type="checkbox" id="ValorManual" class="form-check-input"></th>
               </tr>
           </thead>`;
         if (!promises || promises.length === 0) {
