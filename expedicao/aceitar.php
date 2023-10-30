@@ -119,7 +119,7 @@
                     <th>Data da solicitação</th>
                     <th>Código da Op</th>
                     <th>Produto</th>
-                    <th>Data que foi Aceita</th>
+                    <th>Data que foi Negada</th>
                   </tr>
                 </thead>
 
