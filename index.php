@@ -69,7 +69,7 @@
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
-              <img style = "width: 80px; margin-left: 135px;"src = "http://www.graficadoexercito.eb.mil.br/images/grafex1.png"><br></br>
+              <img style = "width: 80px; margin-left: 135px;"src = "http://intranet.graficadoexercito.eb.mil.br/images/GrafexLogo.png"><br></br>
               <div class="app-brand justify-content-center">
                 <a href="index.php" class="app-brand-link gap-2">
                   <span style = "font-size:30px;" class="app-brand-text text-body fw-bolder">SISGRAFEx</span>
