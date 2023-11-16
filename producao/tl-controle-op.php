@@ -504,7 +504,7 @@ if (isset($_GET['cod'])) {
                       <!-- <button type="submit" class="btn btn-primary">Observações</button>
                         <button type="submit" class="btn btn-dark">Imprimir</button> -->
                       <!-- Toggle Between Modals -->
-                      <?php if ($PROD_I == '1' && $Ordens_Selecionada['status'] != '10' && $Ordens_Selecionada['status'] != '17' ) { ?>
+                      <?php if ($PROD_I == '1'  && $Ordens_Selecionada['status'] != '10' && $Ordens_Selecionada['status'] != '17' ) { ?>
                         <button type="button" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle">
                           Salvar
                         </button>
@@ -633,7 +633,7 @@ if (isset($_GET['cod'])) {
                   </div>
                 <?php } ?>
 
-                <?php if ($secao_user == 'EXPEDIÇÃO' or $secao_user == 'INFORMÁTICA') { ?>
+                <?php if ($secao_user == 'EXPEDIÇÃO' or $secao_user == 'INFORMÁTICA' ) { ?>
                   <div class="col-md-6">
                     <div class="card mb-6">
                       <h5 class="card-header">Seção de Expedição</h5>
@@ -667,7 +667,7 @@ if (isset($_GET['cod'])) {
                   <div class="card mb-6">
                     <h5 class="card-header">Você não é da Seção de Expedição</h5>
                     <div class="card-body">
-                      <?php if ($secao_user == 'SEÇÃO TÉCNICA' or $secao_user == 'INFORMÁTICA') { ?>
+                      <?php if ($secao_user == 'SEÇÃO TÉCNICA' or $secao_user == 'INFORMÁTICA' || $cod_user == 'CHE') { ?>
                         <div class="form-floating">
                           <div class="mb-3 row">
                             <label for="html5-date-input" class="col-md-6 col-form-label">Data Prevista para Entrega</label>
