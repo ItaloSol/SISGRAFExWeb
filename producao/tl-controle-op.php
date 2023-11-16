@@ -503,7 +503,7 @@ if (isset($_GET['cod'])) {
                         <button type="button" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle">
                           Salvar
                         </button>
-                      <?php } elseif($Ordens_Selecionada['status'] == '10' || $Ordens_Selecionada['status'] == '17'){ ?>
+                      <?php } elseif($Ordens_Selecionada['status'] == '10' || $Ordens_Selecionada['status'] == '17' && $EXP_ADM_I == '1' ){ ?>
                         <input type="submit" name="dataEXP" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle"
                          value="Salvar gerenciamento da EXP" />
                         
