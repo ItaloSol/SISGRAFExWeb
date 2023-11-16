@@ -2,10 +2,11 @@
 session_start();
 $cod_user = $_SESSION["usuario"][2];
 include_once('../conexoes/conexao.php');
+
 if (isset($_POST['sim'])) {
   $cod = $_POST['cod'];
-  $operador = $_POST['operador'];
   $codSts = $_POST['codSts'];
+  $operador = $_POST['operador'];
   $tipotrabalho = $_POST['tipotrabalho'];
   $prioridade = $_POST['prioridade'];
   $data = date('Y-m-d');
@@ -500,6 +501,36 @@ if (isset($_POST['sim'])) {
     </div>';
     header("Location: tl-controle-op.php?cod=$cod");
   }
-} else {
+} elseif(isset($_POST['dataEXP'])){
+  date_default_timezone_set('America/Sao_Paulo');
+  $dataHora = (new DateTime())->format('d/m/Y H:i:s');
+  $datas1 = $_POST['D_data_entrega'];
+  $cod = $_POST['cod'];
+  $codSts = $_POST['codSts'];
+  $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', data_entrega = '$datas1' WHERE  cod=$cod");
+  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Numero op: $cod | Alterou Data ou Status | status: $codSts ' , '$cod_user' , '$dataHora')");
+  $Atividade_Supervisao->execute();
+  $salvar_edit_op->execute();
+  $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
+    role="bs-toast"
+    class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true">
+    <div class="toast-header">
+      <i class="bx bx-bell me-2"></i>
+      <div class="me-auto fw-semibold">Aviso!</div>
+      <small>
+        
+        </small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    
+    <div class="toast-body">
+         Alteração feita com suscesso!     
+    </div>
+  </div>';
+  header("Location: tl-controle-op.php?cod=$cod");
+}else{
   header("Location: tl-controle-op.php");
 }

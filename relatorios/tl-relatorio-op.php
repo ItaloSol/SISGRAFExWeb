@@ -61,8 +61,8 @@ $hoje = date('Y-m-d');
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-home">
                 <div class="form-check mt-3">
-                  <input class="form-check-input" name="cliente" type="radio" value="codigo" id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> Por Código </label>
+                  <input class="form-check-input" name="cliente" type="radio" value="codigo" id="porCodiguinho" />
+                  <label class="form-check-label" for="porCodiguinho"> Por Código </label>
                 </div>
                 <div class="mb-3">
                   <select class="form-select" name="clientetipocod">
@@ -76,8 +76,8 @@ $hoje = date('Y-m-d');
                     placeholder="Digite o código aqui" />
                 </div>
                 <div class="form-check mt-3">
-                  <input class="form-check-input" name="cliente" value="nome" type="radio" id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> Por Nome </label>
+                  <input class="form-check-input" name="cliente" value="nome" type="radio" id="porNome" />
+                  <label class="form-check-label" for="porNome"> Por Nome </label>
                 </div>
                 <div class="mb-3">
                   <select class="form-select" name="clientetiponom">
@@ -91,8 +91,8 @@ $hoje = date('Y-m-d');
                     placeholder="Digite o nome aqui" />
                 </div>
                 <div class="form-check mt-3">
-                  <input class="form-check-input" name="cliente" value="tipopessoa" type="radio" id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> Por Tipo de Pessoa </label>
+                  <input class="form-check-input" name="cliente" value="tipopessoa" type="radio" id="portipopessoa" />
+                  <label class="form-check-label" for="portipopessoa"> Por Tipo de Pessoa </label>
                 </div>
                 <div class="mb-3">
                   <select class="form-select" name="clienteselecione">
@@ -125,8 +125,8 @@ $hoje = date('Y-m-d');
                     placeholder="Digite o código aqui" />
                 </div>
                 <div class="form-check mt-3">
-                  <input class="form-check-input" type="radio" name="OpOrc" value="todos" checked id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> Todos </label>
+                  <input class="form-check-input" type="radio" name="OpOrc" value="todos" checked id="potodos" />
+                  <label class="form-check-label" for="potodos"> Todos </label>
                 </div>
               </div>
               <!--Produto-->
@@ -160,8 +160,8 @@ $hoje = date('Y-m-d');
                               </div> -->
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="radio" name="produto" value="todos" checked
-                    id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> Todos </label>
+                    id="portodes" />
+                  <label class="form-check-label" for="portodes"> Todos </label>
                 </div>
               </div>
               <!--Emissor/OPERADOR-->
@@ -249,8 +249,8 @@ $hoje = date('Y-m-d');
                 </div>
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="radio" name="periodo" value="todos" checked
-                    id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> Todos </label>
+                    id="portodis" />
+                  <label class="form-check-label" for="portodis"> Todos </label>
                 </div>
                 </div>
                 <!-- 
@@ -345,8 +345,8 @@ $hoje = date('Y-m-d');
                   </select>
                 </div>
                 <div class="form-check mt-3">
-                  <input class="form-check-input" type="radio" name="status" value="todos" checked id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> Todos </label>
+                  <input class="form-check-input" type="radio" name="status" value="todos" checked id="portodus" />
+                  <label class="form-check-label" for="portodus"> Todos </label>
                 </div>
               </div>
               <!--Campos-->
