@@ -652,3 +652,7 @@ function calcularValor() {
 }
 
 // ENVIAR PARA O BANCO DE DADOS/SALVAR
+function EnviaDados(){
+  console.log('Entrou')
+  
+}

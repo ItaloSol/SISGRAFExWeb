@@ -499,11 +499,15 @@ if (isset($_GET['cod'])) {
                       <!-- <button type="submit" class="btn btn-primary">Observações</button>
                         <button type="submit" class="btn btn-dark">Imprimir</button> -->
                       <!-- Toggle Between Modals -->
-                      <?php if ($PROD_I == '1' && $Ordens_Selecionada['status'] != '10' && $Ordens_Selecionada['status'] != '17') { ?>
+                      <?php if ($PROD_I == '1' && $Ordens_Selecionada['status'] != '10' && $Ordens_Selecionada['status'] != '17' ) { ?>
                         <button type="button" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle">
                           Salvar
                         </button>
-                      <?php } else {
+                      <?php } elseif($Ordens_Selecionada['status'] == '10' || $Ordens_Selecionada['status'] == '17'){ ?>
+                        <input type="submit" name="dataEXP" class="btn btn-WARNING" data-bs-toggle="modal" data-bs-target="#modalToggle"
+                         value="Salvar gerenciamento da EXP" />
+                        
+                     <?php }else{
                         echo 'Você não tem permissão para alterar essa OP';
                       } ?>
                       <br></br>
