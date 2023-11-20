@@ -268,7 +268,7 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
     </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod Tipo $tipo_cliente de  $credito_anterior : $Saldo_Correto[$numero_clientes]' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
-  header("Location: tl-cadastro-notas.php?tp=4&tipo=1");
+   header("Location: tl-cadastro-notas.php?tp=4&tipo=1");
       }
       if ($tipo_cliente == '2') {
          $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
@@ -294,7 +294,7 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
        </div>';
        $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod_cliente Tipo $tipo_cliente de $credito_anterior para $credito' , '$cod_user' , '$dataHora')");
        $Atividade_Supervisao->execute();
-     header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
+      header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
       }
       
    
@@ -318,5 +318,5 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
         Não Foi possivel fazer a correção!    
     </div>
   </div>';
-  header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
+   header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
 }

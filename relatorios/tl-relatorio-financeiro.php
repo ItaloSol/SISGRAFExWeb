@@ -102,8 +102,8 @@ $mes = date('m');
           <label class="form-check-label" for="Ordenar Por Saldo Crescente">Ordenar Por Saldo Crescente</label>
         </div>
         <div class="form-check mt-3">
-          <input class="form-check-input" name="ordenar" type="radio" value="Decescente" id="Ordenar Por Saldo Decescente" />
-          <label class="form-check-label" for="Ordenar Por Saldo Decescente">Ordenar Por Saldo Decescente</label>
+          <input class="form-check-input" name="ordenar" type="radio" value="Decrescente" id="Ordenar Por Saldo Decrescente" />
+          <label class="form-check-label" for="Ordenar Por Saldo Decrescente">Ordenar Por Saldo Decrescente</label>
         </div>
         <div class="form-check mt-3">
           <input class="form-check-input" name="orientacao" type="radio" value="paisagem" id="Orientação Paisagem" checked />
