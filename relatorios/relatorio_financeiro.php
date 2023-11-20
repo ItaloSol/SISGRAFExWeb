@@ -106,7 +106,7 @@ if (isset($_POST['submit'])) {
     }
    
     if (isset($_POST['ordenar'])) {
-        if($_POST['ordenar'] == 'Decescente'){
+        if($_POST['ordenar'] == 'Decrescente'){
             $Ordernar = " ORDER BY tabela_clientes_" . $Cliente . ".credito DESC";
         }else{
             $Ordernar = " ORDER BY tabela_clientes_" . $Cliente . ".credito ASC";
