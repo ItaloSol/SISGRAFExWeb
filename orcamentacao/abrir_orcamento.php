@@ -263,6 +263,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
               <a class="list-group-item list-group-item-action active" id="home-list-item" data-bs-toggle="list" href="#horizontal-prod">Produtos</a>
               <a class="list-group-item list-group-item-action" id="profile-list-item1" data-bs-toggle="list" href="#horizontal-tir">Tiragens</a>
               <a class="list-group-item list-group-item-action" id="settings-list-item3" data-bs-toggle="list" href="#horizontal-pap">Papel</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-Clique" data-bs-toggle="list" href="#horizontal-cliq">Clique</a>
               <a class="list-group-item list-group-item-action" id="settings-list-item4" data-bs-toggle="list" href="#horizontal-aca">Acabamentos</a>
               <a class="list-group-item list-group-item-action" id="settings-list-item5" data-bs-toggle="list" href="#horizontal-ser">Serviços</a>
               <a class="list-group-item list-group-item-action" id="settings-list-item6" data-bs-toggle="list" href="#horizontal-obs">Observações</a>
@@ -365,6 +366,32 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                   </div>
                 </div>
               </div>
+
+              <div class="tab-pane fade" id="horizontal-cliq">
+                <div class="card">
+                  <div id="mensagemPapelApagado"></div>
+                  <h5 style="display: flex; align-items: center;" class="card-header">CLIQUES
+                  </h5>
+                  <span id="AlertaCampos" class="badge bg-danger">Preencha todos os campos em vermelho para calcular o valor do orçamento.</span>
+                  <div class="table-responsive text-nowrap">
+                    <table id="tabela_campos" class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Contrato</th>
+                          <th>Quantidade Gasta</th>
+                          <th>Valor total</th>
+                        </tr>
+                      </thead>
+                      <tr>
+                        <td align="center" colspan="12">
+                          NENHUM SELECIONADO
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
               <div class="tab-pane fade" id="horizontal-aca">
                 <div class="card">
                   <h5 class="card-header">ACABAMENTOS</h5>
