@@ -6,9 +6,9 @@ $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
 include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
-if($_GET['tipo'] == 1){
+if ($_GET['tipo'] == 1) {
     $tipo_cliente = 1;
-}else{
+} else {
     $tipo_cliente = 2;
 }
 
@@ -16,9 +16,9 @@ $cod = $_GET['cod'];
 
 $numero_clientes = 0;
 $Valor_Notas_Totais[$numero_clientes] = array();
-if($_GET['tipo'] == 2){
+if ($_GET['tipo'] == 2) {
     $query_Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE cod = $cod ");
-}else{
+} else {
     $query_Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE cod = $cod ");
 }
 
@@ -26,28 +26,28 @@ $query_Clientes_Juridicos->execute();
 
 if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
     $valor_todo = 0;
-    if($_GET['tipo'] == 2){
-    $Tabela_Clientes[$numero_clientes] = [ 
-  'cod' => $linha['cod'],
-  'nome' => $linha['nome'],
-  'nome_Fantasia' => $linha['nome_fantasia'],
-  'cnpj' => $linha['cnpj'],
-  'atividade' => $linha['atividade'],
-  'filial_coligada' => $linha['filial_coligada'],
-  'cod_atendente' => $linha['cod_atendente'],
-  'nome_atendente' => $linha['nome_atendente'],
-  'observacao' => $linha['observacao'],
-  'credito' => $linha['credito'],
-  'senha' => $linha['senha'],
-  'excluido' => $linha['excluido'],
-  'tOKEN' => $linha['TOKEN'],
-  'uLTIMO_ACESSO' => $linha['ULTIMO_ACESSO'],
-  'qTD_ACESSO' => $linha['QTD_ACESSOS'],
-    ];
+    if ($_GET['tipo'] == 2) {
+        $Tabela_Clientes[$numero_clientes] = [
+            'cod' => $linha['cod'],
+            'nome' => $linha['nome'],
+            'nome_Fantasia' => $linha['nome_fantasia'],
+            'cnpj' => $linha['cnpj'],
+            'atividade' => $linha['atividade'],
+            'filial_coligada' => $linha['filial_coligada'],
+            'cod_atendente' => $linha['cod_atendente'],
+            'nome_atendente' => $linha['nome_atendente'],
+            'observacao' => $linha['observacao'],
+            'credito' => $linha['credito'],
+            'senha' => $linha['senha'],
+            'excluido' => $linha['excluido'],
+            'tOKEN' => $linha['TOKEN'],
+            'uLTIMO_ACESSO' => $linha['ULTIMO_ACESSO'],
+            'qTD_ACESSO' => $linha['QTD_ACESSOS'],
+        ];
 
-    $cod = $Tabela_Clientes[$numero_clientes]['cod'];
-    }else{
-        $Tabela_Clientes[$numero_clientes] = [ 
+        $cod = $Tabela_Clientes[$numero_clientes]['cod'];
+    } else {
+        $Tabela_Clientes[$numero_clientes] = [
             'cod' => $linha['cod'],
             'nome' => $linha['nome'],
             'cpf' => $linha['cpf'],
@@ -58,9 +58,9 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
             'senha' => $linha['senha'],
             'excluido' => $linha['excluido'],
             'tOKEN' => $linha['TOKEN'],
-              ];
-          
-              $cod = $Tabela_Clientes[$numero_clientes]['cod'];
+        ];
+
+        $cod = $Tabela_Clientes[$numero_clientes]['cod'];
     }
 
 
@@ -70,7 +70,7 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
     $query_Notas = $conexao->prepare("SELECT * FROM tabela_notas WHERE cod_cliente = '$cod'  AND tipo_pessoa = '$tipo_cliente'");
     $query_Notas->execute();
     $i = 0;
-   
+
     while ($linha = $query_Notas->fetch(PDO::FETCH_ASSOC)) {
         $Tabela_Notas[$i] = [
             'cod' => $linha['cod'],
@@ -93,8 +93,8 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
             'FAT_SERVICOS' => $linha['FAT_SERVICOS']
         ];
         $valor_ = $linha['valor'];
-           
-          $valor_todo = $valor_todo + $valor_;
+
+        $valor_todo = $valor_todo + $valor_;
         $i++;
     }
     $Valor_Notas_Totais[$numero_clientes] =  $valor_todo;
@@ -150,14 +150,14 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
             }
         }
         $valor_faturamento = $valor_faturamento + $linha['VLR_FAT'];
-        
+
         //echo $linha['cod'].' '.$linha['VLR_FAT'] .'<br>';
         $i++;
     }
     $Total_Faturamentos[$numero_clientes] = $valor_faturamento;
-   
 
-  
+
+
     // /////////////////////////////////////// FIM OP FINALZIADAS ///////////////////////////////////////////////////////////////
 
     // /////////////////////////////////// OP ABERTAS //////////////////////////////////////////////////////
@@ -179,29 +179,29 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
             'data_emissao' => date($linha['data_emissao']),
 
         ];
-         if($linha['status'] == '12'){
-       $cod_produto_QQ = $linha['cod_produto'];
-        $Cod_Op_QQ = $linha['cod'];
-        $Pesquisa_Orc_QQ = $linha['orcamento_base'];
+        if ($linha['status'] == '12') {
+            $cod_produto_QQ = $linha['cod_produto'];
+            $Cod_Op_QQ = $linha['cod'];
+            $Pesquisa_Orc_QQ = $linha['orcamento_base'];
 
             $query_Pesquisa_Orc_QQ = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento  WHERE cod_produto = '$cod_produto_QQ' AND cod_orcamento = $Pesquisa_Orc_QQ ");
             $query_Pesquisa_Orc_QQ->execute();
-           // echo "codigo op: ". $Cod_Op_QQ ."<br>";
+            // echo "codigo op: ". $Cod_Op_QQ ."<br>";
 
-            
-        if ($linha_QQ2 = $query_Pesquisa_Orc_QQ->fetch(PDO::FETCH_ASSOC)) {
-            $Valor_QQ = $linha_QQ2['quantidade'] * $linha_QQ2['preco_unitario'];
-               
-         //   echo "Valor Total: ". $Valor_QQ . "<br>";
-            $QQvalor_total_Faturamentos = $conexao->prepare("SELECT * FROM faturamentos f WHERE  f.CODIGO_OP = '$Cod_Op_QQ'");
-            $QQvalor_total_Faturamentos->execute();
-            while ($linhaQQ = $QQvalor_total_Faturamentos->fetch(PDO::FETCH_ASSOC)) {
-               // echo "Valores de fatuamento: ". $linhaQQ['VLR_FAT']. "<br>";
-             //   echo 'CALCULO: '. $Valor_QQ .' - '. $linhaQQ['VLR_FAT'] ;
-                $Valor_QQ = $Valor_QQ - $linhaQQ['VLR_FAT'];
+
+            if ($linha_QQ2 = $query_Pesquisa_Orc_QQ->fetch(PDO::FETCH_ASSOC)) {
+                $Valor_QQ = $linha_QQ2['quantidade'] * $linha_QQ2['preco_unitario'];
+
+                //   echo "Valor Total: ". $Valor_QQ . "<br>";
+                $QQvalor_total_Faturamentos = $conexao->prepare("SELECT * FROM faturamentos f WHERE  f.CODIGO_OP = '$Cod_Op_QQ'");
+                $QQvalor_total_Faturamentos->execute();
+                while ($linhaQQ = $QQvalor_total_Faturamentos->fetch(PDO::FETCH_ASSOC)) {
+                    // echo "Valores de fatuamento: ". $linhaQQ['VLR_FAT']. "<br>";
+                    //   echo 'CALCULO: '. $Valor_QQ .' - '. $linhaQQ['VLR_FAT'] ;
+                    $Valor_QQ = $Valor_QQ - $linhaQQ['VLR_FAT'];
+                }
             }
         }
-    }
         $Pesquisa_Produto = $Ordens_Abertas[$numero_clientes]['cod_produto'];
         $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
         $query_PRODUTOS->execute();
@@ -215,11 +215,11 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
         $Pesquisa_Tipo_prod = $Ordens_Abertas[$numero_clientes]['tipo_produto'];
         $query_Pesquisa_Orc = $conexao->prepare("SELECT cod_orcamento, cod_produto, tipo_produto, (quantidade * preco_unitario) AS VLR_PARC FROM tabela_produtos_orcamento WHERE cod_orcamento = '$Pesquisa_Orc' AND cod_produto = '$Pesquisa_Produto' AND tipo_produto = '$Pesquisa_Tipo_prod' ");
         $query_Pesquisa_Orc->execute();
-            
+
         while ($linha2 = $query_Pesquisa_Orc->fetch(PDO::FETCH_ASSOC)) {
-             if($linha['status'] == '12'){
-            $valor =  $Valor_QQ;
-            }else{
+            if ($linha['status'] == '12') {
+                $valor =  $Valor_QQ;
+            } else {
                 $valor = $linha2['VLR_PARC'];
             }
             $valor_emproducao = $valor_emproducao + $valor;
@@ -227,27 +227,27 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
         $Total_EmProducao[$numero_clientes] = $valor_emproducao;
         $i++;
     }
-    if(!isset($Total_EmProducao[$numero_clientes])){
+    if (!isset($Total_EmProducao[$numero_clientes])) {
         $Total_EmProducao[$numero_clientes] = 0;
     }
-    if(!isset($Tabela_Clientes[$numero_clientes])){
+    if (!isset($Tabela_Clientes[$numero_clientes])) {
         $Tabela_Clientes[$numero_clientes] = 0;
     }
-    if(!isset($Valor_Notas_Totais[$numero_clientes])){
+    if (!isset($Valor_Notas_Totais[$numero_clientes])) {
         $Valor_Notas_Totais[$numero_clientes] = 0;
     }
 
     $Saldo_Correto[$numero_clientes] = $Valor_Notas_Totais[$numero_clientes] - $Total_Faturamentos[$numero_clientes] - $Total_EmProducao[$numero_clientes];
     $Diferenca_Correcao[$numero_clientes] = $Saldo_Correto[$numero_clientes] - $Tabela_Clientes[$numero_clientes]['credito'];
-     echo $Tabela_Clientes[$numero_clientes]['nome'] . ' Credito: '. $Valor_Notas_Totais[$numero_clientes] .' Fatruamento: '.$Total_Faturamentos[$numero_clientes].' Valor Em produção: '.$Total_EmProducao[$numero_clientes].' Soldo Correto = '.  $Saldo_Correto[$numero_clientes].' Saldo Atual: '.$Tabela_Clientes[$numero_clientes]['credito'].  '<br>';
+    echo $Tabela_Clientes[$numero_clientes]['nome'] . ' Credito: ' . $Valor_Notas_Totais[$numero_clientes] . ' Fatruamento: ' . $Total_Faturamentos[$numero_clientes] . ' Valor Em produção: ' . $Total_EmProducao[$numero_clientes] . ' Soldo Correto = ' .  $Saldo_Correto[$numero_clientes] . ' Saldo Atual: ' . $Tabela_Clientes[$numero_clientes]['credito'] .  '<br>';
 
-     $credito = $Saldo_Correto[$numero_clientes];
-      $cod_cliente = $Tabela_Clientes[$numero_clientes]['cod'];
+    $credito = $Saldo_Correto[$numero_clientes];
+    $cod_cliente = $Tabela_Clientes[$numero_clientes]['cod'];
     $credito_anterior = $Tabela_Clientes[$numero_clientes]['credito'];
-     if ($tipo_cliente == '1') {
-         $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-         $query_aceitalas->execute();
-         $_SESSION['msg'] = ' <div id="alerta"
+    if ($tipo_cliente == '1') {
+        $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+        $query_aceitalas->execute();
+        $_SESSION['msg'] = ' <div id="alerta"
       role="bs-toast"
       class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
       role="alert"
@@ -266,14 +266,14 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
           Valor de Saldo co cliente corrigido com sucesso!    
       </div>
     </div>';
-    $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod Tipo $tipo_cliente de  $credito_anterior : $Saldo_Correto[$numero_clientes]' , '$cod_user' , '$dataHora')");
-    $Atividade_Supervisao->execute();
-   header("Location: tl-cadastro-notas.php?tp=4&tipo=1");
-      }
-      if ($tipo_cliente == '2') {
-         $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
-         $query_aceitalas->execute();
-         $_SESSION['msg'] = ' <div id="alerta"
+        $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod Tipo $tipo_cliente de  $credito_anterior : $Saldo_Correto[$numero_clientes]' , '$cod_user' , '$dataHora')");
+        $Atividade_Supervisao->execute();
+        header("Location: tl-cadastro-notas.php?tp=4&tipo=1");
+    }
+    if ($tipo_cliente == '2') {
+        $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
+        $query_aceitalas->execute();
+        $_SESSION['msg'] = ' <div id="alerta"
          role="bs-toast"
          class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "
          role="alert"
@@ -292,13 +292,11 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
              Valor de Saldo co cliente corrigido com sucesso!    
          </div>
        </div>';
-       $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod_cliente Tipo $tipo_cliente de $credito_anterior para $credito' , '$cod_user' , '$dataHora')");
-       $Atividade_Supervisao->execute();
-      header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
-      }
-      
-   
-}else{
+        $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod_cliente Tipo $tipo_cliente de $credito_anterior para $credito' , '$cod_user' , '$dataHora')");
+        $Atividade_Supervisao->execute();
+        header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
+    }
+} else {
     $_SESSION['msg'] = ' <div id="alerta"
     role="bs-toast"
     class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
@@ -318,5 +316,5 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
         Não Foi possivel fazer a correção!    
     </div>
   </div>';
-   header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
+    header("Location: tl-cadastro-notas.php?tp=4&tipo=2");
 }

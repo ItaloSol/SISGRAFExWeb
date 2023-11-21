@@ -208,7 +208,7 @@ while ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
 
     $Saldo_Correto[$numero_clientes] = $Valor_Notas_Totais[$numero_clientes] - $Total_Faturamentos[$numero_clientes] - $Total_EmProducao[$numero_clientes];
     $Diferenca_Correcao[$numero_clientes] = $Saldo_Correto[$numero_clientes] - $Tabela_Clientes[$numero_clientes]['credito'];
-   //  echo $Tabela_Clientes[$numero_clientes]['nome'] . ' Credito: '. $Valor_Notas_Totais[$numero_clientes] .' Fatruamento: '.$Total_Faturamentos[$numero_clientes].' Valor Em produção: '.$Total_EmProducao[$numero_clientes].' Soldo Correto = '.  $Saldo_Correto[$numero_clientes].' Saldo Atual: '.$Tabela_Clientes[$numero_clientes]['credito'].  '<br>';
+    //  echo $Tabela_Clientes[$numero_clientes]['nome'] . ' Credito: '. $Valor_Notas_Totais[$numero_clientes] .' Fatruamento: '.$Total_Faturamentos[$numero_clientes].' Valor Em produção: '.$Total_EmProducao[$numero_clientes].' Soldo Correto = '.  $Saldo_Correto[$numero_clientes].' Saldo Atual: '.$Tabela_Clientes[$numero_clientes]['credito'].  '<br>';
 
 
 

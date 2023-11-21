@@ -13,6 +13,7 @@
 
 <!-- Main JS -->
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/apuracao_credito.js"></script>
 <script src="../assets/js/active-menu.js"></script>
 <script src="../js/custom.js"></script>
 <!-- Page JS -->
