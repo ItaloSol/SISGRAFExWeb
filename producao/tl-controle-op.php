@@ -389,7 +389,7 @@ if (isset($_GET['cod'])) {
                       OBSERVAÇÕES
                     </button>
                     <?php if ($EXP_I == '1') {
-                      if ($Ordens_Selecionada['status'] == '10' || $Ordens_Selecionada['status'] == '11' || $Ordens_Selecionada['status'] == '12') { ?>
+                      if ($Ordens_Selecionada['status'] == '10' || $Ordens_Selecionada['status'] == '13' || $Ordens_Selecionada['status'] == '11' || $Ordens_Selecionada['status'] == '12') { ?>
                         <a href="../expedicao/faturamento.php?cod=<?= $b ?>" class=" btn btn-warning botao">
                           FATURAR
                         </a>

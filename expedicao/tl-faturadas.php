@@ -5,14 +5,27 @@
 if (isset($_GET['Tp'])) {
   if ($_GET['Tp'] == 'op') {
     $codi = $_GET['PS'];
-    echo 'code';
-    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos WHERE CODIGO_OP = '$codi' ORDER BY CODIGO DESC LIMIT 150 ");
-  }
-  if ($_GET['Tp'] == 'cod') {
+    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos WHERE CODIGO_OP = :codi ORDER BY CODIGO DESC LIMIT 150 ");
+    $query_faturamento->bindParam(':codi', $codi, PDO::PARAM_STR);
+  } elseif ($_GET['Tp'] == 'cod') {
     $codi = $_GET['PS'];
-    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos WHERE CODIGO = '$codi' ORDER BY CODIGO DESC LIMIT 150 ");
-  }
-  if (!isset($codi)) {
+    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos WHERE CODIGO = :codi ORDER BY CODIGO DESC LIMIT 150 ");
+    $query_faturamento->bindParam(':codi', $codi, PDO::PARAM_STR);
+  } elseif ($_GET['Tp'] == 'cli') {
+    $codi = $_GET['PS'];
+    // Supondo que cod_cliente seja o campo que representa o código do cliente em tabela_ordens_producao
+    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos 
+                                            WHERE CODIGO_OP IN (SELECT cod FROM tabela_ordens_producao WHERE cod_cliente = :codi) 
+                                            ORDER BY CODIGO DESC LIMIT 150 ");
+    $query_faturamento->bindParam(':codi', $codi, PDO::PARAM_STR);
+  } elseif ($_GET['Tp'] == 'nomepro') {
+    $codi = $_GET['PS'];
+    $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos 
+                                            WHERE CODIGO_OP IN (SELECT cod FROM tabela_ordens_producao WHERE cod_produto IN (SELECT CODIGO FROM produtos WHERE DESCRICAO LIKE :codi)) 
+                                            ORDER BY CODIGO DESC LIMIT 150 ");
+    $codi = "%$codi%"; // Adicionando caracteres curinga para comparação LIKE
+    $query_faturamento->bindParam(':codi', $codi, PDO::PARAM_STR);
+  } else {
     $query_faturamento = $conexao->prepare("SELECT * FROM faturamentos ORDER BY CODIGO DESC LIMIT 150");
   }
 } else {
@@ -20,35 +33,39 @@ if (isset($_GET['Tp'])) {
 }
 
 $query_faturamento->execute();
-$a = 0;
+$i = 0;
 while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
-  $FATURAMENTOS[$a] = array(
+  $FATURAMENTOS[$i] = array(
     'CODIGO' => $linha['CODIGO'],
-    'CODIGO_ORC' => $linha['CODIGO_ORC'],
     'codigo_op' => $linha['CODIGO_OP'],
-    'EMISSOR' => $linha['EMISSOR'],
     'QTD_ENTREGUE' => $linha['QTD_ENTREGUE'],
     'VLR_FAT' => $linha['VLR_FAT'],
-    'DT_FAT' => $linha['DT_FAT'],
-    'FRETE_FAT' => $linha['FRETE_FAT'],
-    'SERVICOS_FAT' => $linha['SERVICOS_FAT'],
     'OBSERVACOES' => $linha['OBSERVACOES']
   );
-  $codigo_op = $linha['CODIGO_OP'];
-  if ($FATURAMENTOS[$a]['OBSERVACOES'] == '') {
-    $FATURAMENTOS[$a]['OBSERVACOES'] = 'SEM OBSERVAÇÕES';
+  $codigo_op1[$i] = $linha['CODIGO_OP'];
+  if ($FATURAMENTOS[$i]['OBSERVACOES'] == '') {
+    $FATURAMENTOS[$i]['OBSERVACOES'] = 'SEM OBSERVAÇÕES';
   }
+  $i++;
+}
+for ($a = 0; $a < $i; $a++) {
+  $codigo_op = $codigo_op1[$a];
   if (isset($_GET['Tp'])) {
-
-
     if ($_GET['Tp'] == 'cli') {
       $codi = $_GET['PS'];
-      $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod_cliente = $codi ");
+      $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod_cliente = :codi AND cod = $codigo_op");
+      $query_op->bindParam(':codi', $codi, PDO::PARAM_STR);
+    } elseif ($_GET['Tp'] == 'op') {
+      $codi = $_GET['PS'];
+      $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = :codi");
+      $query_op->bindParam(':codi', $codi, PDO::PARAM_STR);
     } else {
-      $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = $codigo_op ");
+      $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = :codigo_op");
+      $query_op->bindParam(':codigo_op', $codigo_op, PDO::PARAM_STR);
     }
   } else {
-    $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = $codigo_op ");
+    $query_op = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = :codigo_op");
+    $query_op->bindParam(':codigo_op', $codigo_op, PDO::PARAM_STR);
   }
 
   $query_op->execute();
@@ -102,15 +119,15 @@ while ($linha = $query_faturamento->fetch(PDO::FETCH_ASSOC)) {
     $query_produto->execute();
     if ($linha2 = $query_produto->fetch(PDO::FETCH_ASSOC)) {
       $PRODUTO[$a] = [
-        'largura' => $linha2['LARGURA'],
-        'ALTURA' => $linha2['ALTURA'],
-        'QTD_PAGINAS' => $linha2['QTD_PAGINAS'],
-        'TIPO' => $linha2['TIPO'],
         'DESCRICAO' => $linha2['DESCRICAO'],
       ];
     }
+    if (!isset($PRODUTO[$a]['DESCRICAO'])) {
+      $PRODUTO[$a] = [
+        'DESCRICAO' => 'NÃO ENCONTRADO',
+      ];
+    }
   }
-  $a++;
 }
 ?>
 <form action="tl-faturadas.php" method="GET">
