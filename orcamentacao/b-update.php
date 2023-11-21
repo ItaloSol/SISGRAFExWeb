@@ -32,6 +32,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod Não aprovado pelo cliente' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '13') {
@@ -58,6 +89,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod Cancelado' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '2') {
@@ -109,10 +171,37 @@ if (isset($_GET['acao'])) {
       $criar_Op->execute();
       $query_aceitalas = $conexao->prepare("UPDATE tabela_calculos_op SET cod_op = '$cod_op'  WHERE cod = '$cod_calc' ");
       $query_aceitalas->execute();
+      $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Abriu a OP $cod_op, Cliente $cliente' , '$cod_user' , '$dataHora')");
+      $Atividade_Supervisao->execute();
       $itens++;
     }
 
 
+    ?>
+         <input class="VALORES" type="text" id="<?= $cliente ?>" name="<?= $tipocli ?>" value="<?= $cliente ?> <?= $tipocli ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '3') {
@@ -139,6 +228,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod Enviado para o ordenador de despesa' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '7') {
@@ -189,8 +309,35 @@ if (isset($_GET['acao'])) {
       $criar_Op->execute();
       $query_aceitalas = $conexao->prepare("UPDATE tabela_calculos_op SET cod_op = '$cod_op'  WHERE cod = '$cod_calc' ");
       $query_aceitalas->execute();
+      $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Abriu a OP $cod_op, Cliente $cliente' , '$cod_user' , '$dataHora')");
+      $Atividade_Supervisao->execute();
       $itens++;
     }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cliente ?>" name="<?= $tipocli ?>" value="<?= $cliente ?> <?= $tipocli ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '4') {
@@ -217,6 +364,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod autorizado pelo Ordenador de Despesa' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '5') {
@@ -243,6 +421,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod Não aprovado pelo ordenador de despesa ' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '9') {
@@ -269,6 +478,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod Voltou para em Avaliação ' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '11') {
@@ -295,6 +535,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod autorizado pelo Ordenador de despesa cliente' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '12') {
@@ -321,6 +592,37 @@ if (isset($_GET['acao'])) {
           </div>';
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Orçamento $cod não autorizado pelo Ordenador de despesa cliente' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+    $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+    ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
     header("Location: tl-orcamento.php?cod=$cod");
   }
 }
@@ -350,5 +652,36 @@ if (isset($_GET['data'])) {
         </div>';
   $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Alterou a data de validade do Orçamento $cod e o status para 1 - EM AVALIAÇÃO' , '$cod_user' , '$dataHora')");
   $Atividade_Supervisao->execute();
+  $buscacliente = $conexao->prepare("SELECT * FROM tabela_ororcamentosHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+  ?>
+         <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+      <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var elemento = document.querySelector('.VALORES');
+      
+          // Verifica se o elemento foi encontrado
+          if (elemento) {
+              // Constrói a URL para a API
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+      
+              // Faz a requisição fetch
+              fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('executou', data);
+                      // Faça algo com os dados recebidos da API
+                  })
+                  .catch(error => console.error('Erro:', error));
+          } else {
+              console.error('Elemento não encontrado.');
+          }
+        
+                  </script>
+              <?php
   header("Location: tl-orcamento.php?cod=$cod");
 }
