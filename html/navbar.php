@@ -667,7 +667,7 @@ $refresh = 0;
           }
         </style>
         <!-- / Navbar -->
-
+          <div id='notifica_geral_todos'></div>
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <!-- Content -->
