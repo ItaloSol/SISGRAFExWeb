@@ -63,7 +63,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '13') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '13'  WHERE cod = '$cod' ");
@@ -120,7 +120,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '2') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '2'  WHERE cod = '$cod' ");
@@ -259,7 +259,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '7') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '7'  WHERE cod = '$cod' ");
@@ -338,7 +338,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '4') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '4'  WHERE cod = '$cod' ");
@@ -395,7 +395,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '5') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '5'  WHERE cod = '$cod' ");
@@ -452,7 +452,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '9') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '1'  WHERE cod = '$cod' ");
@@ -509,7 +509,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '11') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '11'  WHERE cod = '$cod' ");
@@ -566,7 +566,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
   if ($_GET['acao'] == '12') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '12'  WHERE cod = '$cod' ");
@@ -623,7 +623,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+   // header("Location: tl-orcamento.php?cod=$cod");
   }
 }
 if (isset($_GET['data'])) {
@@ -683,5 +683,5 @@ if (isset($_GET['data'])) {
         
                   </script>
               <?php
-  header("Location: tl-orcamento.php?cod=$cod");
+ // header("Location: tl-orcamento.php?cod=$cod");
 }
