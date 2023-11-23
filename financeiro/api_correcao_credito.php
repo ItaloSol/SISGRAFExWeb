@@ -251,13 +251,13 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
     if ($_GET['tipo'] == 2) {
       $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
       $query_aceitalas->execute();
-      $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod_cliente Tipo $tipo_cliente de $credito_anterior para $credito' , '$cod_user' , '$dataHora')");
+      $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Sincronia de Saldo automática: Cliente $cod_cliente Tipo $tipo_cliente de $credito_anterior para $credito' , '$cod_user' , '$dataHora')");
       $Atividade_Supervisao->execute();
       echo json_encode($Sucesso);
     } else {
       $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_fisicos SET credito = '$credito' WHERE cod = $cod_cliente ");
       $query_aceitalas->execute();
-      $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Corrigiu o Saldo: Cliente $cod Tipo $tipo_cliente de  $credito_anterior : $Saldo_Correto[$numero_clientes]' , '$cod_user' , '$dataHora')");
+      $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Sincronia de Saldo automática: Cliente $cod Tipo $tipo_cliente de  $credito_anterior : $Saldo_Correto[$numero_clientes]' , '$cod_user' , '$dataHora')");
       $Atividade_Supervisao->execute();
       echo json_encode($Sucesso);
     }
