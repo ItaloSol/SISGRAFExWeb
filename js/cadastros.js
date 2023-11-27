@@ -380,20 +380,18 @@ function pegarQtdTiragem() {
 }
 // CALCULO DE CLIQUE
 
-function AdicionarCliqueAtbalea(quantiade, valor){ // , quantiade, valor
+function AdicionarCliqueAtabela(quantiade, valor){ // , quantiade, valor
   var AdicionandoClique = document.getElementById('calculo_clique');
         AdicionandoClique.innerHTML += `
           <tr>
             <td>${quantiade}</td>
             <td>${valor}</td>
           </tr>`;
-     
 }
 
 function retornarQuantidadedeClique(quantidade, codigo){
   var cf =  document.getElementById('GCF' + codigo);
   var cv =  document.getElementById('GCV' + codigo);
-  console.log(quantidade)
   var PFolha = +cf.value + +cv.value;
   var Clique = quantidade;
   var valorP = 0.027;
@@ -406,7 +404,8 @@ function retornarQuantidadedeClique(quantidade, codigo){
     Clique *= 2;
     valorT = Clique * valorP;
   }
-  AdicionarCliqueAtbalea(Clique, valorT.toFixed(2)); // , Clique, Valor
+  AdicionarCliqueAtabela(Clique, valorT.toFixed(2)); // , Clique, Valor
+  return valorT;
 }
 
 //CALCULO MASTER QUANTIDADE DE PAPEL E DE CHAPA UTILIZADA
@@ -538,6 +537,7 @@ function calcularValor() {
   let ValorChapa = 0;
   let QtdChapa = 0;
   let PapelUnita = 0;
+  let ValorClique = 0;
   let numeroVias, QuantidadeGastaChapa, QuantidadeGasta = 0;
   Papeis.map(item => {
     for (i = 0; i < item.length; i++) {
@@ -609,7 +609,7 @@ function calcularValor() {
           break;
         }
         document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
-        retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
+        ValorClique += retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
         QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
         QtdChapa += QuantidadeGastaChapa;
         document.getElementById('GChapa' + item[i].codigoPapel).value = QuantidadeGastaChapa;
@@ -652,6 +652,7 @@ function calcularValor() {
         SomaValor += ValorPapel;
         SomaValor += ValorImpressao;
         SomaValor += (ValorPapel * 0.0102) / 100;
+        SomaValor += ValorClique;
         Total = SomaValor;
         Total += (Total * CifConvertido) ;
         Total += ValorFrete;
