@@ -391,8 +391,8 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
              <td>${result.tipo_papel}</td>
-             <td><input class="form-control" value="${result.corFrente}" type="number"></td>
-             <td><input class="form-control" value="${result.corVerso}" type="number"></td>
+             <td><input class="form-control" id="GCF${result.codPapels}" value="${result.corFrente}" type="number"></td>
+             <td><input class="form-control" id="GCV${result.codPapels}" value="${result.corVerso}" type="number"></td>
              <td><input class="form-control formato-impressao" id="Impre${result.codPapels}"  type="number"></td>
              <td><input class="form-control" value="5" type="number"></td>
              <td><input class="form-control" id="GFolha${result.codPapels}" value="0" type="number"></td>
