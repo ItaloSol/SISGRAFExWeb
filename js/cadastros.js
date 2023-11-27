@@ -378,6 +378,37 @@ function pegarQtdTiragem() {
   }
   return valorQuantidade;
 }
+// CALCULO DE CLIQUE
+
+function AdicionarCliqueAtbalea(quantiade, valor){ // , quantiade, valor
+  var AdicionandoClique = document.getElementById('calculo_clique');
+        AdicionandoClique.innerHTML += `
+          <tr>
+            <td>${quantiade}</td>
+            <td>${valor}</td>
+          </tr>`;
+     
+}
+
+function retornarQuantidadedeClique(quantidade, codigo){
+  var cf =  document.getElementById('GCF' + codigo);
+  var cv =  document.getElementById('GCV' + codigo);
+  console.log(quantidade)
+  var PFolha = +cf.value + +cv.value;
+  var Clique = quantidade;
+  var valorP = 0.027;
+  var valorC = 0.281;
+  var valorT = 0;
+  if(PFolha >= 4){
+    Clique *= 4;
+    valorT = Clique * valorC;
+  }else{
+    Clique *= 2;
+    valorT = Clique * valorP;
+  }
+  AdicionarCliqueAtbalea(Clique, valorT.toFixed(2)); // , Clique, Valor
+}
+
 //CALCULO MASTER QUANTIDADE DE PAPEL E DE CHAPA UTILIZADA
 
 function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, formatoImpressao, tiragem, numeroVias, perca) {
@@ -456,7 +487,7 @@ function SalvarPO() {
 }
 
 // FUNÇÃO DO CALCULO
-function calcularValor() {
+function calcularValor() { 
   const JsProduto = ObterTabelaProduto();
   const JsTiragens = obterTabelaTiragens();
   const JsPapeis = JSON.stringify(ObsertPapelCorreto());
@@ -495,6 +526,10 @@ function calcularValor() {
     digital = item.digital;
     offset = item.offset;
   });
+
+    // Limpa os Cliques
+    var AdicionandoClique = document.getElementById('calculo_clique');
+    AdicionandoClique.innerHTML = ``;
 
   // PAPEIS
 
@@ -574,6 +609,7 @@ function calcularValor() {
           break;
         }
         document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
+        retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
         QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
         QtdChapa += QuantidadeGastaChapa;
         document.getElementById('GChapa' + item[i].codigoPapel).value = QuantidadeGastaChapa;

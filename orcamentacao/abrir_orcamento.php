@@ -369,24 +369,18 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
               <div class="tab-pane fade" id="horizontal-cliq">
                 <div class="card">
-                  <div id="mensagemPapelApagado"></div>
                   <h5 style="display: flex; align-items: center;" class="card-header">CLIQUES
                   </h5>
-                  <span id="AlertaCampos" class="badge bg-danger">Preencha todos os campos em vermelho para calcular o valor do orçamento.</span>
+                  <span id="AlertaCampos1" class="badge bg-danger">Preencha todos os campos em vermelho para calcular a quantidade de clique.</span>
                   <div class="table-responsive text-nowrap">
-                    <table id="tabela_campos" class="table table-striped">
+                    <table id="calculo_clique" class="table table-striped">
                       <thead>
                         <tr>
-                          <th>Contrato</th>
                           <th>Quantidade Gasta</th>
                           <th>Valor total</th>
                         </tr>
                       </thead>
-                      <tr>
-                        <td align="center" colspan="12">
-                          NENHUM SELECIONADO
-                        </td>
-                      </tr>
+                      
                     </table>
                   </div>
                 </div>
