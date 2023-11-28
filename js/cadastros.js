@@ -635,12 +635,15 @@ function calcularValor() {
         }
         document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
         if (digital === true){
+          document.getElementById('settings-list-Clique').style.display = 'block';
         let VarCliques = retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
         ValorClique += VarCliques.valor;
         Qtd_ApuraClique += VarCliques.quantidade;
         if(Qtd_ApuraClique >= 8000){
           window.alert('ATENÇÃO!! \n A QUANTIDADE DE CLIQUE UTILIZADA NESSA OP PASSA DE 8 MIL CLIQUES. \n O VALOR DE CLIQUE UTILIZADO PELA OP ESTÁ MUITO ALTO! \n RECOMENDADO RODAR NA OFFSET.')
         }
+      }else{
+        document.getElementById('settings-list-Clique').style.display = 'none';
       }
         QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
         QtdChapa += QuantidadeGastaChapa;
