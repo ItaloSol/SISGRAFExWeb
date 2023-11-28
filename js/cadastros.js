@@ -382,7 +382,6 @@ function pegarQtdTiragem() {
 
 function PuxaDisponibilidade(qtd, tipo){
   var campo = document.getElementById('AlertaCampos1');
-  console.log('api_clique.php?quantidade='+ qtd +'&tipo='+tipo);
   fetch('api_clique.php?quantidade='+ qtd +'&tipo='+tipo)
   .then(response => response.json())
   .then(data => {
@@ -391,7 +390,7 @@ function PuxaDisponibilidade(qtd, tipo){
       campo.classList.add('bg-success')
       campo.innerHTML = 'Quantidade de clique disponivel';
     }else{
-      window.alert(`QUANTIDADE DE CLIQUE ${tipo} USADA PELA OP NÃO ESTÁ DISPONIVEL NO CONTRATO! NÃO É POSSIVEL REALIZAR A IMPRESSÃO USANDO A QUANTIDADE DE CLIQUE!`);
+      window.alert(`QUANTIDADE DE CLIQUE ${tipo} USADA PELA OP NÃO ESTÁ DISPONIVEL NO CONTRATO! \n NÃO É POSSIVEL REALIZAR A IMPRESSÃO USANDO A QUANTIDADE DE CLIQUE!`);
       campo.innerHTML = 'Quantidade de clique não está disponivel';
     }
   });
@@ -426,7 +425,11 @@ function retornarQuantidadedeClique(quantidade, codigo){
   }
   AdicionarCliqueAtabela(Clique, valorT.toFixed(2)); // , Clique, Valor
   PuxaDisponibilidade(Clique, Tipo);
-  return valorT;
+  var Retorna = {
+    'valor': valorT,
+    'quantidade': Clique
+  };
+  return Retorna;
 }
 
 //CALCULO MASTER QUANTIDADE DE PAPEL E DE CHAPA UTILIZADA
@@ -559,6 +562,7 @@ function calcularValor() {
   let QtdChapa = 0;
   let PapelUnita = 0;
   let ValorClique = 0;
+  let Qtd_ApuraClique = 0;
   let numeroVias, QuantidadeGastaChapa, QuantidadeGasta = 0;
   Papeis.map(item => {
     for (i = 0; i < item.length; i++) {
@@ -630,11 +634,17 @@ function calcularValor() {
           break;
         }
         document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
-        ValorClique += retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
+        if (digital === true){
+        let VarCliques = retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
+        ValorClique += VarCliques.valor;
+        Qtd_ApuraClique += VarCliques.quantidade;
+        if(Qtd_ApuraClique >= 8000){
+          window.alert('ATENÇÃO!! \n A QUANTIDADE DE CLIQUE UTILIZADA NESSA OP PASSA DE 8 MIL CLIQUES. \n O VALOR DE CLIQUE UTILIZADO PELA OP ESTÁ MUITO ALTO! \n RECOMENDADO RODAR NA OFFSET.')
+        }
+      }
         QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
         QtdChapa += QuantidadeGastaChapa;
         document.getElementById('GChapa' + item[i].codigoPapel).value = QuantidadeGastaChapa;
-
       }
     }
   });
