@@ -33,7 +33,9 @@ while ($linha = $query_faturamento_anteriores->fetch(PDO::FETCH_ASSOC)) {
         $tipo_produto = $linhaX['tipo_produto'];
         $cod_produto = $linhaX['cod_produto'];
         $tipo_cliente = $linhaX['tipo_cliente'];
+        $tipo_cliente1[$faturamentos11] = $linhaX['tipo_cliente'];
         $cod_cliente = $linhaX['cod_cliente'];
+        $cod_cliente1[$faturamentos11] = $linhaX['cod_cliente'];
         if ($tipo_produto == '1') {
             $query_produto = $conexao->prepare("SELECT * FROM produtos WHERE CODIGO = $cod_produto ");
         }
@@ -70,7 +72,7 @@ $Inicio_Tabela = "<table style=' solid black; width: 100%;  border-collapse:coll
         color: black;' border='1' class='table'>
         <tr>";
 if (isset($_POST['campos1'])) {
-    $Cabesalhos = "<th style=' color:Black'>CÓDIGO OP</th>";
+    $Cabesalhos = "<th style=' color:Black'>CÓDIGO</th>";
 }
 if (isset($_POST['campos2'])) {
     if (isset($Cabesalhos)) {
@@ -81,9 +83,79 @@ if (isset($_POST['campos2'])) {
 }
 if (isset($_POST['campos3'])) {
     if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>CÓDIGO ORÇAMENTO</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>CÓDIGO ORÇAMENTO</th>";
+    }
+}
+if (isset($_POST['campos4'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>EMISSOR</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>EMISSOR</th>";
+    }
+}
+if (isset($_POST['campos5'])) {
+    if (isset($Cabesalhos)) {
         $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>CÓDIGO CLIENTE</th>";
     } else {
         $Cabesalhos = "<th style=' color:Black'>CÓDIGO CLIENTE</th>";
+    }
+}
+if (isset($_POST['campos6'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>NOME CLIENTE</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>NOME CLIENTE</th>";
+    }
+}
+if (isset($_POST['campos7'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>TIPO PESSOA</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>TIPO PESSOA</th>";
+    }
+}
+if (isset($_POST['campos8'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>QUANTIDADE ENTREGUE</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>QUANTIDADE ENTREGUE</th>";
+    }
+}
+if (isset($_POST['campos9'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>VALOR</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>VALOR</th>";
+    }
+}
+if (isset($_POST['campos10'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>DATA</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>DATA</th>";
+    }
+}
+if (isset($_POST['campos11'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>NOME TRANPORTADOR</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>NOME TRANPORTADOR</th>";
+    }
+}
+if (isset($_POST['campos12'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>MODALIDADE DO FRETE</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>MODALIDADE DO FRETE</th>";
+    }
+}
+if (isset($_POST['campos13'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>PRODUTO</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>PRODUTO</th>";
     }
 }
 
@@ -93,10 +165,10 @@ $Exibir = 0;
 $Abre_Dados = "";
 while ($Exibir < $Recebe) {
 
-    if (isset($_POST['campos23'])) {
-        if (isset($Produto_Qtd[$Exibir])) {
+    if (isset($_POST['campos1'])) {
+        if (isset($FATURAMENTOS[$Exibir]['CODIGO'])) {
             if (isset($Dados)) {
-                $Dados = $Dados . "<td>" . $Produto_Qtd[$Exibir] . "</td>";
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['CODIGO'] . "</td>";
             } else {
                 $Dados = "<td>N/C</td>";
             }
@@ -109,10 +181,186 @@ while ($Exibir < $Recebe) {
         }
     }
     
-    if (isset($_POST['campos26'])) {
-        if (isset($Data_Expedida_Prova[$Exibir])) {
+    if (isset($_POST['campos2'])) {
+        if (isset($FATURAMENTOS[$Exibir]['CODIGO_OP'])) {
             if (isset($Dados)) {
-                $Dados = $Dados . "<td>" . $Data_Expedida_Prova[$Exibir] . "</td>";
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['CODIGO_OP'] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+    
+    if (isset($_POST['campos3'])) {
+        if (isset($FATURAMENTOS[$Exibir]['CODIGO_ORC'])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['CODIGO_ORC'] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos4'])) {
+        if (isset($FATURAMENTOS[$Exibir]['EMISSOR'])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['EMISSOR'] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos5'])) {
+        if (isset($cod_cliente1[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $cod_cliente1[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos6'])) {
+        if (isset($nome_cliente[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $nome_cliente[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos7'])) {
+        if (isset($tipo_cliente1[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $tipo_cliente1[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos8'])) {
+        if (isset($FATURAMENTOS[$Exibir]['QTD_ENTREGUE'])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['QTD_ENTREGUE'] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos9'])) {
+        if (isset($FATURAMENTOS[$Exibir]['VLR_FAT'])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['VLR_FAT'] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos10'])) {
+        if (isset($FATURAMENTOS[$Exibir]['DT_FAT'])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['DT_FAT'] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos11'])) {
+        if (isset($nome_transportador[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $nome_transportador[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos12'])) {
+        if (isset($modalidade_frete[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $modalidade_frete[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+
+    if (isset($_POST['campos13'])) {
+        if (isset($DESCRICAO[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $DESCRICAO[$Exibir] . "</td>";
             } else {
                 $Dados = "<td>N/C</td>";
             }
