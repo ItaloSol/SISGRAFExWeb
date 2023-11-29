@@ -33,7 +33,12 @@ while ($linha = $query_faturamento_anteriores->fetch(PDO::FETCH_ASSOC)) {
         $tipo_produto = $linhaX['tipo_produto'];
         $cod_produto = $linhaX['cod_produto'];
         $tipo_cliente = $linhaX['tipo_cliente'];
-        $tipo_cliente1[$faturamentos11] = $linhaX['tipo_cliente'];
+        if($tipo_cliente == '1'){
+            $tipo_cliente1[$faturamentos11] = 'PF';
+        }else{
+            $tipo_cliente1[$faturamentos11] = 'PJ';
+        }
+        
         $cod_cliente = $linhaX['cod_cliente'];
         $cod_cliente1[$faturamentos11] = $linhaX['cod_cliente'];
         if ($tipo_produto == '1') {
@@ -66,19 +71,20 @@ while ($linha = $query_faturamento_anteriores->fetch(PDO::FETCH_ASSOC)) {
 date_default_timezone_set('America/Sao_Paulo');
 $data_hora   = date('d/m/Y H:i:s ', time());
 $data_horaa = (string) $data_hora;
-$titulo = "<h5>RELATÓRIO DE FATURAMENTOS - DATA E HORA DE EMISSÃO: " . $data_horaa . " - SISGRAFEX</h5><br><h1 style='text-align: center;>RELATÓRIO DE FATURAMENTOS</h1>";
+$titulo = "<h5>RELATÓRIO DE ORDEM DE PRODUÇÃO - DATA E HORA DE EMISSÃO: " . $data_horaa . " - SISGRAFEX</h5><br>";
 $Inicio_Tabela = "<table style=' solid black; width: 100%;  border-collapse:collapse; font-size: 10; 
-        text-align: center;
-        color: black;' border='1' class='table'>
-        <tr>";
+text-align: center;
+color: black;' border='1' class='table'>
+<tr>";
+       
 if (isset($_POST['campos1'])) {
     $Cabesalhos = "<th style=' color:Black'>CÓDIGO</th>";
 }
 if (isset($_POST['campos2'])) {
     if (isset($Cabesalhos)) {
-        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>CÓDIGO ORÇAMENTO</th>";
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>CÓDIGO OP</th>";
     } else {
-        $Cabesalhos = "<th style=' color:Black'>CÓDIGO ORÇAMENTO</th>";
+        $Cabesalhos = "<th style=' color:Black'>CÓDIGO OP</th>";
     }
 }
 if (isset($_POST['campos3'])) {
@@ -162,29 +168,24 @@ if (isset($_POST['campos13'])) {
 
 $Fecha_Inicio = " </tr>";
 $Exibir = 0;
-$Abre_Dados = "";
-while ($Exibir < $Recebe) {
-
+$Dados = '';
+while ($Exibir < $faturamentos11) {
     if (isset($_POST['campos1'])) {
         if (isset($FATURAMENTOS[$Exibir]['CODIGO'])) {
-            if (isset($Dados)) {
-                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['CODIGO'] . "</td>";
-            } else {
-                $Dados = "<td>N/C</td>";
-            }
+                $Dados = $Dados . "<tr><td>" . $FATURAMENTOS[$Exibir]['CODIGO'] . "</td>";
         } else {
             if (isset($Dados)) {
-                $Dados = $Dados . "<td>N/C</td>";
+                $Dados = $Dados . "<tr><td>N/C</td>";
             } else {
-                $Dados = "<td>N/C</td>";
+                $Dados = "<tr><td>N/C</td>";
             }
         }
     }
     
     if (isset($_POST['campos2'])) {
-        if (isset($FATURAMENTOS[$Exibir]['CODIGO_OP'])) {
+        if (isset($FATURAMENTOS[$Exibir]['codigo_op'])) {
             if (isset($Dados)) {
-                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['CODIGO_OP'] . "</td>";
+                $Dados = $Dados . "<td>" . $FATURAMENTOS[$Exibir]['codigo_op'] . "</td>";
             } else {
                 $Dados = "<td>N/C</td>";
             }
@@ -360,15 +361,15 @@ while ($Exibir < $Recebe) {
     if (isset($_POST['campos13'])) {
         if (isset($DESCRICAO[$Exibir])) {
             if (isset($Dados)) {
-                $Dados = $Dados . "<td>" . $DESCRICAO[$Exibir] . "</td>";
+                $Dados = $Dados . "<td>" . $DESCRICAO[$Exibir] . "</td></tr>";
             } else {
-                $Dados = "<td>N/C</td>";
+                $Dados = "<td>N/C</td></tr>";
             }
         } else {
             if (isset($Dados)) {
-                $Dados = $Dados . "<td>N/C</td>";
+                $Dados = $Dados . "<td>N/C</td></tr>";
             } else {
-                $Dados = "<td>N/C</td>";
+                $Dados = "<td>N/C</td></tr>";
             }
         }
     }
@@ -396,20 +397,7 @@ echo $html;
 //  require_once __DIR__ . '../../vendor/autoload.php';
 // // Create an instance of the class:
 // $mpdf = new \mPDF();
-
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'retrato') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4');
-//     }
-// }
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'paisagem') {
-//         // Write some HTML code:
 //         $mpdf = new mPDF('C', 'A4-L');
-//     }
-// }
-
 
 // $mpdf->SetDisplayMode('fullpage');
 
