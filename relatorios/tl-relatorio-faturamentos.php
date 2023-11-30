@@ -2,7 +2,7 @@
 $_SESSION["pag"] = array(1, 0);
 
 $a = 0;
-$Query_Atem = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' ORDER BY a.nome_atendente ASC ");
+$Query_Atem = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.EXP = '1' ORDER BY a.nome_atendente ASC ");
 $Query_Atem->execute();
 $Operadores = 0;
 while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
@@ -104,7 +104,7 @@ $hoje = date('Y-m-d');
                   <input id="defaultInput" class="form-control" name="OpOrcCod" type="number" placeholder="Digite o código aqui" />
                 </div>
                 <div class="form-check mt-3">
-                  <input class="form-check-input" type="radio" name="OpOrc" value="OrcCod" id="OrcCod" />
+                  <input class="form-check-input" type="radio" name="OpOrc" value="CodOpOrc" id="OrcCod" />
                   <label class="form-check-label" for="OrcCod"> Orçamento Base (Código) </label>
                 </div>
                 <div class="mb-3">
@@ -118,31 +118,17 @@ $hoje = date('Y-m-d');
               <!--Produto-->
               <div class="tab-pane fade" id="horizontal-messages">
                 <div class="form-check mt-3">
-                  <input class="form-check-input" type="radio" name="produto" value="CodPro" id="produtocod" />
-                  <label class="form-check-label" for="produtocod"> Por Código </label>
+                  <input class="form-check-input" type="radio" name="produto" value="transporte" id="transporte" />
+                  <label class="form-check-label" for="transporte"> Por Modalidade do Frete </label>
                 </div>
                 <div class="mb-3">
-                  <input id="defaultInput" class="form-control" name="produtoCod" type="number" placeholder="Digite o código aqui" />
+                  <select class="form-select" name="transportetipo">
+                    <option>Selecione o tipo de cliente</option>
+                    <option value="COR">CORREIOS</option>
+                    <option value="EMC">RETIRADA</option>
+                  </select>
                 </div>
-                <!-- <div class="form-check mt-3">
-                               <input class="form-check-input" type="radio" name="produto" value="DesPro" id="defaultCheck1" />
-                                <label class="form-check-label" for="defaultCheck1"> Por Descrição </label>
-                              </div>
-                              <div class="mb-3">
-                                <input id="defaultInput" class="form-control" name="produto"  type="text" placeholder="Digite a descrição aqui" />
-                              </div>
-                              <div class="form-check mt-3">
-                               <input class="form-check-input" type="radio" name="produto" value="TipoPro" id="defaultCheck1" />
-                                <label class="form-check-label" for="defaultCheck1"> Por Tipo </label>
-                              </div>
-                              <div class="mb-3">
-                                <select class="form-select" name="produtoTipo" >
-                                  <option selected>Selecione o tipo de produto</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  
-                                </select>
-                              </div> -->
+               
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="radio" name="produto" value="todos" checked id="portodes" />
                   <label class="form-check-label" for="portodes"> Todos </label>
@@ -174,7 +160,7 @@ $hoje = date('Y-m-d');
 
               <div class="tab-pane fade" id="horizontal-periodo">
                 <div class="row">
-                  <div class="col-6 card">
+                  <div class="col-12 card">
                     <div class="form-check mt-3">
                       <input class="form-check-input" type="radio" name="periodo" value="EmissPer" id="EmissPer" />
                       <label class="form-check-label" for="EmissPer"> Por dia de Emissão </label>
@@ -184,15 +170,7 @@ $hoje = date('Y-m-d');
                         <input class="form-control" type="date" name="periodoEmiss" value="<?= $hoje ?>" id="html5-date-input" />
                       </div>
                     </div>
-                    <div class="form-check mt-3">
-                      <input class="form-check-input" type="radio" name="periodo" value="EntrPer" id="EntrPer" />
-                      <label class="form-check-label" for="EntrPer"> Por dia de Entrega </label>
-                    </div>
-                    <div class="mb-3 row">
-                      <div class="col-md-12">
-                        <input class="form-control" type="date" name="periodoEntr" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
+                    
                     <div class="form-check mt-3">
                       <input class="form-check-input" type="radio" name="periodo" value="IncFimEmiss" id="IncFimEmiss" />
                       <label class="form-check-label" for="IncFimEmiss"> Por Périodo - Data de Emissão </label>
@@ -209,119 +187,24 @@ $hoje = date('Y-m-d');
                         <input class="form-control" name="periodoFimEmiss" type="date" value="<?= $hoje ?>" id="html5-date-input" />
                       </div>
                     </div>
-                    <div class="form-check mt-3">
-                      <input class="form-check-input" type="radio" name="periodo" value="IncFimPer" id="IncFimPer" />
-                      <label class="form-check-label" for="IncFimPer"> Por Périodo - Data de Entrega </label>
-                    </div>
-                    <div class="mb-3 row">
-                      <label for="html5-date-input" class="col-md-2 col-form-label">Início</label>
-                      <div class="col-md-10">
-                        <input class="form-control" name="periodoIncPer" type="date" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
-                    <div class="mb-3 row">
-                      <label for="html5-date-input" class="col-md-2 col-form-label">Fim</label>
-                      <div class="col-md-10">
-                        <input class="form-control" name="periodoFimPer" type="date" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
+                  
                     <div class="form-check mt-3">
                       <input class="form-check-input" type="radio" name="periodo" value="todos" checked id="portodis" />
                       <label class="form-check-label" for="portodis"> Todos </label>
                     </div>
                   </div>
-                  <!-- 
-                      
-                     -->
-                  <div class="col-6 card">
-                    <div class="form-check mt-3">
-                      <input class="form-check-input" type="radio" name="periodoPrevisao" value="EmissPerPrevisao" id="EmissPer" />
-                      <label class="form-check-label" for="EmissPer">Previsão Inicio dos Trabalhos</label>
-                    </div>
-                    <div class="mb-3 row">
-                      <div class="col-md-12">
-                        <input class="form-control" type="date" name="periodoEmissPrevisao" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
-                    <div class="form-check mt-3">
-                      <input class="form-check-input" type="radio" name="periodoPrevisao" value="EntrPerPrevisao" id="EntrPer" />
-                      <label class="form-check-label" for="EntrPer"> Previsão Termino dos Trabalhos </label>
-                    </div>
-                    <div class="mb-3 row">
-                      <div class="col-md-12">
-                        <input class="form-control" type="date" name="periodoEntrPrevisao" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
-                    <div class="form-check mt-3">
-                      <input class="form-check-input" type="radio" name="periodoPrevisao" value="IncFimEmissPrevisao" id="IncFimEmiss" />
-                      <label class="form-check-label" for="IncFimEmiss"> Por Périodo - Previsão Inicio dos Trabalhos
-                      </label>
-                    </div>
-                    <div class="mb-3 row">
-                      <label for="html5-date-input" class="col-md-2 col-form-label">Início</label>
-                      <div class="col-md-10">
-                        <input class="form-control" name="periodoIncEmissPrevisao" type="date" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
-                    <div class="mb-3 row">
-                      <label for="html5-date-input" class="col-md-2 col-form-label">Fim</label>
-                      <div class="col-md-10">
-                        <input class="form-control" name="periodoFimEmissPrevisao" type="date" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
-                    <div class="form-check mt-3">
-                      <input class="form-check-input" type="radio" name="periodoPrevisao" value="IncFimPerPrevisao" id="IncFimPer" />
-                      <label class="form-check-label" for="IncFimPer"> Por Périodo - Previsão Termino dos Trabalhos </label>
-                    </div>
-                    <div class="mb-3 row">
-                      <label for="html5-date-input" class="col-md-2 col-form-label">Início</label>
-                      <div class="col-md-10">
-                        <input class="form-control" name="periodoIncPerPrevisao" type="date" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
-                    <div class="mb-3 row">
-                      <label for="html5-date-input" class="col-md-2 col-form-label">Fim</label>
-                      <div class="col-md-10">
-                        <input class="form-control" name="periodoFimPerPrevisao" type="date" value="<?= $hoje ?>" id="html5-date-input" />
-                      </div>
-                    </div>
-
                   </div>
-                </div>
-                <!-- 
-
-                      -->
-              </div>
-              <!--Status-->
-              <div class="tab-pane fade" id="horizontal-status">
-                <div class="form-check mt-3">
-                  <input class="form-check-input" name="status" type="radio" value="status" id="status" />
-                  <label class="form-check-label" for="status"> Por Status </label>
-                </div>
-                <div class="mb-3">
-                  <select class="form-select" name="statusS">
-                    <option selected>Selecione o status</option>
-                    <option value="producao">0 - TODOS EM PRODUÇÃO</option>
-                    <?php
-                    $i = 0;
-                    while ($i < $Sts) {
-                      echo '<option value="' . $Codigo_Sts_[$i] . '">' . $Codigo_Sts_[$i] . ' - ' . $Nome_Sts_[$i] . '</option>';
-                      $i++;
-                    }
-                    ?>
-                  </select>
-                </div>
-                <div class="form-check mt-3">
-                  <input class="form-check-input" type="radio" name="status" value="todos" checked id="portodus" />
-                  <label class="form-check-label" for="portodus"> Todos </label>
-                </div>
               </div>
               <!--Campos-->
               <div class="tab-pane fade" id="horizontal-campos">
                 <div class="col-md">
                   <small class="text-light fw-semibold d-block">Selecione os campos que deseja em seu relatório:</small>
                   <div class="form-check form-check-inline mt-3">
-                    <input class="form-check-input" type="checkbox" name="campos2" checked id="Código da OP" value="tabela_ordens_producao.cod" />
+                    <input class="form-check-input" type="checkbox" name="campos1" checked id="Código" value="tabela_ordens_producao.cod" />
+                    <label class="form-check-label" for="Código">Código</label>
+                  </div>
+                  <div class="form-check form-check-inline mt-3">
+                    <input class="form-check-input" type="checkbox" name="campos2"  id="Código da OP" value="tabela_ordens_producao.cod" />
                     <label class="form-check-label" for="Código da OP">Código da OP</label>
                   </div>
                   <div class="form-check form-check-inline">
@@ -370,7 +253,7 @@ $hoje = date('Y-m-d');
                     <label class="form-check-label" for="Modalidade do frete">Modalidade do frete</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="campos13" id="Descrição do Produto" value="descricao_produto" />
+                    <input class="form-check-input" type="checkbox" name="campos13" id="Descrição do Produto" value="descricao_produto" checked/>
                     <label class="form-check-label" for="Descrição do Produto">Descrição do Produto</label>
                   </div>
                 </div>
@@ -380,48 +263,41 @@ $hoje = date('Y-m-d');
                 <div class="col-md">
                   <small class="text-light fw-semibold d-block">Ordenar por:</small>
                   <div class="form-check form-check-inline mt-3">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Código OP Crescente" value=" tabela_ordens_producao.cod ASC" />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Código OP Crescente" value="f.CODIGO_OP ASC" />
                     <label class="form-check-label" for="Por Código OP Crescente">Por Código OP Crescente</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Código OP Decrescente" value=" tabela_ordens_producao.cod DESC" />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Código OP Decrescente" value="f.CODIGO_OP DESC" />
                     <label class="form-check-label" for="Por Código OP Decrescente">Por Código OP Decrescente</label>
                   </div>
 
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Emissor" value=" tabela_ordens_producao.cod_emissor ASC" />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Emissor" value="f.EMISSOR DESC" />
                     <label class="form-check-label" for="Por Emissor">Por Emissor</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Tipo de Pessoa" value=" tabela_ordens_producao.tipo_cliente ASC" />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Tipo de Pessoa" value="o.tipo_cliente DESC" />
                     <label class="form-check-label" for="Por Tipo de Pessoa">Por Tipo de Pessoa</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Valor Crescente" value=" VLR_PARC ASC" />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Valor Crescente" value="f.VLR_FAT ASC" />
                     <label class="form-check-label" for="Por Valor Crescente">Por Valor Crescente</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Valor Decrescente" value=" VLR_PARC DESC" />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Valor Decrescente" value="f.VLR_FAT DESC" />
                     <label class="form-check-label" for="Por Valor Decrescente">Por Valor Decrescente</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Data de Emissão Mais Atual" value=" tabela_ordens_producao.data_emissao DESC " />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Data de Emissão Mais Atual" value="f.DT_FAT DESC" />
                     <label class="form-check-label" for="Por Data de Emissão Mais Atual">Por Data de Emissão Mais
                       Atual</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Data de Emissão Mais Antiga" value=" tabela_ordens_producao.data_emissao ASC" />
+                    <input class="form-check-input" type="radio" name="ordenar" id="Por Data de Emissão Mais Antiga" value="f.DT_FAT ASC" />
                     <label class="form-check-label" for="Por Data de Emissão Mais Antiga">Por Data de Emissão Mais
                       Antiga</label>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Data Prevista  de Entrega Mais Atual" value=" tabela_ordens_producao.data_entrega DESC" />
-                    <label class="form-check-label" for="Por Data de Entrega Mais Atual">Por Valor Decrescente</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="ordenar" id="Por Data Prevista de Entrega Mais Antiga" value=" tabela_ordens_producao.data_entrega ASC" />
-                    <label class="form-check-label" for="Por Data de Entrega Mais Antiga">Por Por Valor Crescente</label>
-                  </div>
+                  
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="ordenar" id="Sem Ordenação" checked value="SemOrdem" />
                     <label class="form-check-label" for="Sem Ordenação">Sem Ordenação</label>
@@ -437,8 +313,8 @@ $hoje = date('Y-m-d');
                       <label class="form-check-label" for="Paisagem">Paisagem</label>
                     </div><br></br>
                   </div>
-                  <input class="form-check-input" type="hidden" name="campos1" checked id="Código da OP" value="tabela_ordens_producao.cod">
-                  <input class="form-check-input" type="hidden" name="campos19" checked id="Status" value="status" />
+                  <input class="form-check-input" type="hidden" name="campos1" checked id="Código" value="tabela_ordens_producao.cod">
+                  <input class="form-check-input" type="hidden" name="campos13" checked id="Status" value="status" />
                   <button type="submit" class="btn btn-info">Gerar Relatório</button>
                 </div>
           </form>
