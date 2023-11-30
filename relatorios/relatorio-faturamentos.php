@@ -2,9 +2,47 @@
 session_start();
 include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
+$Pesquisa = ' CODIGO NOT IN ("0") ';
+$Order = 'ORDER BY f.CODIGO DESC';
+if($_POST['cliente'] == 'codigo'){
+    $Pesquisa = $Pesquisa .' AND o.tipo_cliente = "'. $_POST['clientetipocod'].'" AND o.cod_cliente = "'.$_POST['clientecod'].'"';
+}
+if($_POST['cliente'] == 'nome'){
+    $Pesquisa = $Pesquisa .' AND o.tipo_cliente = "'. $_POST['clientetiponom'].'" AND o.cod_cliente = "'.$_POST['clientenome'].'"';
+}
+if($_POST['cliente'] == 'tipopessoa'){
+    $Pesquisa = $Pesquisa .' AND o.tipo_cliente = "'. $_POST['clienteselecione'].'"';
+}
 
+if($_POST['OpOrc'] == 'OpCod'){
+    $Pesquisa = $Pesquisa . ' AND o.cod = "'.$_POST['OpOrcCod'].'"';
+}
+if($_POST['OpOrc'] == 'CodOpOrc'){
+    $Pesquisa = $Pesquisa . ' AND o.orcamento_base = "'.$_POST['CodOpOrc'].'"';
+}
+
+if($_POST['produto'] == 'transporte'){
+    $Pesquisa = $Pesquisa . ' AND t.modalidade_frete = "'.$_POST['transportetipo'].'"';
+}
+
+if($_POST['emissor'] == 'PorEmiss'){
+    $Pesquisa = $Pesquisa . ' AND f.EMISSOR = "'.$_POST['emissorCod'].'"';
+}
+
+if($_POST['periodo'] == 'EmissPer'){
+    $Pesquisa = $Pesquisa . ' AND f.DT_FAT = "'.$_POST['periodoEmiss'].'"';
+}
+if($_POST['periodo'] == 'IncFimEmiss'){
+    $Pesquisa = $Pesquisa . ' AND f.DT_FAT > "'.$_POST['periodoIncEmiss'].'" AND f.DT_FAT < "'.$_POST['periodoFimEmiss'].'"';
+}
+if(isset($_POST['ordenar'])){
+if($_POST['ordenar'] != 'SemOrdem'){
+    $Order = 'ORDER BY '. $_POST['ordenar'];
+}
+}
 $faturamentos11 = 0;
-$query_faturamento_anteriores = $conexao->prepare("SELECT * FROM faturamentos ");
+
+$query_faturamento_anteriores = $conexao->prepare("SELECT * FROM faturamentos f INNER JOIN tabela_ordens_producao o ON o.cod = f.CODIGO_OP INNER JOIN tabela_notas_transporte t ON t.cod_nota = f.CODIGO WHERE $Pesquisa $Order");
 $query_faturamento_anteriores->execute();
 while ($linha = $query_faturamento_anteriores->fetch(PDO::FETCH_ASSOC)) {
     $FATURAMENTOS[$faturamentos11] = [
@@ -71,7 +109,7 @@ while ($linha = $query_faturamento_anteriores->fetch(PDO::FETCH_ASSOC)) {
 date_default_timezone_set('America/Sao_Paulo');
 $data_hora   = date('d/m/Y H:i:s ', time());
 $data_horaa = (string) $data_hora;
-$titulo = "<h5>RELATÓRIO DE ORDEM DE PRODUÇÃO - DATA E HORA DE EMISSÃO: " . $data_horaa . " - SISGRAFEX</h5><br>";
+$titulo = "<h5>RELATÓRIO DE FATURAMENTOS - DATA E HORA DE EMISSÃO: " . $data_horaa . " - SISGRAFEX</h5><br><h1 style='text-align: center;'><b>RELATÓRIO DE FATURAMENTOS</b></h1>";
 $Inicio_Tabela = "<table style=' solid black; width: 100%;  border-collapse:collapse; font-size: 10; 
 text-align: center;
 color: black;' border='1' class='table'>
@@ -389,24 +427,37 @@ $Tabela_Completa = $Inicio_Tabela . $Cabesalhos .  $Fecha_Inicio . $Dados_Comple
 $titulo = $titulo . 'Total de Resultados Encontrados: ' . $Exibir;
 $html = $titulo . $Tabela_Completa;
 
-echo $html;
+//echo $html;
 /// FIM CODIGO VARIAVEL///
 /////////////////////////////////////////////
 ///////////////// CODIGO FIXO ///////////////
 /////////////////////////////////////////////
-//  require_once __DIR__ . '../../vendor/autoload.php';
-// // Create an instance of the class:
-// $mpdf = new \mPDF();
-//         $mpdf = new mPDF('C', 'A4-L');
+ require_once __DIR__ . '../../vendor/autoload.php';
+// Create an instance of the class:
+$mpdf = new \mPDF();
 
-// $mpdf->SetDisplayMode('fullpage');
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'retrato') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4');
+    }
+}
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'paisagem') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4-L');
+    }
+}
 
-// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-// //level of a list
 
-// // LOAD a stylesheet
+$mpdf->SetDisplayMode('fullpage');
 
-// $mpdf->WriteHTML($html, 2);
-// $nome = 'Faturamentos';
-// $mpdf->Output($nome, 'I');
-// exit;
+$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+//level of a list
+
+// LOAD a stylesheet
+
+$mpdf->WriteHTML($html, 2);
+$nome = 'Faturamentos';
+$mpdf->Output($nome, 'I');
+exit;
