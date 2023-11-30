@@ -1385,7 +1385,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
     <?php } ?>
     <script src="../node_modules/bignumber.js/bignumber.js"></script>
     <script src="../js/orcamentacao.js"></script>
-    <script src="../js/cadastros.js"></script>
+    <script src="../js/cadastros_orcamento.js"></script>
     <script src="../js/produtoClonado.js"></script>
     <script src="../js/produtoSelecioando.js"></script>
     <?php include_once("../html/navbar-dow.php"); ?>

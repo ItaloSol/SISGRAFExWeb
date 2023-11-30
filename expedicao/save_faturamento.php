@@ -98,6 +98,37 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
             $adicionar_frete->execute();
             $atualizar_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '12' WHERE cod = $cod ");
             $atualizar_op->execute();
+            $buscacliente = $conexao->prepare("SELECT * FROM tabela_ordens_producao WHERE cod = $cod ");
+            $buscacliente->execute();
+            if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
+                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                $tipo = $linha['tipo_cliente'];
+            }
+            ?>
+        <input class="VALORES" type="text" id="<?= $cod_cliente ?>" name="<?= $tipo_cliente ?>" value="<?= $cod_cliente ?> <?= $tipo_cliente ?>"/>
+<script>
+    // Seleciona o elemento com a classe "VALORES"
+    var elemento = document.querySelector('.VALORES');
+
+    // Verifica se o elemento foi encontrado
+    if (elemento) {
+        // Constrói a URL para a API
+        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+
+        // Faz a requisição fetch
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log('executou', data);
+                // Faça algo com os dados recebidos da API
+            })
+            .catch(error => console.error('Erro:', error));
+    } else {
+        console.error('Elemento não encontrado.');
+    }
+  
+            </script>
+        <?php
             $_SESSION['msg'] = ' <div id="alerta"
                 role="bs-toast"
                 class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show "

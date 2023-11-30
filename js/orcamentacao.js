@@ -1,51 +1,51 @@
 // Adicione event listeners aos elementos relevantes
-  if (document.getElementById('descricao')) {
-    document.getElementById('descricao').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('descricao')) {
+  document.getElementById('descricao').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('largura')) {
-    document.getElementById('largura').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('largura')) {
+  document.getElementById('largura').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('altura')) {
-    document.getElementById('altura').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('altura')) {
+  document.getElementById('altura').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('espessura')) {
-    document.getElementById('espessura').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('espessura')) {
+  document.getElementById('espessura').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('peso')) {
-    document.getElementById('peso').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('peso')) {
+  document.getElementById('peso').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('qtdfolhas')) {
-    document.getElementById('qtdfolhas').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('qtdfolhas')) {
+  document.getElementById('qtdfolhas').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('valor_Papel')) {
-    document.getElementById('valor_Papel').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('valor_Papel')) {
+  document.getElementById('valor_Papel').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('tipoProduto')) {
-    document.getElementById('tipoProduto').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('tipoProduto')) {
+  document.getElementById('tipoProduto').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('PP')) {
-    document.getElementById('PP').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('PP')) {
+  document.getElementById('PP').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('PE')) {
-    document.getElementById('PE').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('PE')) {
+  document.getElementById('PE').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('TipoCommerce')) {
-    document.getElementById('TipoCommerce').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('TipoCommerce')) {
+  document.getElementById('TipoCommerce').addEventListener('change', NovoProduto);
+}
 
-  if (document.getElementById('Tipoativo')) {
-    document.getElementById('Tipoativo').addEventListener('change', NovoProduto);
-  }
+if (document.getElementById('Tipoativo')) {
+  document.getElementById('Tipoativo').addEventListener('change', NovoProduto);
+}
 //
 async function NovoProduto() {
   let descricao = await document.getElementById('descricao').value;
@@ -505,33 +505,33 @@ function abriPapels() {
           </tr>`;
       });
     });
-    setTimeout(() => {
-      document.getElementById('load1').style.display = 'none';
-      checkedPapel();
-    }, 1000)
-   
+  setTimeout(() => {
+    document.getElementById('load1').style.display = 'none';
+    checkedPapel();
+  }, 1000)
+
 }
 
-async function pesquisarpapel(){
+async function pesquisarpapel() {
   const pesquisa = document.getElementById('pesquiarpapelnome');
   await pesquisa.addEventListener('keyup', valor => {
-    if(pesquisa.value.length >= 3){
-     fetch('api_papel.php?nome='+ pesquisa.value)
-    .then(response => response.json())
-    .then(data => {
-      let valores = data.map(papel => ({
-        cod: papel.cod,
-        descricao: papel.descricao,
-        medida: papel.medida,
-        gramatura: papel.gramatura,
-        formato: papel.formato,
-        uma_face: papel.uma_face,
-        unitario: papel.unitario,
-      }));
+    if (pesquisa.value.length >= 3) {
+      fetch('api_papel.php?nome=' + pesquisa.value)
+        .then(response => response.json())
+        .then(data => {
+          let valores = data.map(papel => ({
+            cod: papel.cod,
+            descricao: papel.descricao,
+            medida: papel.medida,
+            gramatura: papel.gramatura,
+            formato: papel.formato,
+            uma_face: papel.uma_face,
+            unitario: papel.unitario,
+          }));
 
-      var completaInsertePapel = document.getElementById('PapelsSelecionado');
-      completaInsertePapel.innerHTML = '';
-      completaInsertePapel.innerHTML += `
+          var completaInsertePapel = document.getElementById('PapelsSelecionado');
+          completaInsertePapel.innerHTML = '';
+          completaInsertePapel.innerHTML += `
         <thead>
           <tr>
             <th>CODIGO</th>
@@ -545,8 +545,8 @@ async function pesquisarpapel(){
           </tr>
         </thead>`;
 
-      valores.forEach(result => {
-        completaInsertePapel.innerHTML += `
+          valores.forEach(result => {
+            completaInsertePapel.innerHTML += `
           <tr>
             <td>${result.cod}</td>
             <td>${result.descricao}</td>
@@ -557,11 +557,11 @@ async function pesquisarpapel(){
             <td>${result.unitario}</td>
             <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
           </tr>`;
-      });
-    });
-    }else{
-      if(pesquisa.value.length < 1){
-      abriPapels();
+          });
+        });
+    } else {
+      if (pesquisa.value.length < 1) {
+        abriPapels();
       }
     }
   })
@@ -570,23 +570,23 @@ async function pesquisarpapel(){
 async function pesquisarpapelcode() {
   const pesquisa = document.getElementById('pesquiarpapelCodigo');
   await pesquisa.addEventListener('keyup', valor => {
-    if(pesquisa.value.length >= 1){
-     fetch('api_papel.php?cod='+ pesquisa.value)
-    .then(response => response.json())
-    .then(data => {
-      let valores = data.map(papel => ({
-        cod: papel.cod,
-        descricao: papel.descricao,
-        medida: papel.medida,
-        gramatura: papel.gramatura,
-        formato: papel.formato,
-        uma_face: papel.uma_face,
-        unitario: papel.unitario,
-      }));
+    if (pesquisa.value.length >= 1) {
+      fetch('api_papel.php?cod=' + pesquisa.value)
+        .then(response => response.json())
+        .then(data => {
+          let valores = data.map(papel => ({
+            cod: papel.cod,
+            descricao: papel.descricao,
+            medida: papel.medida,
+            gramatura: papel.gramatura,
+            formato: papel.formato,
+            uma_face: papel.uma_face,
+            unitario: papel.unitario,
+          }));
 
-      var completaInsertePapel = document.getElementById('PapelsSelecionado');
-      completaInsertePapel.innerHTML = '';
-      completaInsertePapel.innerHTML += `
+          var completaInsertePapel = document.getElementById('PapelsSelecionado');
+          completaInsertePapel.innerHTML = '';
+          completaInsertePapel.innerHTML += `
         <thead>
           <tr>
             <th>CODIGO</th>
@@ -600,8 +600,8 @@ async function pesquisarpapelcode() {
           </tr>
         </thead>`;
 
-      valores.forEach(result => {
-        completaInsertePapel.innerHTML += `
+          valores.forEach(result => {
+            completaInsertePapel.innerHTML += `
           <tr>
             <td>${result.cod}</td>
             <td>${result.descricao}</td>
@@ -612,11 +612,11 @@ async function pesquisarpapelcode() {
             <td>${result.unitario}</td>
             <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
           </tr>`;
-      });
-    });
-    }else{
-      if(pesquisa.value.length < 1){
-      abriPapels();
+          });
+        });
+    } else {
+      if (pesquisa.value.length < 1) {
+        abriPapels();
       }
     }
   })
@@ -659,30 +659,30 @@ function abriAcabamentos() {
           </tr>`;
       });
     });
-    setTimeout(() => {
-      document.getElementById('load1').style.display = 'none';
-      checkedAcabamento();
-    }, 1000)
-   
+  setTimeout(() => {
+    document.getElementById('load1').style.display = 'none';
+    checkedAcabamento();
+  }, 1000)
+
 }
 
-async function pesquisaracabamento(){
+async function pesquisaracabamento() {
   const pesquisa = document.getElementById('pesquiaracabamentonome');
   await pesquisa.addEventListener('keyup', valor => {
-    if(pesquisa.value.length >= 3){
-      fetch('api_acabamento.php?nome='+ pesquisa.value)
-      .then(response => response.json())
-      .then(data => {
-        let valores = data.map(Acabamento => ({
-          CODIGO: Acabamento.CODIGO,
-          MAQUINA: Acabamento.MAQUINA,
-          ATIVA: Acabamento.ATIVA,
-          CUSTO_HORA: Acabamento.CUSTO_HORA,
-        }));
-  
-        var completaInserteAcabamento = document.getElementById('selecionarAcabamentos');
-        completaInserteAcabamento.innerHTML = '';
-        completaInserteAcabamento.innerHTML += `
+    if (pesquisa.value.length >= 3) {
+      fetch('api_acabamento.php?nome=' + pesquisa.value)
+        .then(response => response.json())
+        .then(data => {
+          let valores = data.map(Acabamento => ({
+            CODIGO: Acabamento.CODIGO,
+            MAQUINA: Acabamento.MAQUINA,
+            ATIVA: Acabamento.ATIVA,
+            CUSTO_HORA: Acabamento.CUSTO_HORA,
+          }));
+
+          var completaInserteAcabamento = document.getElementById('selecionarAcabamentos');
+          completaInserteAcabamento.innerHTML = '';
+          completaInserteAcabamento.innerHTML += `
           <thead>
             <tr>
             <th>CODIGO</th>
@@ -692,9 +692,9 @@ async function pesquisaracabamento(){
             <th>SELECIONAR</th>
             </tr>
           </thead>`;
-  
-        valores.forEach(result => {
-          completaInserteAcabamento.innerHTML += `
+
+          valores.forEach(result => {
+            completaInserteAcabamento.innerHTML += `
             <tr>
               <td>${result.CODIGO}</td>
               <td>${result.MAQUINA}</td>
@@ -702,33 +702,33 @@ async function pesquisaracabamento(){
               <td>${result.CUSTO_HORA}</td>
               <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
             </tr>`;
+          });
         });
-      });
-    }else{
-      if(pesquisa.value.length <= 1){
+    } else {
+      if (pesquisa.value.length <= 1) {
         abriAcabamentos();
       }
     }
   })
 }
 
-async function pesquisaracabamentocode(){
+async function pesquisaracabamentocode() {
   const pesquisa = document.getElementById('pesquiaracabamentoCodigo');
   await pesquisa.addEventListener('keyup', valor => {
-    if(pesquisa.value.length >= 1){
-      fetch('api_acabamento.php?cod='+ pesquisa.value)
-      .then(response => response.json())
-      .then(data => {
-        let valores = data.map(Acabamento => ({
-          CODIGO: Acabamento.CODIGO,
-          MAQUINA: Acabamento.MAQUINA,
-          ATIVA: Acabamento.ATIVA,
-          CUSTO_HORA: Acabamento.CUSTO_HORA,
-        }));
-  
-        var completaInserteAcabamento = document.getElementById('selecionarAcabamentos');
-        completaInserteAcabamento.innerHTML = '';
-        completaInserteAcabamento.innerHTML += `
+    if (pesquisa.value.length >= 1) {
+      fetch('api_acabamento.php?cod=' + pesquisa.value)
+        .then(response => response.json())
+        .then(data => {
+          let valores = data.map(Acabamento => ({
+            CODIGO: Acabamento.CODIGO,
+            MAQUINA: Acabamento.MAQUINA,
+            ATIVA: Acabamento.ATIVA,
+            CUSTO_HORA: Acabamento.CUSTO_HORA,
+          }));
+
+          var completaInserteAcabamento = document.getElementById('selecionarAcabamentos');
+          completaInserteAcabamento.innerHTML = '';
+          completaInserteAcabamento.innerHTML += `
           <thead>
             <tr>
             <th>CODIGO</th>
@@ -738,9 +738,9 @@ async function pesquisaracabamentocode(){
             <th>SELECIONAR</th>
             </tr>
           </thead>`;
-  
-        valores.forEach(result => {
-          completaInserteAcabamento.innerHTML += `
+
+          valores.forEach(result => {
+            completaInserteAcabamento.innerHTML += `
             <tr>
               <td>${result.CODIGO}</td>
               <td>${result.MAQUINA}</td>
@@ -748,10 +748,10 @@ async function pesquisaracabamentocode(){
               <td>${result.CUSTO_HORA}</td>
               <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
             </tr>`;
+          });
         });
-      });
-    }else{
-        abriAcabamentos();
+    } else {
+      abriAcabamentos();
     }
   })
 }
@@ -916,32 +916,32 @@ function abriServicos() {
         </tr>`;
       });
     });
-    setTimeout(() => {
-      document.getElementById('load1').style.display = 'none';
-      checkedServico();
-    }, 1000)
-   
+  setTimeout(() => {
+    document.getElementById('load1').style.display = 'none';
+    checkedServico();
+  }, 1000)
+
 }
 
-async function pesquisarservico(){
+async function pesquisarservico() {
   const pesquisa = document.getElementById('pesquiarserviconome');
   await pesquisa.addEventListener('keyup', valor => {
-    if(pesquisa.value.length >= 3){
-      fetch('api_servico.php?nome='+ pesquisa.value)
-      .then(response => response.json())
-      .then(data => {
-        let valores = data.map(Servico => ({
-           cod: Servico.cod,
-        descricao: Servico.descricao,
-        valor_minimo: Servico.valor_minimo,
-        valor_unitario: Servico.valor_unitario,
-        servico_geral: Servico.servico_geral,
-        tipo_servico: Servico.tipo_servico,
-        }));
-  
-        var completaInserteServico = document.getElementById('selecionarServicos');
-        completaInserteServico.innerHTML = '';
-        completaInserteServico.innerHTML += `
+    if (pesquisa.value.length >= 3) {
+      fetch('api_servico.php?nome=' + pesquisa.value)
+        .then(response => response.json())
+        .then(data => {
+          let valores = data.map(Servico => ({
+            cod: Servico.cod,
+            descricao: Servico.descricao,
+            valor_minimo: Servico.valor_minimo,
+            valor_unitario: Servico.valor_unitario,
+            servico_geral: Servico.servico_geral,
+            tipo_servico: Servico.tipo_servico,
+          }));
+
+          var completaInserteServico = document.getElementById('selecionarServicos');
+          completaInserteServico.innerHTML = '';
+          completaInserteServico.innerHTML += `
           <thead>
             <tr>
             <th>CODIGO</th>
@@ -952,9 +952,9 @@ async function pesquisarservico(){
             <th>SELECIONAR</th>
             </tr>
           </thead>`;
-  
-        valores.forEach(result => {
-          completaInserteServico.innerHTML += `
+
+          valores.forEach(result => {
+            completaInserteServico.innerHTML += `
             <tr>
               <td>${result.cod}</td>
               <td>${result.descricao}</td>
@@ -963,35 +963,35 @@ async function pesquisarservico(){
               <td>${result.tipo_result}</td>
               <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
             </tr>`;
+          });
         });
-      });
-    }else{
-      if(pesquisa.value.length <= 1){
+    } else {
+      if (pesquisa.value.length <= 1) {
         abriServicos();
       }
     }
   })
 }
 
-async function pesquisarservicocode(){
+async function pesquisarservicocode() {
   const pesquisa = document.getElementById('pesquiarservicoCodigo');
   await pesquisa.addEventListener('keyup', valor => {
-    if(pesquisa.value.length >= 1){
-      fetch('api_servico.php?cod='+ pesquisa.value)
-      .then(response => response.json())
-      .then(data => {
-        let valores = data.map(Servico => ({
-           cod: Servico.cod,
-        descricao: Servico.descricao,
-        valor_minimo: Servico.valor_minimo,
-        valor_unitario: Servico.valor_unitario,
-        servico_geral: Servico.servico_geral,
-        tipo_servico: Servico.tipo_servico,
-        }));
-  
-        var completaInserteServico = document.getElementById('selecionarServicos');
-        completaInserteServico.innerHTML = '';
-        completaInserteServico.innerHTML += `
+    if (pesquisa.value.length >= 1) {
+      fetch('api_servico.php?cod=' + pesquisa.value)
+        .then(response => response.json())
+        .then(data => {
+          let valores = data.map(Servico => ({
+            cod: Servico.cod,
+            descricao: Servico.descricao,
+            valor_minimo: Servico.valor_minimo,
+            valor_unitario: Servico.valor_unitario,
+            servico_geral: Servico.servico_geral,
+            tipo_servico: Servico.tipo_servico,
+          }));
+
+          var completaInserteServico = document.getElementById('selecionarServicos');
+          completaInserteServico.innerHTML = '';
+          completaInserteServico.innerHTML += `
           <thead>
             <tr>
             <th>CODIGO</th>
@@ -1002,9 +1002,9 @@ async function pesquisarservicocode(){
             <th>SELECIONAR</th>
             </tr>
           </thead>`;
-  
-        valores.forEach(result => {
-          completaInserteServico.innerHTML += `
+
+          valores.forEach(result => {
+            completaInserteServico.innerHTML += `
             <tr>
               <td>${result.cod}</td>
               <td>${result.descricao}</td>
@@ -1013,20 +1013,20 @@ async function pesquisarservicocode(){
               <td>${result.tipo_result}</td>
               <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
             </tr>`;
+          });
         });
-      });
-    }else{
-        abriServicos();
+    } else {
+      abriServicos();
     }
   })
 }
 
 // FUNÇÕES PARA VALIDADAR CALCULO
-setTimeout(function() {
+setTimeout(function () {
   const elementos = document.querySelectorAll('.formato-impressao');
-  
-  elementos.forEach(function(elemento) {
-    elemento.addEventListener('keydown', function(event) {
+
+  elementos.forEach(function (elemento) {
+    elemento.addEventListener('keydown', function (event) {
       // Verifique se o código da tecla pressionada não está na faixa dos números (48-57)
       if (event.keyCode < 48 || event.keyCode > 57 || event.key === '0') {
         elemento.classList.add('formato-impressao');
