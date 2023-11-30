@@ -146,6 +146,8 @@ $ENTREGUE9 = 0;
 $AUTORIZADO_OD_CLI11 = 0;
 $NAO_OD_CLI12 = 0;
 $hoje = date('Y-m-d');
+$limpa_vencidos = $conexao->prepare("UPDATE tabela_orcamentos SET STATUS = '14' WHERE STATUS = '1' AND data_validade < '$hoje'");
+$limpa_vencidos->execute();
 $vencendo = date('Y-m-d', strtotime('+' . 5 . 'day', strtotime($hoje)));
 $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos  ");
 $query_ordens_finalizadas->execute();
