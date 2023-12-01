@@ -5,6 +5,8 @@ include_once('../conexoes/conexao.php');
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
+?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c; width: 100%; height: 100vh; z-index: 9999999999999; align-items: center; justify-content: center; display: flex; color: white; font-size: 40px;"> CARREGANDO<br> <div><br> <img style="position:absolute; margin-left: -220px;  justify-content: start; display: flex; color: white; font-size: 40px;" src="../img/preloader.svg"> </div> </div>
+<?php
 if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
     if (isset($_POST['FATURAR'])) {
         $cod = $_POST['codigo'];
@@ -46,7 +48,7 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
                 Não pode ser faturado quantidade maior que a restante!    
             </div>
         </div>';
-              header('location: ../html/painel.php?p');
+              ?><script> setTimeout(function() {window.location.href = '../html/painel.php?p';}, 1000);    </script><?php
             echo 'cencelar';
         }
         if ($quantidade == 0) {
@@ -70,7 +72,7 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
                 Não é pode ser faturado a quantidade 0;  
             </div>
         </div>';
-              header('location: ../html/painel.php?p');
+              ?><script> setTimeout(function() {window.location.href = '../html/painel.php?p';}, 1000);    </script><?php
         }
 
 
@@ -148,7 +150,7 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
                     Faturamento Parcial Feito!    
                 </div>
             </div>';
-              header('location: ../html/painel.php?p');
+              ?><script> setTimeout(function() {window.location.href = '../html/painel.php?p';}, 1000);    </script><?php
         }
 
         if ($quantidade == $quantidade_restante) {
@@ -222,7 +224,7 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
                 Faturamento Feito!    
             </div>
         </div>';
-              header('location: ../html/painel.php?p');
+             ?><script> setTimeout(function() {window.location.href = '../html/painel.php?p';}, 1000);    </script><?php
         }
     }
     if (isset($_POST['excluir'])) {
@@ -289,8 +291,8 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
                 Faturamento Deletado com Sucesso!    
             </div>
         </div>';
-          header('location: ../html/painel.php?p');
+          ?><script> setTimeout(function() {window.location.href = '../html/painel.php?p';}, 1000);    </script><?php
     }
 } else {
-      header('location: ../html/painel.php?p');
+      ?><script> setTimeout(function() {window.location.href = '../html/painel.php?p';}, 1000);    </script><?php
 }

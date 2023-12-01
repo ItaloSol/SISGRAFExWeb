@@ -6,6 +6,8 @@ $cod = $_GET['cod'];
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
+?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c; width: 100%; height: 100vh; z-index: 9999999999999; align-items: center; justify-content: center; display: flex; color: white; font-size: 40px;"> CARREGANDO<br> <div><br> <img style="position:absolute; margin-left: -220px;  justify-content: start; display: flex; color: white; font-size: 40px;" src="../img/preloader.svg"> </div> </div>
+<?php
 if (isset($_GET['acao'])) {
 
   if ($_GET['acao'] == '6') {
@@ -40,10 +42,12 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           var elemento = document.querySelector('.VALORES');
-      
+            
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
@@ -63,7 +67,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+               ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '13') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '13'  WHERE cod = '$cod' ");
@@ -97,7 +101,10 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -120,7 +127,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+                       ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '2') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '2'  WHERE cod = '$cod' ");
@@ -202,7 +209,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-    header("Location: tl-orcamento.php?cod=$cod");
+                       ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '3') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '3'  WHERE cod = '$cod' ");
@@ -236,7 +243,10 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -259,7 +269,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '7') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '7'  WHERE cod = '$cod' ");
@@ -338,7 +348,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+          ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '4') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '4'  WHERE cod = '$cod' ");
@@ -372,7 +382,10 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -395,7 +408,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+          ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '5') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '5'  WHERE cod = '$cod' ");
@@ -429,7 +442,10 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -452,7 +468,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '9') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '1'  WHERE cod = '$cod' ");
@@ -486,7 +502,10 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -509,7 +528,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '11') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '11'  WHERE cod = '$cod' ");
@@ -543,7 +562,10 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -566,7 +588,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '12') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '12'  WHERE cod = '$cod' ");
@@ -600,7 +622,10 @@ if (isset($_GET['acao'])) {
             }
     ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -623,7 +648,7 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-   // header("Location: tl-orcamento.php?cod=$cod");
+         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
   }
 }
 if (isset($_GET['data'])) {
@@ -660,7 +685,10 @@ if (isset($_GET['data'])) {
             }
   ?>
          <input class="VALORES" type="text" id="<?= $cod ?>" name="<?= $tipo ?>" value="<?= $cod ?> <?= $tipo ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
+          // Seleciona o elemento com a classe "VALORES"
+          var cod = document.getElementById('codigoOp');
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
@@ -683,5 +711,5 @@ if (isset($_GET['data'])) {
         
                   </script>
               <?php
- // header("Location: tl-orcamento.php?cod=$cod");
+         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
 }
