@@ -5,7 +5,8 @@ include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
-
+?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c; width: 100%; height: 100vh; z-index: 9999999999999; align-items: center; justify-content: center; display: flex; color: white; font-size: 40px;"> CARREGANDO<br> <div><br> <img style="position:absolute; margin-left: -220px;  justify-content: start; display: flex; color: white; font-size: 40px;" src="../img/preloader.svg"> </div> </div>
+<?php
 if (isset($_POST['excluir'])) {
     if (isset($_POST['valor']) && isset($_POST['forma_pagamento']) && isset($_POST['codigo_cliente'])) {
         $cod = $_POST['numero'];
@@ -130,7 +131,7 @@ if (isset($_POST['excluir'])) {
   
             </script>
         <?php
-        header("Location: tl-cadastro-notas.php?tp=3");
+         ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
@@ -151,7 +152,8 @@ if (isset($_POST['excluir'])) {
                  Erro é necessario selecionar os campos Obrigatórios!   
             </div>
           </div>';
-        header("Location: tl-cadastro-notas.php");
+          ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
+   
     }
 }
 if (isset($_POST['salvar'])) {
@@ -294,9 +296,9 @@ if (isset($_POST['salvar'])) {
         $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Adicionado nota de credito para o Cliente: $cod_cliente, Tipo: $tipo_cliente, Valor: $valor' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
         if ($tipo_cliente == '1') {
-            header("Location: tl-cadastro-notas.php?tp=1");
+            ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=1';}, 1000);    </script><?php
         } else {
-            header("Location: tl-cadastro-notas.php?tp=2");
+            ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=2';}, 1000);    </script><?php
         }
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
@@ -319,7 +321,7 @@ if (isset($_POST['salvar'])) {
                  Confira o Contato e o Endereço!   
             </div>
           </div>';
-        header("Location: tl-cadastro-notas.php");
+          ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
     }
 }
 if (isset($_POST['editar'])) {
@@ -463,7 +465,7 @@ if (isset($_POST['editar'])) {
               <?php
         $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito editada do Cliente $cod_cliente, Tipo: $tipo_cliente, Cod Nota: $cod ' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
-        header("Location: tl-cadastro-notas.php?tp=3");
+        ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
@@ -484,6 +486,6 @@ if (isset($_POST['editar'])) {
                  Erro é necessario selecionar os campos Obrigatórios!   
             </div>
           </div>';
-        header("Location: tl-cadastro-notas.php");
+          ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
     }
 }
