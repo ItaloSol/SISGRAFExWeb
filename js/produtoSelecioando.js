@@ -233,6 +233,7 @@ async function SelecionarSelecioando() {
 function RecuperaProdutoSelecionado() {
   
   let codigo_do_produto = [];
+  let codigo_do_acabado = [];
   if (localStorage.getItem('AcabamentoSelecionado')) {
     ApagarAcabamento('AcabamentoSelecionado');
   }
@@ -381,8 +382,20 @@ function RecuperaProdutoSelecionado() {
             if (data.cod_acabamentos) {
               campo.cod_acabamentos = data.cod_acabamentos;
             }
+            if (data.cod_acabamentos) {
+              campo.cod_AC = {
+                cod_PLS: data.cod_acabamentos,
+                codigoPP: data.cod_produto
+              };
+            }
             if (data.cod_papels) {
-              campo.cod_papels = data.cod_papels;
+              campo.cod_PP = {
+                cod_PLS: data.cod_papels,
+                codigoPP: data.cod_produto
+              };
+            }
+            if (data.cod_papels) {
+              campo.cod_papels = data.cod_papels;  
             }
             if (data.PRE_VENDA) {
               campo.PRE_VENDA = data.PRE_VENDA;
@@ -514,10 +527,8 @@ function RecuperaProdutoSelecionado() {
         campos.forEach(campo => {
           
             if(campo.cod_produto){
-           codigo_do_produto.push(campo.cod_produto);
-              
-           
-           
+              codigo_do_produto.push(campo.cod_PP);   
+              codigo_do_acabado.push(campo.cod_AC)
             }
           tableProduto.innerHTML += `
           <tr>
@@ -527,7 +538,7 @@ function RecuperaProdutoSelecionado() {
             <td>${campo.ALTURA}</td>
             <td>${campo.QTD_PAGINAS}</td>
           </tr>`;
-
+            console.log()
           tableTiragens.innerHTML += `
           <tr>
             <td>${campo.cod_produto}</td>
@@ -542,8 +553,8 @@ function RecuperaProdutoSelecionado() {
        
     
         setTimeout(function () {
-          recuperarNomesPapel('1', codigo_do_produto);
-        recuperarNomesAcabamento('seleccionadoacabamentos');
+          recuperarNomesPapel('1', codigo_do_produto );
+        recuperarNomesAcabamento('seleccionadoacabamentos', codigo_do_acabado);
         document.getElementById('load1').style.display = 'none';
         }, 1000);
         

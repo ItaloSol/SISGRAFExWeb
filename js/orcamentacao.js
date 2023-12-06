@@ -209,7 +209,7 @@ if (localStorage.getItem('AcabamentoSelecionado')) {
   recuperarNomesAcabamento('NovoAcabemtnoSe');
 }
 
-function recuperarNomesAcabamento(iddovalor) {
+function recuperarNomesAcabamento(iddovalor, codigo_do_produto) {
   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
 
@@ -314,7 +314,6 @@ function selecionarPapel(valor) {
 }
 
 function recuperarNomesPapel(valor, codigo_do_produto) {
-
   let papelSelecionado = localStorage.getItem('papelSelecionado');
   let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
@@ -385,9 +384,12 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       let cont = 0;
       results.forEach(result => {
         tableBody.innerHTML += `<tr>`;
-        if (codigo_do_produto) {
-          tableBody.innerHTML += `
-          <td>${codigo_do_produto}</td>
+        if (codigo_do_produto && Array.isArray(codigo_do_produto)) {
+          const objetoCorrespondente = codigo_do_produto.find(obj => obj.cod_PLS.includes(result.codPapels));
+        
+          if (objetoCorrespondente) {
+            tableBody.innerHTML += `
+              <td>${objetoCorrespondente.codigoPP}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
              <td>${result.tipo_papel}</td>
@@ -400,7 +402,10 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
              <td><input class="form-control" id="GChapa${result.codPapels}" value="0" type="number"></td>
              <td>${result.preco_chapa}</td>
            `;
-          cont++;
+            cont++;
+          } else {
+            console.error(`Objeto com codigoPLS ${result.codPapels} não encontrado na lista.`);
+          }
         } else {
           tableBody.innerHTML += `
              <td>${result.codPapels}</td>
