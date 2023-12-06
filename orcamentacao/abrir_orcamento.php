@@ -577,7 +577,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
           </div>
           <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
           <input type="text" class="form-control" id="ValorTotalOrc" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
-          <button style="margin-bottom: 20px; display: none" type="button" class="btn btn-success" id="SalvarPO" >
+          <button style="margin-bottom: 20px; display: none" type="button" class="btn btn-success" onclick="SalvarOrcamento()" id="SalvarPO" >
                           Salvar orçamento
                         </button>
           <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->

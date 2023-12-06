@@ -719,7 +719,7 @@ if (Total.toFixed(2) != 'NaN') {
 }
 
 // ENVIAR PARA O BANCO DE DADOS/SALVAR
-function EnviaDados(){
+function SalvarOrcamento(){
 console.log('Entrou')
 
 }
