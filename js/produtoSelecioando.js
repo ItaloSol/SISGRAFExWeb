@@ -327,21 +327,21 @@ function RecuperaProdutoSelecionado() {
               campo.observacao_produto = data.observacao_produto;
             }
             if (data.preco_unitario) {
-              campo.preco_unitario = `<input class="form-control" type="number" name="preco_unitario" id="preco_unitario" value="${data.preco_unitario}">`;
+              campo.preco_unitario = `<input class="form-control" type="number" name="preco_unitario" id="preco_unitario${data.CODIGO}" value="${data.preco_unitario}">`;
             }
             if (data.valor_digital) {
-              campo.valor_digital = `<input class="form-control" type="number" name="valor_digital" id="valor_digital" value="${data.valor_digital}">`;
+              campo.valor_digital = `<input class="form-control" type="number" name="valor_digital" id="valor_digital${data.CODIGO}" value="${data.valor_digital}">`;
             }
             if (data.tipo_trabalho) {
               campo.tipo_trabalho = data.tipo_trabalho;
             }
             if (data.maquina) {
               if(data.maquina == 1){
-                campo.digital = `<input class="form-check-input" type="checkbox" value="1" checked name="digital">`;
-                campo.offset = `<input class="form-check-input" type="checkbox" value="2" name="offset">`;
+                campo.digital = `<input class="form-check-input" id="campo${data.CODIGO}" type="checkbox" value="1" checked name="digital">`;
+                campo.offset = `<input class="form-check-input" id="campo${data.CODIGO}" type="checkbox" value="2" name="offset">`;
               }else{
-                campo.digital = `<input class="form-check-input" type="checkbox" value="1" name="digital">`;
-                campo.offset = `<input class="form-check-input" type="checkbox" value="2" checked name="offset">`;
+                campo.digital = `<input class="form-check-input" id="campo${data.CODIGO}" type="checkbox" value="1" name="digital">`;
+                campo.offset = `<input class="form-check-input" id="campo${data.CODIGO}" type="checkbox" value="2" checked name="offset">`;
               }
               
             }
@@ -538,7 +538,6 @@ function RecuperaProdutoSelecionado() {
             <td>${campo.ALTURA}</td>
             <td>${campo.QTD_PAGINAS}</td>
           </tr>`;
-            console.log()
           tableTiragens.innerHTML += `
           <tr>
             <td>${campo.cod_produto}</td>

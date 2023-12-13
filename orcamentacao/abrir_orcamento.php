@@ -196,8 +196,8 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                         <div class="divider-text">CONTATO</div>
                       </div>
                       <div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Contato:</label>
-                        <select class="form-select" name="contato" id="exampleFormControlSelect1" aria-label="Default select example" required>
+                        <label for="selecione_contato" class="form-label">Contato:</label>
+                        <select class="form-select" name="contato" id="selecione_contato" aria-label="Default select example" required>
                           <option>Selecione um contato</option>
                           <?php
                           $a = 0;
@@ -214,9 +214,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                         <div class="divider-text">ENDEREÇO</div>
                       </div>
                       <div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Endereço:</label>
-                        <select class="form-select" name="endereco" id="exampleFormControlSelect1" aria-label="Default select example" required>
-                          <option>Selecione um Endereço</option>
+                        <label for="selecione_endereco" class="form-label">Endereço:</label>
+                        <select class="form-select" name="endereco" id="selecione_endereco" aria-label="Default select example" required>
+                          <option>Selecione um endereço</option>
                           <?php
                           $a = 0;
                           while ($endereco > $a) {
