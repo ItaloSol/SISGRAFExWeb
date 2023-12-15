@@ -532,20 +532,26 @@ function calcularValor() {
   // TIRAGENS
   const Tiragens = JSON.parse(JsTiragens)
   let ValorImpressao = 0
-  let digital, offset, ValorUnitario, cod_pProduto = 0;
+  let Arr_pProduto = {};
+  let Arr_quantidade = {};
+  let cod_pProduto = 0
+  var x = 0;
+  let digital, offset = 0;
   let Quantidade = 0;
   Tiragens.map(item => {
     // Quantidade
     cod_pProduto = item.produto;
+    Arr_pProduto[x] = [item.produto];
+    Arr_quantidade[x] = +document.getElementById('quantidade'+item.produto).value;
     Quantidade = +document.getElementById('quantidade').value
     ValorImpressao += +item.valorImpressaoDigital * Quantidade;
     ValorUnitario = +item.valorUnidade;
     digital = item.digital;
     offset = item.offset;
-    
+    x++;
   });
 
-  
+
 
   // Limpa os Cliques
   var AdicionandoClique = document.getElementById('calculo_clique');
@@ -613,7 +619,7 @@ function calcularValor() {
             }
           }
         }
-       
+
 
         QuantidadeGasta = retornaQuantidadeFolhas(
           +tipoProduto,
@@ -676,7 +682,7 @@ function calcularValor() {
   let Total = 0;
   if (digital === false && offset === false || digital === true && offset === true) {
     alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
-    Total = 'ERRO'; 
+    Total = 'ERRO';
   } else {
     if (Manual == false) {
       if (digital === true) {
@@ -690,10 +696,14 @@ function calcularValor() {
         Total += ValorFrete;
         Total += ValorArte;
         Total -= (Total * DescontoConvertido);
-        ValorUnitario_Final = parseFloat((Total / Quantidade).toFixed(2));
-        Total = +ValorUnitario_Final * +Quantidade;
-        
-        document.getElementById('preco_unitario'+ cod_pProduto).value = +ValorUnitario_Final
+        for (let chave in Arr_pProduto) {
+          let arrayInterno = Arr_pProduto[chave];
+          
+        ValorUnitario_Final = parseFloat((Total / Arr_quantidade[chave]).toFixed(2));
+        Total += +ValorUnitario_Final * +Arr_quantidade[chave];
+            // Obtém o array correspondente à chave
+            document.getElementById('preco_unitario' + arrayInterno).value =  ValorUnitario_Final;
+        }
       }
       if (offset === true) {
         SomaValor += ValorAcabamento;
@@ -705,32 +715,43 @@ function calcularValor() {
         Total += ValorArte;
         Total -= (Total * DescontoConvertido);
         ValorUnitario_Final = parseFloat((Total / Quantidade).toFixed(2));
-        Total = ValorUnitario_Final * Quantidade;
-        document.getElementById('preco_unitario' + cod_pProduto).value = ValorUnitario_Final
+        Total += +ValorUnitario_Final * +Quantidade;
+        for (let chave in Arr_pProduto) {
+          if (Arr_pProduto.hasOwnProperty(chave)) {
+            // Obtém o array correspondente à chave
+            let arrayInterno = Arr_pProduto[chave];
+            document.getElementById('preco_unitario' + arrayInterno).value =  ValorUnitario_Final;
+          }
+        }
       }
     } else {
-      Total = document.getElementById('preco_unitario' + cod_pProduto).value * Quantidade;
+      for (let chave in Arr_pProduto) {
+        if (Arr_pProduto.hasOwnProperty(chave)) {
+          // Obtém o array correspondente à chave
+          let arrayInterno = Arr_pProduto[chave];
+          console.log(document.getElementById('preco_unitario' + arrayInterno).value)
+          Total += document.getElementById('preco_unitario' + arrayInterno).value * Quantidade;
+        }
+      }
+
+      // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
+      if (Total.toFixed(2) != 'NaN') {
+        document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
+        SalvarPO();
+      }
     }
-
-  }
-
-  // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
-  if (Total.toFixed(2) != 'NaN') {
-    document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
-    SalvarPO();
   }
 }
-
-// ENVIAR PARA O BANCO DE DADOS/SALVAR
-function SalvarOrcamento() {
-  const contato = document.getElementById('selecione_contato');
-  const endereco = document.getElementById('selecione_endereco')
-  if (contato.value == 'Selecione um contato') {
-    window.location.href = '#selecione_contato';
-    window.alert('O contato do cliente não foi selecionado!');
-  }
-  if (endereco.value == 'Selecione um endereço') {
-    window.location.href = '#selecione_endereco';
-    window.alert('O endereço do cliente não foi selecionado!');
-  }
-}
+    // ENVIAR PARA O BANCO DE DADOS/SALVAR
+    function SalvarOrcamento() {
+      const contato = document.getElementById('selecione_contato');
+      const endereco = document.getElementById('selecione_endereco')
+      if (contato.value == 'Selecione um contato') {
+        window.location.href = '#selecione_contato';
+        window.alert('O contato do cliente não foi selecionado!');
+      }
+      if (endereco.value == 'Selecione um endereço') {
+        window.location.href = '#selecione_endereco';
+        window.alert('O endereço do cliente não foi selecionado!');
+      }
+    }

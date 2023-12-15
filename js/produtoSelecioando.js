@@ -314,7 +314,7 @@ function RecuperaProdutoSelecionado() {
               campo.tipo_papel = data.tipo_papel;
             }
             if (data.quantidade) {
-              campo.quantidade = `<input class="form-control" type="number" id="quantidade" name="quantidade" value="${data.quantidade}">`;
+              campo.quantidade = `<input class="form-control" type="number" id="quantidade" name="quantidade" value="${data.quantidade}"><input class="form-control" type="hidden" id="quantidade${data.CODIGO}" name="quantidade${data.CODIGO}" value="${data.quantidade}">`;
             }
             if (data.descrisaozinha_prod) {
               campo.descrisaozinha_prod = data.descrisaozinha_prod;
