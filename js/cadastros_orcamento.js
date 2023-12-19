@@ -395,9 +395,10 @@ function PuxaDisponibilidade(qtd, tipo) {
 function AdicionarCliqueAtabela(quantiade, valor) { // , quantiade, valor
   var AdicionandoClique = document.getElementById('calculo_clique');
   AdicionandoClique.innerHTML += `
+  
         <tr>
           <td>${quantiade}</td>
-          <td>${valor}</td>
+          <td>R$ ${valor}</td>
         </tr>`;
 }
 
@@ -542,7 +543,7 @@ function calcularValor() {
     // Quantidade
     cod_pProduto = item.produto;
     Arr_pProduto[x] = [item.produto];
-    Arr_quantidade[x] = +document.getElementById('quantidade'+item.produto).value;
+    Arr_quantidade[x] = +document.getElementById('quantidade' + item.produto).value;
     Quantidade = +document.getElementById('quantidade').value
     ValorImpressao += +item.valorImpressaoDigital * Quantidade;
     ValorUnitario = +item.valorUnidade;
@@ -555,7 +556,10 @@ function calcularValor() {
 
   // Limpa os Cliques
   var AdicionandoClique = document.getElementById('calculo_clique');
-  AdicionandoClique.innerHTML = ``;
+  AdicionandoClique.innerHTML = `<tr>
+  <th>CLIQUE</th>
+  <th>VALOR</th>
+  </tr>`;
 
   // PAPEIS
 
@@ -698,11 +702,10 @@ function calcularValor() {
         Total -= (Total * DescontoConvertido);
         for (let chave in Arr_pProduto) {
           let arrayInterno = Arr_pProduto[chave];
-          
-        ValorUnitario_Final = parseFloat((Total / Arr_quantidade[chave]).toFixed(2));
-        Total += +ValorUnitario_Final * +Arr_quantidade[chave];
-            // Obtém o array correspondente à chave
-            document.getElementById('preco_unitario' + arrayInterno).value =  ValorUnitario_Final;
+          ValorUnitario_Final = parseFloat((Total / Arr_quantidade[chave]).toFixed(2));
+          Total += +ValorUnitario_Final * +Arr_quantidade[chave];
+          // Obtém o array correspondente à chave
+          document.getElementById('preco_unitario' + arrayInterno).value = ValorUnitario_Final;
         }
       }
       if (offset === true) {
@@ -720,7 +723,7 @@ function calcularValor() {
           if (Arr_pProduto.hasOwnProperty(chave)) {
             // Obtém o array correspondente à chave
             let arrayInterno = Arr_pProduto[chave];
-            document.getElementById('preco_unitario' + arrayInterno).value =  ValorUnitario_Final;
+            document.getElementById('preco_unitario' + arrayInterno).value = ValorUnitario_Final;
           }
         }
       }
@@ -733,25 +736,24 @@ function calcularValor() {
           Total += document.getElementById('preco_unitario' + arrayInterno).value * Quantidade;
         }
       }
-
+    }
       // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
-      if (Total.toFixed(2) != 'NaN') {
-        document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
-        SalvarPO();
-      }
+    if (Total.toFixed(2) != 'NaN') {
+      document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
+      SalvarPO();
     }
   }
 }
-    // ENVIAR PARA O BANCO DE DADOS/SALVAR
-    function SalvarOrcamento() {
-      const contato = document.getElementById('selecione_contato');
-      const endereco = document.getElementById('selecione_endereco')
-      if (contato.value == 'Selecione um contato') {
-        window.location.href = '#selecione_contato';
-        window.alert('O contato do cliente não foi selecionado!');
-      }
-      if (endereco.value == 'Selecione um endereço') {
-        window.location.href = '#selecione_endereco';
-        window.alert('O endereço do cliente não foi selecionado!');
-      }
-    }
+// ENVIAR PARA O BANCO DE DADOS/SALVAR
+function SalvarOrcamento() {
+  const contato = document.getElementById('selecione_contato');
+  const endereco = document.getElementById('selecione_endereco')
+  if (contato.value == 'Selecione um contato') {
+    window.location.href = '#selecione_contato';
+    window.alert('O contato do cliente não foi selecionado!');
+  }
+  if (endereco.value == 'Selecione um endereço') {
+    window.location.href = '#selecione_endereco';
+    window.alert('O endereço do cliente não foi selecionado!');
+  }
+}
