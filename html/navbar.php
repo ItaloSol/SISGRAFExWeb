@@ -370,12 +370,12 @@ $refresh = 0;
           </a>
         </li>
 
-        <li class=" diaria menu-item">
+        <!-- <li class=" diaria menu-item">
           <a href="../producao/tl-relatorio-diario.php" class="menu-link">
             <iconify-icon icon="material-symbols:fact-check" width="20" height="20"></iconify-icon>
             <div data-i18n="Basic">&nbsp &nbspO.P DIÁRIA</div>
           </a>
-        </li>
+        </li> -->
 
         <!-- Sub-Menu de Relatório -->
         <li class="menu-item">
