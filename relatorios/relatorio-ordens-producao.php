@@ -29,7 +29,7 @@ if (isset($_POST['cliente'])) {
     if ($_POST['cliente'] == 'nome') {
         $Nome_Cliente = $_POST['clientenome'];
         $Tipo_Cliente = $_POST['clientetiponom'];
-        $Cliente = ' nome';
+        $Cliente = 'nome';
         $Qtd_Cliente++;
     }
     if ($_POST['cliente'] == 'todos') {
@@ -38,31 +38,23 @@ if (isset($_POST['cliente'])) {
     }
 
     if ($Cliente == 'nome') {
-        if ($Tipo_Cliente == '1') {
-            $Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE nome LIKE '%$Nome_Cliente%' ");
-        }
-        if ($Tipo_Cliente == '2') {
-            $Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE nome LIKE '%$Nome_Cliente%' ");
-        }
-        $Nome_Clientes->execute();
-        $i = 0;
-        if ($linha = $Nome_Clientes->fetch(PDO::FETCH_ASSOC)) {
-            $Cod_Cliente_Buscado = $linha['cod'];
-        }
-        $Cliente = ' tipo_cliente = "' . $Tipo_Cliente . '" AND cod_cliente = "' . $Cod_Cliente_Buscado . '" ';
+    if ($Tipo_Cliente == '1') {
+        $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE  nome LIKE '%$Nome_Cliente%'");
+      }
+      if ($Tipo_Cliente == '2') {
+        $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos  WHERE  nome LIKE '%$Nome_Cliente%'");
+      }
+      $query_Nome_Clientes->execute();
+    
+      if ($linhaPPP = $query_Nome_Clientes->fetch(PDO::FETCH_ASSOC)) {
+        $Cod_Cliente_Buscado = $linhaPPP['cod'];
+            $Cliente = ' tipo_cliente = "' . $Tipo_Cliente . '" AND cod_cliente = "' . $Cod_Cliente_Buscado . '" ';
+      }
         $Qtd_Cliente++;
     }
     $Qtd_Ultima = $Qtd_Cliente - 1;
     if ($Cliente != null) {
-        if ($Qtd_Cliente > 1) {
-            if ($Qtd_Cliente == $Qtd_Ultima) {
-                $Query_Cliente = $Cliente;
-            } else {
-                $Query_Cliente = $Cliente . ' AND ';
-            }
-        } else {
-            $Query_Cliente = $Cliente;
-        }
+            $Query_Cliente = ' AND '. $Cliente;
     }
 }
 if (isset($_POST['OpOrc'])) {
@@ -77,8 +69,12 @@ if (isset($_POST['OpOrc'])) {
         $OpOrc = null;
     }
     if ($OpOrc != null) {
-        $Query_OpOrc = $OpOrc;
+        $Query_OpOrc = ' AND '. $OpOrc;
+    }else{
+        $Query_OpOrc ='';  
     }
+}else{
+    $Query_OpOrc ='';
 }
 if (isset($_POST['produto'])) {
     if ($_POST['produto'] == 'CodPro') {
@@ -129,7 +125,9 @@ if (isset($_POST['periodo'])) {
         }
     }
     if (isset($Periodo)) {
-        $Query_Periodo = $Periodo;
+        $Query_Periodo = ' AND '. $Periodo;
+    }else{
+        $Query_Periodo = '';
     }
 }
 if (isset($_POST['periodoPrevisao'])) {
@@ -222,7 +220,9 @@ if (isset($_POST['status'])) {
         }
     }
     if (isset($Status)) {
-        $Query_Status = $Status;
+        $Query_Status = ' AND '. $Status;
+    }else{
+        $Query_Status = '';
     }
 }
 
@@ -434,6 +434,8 @@ if (isset($_POST['ordenar'])) {
     } else {
         $OrderBy = ' ORDER BY ' . $_POST['ordenar'];
     }
+}else{
+    $OrderBy = ' ORDER BY data_entrega DESC';
 }
 if (isset($_POST['campos19'])) {
 
@@ -460,10 +462,14 @@ if (isset($Campos)) {
     $Query_Campos = $Campos;
 }
 if ($Produto != null) {
-    $Query_Produto = $Produto;
+    $Query_Produto = ' AND '. $Produto;
+}else{
+    $Query_Produto = '';
 }
 if (isset($Emissor)) {
-    $Query_Emissor = $Emissor;
+    $Query_Emissor = ' AND '. $Emissor;
+}else{
+    $Query_Emissor = '';
 }
 
 
@@ -493,73 +499,15 @@ if (!isset($Query_Campos_Completa)) {
 }
 
 if (
-    isset($Query_OpOrc) || isset($Query_Produto) || isset($Query_Emissor) || isset($Query_Periodo) ||
+    isset($Query_OpOrc) || isset($Query_Produto) || isset($Query_Cliente) || isset($Query_Emissor) || isset($Query_Periodo) ||
     isset($Query_Status)
 ) {
-    $Query_Busca_Completa = $Query_Inicio . ' WHERE ';
-} else {
-    $Query_Busca_Completa = $Query_Inicio;
+    $Query_Busca_Completa = $Query_Inicio . ' WHERE cod != "-1" ' . $Query_OpOrc . $Query_Produto . $Query_Cliente . $Query_Emissor . $Query_Periodo . $Query_Status;
 }
-if (isset($Query_Cliente)) {
-    $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Cliente;
-}
-if (isset($Query_Status)) {
-    if (isset($Query_Cliente)) {
-        $Query_Busca_Completa = $Query_Busca_Completa  .' AND '. $Query_Status;
-    }else{
-        $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Status;
-    }
-    
-}
-if (isset($Query_OpOrc)) {
-    if (
+    $Query_Busca_Completa = $Query_Busca_Completa . $OrderBy;
 
-        isset($Query_Status)
-    ) {
-        $Query_Busca_Completa = $Query_Busca_Completa . ' AND ';
-    }
-    $Query_Busca_Completa = $Query_Busca_Completa  . $Query_OpOrc;
-}
-
-if (isset($Query_Produto)) {
-    if (
-        isset($Query_OpOrc) ||
-        isset($Query_Status)
-    ) {
-        $Query_Busca_Completa = $Query_Busca_Completa . ' AND ';
-    }
-    $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Produto;
-}
-
-if (isset($Query_Emissor)) {
-    if (
-        isset($Query_OpOrc) || isset($Query_Produto) ||
-        isset($Query_Status)
-    ) {
-        $Query_Busca_Completa = $Query_Busca_Completa . ' AND ';
-    }
-    $Query_Busca_Completa = $Query_Busca_Completa  . $Query_Emissor;
-}
-
-if (isset($Query_Periodo)) {
-    if (
-        isset($Query_OpOrc) || isset($Query_Produto) || isset($Query_Emissor) ||
-        isset($Query_Status)
-    ) {
-        $Query_Busca_Completa = $Query_Busca_Completa . '  ';
-    }
-    $Query_Busca_Completa = $Query_Busca_Completa . $Query_Periodo;
-}
-
-
-
-if (isset($OrderBy)) {
-    $Query_Busca_Completa = $Query_Busca_Completa . $OrderBy . ' ';
-} else {
-    $Query_Busca_Completa = $Query_Busca_Completa . ' ';
-}
 //
- echo $Query_Busca_Completa . '<br>';
+// echo $Query_Busca_Completa . '<br>';
 $Query_Busca_Completa_Executavel = $conexao->prepare("$Query_Busca_Completa");
 $Query_Busca_Completa_Executavel->execute();
 //   echo '<br><b>'.$Campos.'</b>';
@@ -577,10 +525,10 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
         $orcamento_base_ = $linha['orcamento_base'];
         $orcamento_base[$Recebe] = $orcamento_base_;
     }
-    if (isset($_POST['campos3'])) {
+  
         $cod_cliente_  = $linha['cod_cliente'];
         $cod_cliente[$Recebe] = $cod_cliente_;
-    }
+    
     if (isset($_POST['campos4'])) {
         $cod_produto_ = $linha['cod_produto'];
         $cod_produto[$Recebe] = $cod_produto_;
@@ -899,25 +847,22 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
         }
     }
     if (isset($_POST['campos18'])) {
-
         if ($tipo_cliente[$Recebe] == '1') {
-            $query_Nomes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE cod = '$cod_cliente[$Recebe]'");
-            $query_Nomes->execute();
+            $TP1 = $cod_cliente[$Recebe];
+            $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE cod = '$TP1'");
+          }
+          if ($tipo_cliente[$Recebe] == '2') {
+            $query_Nome_Clientes = $conexao->prepare("SELECT * FROM 
+             $TP2 = $cod_cliente[$Recebe];
+            tabela_clientes_juridicos  WHERE cod = '$TP2'");
+          }
+          $query_Nome_Clientes->execute();
+        
+          if ($linhaXTP = $query_Nome_Clientes->fetch(PDO::FETCH_ASSOC)) {
+            $nome_ = $linhaXTP['nome'];
+            $nome[$Recebe] = $nome_;
+          }
 
-            if ($linha_Nome = $query_Nomes->fetch(PDO::FETCH_ASSOC)) {
-                $nome_ = $linha_Nome['nome'];
-                $nome[$Recebe] = $nome_;
-            }
-        }
-        if ($tipo_cliente[$Recebe] == '2') {
-            $query_Nomes = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos  WHERE cod = '$cod_cliente[$Recebe]'");
-            $query_Nomes->execute();
-
-            if ($linha_Nome = $query_Nomes->fetch(PDO::FETCH_ASSOC)) {
-                $nome_ = $linha_Nome['nome'];
-                $nome[$Recebe] = $nome_;
-            }
-        }
     }
     if (isset($_POST['campos19'])) {
         $status_ = $linha['STS_DESCRICAO'];
