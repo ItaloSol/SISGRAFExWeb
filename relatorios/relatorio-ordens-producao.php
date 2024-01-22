@@ -848,12 +848,12 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
     }
     if (isset($_POST['campos18'])) {
         if ($tipo_cliente[$Recebe] == '1') {
-            $TP1 = $cod_cliente[$Recebe];
+            $TP1 = $Cod_Cliente;
             $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE cod = '$TP1'");
           }
           if ($tipo_cliente[$Recebe] == '2') {
+            $TP2 = $Cod_Cliente;
             $query_Nome_Clientes = $conexao->prepare("SELECT * FROM 
-             $TP2 = $cod_cliente[$Recebe];
             tabela_clientes_juridicos  WHERE cod = '$TP2'");
           }
           $query_Nome_Clientes->execute();

@@ -115,8 +115,8 @@ if (isset($_POST['excluir'])) {
     // Verifica se o elemento foi encontrado
     if (elemento) {
         // Constrói a URL para a API
-        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
-
+        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+        
         // Faz a requisição fetch
         fetch(url)
             .then(response => response.json())
@@ -131,7 +131,7 @@ if (isset($_POST['excluir'])) {
   
             </script>
         <?php
-         ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
+         ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
@@ -152,7 +152,7 @@ if (isset($_POST['excluir'])) {
                  Erro é necessario selecionar os campos Obrigatórios!   
             </div>
           </div>';
-          ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
+          ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
    
     }
 }
@@ -277,8 +277,8 @@ if (isset($_POST['salvar'])) {
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
-      
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              
               // Faz a requisição fetch
               fetch(url)
                   .then(response => response.json())
@@ -296,9 +296,9 @@ if (isset($_POST['salvar'])) {
         $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Adicionado nota de credito para o Cliente: $cod_cliente, Tipo: $tipo_cliente, Valor: $valor' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
         if ($tipo_cliente == '1') {
-            ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=1';}, 1000);    </script><?php
+            ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=1';}, 1000);    </script><?php
         } else {
-            ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=2';}, 1000);    </script><?php
+            ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=2';}, 1000);    </script><?php
         }
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
@@ -321,7 +321,7 @@ if (isset($_POST['salvar'])) {
                  Confira o Contato e o Endereço!   
             </div>
           </div>';
-          ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
+          ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
     }
 }
 if (isset($_POST['editar'])) {
@@ -447,7 +447,7 @@ if (isset($_POST['editar'])) {
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -465,7 +465,7 @@ if (isset($_POST['editar'])) {
               <?php
         $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito editada do Cliente $cod_cliente, Tipo: $tipo_cliente, Cod Nota: $cod ' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
-        ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
+        ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
@@ -486,6 +486,6 @@ if (isset($_POST['editar'])) {
                  Erro é necessario selecionar os campos Obrigatórios!   
             </div>
           </div>';
-          ?><script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
+          ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
     }
 }

@@ -115,7 +115,7 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
     // Verifica se o elemento foi encontrado
     if (elemento) {
         // Constrói a URL para a API
-        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
 
         // Faz a requisição fetch
         fetch(url)
@@ -189,7 +189,7 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
     // Verifica se o elemento foi encontrado
     if (elemento) {
         // Constrói a URL para a API
-        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
 
         // Faz a requisição fetch
         fetch(url)
@@ -255,7 +255,7 @@ if (isset($_POST['FATURAR']) || isset($_POST['excluir'])) {
     // Verifica se o elemento foi encontrado
     if (elemento) {
         // Constrói a URL para a API
-        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
 
         // Faz a requisição fetch
         fetch(url)
