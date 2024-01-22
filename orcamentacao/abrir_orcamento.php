@@ -270,7 +270,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
-
+  
                 <div class="card">
                   <div id="SelecioandoProduto"></div>
                   <h5 class="card-header">PRODUTOS
@@ -544,7 +544,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
               </div>
             </div>
           </div>
-
+       
           <div class="container row ">
             
             <div class="col-3">
@@ -573,11 +573,11 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           CALCULAR VALOR DO ORÇAMENTO
                         </button><br>
                         </div>
-                       
+                        
           </div>
           <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
           <input type="text" class="form-control" id="ValorTotalOrc" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
-          <button style="margin-bottom: 20px; display: none" type="button" class="btn btn-success" onclick="SalvarOrcamento()" id="SalvarPO" >
+          <button style="margin-bottom: 20px; display: none" type="submit" class="btn btn-success" onclick="SalvarOrcamento()" id="SalvarPO" >
                           Salvar orçamento
                         </button>
           <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
@@ -737,6 +737,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <a class="list-group-item list-group-item-action" id="estoque" data-bs-toggle="list" href="#estoque1">ESTOQUE</a>
                           <a class="list-group-item list-group-item-action " id="pedidos" data-bs-toggle="list" href="#pedidos1">PEDIDOS</a>
                         </div>
+                      
                         <div class="tab-content px-0 mt-0">
                           <div class="tab-pane fade show active" id="papeis1">
 
@@ -1049,7 +1050,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 </div>
               </div>
 
-
+                       
 
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
               <script>
