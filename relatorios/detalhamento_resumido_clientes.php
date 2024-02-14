@@ -292,7 +292,7 @@ $valor_total_Finalizadas = 0;
 /////////////////////////////////////// FIM OP FINALZIADAS ///////////////////////////////////////////////////////////////
 
 /////////////////////////////////// OP ABERTAS //////////////////////////////////////////////////////
-$query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$seleciona_por' AND o.status != '11' AND o.status != '13'");
+$query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$seleciona_por' AND o.tipo_cliente = '$tipo_cliente' AND o.status != '11' AND o.status != '13'");
 $query_ordens_Abertas->execute();
 $i = 0;
 while ($linha = $query_ordens_Abertas->fetch(PDO::FETCH_ASSOC)) {
@@ -667,7 +667,7 @@ $Inicia_Em_Producao = "<th colspan='8' style='background-color:black; color:whit
         </tr>
          ";
 if ($Total_Abertas == 0) {
-    $relatorio_A = '<tr><td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td>';
+    $relatorio_A = '<tr><td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td>';
 }
 while ($Total_Abertas > $Percorrer_Abertas) {
     if ($Percorrer_Abertas == 0) {

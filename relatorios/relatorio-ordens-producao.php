@@ -55,6 +55,8 @@ if (isset($_POST['cliente'])) {
     $Qtd_Ultima = $Qtd_Cliente - 1;
     if ($Cliente != null) {
             $Query_Cliente = ' AND '. $Cliente;
+    }else{
+        $Query_Cliente = ' AND cod_cliente != "0" ';
     }
 }
 if (isset($_POST['OpOrc'])) {
@@ -847,12 +849,12 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
         }
     }
     if (isset($_POST['campos18'])) {
-        if ($tipo_cliente[$Recebe] == '1') {
-            $TP1 = $Cod_Cliente;
+        if ($tipo_cliente[$Recebe] == 'FÍSICA') {
+            $TP1 = $cod_cliente[$Recebe];
             $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE cod = '$TP1'");
           }
-          if ($tipo_cliente[$Recebe] == '2') {
-            $TP2 = $Cod_Cliente;
+          if ($tipo_cliente[$Recebe] == 'JURÍDICA') {
+            $TP2 = $cod_cliente[$Recebe];
             $query_Nome_Clientes = $conexao->prepare("SELECT * FROM 
             tabela_clientes_juridicos  WHERE cod = '$TP2'");
           }
