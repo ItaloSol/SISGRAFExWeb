@@ -3,7 +3,8 @@ function ApurarCredito(cod, tipo) {
   fetch('../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + tipo)
   .then(response => response.json())
   .then(data => {
-    if (data.erro == 'false') {
+    console.log(data.erro)
+    if (data.erro == false) {
       elemento.classList.remove('btn-info');
       elemento.classList.add('btn-success');
       elemento.innerHTML = 'Corrigido';
