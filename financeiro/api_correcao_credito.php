@@ -17,7 +17,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
 
 
   $numero_clientes = 0;
-  $Valor_Notas_Totais[$numero_clientes] = array();
+  $Valor_Notas_Totais = array();
   if ($_GET['tipo'] == 2) {
     $query_Clientes_Juridicos = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE cod = $cod ");
   } else {
@@ -29,7 +29,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
   if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
     $valor_todo = 0;
     if ($_GET['tipo'] == 2) {
-      $Tabela_Clientes[$numero_clientes] = [
+      $Tabela_Clientes = [
         'cod' => $linha['cod'],
         'nome' => $linha['nome'],
         'nome_Fantasia' => $linha['nome_fantasia'],
@@ -47,9 +47,9 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
         'qTD_ACESSO' => $linha['QTD_ACESSOS'],
       ];
 
-      $cod = $Tabela_Clientes[$numero_clientes]['cod'];
+      $cod = $Tabela_Clientes['cod'];
     } else {
-      $Tabela_Clientes[$numero_clientes] = [
+      $Tabela_Clientes = [
         'cod' => $linha['cod'],
         'nome' => $linha['nome'],
         'cpf' => $linha['cpf'],
@@ -62,7 +62,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
         'tOKEN' => $linha['TOKEN'],
       ];
 
-      $cod = $Tabela_Clientes[$numero_clientes]['cod'];
+      $cod = $Tabela_Clientes['cod'];
     }
 
 
@@ -99,7 +99,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
       $valor_todo = $valor_todo + $valor_;
       $i++;
     }
-    $Valor_Notas_Totais[$numero_clientes] =  $valor_todo;
+    $Valor_Notas_Totais =  $valor_todo;
     $Percorrer_Notas = 0;
     $valor_total_Notas = 0;
     //  while($Total_Notas > $Percorrer_Notas){  
@@ -113,7 +113,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
     $valor_faturamento = 0;
     while ($linha = $query_Ordens_Producao->fetch(PDO::FETCH_ASSOC)) {
 
-      $Tabela_Faturamentos[$numero_clientes] = [
+      $Tabela_Faturamentos = [
         'CODIGO' => $linha['CODIGO'],
         'CODIGO_ORC' => $linha['CODIGO_ORC'],
         'cod' => $linha['cod'],
@@ -129,14 +129,14 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
         'SERVICOS_FAT' => $linha['SERVICOS_FAT'],
         'OBSERVACOES' => $linha['OBSERVACOES'],
       ];
-      $Pesquisa_Produto = $Tabela_Faturamentos[$numero_clientes]['cod_produto'];
-      $Tipo_Produto = $Tabela_Faturamentos[$numero_clientes]['tipo_produto'];
+      $Pesquisa_Produto = $Tabela_Faturamentos['cod_produto'];
+      $Tipo_Produto = $Tabela_Faturamentos['tipo_produto'];
       if ($Tipo_Produto == '2') {
         $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos_pr_ent  WHERE CODIGO = '$Pesquisa_Produto'");
         $query_PRODUTOS->execute();
 
         while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
-          $Tabela_Produtos[$numero_clientes] = [
+          $Tabela_Produtos = [
             'descricao' => $linha2['DESCRICAO']
           ];
         }
@@ -146,7 +146,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
         $query_PRODUTOS->execute();
 
         while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
-          $Tabela_Produtos[$numero_clientes] = [
+          $Tabela_Produtos = [
             'descricao' => $linha2['DESCRICAO']
           ];
         }
@@ -156,7 +156,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
       //echo $linha['cod'].' '.$linha['VLR_FAT'] .'<br>';
       $i++;
     }
-    $Total_Faturamentos[$numero_clientes] = $valor_faturamento;
+    $Total_Faturamentos = $valor_faturamento;
 
 
 
@@ -168,7 +168,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
     $i = 0;
     $valor_emproducao = 0;
     while ($linha = $query_ordens_Abertas->fetch(PDO::FETCH_ASSOC)) {
-      $Ordens_Abertas[$numero_clientes] = [
+      $Ordens_Abertas = [
         'cod' => $linha['cod'],
         'orcamento_base' => $linha['orcamento_base'],
         'tipo_produto' => $linha['tipo_produto'],
@@ -204,17 +204,17 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
           }
         }
       }
-      $Pesquisa_Produto = $Ordens_Abertas[$numero_clientes]['cod_produto'];
+      $Pesquisa_Produto = $Ordens_Abertas['cod_produto'];
       $query_PRODUTOS = $conexao->prepare("SELECT * FROM produtos  WHERE CODIGO = '$Pesquisa_Produto'");
       $query_PRODUTOS->execute();
 
       while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
-        $Tabela_Produtos_Abertas[$numero_clientes] = [
+        $Tabela_Produtos_Abertas = [
           'descricao' => $linha2['DESCRICAO']
         ];
       }
-      $Pesquisa_Orc = $Ordens_Abertas[$numero_clientes]['orcamento_base'];
-      $Pesquisa_Tipo_prod = $Ordens_Abertas[$numero_clientes]['tipo_produto'];
+      $Pesquisa_Orc = $Ordens_Abertas['orcamento_base'];
+      $Pesquisa_Tipo_prod = $Ordens_Abertas['tipo_produto'];
       $query_Pesquisa_Orc = $conexao->prepare("SELECT cod_orcamento, cod_produto, tipo_produto, (quantidade * preco_unitario) AS VLR_PARC FROM tabela_produtos_orcamento WHERE cod_orcamento = '$Pesquisa_Orc' AND cod_produto = '$Pesquisa_Produto' AND tipo_produto = '$Pesquisa_Tipo_prod' ");
       $query_Pesquisa_Orc->execute();
 
@@ -226,27 +226,27 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
         }
         $valor_emproducao = $valor_emproducao + $valor;
       }
-      $Total_EmProducao[$numero_clientes] = $valor_emproducao;
+      $Total_EmProducao = $valor_emproducao;
       $i++;
     }
-    if (!isset($Total_EmProducao[$numero_clientes])) {
-      $Total_EmProducao[$numero_clientes] = 0;
+    if (!isset($Total_EmProducao)) {
+      $Total_EmProducao = 0;
     }
-    if (!isset($Tabela_Clientes[$numero_clientes])) {
-      $Tabela_Clientes[$numero_clientes] = 0;
+    if (!isset($Tabela_Clientes)) {
+      $Tabela_Clientes = 0;
     }
-    if (!isset($Valor_Notas_Totais[$numero_clientes])) {
-      $Valor_Notas_Totais[$numero_clientes] = 0;
+    if (!isset($Valor_Notas_Totais)) {
+      $Valor_Notas_Totais = 0;
     }
 
-    $Saldo_Correto[$numero_clientes] = $Valor_Notas_Totais[$numero_clientes] - $Total_Faturamentos[$numero_clientes] - $Total_EmProducao[$numero_clientes];
-    $Diferenca_Correcao[$numero_clientes] = $Saldo_Correto[$numero_clientes] - $Tabela_Clientes[$numero_clientes]['credito'];
-    // echo $Tabela_Clientes[$numero_clientes]['nome'] . ' Credito: ' . $Valor_Notas_Totais[$numero_clientes] . ' Fatruamento: ' . $Total_Faturamentos[$numero_clientes] . ' Valor Em produção: ' . $Total_EmProducao[$numero_clientes] . ' Soldo Correto = ' .  $Saldo_Correto[$numero_clientes] . ' Saldo Atual: ' . $Tabela_Clientes[$numero_clientes]['credito'] .  '<br>';
+    $Saldo_Correto = $Valor_Notas_Totais - $Total_Faturamentos - $Total_EmProducao;
+    $Diferenca_Correcao = $Saldo_Correto - $Tabela_Clientes['credito'];
+    // echo $Tabela_Clientes['nome'] . ' Credito: ' . $Valor_Notas_Totais . ' Fatruamento: ' . $Total_Faturamentos . ' Valor Em produção: ' . $Total_EmProducao . ' Soldo Correto = ' .  $Saldo_Correto . ' Saldo Atual: ' . $Tabela_Clientes['credito'] .  '<br>';
 
-    $credito = $Saldo_Correto[$numero_clientes];
+    $credito = $Saldo_Correto;
     $credito = round($credito, 2);
-    $cod_cliente = $Tabela_Clientes[$numero_clientes]['cod'];
-    $credito_anterior = $Tabela_Clientes[$numero_clientes]['credito'];
+    $cod_cliente = $Tabela_Clientes['cod'];
+    $credito_anterior = $Tabela_Clientes['credito'];
 
     if ($tipo_cliente == 2) {
       $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
