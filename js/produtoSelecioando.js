@@ -218,12 +218,12 @@ async function SelecionarSelecioando() {
       document.getElementById('ErroSelecionar').innerHTML = '';
       document.getElementById('load1').style.display = 'none';
     }, 5000);
-    if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
+    if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null ) {
       const ArraySelecionadoPP = JSON.parse(localStorage.getItem('ProdutoSelecionadoPP'));
 
       for (const item of ArraySelecionadoPP) {
         const elemento = await waitForElement(item);
-        elemento.innerHTML = 'Selecioando';
+          elemento.innerHTML = 'Selecioando';
       }
       document.getElementById('load1').style.display = 'none';
     }

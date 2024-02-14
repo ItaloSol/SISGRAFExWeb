@@ -756,5 +756,11 @@ function SalvarOrcamento() {
     window.location.href = '#selecione_endereco';
     window.alert('O endereço do cliente não foi selecionado!');
   }
-  
+  const PRODUTOS_table = document.getElementById('SelecionadoProdutosProduto'); console.log(PRODUTOS_table);
+  const TIRAGENS_table = document.getElementById('ProdutoTIragens'); console.log(TIRAGENS_table);
+  const PAPEL_table = document.getElementById('tabela_campos'); console.log(PAPEL_table);
+  const ACABAMENTOS_table = document.getElementById('seleccionadoacabamentos'); console.log(ACABAMENTOS_table);
+  const SERVICOS_table = document.getElementById('tabelaAservicos'); console.log(SERVICOS_table);
+  const OBSERVACOES_table = document.getElementById('observacao_orc'); console.log(OBSERVACOES_table);
+  const CLICK_table = document.getElementById('calculo_clique'); console.log(CLICK_table);
 }

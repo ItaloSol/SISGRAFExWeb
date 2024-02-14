@@ -17,8 +17,6 @@ if (isset($_POST['excluir'])) {
         $cod_cliente = $_POST['codigo_cliente'];
         $tipo_cliente = $_POST['tipo_cliente'];
         $forma_pagamento = $_POST['forma_pagamento'];
-
-
         $cpf = $_POST['cpf'];
         $nome_emiss = $_POST['nome_emissor'];
         $cod_recolhimento = $_POST['cod_recolhimete'];
@@ -107,31 +105,32 @@ if (isset($_POST['excluir'])) {
         $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito excluida do cliente $cod_cliente Tipo: $tipo_cliente ' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
         ?>
-        <input class="VALORES" type="text" id="<?= $cod_cliente ?>" name="<?= $tipo_cliente ?>" value="<?= $cod_cliente ?> <?= $tipo_cliente ?>"/>
-<script>
+        <input class="<?= $cod_cliente ?>" type="text" id="VALORES" name="<?= $tipo_cliente ?>" value="<?= $cod_cliente ?>"/>
+    <script>
     // Seleciona o elemento com a classe "VALORES"
-    var elemento = document.querySelector('.VALORES');
-
+ 
+    var elemento = document.getElementById('VALORES');
+   
     // Verifica se o elemento foi encontrado
     if (elemento) {
         // Constrói a URL para a API
-        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+        var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.value + '&tipo=' + elemento.name;
         
         // Faz a requisição fetch
         fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log('executou', data);
-                // Faça algo com os dados recebidos da API
-            })
-            .catch(error => console.error('Erro:', error));
+    .then(response => response.json())
+    .then(data => {
+    });
+        
     } else {
         console.error('Elemento não encontrado.');
     }
-  
+   
+    setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);
+    
             </script>
         <?php
-         ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
+   
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
@@ -152,7 +151,7 @@ if (isset($_POST['excluir'])) {
                  Erro é necessario selecionar os campos Obrigatórios!   
             </div>
           </div>';
-          ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
+          ?> <script>  setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
    
     }
 }
@@ -269,24 +268,21 @@ if (isset($_POST['salvar'])) {
                 </div>
               </div>';
               ?>
-             <input class="VALORES" type="text" id="<?= $cod_cliente ?>" name="<?= $tipo_cliente ?>" value="<?= $cod_cliente ?> <?= $tipo_cliente ?>"/>
+             <input class="<?= $cod_cliente ?>" type="text" id="VALORES" name="<?= $tipo_cliente ?>" value="<?= $cod_cliente ?>"/>
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var elemento = document.querySelector('.VALORES');
+          var elemento = document.getElementById('VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.value + '&tipo=' + elemento.name;
               
               // Faz a requisição fetch
               fetch(url)
-                  .then(response => response.json())
-                  .then(data => {
-                      console.log('executou', data);
-                      // Faça algo com os dados recebidos da API
-                  })
-                  .catch(error => console.error('Erro:', error));
+    .then(response => response.json())
+    .then(data => {
+    });
           } else {
               console.error('Elemento não encontrado.');
           }
@@ -296,9 +292,9 @@ if (isset($_POST['salvar'])) {
         $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Adicionado nota de credito para o Cliente: $cod_cliente, Tipo: $tipo_cliente, Valor: $valor' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
         if ($tipo_cliente == '1') {
-            ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=1';}, 1000);    </script><?php
+            ?> <script>  setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=1';}, 1000);    </script><?php
         } else {
-            ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=2';}, 1000);    </script><?php
+            ?> <script>  setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=2';}, 1000);    </script><?php
         }
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
@@ -321,7 +317,7 @@ if (isset($_POST['salvar'])) {
                  Confira o Contato e o Endereço!   
             </div>
           </div>';
-          ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
+          ?> <script>  setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
     }
 }
 if (isset($_POST['editar'])) {
@@ -439,24 +435,23 @@ if (isset($_POST['editar'])) {
                 </div>
               </div>';
               ?>
-         <input class="VALORES" type="text" id="<?= $cod_cliente ?>" name="<?= $tipo_cliente ?>" value="<?= $cod_cliente ?> <?= $tipo_cliente ?>"/>
+         <input class="<?= $cod_cliente ?>" type="text" id="VALORES" name="<?= $tipo_cliente ?>" value="<?= $cod_cliente ?>"/>
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var elemento = document.querySelector('.VALORES');
+          var elemento = document.getElementById('VALORES');
       
           // Verifica se o elemento foi encontrado
+          
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.value + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
-                  .then(response => response.json())
-                  .then(data => {
-                      console.log('executou', data);
-                      // Faça algo com os dados recebidos da API
-                  })
-                  .catch(error => console.error('Erro:', error));
+    .then(response => response.json())
+    .then(data => {
+        console.log('executou')
+    });
           } else {
               console.error('Elemento não encontrado.');
           }
@@ -465,7 +460,7 @@ if (isset($_POST['editar'])) {
               <?php
         $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Nota de Crédito editada do Cliente $cod_cliente, Tipo: $tipo_cliente, Cod Nota: $cod ' , '$cod_user' , '$dataHora')");
         $Atividade_Supervisao->execute();
-        ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
+        ?> <script>  setTimeout(function() {window.location.href = 'tl-cadastro-notas.php?tp=3';}, 1000);    </script><?php
     } else {
         $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
@@ -486,6 +481,6 @@ if (isset($_POST['editar'])) {
                  Erro é necessario selecionar os campos Obrigatórios!   
             </div>
           </div>';
-          ?> <script> setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
+          ?> <script>  setTimeout(function() {window.location.href = 'tl-cadastro-notas.php';}, 1000);    </script><?php
     }
 }

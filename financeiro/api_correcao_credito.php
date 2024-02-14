@@ -8,7 +8,7 @@ $hoje = date('Y-m-d');
 $hora = date('H:i:s');
 $Solicitacao = json_decode(file_get_contents("php://input"), true);
 $Sucesso = [
-  'erro' => 'false',
+  'erro' => false,
 ];
 //DEFINE QUAL ENTRADA FOI USADO
 if (isset($_GET['cod']) && isset($_GET['tipo'])) {
@@ -265,6 +265,14 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
 }else{
   $Sucesso = [
     'erro' => true,
-  ];
-  echo json_encode($Sucesso);
+];
+
+// Codificando o array em JSON
+$jsonData = json_encode($Sucesso);
+
+// Configurando o cabeçalho HTTP para indicar que o conteúdo é JSON
+header('Content-Type: application/json');
+
+// Enviando o JSON para o JavaScript
+echo $jsonData;
 }
