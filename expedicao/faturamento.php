@@ -1,4 +1,4 @@
-<?php include_once("../html/../html/navbar.php");
+<?php  include_once("../html/../html/navbar.php");
 $_SESSION["pag"] = array(1, 0);
 
 $data = date('Y-m-d');
@@ -339,26 +339,21 @@ $data = date('Y-m-d');
                                   <?php } ?>
                                 </div><br>
                                 <div class="demo-inline-spacing">
-
+                                <input type="submit" class="form-control btn btn-warning" name="FATURAR" id="gravar" value="Faturar">
+                                
+                                </div>
                         </form>
-                        <form action="save_faturamento.php" method="POST">
-                          <input class="form-control" type="hidden" name="codigo" value="<?= $codigo_op ?>" id="codigo" placeholder="Digite o codigo da Op" required />
-                          <input class="form-control" type="hidden" value="<?= $orcamento_base ?>" name="orc" id="orc" readonly />
-                          <input class="form-control" type="hidden" value="<?= $CODIGO ?>" name="numero" id="numero" placeholder="" readonly />
-                          <input type="submit" class="form-control btn btn-warning" name="FATURAR" id="gravar" value="Faturar">
-
-                          <button type="button" class="btn btn-outline-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Excluir
-                          </button>
-                          <ul class="dropdown-menu">
-                            <li><input type="submit" class="form-control btn btn-danger" name="excluir" id="excluir" value="Não é necessario excluir! Certeza que deseja excluir?"></li>
-                          </ul>
-
-                        </form>
-
-
+                                  <?php if (isset($FATURAMENTO) && $status != '12') { ?>
+                                  </form>
+                                  <form action="save_faturamento.php" method="POST">
+                                  <input class="form-control" type="hidden" name="codigo" value="<?= $codigo_op ?>" id="codigo" placeholder="Digite o codigo da Op" required />
+                                  <input class="form-control" type="hidden" value="<?= $orcamento_base ?>" name="orc" id="orc" readonly />
+                                  <input class="form-control" type="hidden" value="<?= $CODIGO ?>" name="numero" id="numero" placeholder="" readonly />
+                                    <input type="submit" class="form-control btn btn-danger" name="excluir" id="excluir" value="Excluir">
+                                    </form>
+                                  <?php } ?>
+                                   
                       </div>
-                      </form>
                     </div>
                   </div>
                 </div>
@@ -366,13 +361,12 @@ $data = date('Y-m-d');
             </div>
           </div>
         </div>
+
       </div>
-
     </div>
-</div>
 
 
-<!--/ Custom content with heading -->
+    <!--/ Custom content with heading -->
 </div>
 </div>
 </div>
@@ -402,5 +396,5 @@ $data = date('Y-m-d');
 
 
 
-<?php include_once("../html/../html/navbar-dow.php"); ?>
+<?php  include_once("../html/../html/navbar-dow.php"); ?>
 <script src="../js/faturamento.js"></script>
