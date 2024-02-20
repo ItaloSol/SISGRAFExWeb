@@ -339,7 +339,11 @@ $data = date('Y-m-d');
                                   <?php } ?>
                                 </div><br>
                                 <div class="demo-inline-spacing">
-                                  
+                                <input type="submit" class="form-control btn btn-warning" name="FATURAR" id="gravar" value="Faturar">
+                                
+                                </div>
+                        </form>
+                                  <?php if (isset($FATURAMENTO) && $status != '12') { ?>
                                   </form>
                                   <form action="save_faturamento.php" method="POST">
                                   <input class="form-control" type="hidden" name="codigo" value="<?= $codigo_op ?>" id="codigo" placeholder="Digite o codigo da Op" required />
@@ -347,10 +351,8 @@ $data = date('Y-m-d');
                                   <input class="form-control" type="hidden" value="<?= $CODIGO ?>" name="numero" id="numero" placeholder="" readonly />
                                     <input type="submit" class="form-control btn btn-danger" name="excluir" id="excluir" value="Excluir">
                                     </form>
-                                    <input type="submit" class="form-control btn btn-warning" name="FATURAR" id="gravar" value="Faturar">
-                                 
-                                </div>
-                        </form>
+                                  <?php } ?>
+                                   
                       </div>
                     </div>
                   </div>
