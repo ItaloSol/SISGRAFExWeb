@@ -690,11 +690,12 @@ function calcularValor() {
   } else {
     if (Manual == false) {
       if (digital === true) {
+        console.log('DIGITAL')
         SomaValor += ValorAcabamento;
         SomaValor += ValorPapel;
         SomaValor += ValorImpressao;
         SomaValor += (ValorPapel * 0.0102) / 100;
-        SomaValor += ValorClique;
+       // SomaValor += ValorClique;
         Total = SomaValor;
         Total += (Total * CifConvertido);
         Total += ValorFrete;
@@ -709,6 +710,7 @@ function calcularValor() {
         }
       }
       if (offset === true) {
+        console.log('OFFSET')
         SomaValor += ValorAcabamento;
         SomaValor += ValorPapel;
         SomaValor += (QtdChapa * ValorChapa);
@@ -756,7 +758,7 @@ function SalvarOrcamento() {
     window.location.href = '#selecione_endereco';
     window.alert('O endereço do cliente não foi selecionado!');
   }
-  const PRODUTOS_table = document.getElementById('SelecionadoProudutosProduto'); console.log(PRODUTOS_table);
+  const PRODUTOS_table = document.getElementById('SelecionadoProudutosProduto');// console.log(PRODUTOS_table);
   //
     // Obtém a tabela pelo ID
 var tabela = document.getElementById('SelecionadoProudutosProduto');
@@ -791,9 +793,9 @@ for (var i = 0; i < linhas.length; i++) {
 var jsonFinal = JSON.stringify(dadosJson);
 
 // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-console.log(jsonFinal);
+//console.log(jsonFinal);
   //
-  const TIRAGENS_table = document.getElementById('ProdutoTIragens'); console.log(TIRAGENS_table);
+  const TIRAGENS_table = document.getElementById('ProdutoTIragens'); //console.log(TIRAGENS_table);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('ProdutoTIragens');
@@ -829,9 +831,9 @@ for (var i = 0; i < linhas.length; i++) {
 var jsonFinal = JSON.stringify(dadosJson);
 
 // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-console.log(jsonFinal);
+//console.log(jsonFinal);
   //
-  const PAPEL_table = document.getElementById('tabela_campos'); console.log(PAPEL_table);
+  const PAPEL_table = document.getElementById('tabela_campos'); //console.log(PAPEL_table);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('tabela_campos');
@@ -873,9 +875,9 @@ for (var i = 0; i < linhas.length; i++) {
 var jsonFinal = JSON.stringify(dadosJson);
 
 // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-console.log(jsonFinal);
+//console.log(jsonFinal);
   //
-  const ACABAMENTOS_table = document.getElementById('seleccionadoacabamentos'); console.log(ACABAMENTOS_table);
+  const ACABAMENTOS_table = document.getElementById('seleccionadoacabamentos');// console.log(ACABAMENTOS_table);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('seleccionadoacabamentos');
@@ -908,14 +910,14 @@ for (var i = 0; i < linhas.length; i++) {
 var jsonFinal = JSON.stringify(dadosJson);
 
 // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-console.log(jsonFinal);
+//console.log(jsonFinal);
   //
-  const SERVICOS_table = document.getElementById('tabelaAservicos'); console.log(SERVICOS_table);
+  const SERVICOS_table = document.getElementById('tabelaAservicos');// console.log(SERVICOS_table);
   //
 
   //
-  const OBSERVACOES_table = document.getElementById('observacao_orc'); console.log(OBSERVACOES_table);
-  const CLICK_table = document.getElementById('calculo_clique'); console.log(CLICK_table);
+  const OBSERVACOES_table = document.getElementById('observacao_orc');// console.log(OBSERVACOES_table);
+  const CLICK_table = document.getElementById('calculo_clique');// console.log(CLICK_table);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('calculo_clique');
@@ -958,5 +960,5 @@ for (var i = 0; i < tbodies.length; i++) {
 var jsonFinal = JSON.stringify(dadosJson);
 
 // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-console.log(jsonFinal);
+//console.log(jsonFinal);
 }
