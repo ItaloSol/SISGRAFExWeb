@@ -127,7 +127,7 @@ if (isset($_POST['periodo'])) {
         }
     }
     if (isset($Periodo)) {
-        $Query_Periodo = ' AND '. $Periodo;
+        $Query_Periodo = ' '. $Periodo;
     }else{
         $Query_Periodo = '';
     }
@@ -557,6 +557,8 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
             $tipo_cliente[$Recebe] = $tipo_cliente_;
         }
     }
+    $tipo_cliente_ = $linha['tipo_cliente'];
+    $tipo_cliente[$Recebe] = $tipo_cliente_;
     if (isset($_POST['campos5'])) {
         $tipo_produto_ = $linha['tipo_produto'];
         $tipo_produto[$Recebe] = $tipo_produto_;
@@ -849,22 +851,22 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
         }
     }
     if (isset($_POST['campos18'])) {
-        if ($tipo_cliente[$Recebe] == 'FÍSICA') {
+        if ($tipo_cliente[$Recebe] == '1') {
             $TP1 = $cod_cliente[$Recebe];
-            $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE cod = '$TP1'");
-          }
-          if ($tipo_cliente[$Recebe] == 'JURÍDICA') {
+            $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos WHERE cod = $TP1");
+        }
+        if ($tipo_cliente[$Recebe] == '2') {
             $TP2 = $cod_cliente[$Recebe];
-            $query_Nome_Clientes = $conexao->prepare("SELECT * FROM 
-            tabela_clientes_juridicos  WHERE cod = '$TP2'");
-          }
-          $query_Nome_Clientes->execute();
+            $query_Nome_Clientes = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE cod = $TP2");
+        }
         
-          if ($linhaXTP = $query_Nome_Clientes->fetch(PDO::FETCH_ASSOC)) {
+        
+        $query_Nome_Clientes->execute();
+        
+        if ($linhaXTP = $query_Nome_Clientes->fetch(PDO::FETCH_ASSOC)) {
             $nome_ = $linhaXTP['nome'];
             $nome[$Recebe] = $nome_;
-          }
-
+        }
     }
     if (isset($_POST['campos19'])) {
         $status_ = $linha['STS_DESCRICAO'];
