@@ -533,23 +533,15 @@ function calcularValor() {
   // TIRAGENS
   const Tiragens = JSON.parse(JsTiragens)
   let ValorImpressao = 0
-  let Arr_pProduto = {};
-  let Arr_quantidade = {};
+  let Arr_pProduto = 0;
+  let Arr_quantidade = 0;
   let cod_pProduto = 0
   var x = 0;
   let digital, offset = 0;
   let Quantidade = 0;
   Tiragens.map(item => {
-    // Quantidade
-    cod_pProduto = item.produto;
-    Arr_pProduto[x] = [item.produto];
-    Arr_quantidade[x] = +document.getElementById('quantidade' + item.produto).value;
-    Quantidade = +document.getElementById('quantidade').value
-    ValorImpressao += +item.valorImpressaoDigital * Quantidade;
-    ValorUnitario = +item.valorUnidade;
     digital = item.digital;
     offset = item.offset;
-    x++;
   });
 
 
@@ -690,37 +682,50 @@ function calcularValor() {
   } else {
     if (Manual == false) {
       if (digital === true) {
-        console.log('DIGITAL')
-        SomaValor += ValorAcabamento;
-        SomaValor += ValorPapel;
-        SomaValor += ValorImpressao;
-        SomaValor += (ValorPapel * 0.0102) / 100;
-       // SomaValor += ValorClique;
-        Total = SomaValor;
-        Total += (Total * CifConvertido);
-        Total += ValorFrete;
-        Total += ValorArte;
-        Total -= (Total * DescontoConvertido);
-        for (let chave in Arr_pProduto) {
-          let arrayInterno = Arr_pProduto[chave];
-          ValorUnitario_Final = parseFloat((Total / Arr_quantidade[chave]).toFixed(2));
-          Total += +ValorUnitario_Final * +Arr_quantidade[chave];
-          // Obtém o array correspondente à chave
-          document.getElementById('preco_unitario' + arrayInterno).value = ValorUnitario_Final;
-        }
+       
+       
+       // Total = SomaValor; console.log(SomaValor + 'TOTAL')
+       Tiragens.map(item => {
+        cod_pProduto = item.produto;
+        Arr_pProduto = [item.produto];
+        Arr_quantidade = +document.getElementById('quantidade' + item.produto).value;
+        Quantidade = +document.getElementById('quantidade').value
+        ValorImpressao += +item.valorImpressaoDigital * Quantidade;
+       
+        SomaValor += ValorAcabamento; console.log(ValorAcabamento)
+        SomaValor += ValorPapel; console.log(ValorPapel)
+        SomaValor += ValorImpressao; console.log(ValorImpressao)
+        SomaValor += (ValorPapel * 0.0102) / 100; console.log((ValorPapel * 0.0102) / 100)
+        // SomaValor += ValorClique; console.log(ValorClique)
+        
+       
+       
+      
+      });
+        // console.log(Arr_pProduto)
+        // for (let chave in Arr_pProduto) {
+        //   console.log(chave)
+        //   let arrayInterno = Arr_pProduto[chave];
+          
+        //   Total = +ValorUnitario_Final * +Arr_quantidade[chave]; console.log(+ValorUnitario_Final)
+        //   Total += (Total * CifConvertido); console.log((Total * CifConvertido))
+        //   Total += ValorFrete; console.log(ValorFrete)
+        //   Total += ValorArte; console.log(ValorArte)
+        //   Total -= (Total * DescontoConvertido); console.log((Total * DescontoConvertido))
+        //   // Obtém o array correspondente à chave
+        //   document.getElementById('preco_unitario' + arrayInterno).value = ValorUnitario_Final;
+        // }
       }
       if (offset === true) {
-        console.log('OFFSET')
         SomaValor += ValorAcabamento;
         SomaValor += ValorPapel;
         SomaValor += (QtdChapa * ValorChapa);
-        Total = SomaValor;
+        ValorUnitario_Final = parseFloat((SomaValor / Quantidade).toFixed(2));
+        Total = +ValorUnitario_Final * +Quantidade;
         Total += (Total * CifConvertido);
         Total += ValorFrete;
         Total += ValorArte;
         Total -= (Total * DescontoConvertido);
-        ValorUnitario_Final = parseFloat((Total / Quantidade).toFixed(2));
-        Total += +ValorUnitario_Final * +Quantidade;
         for (let chave in Arr_pProduto) {
           if (Arr_pProduto.hasOwnProperty(chave)) {
             // Obtém o array correspondente à chave
