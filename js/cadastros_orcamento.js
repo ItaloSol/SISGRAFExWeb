@@ -765,157 +765,154 @@ function SalvarOrcamento() {
   }
   const PRODUTOS_table = document.getElementById('SelecionadoProudutosProduto');// console.log(PRODUTOS_table);
   //
-    // Obtém a tabela pelo ID
+ 
+// Obtém a tabela pelo ID
 var tabela = document.getElementById('SelecionadoProudutosProduto');
 
-// Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
-var linhas = tabela.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-// Array para armazenar os objetos JSON resultantes
+// Obtém todas as linhas da tabela
+var tbodyList = tabela.getElementsByTagName('tbody');
 var dadosJson = [];
 
-// Itera sobre cada linha da tabela
-for (var i = 0; i < linhas.length; i++) {
-    var linha = linhas[i];
+// Itera sobre cada tbody
+for (var j = 0; j < tbodyList.length; j++) {
+    var tbody = tbodyList[j];
 
-    // Obtém as células da linha
-    var celulas = linha.getElementsByTagName('td');
+    // Obtém todas as linhas do tbody atual
+    var linhas = tbody.getElementsByTagName('tr');
 
-    // Cria um objeto JSON para armazenar os valores da linha
-    var objetoJson = {
-        CÓDIGO: celulas[0].innerText,
-        DESCRIÇÃO: celulas[1].innerText,
-        LARGURA: celulas[2].innerText,
-        ALTURA: celulas[3].innerText,
-        QTD_PÁGINAS: celulas[4].innerText
-    };
+    // Itera sobre cada linha do tbody
+    for (var i = 0; i < linhas.length; i++) {
+        var linha = linhas[i];
 
-    // Adiciona o objeto ao array
-    dadosJson.push(objetoJson);
+        // Obtém as células da linha
+        var celulas = linha.getElementsByTagName('td');
+
+        // Cria um objeto JSON para armazenar os valores da linha
+        var objetoJson = {
+            CÓDIGO: celulas[0].innerText,
+            DESCRIÇÃO: celulas[1].innerText,
+            LARGURA: celulas[2].innerText,
+            ALTURA: celulas[3].innerText,
+            QTD_PÁGINAS: celulas[4].innerText
+        };
+
+        // Adiciona o objeto ao array
+        dadosJson.push(objetoJson);
+    }
 }
 
 // Converte o array para uma string JSON
 var jsonFinal = JSON.stringify(dadosJson);
 
 // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-//console.log(jsonFinal);
+console.log(jsonFinal);
   //
   const TIRAGENS_table = document.getElementById('ProdutoTIragens'); //console.log(TIRAGENS_table);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('ProdutoTIragens');
-
-// Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
-var linhas = tabela.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-// Array para armazenar os objetos JSON resultantes
+var tbodies = tabela.getElementsByTagName('tbody');
 var dadosJson = [];
 
-// Itera sobre cada linha da tabela
-for (var i = 0; i < linhas.length; i++) {
-    var linha = linhas[i];
+for (var i = 0; i < tbodies.length; i++) {
+    var linhas = tbodies[i].getElementsByTagName('tr');
 
-    // Obtém as células da linha
-    var celulas = linha.getElementsByTagName('td');
+    for (var j = 0; j < linhas.length; j++) {
+        var linha = linhas[j];
+        var celulas = linha.getElementsByTagName('td');
 
-    // Cria um objeto JSON para armazenar os valores da linha
-    var objetoJson = {
-        PRODUTO: celulas[0].innerText,
-        QUANTIDADE: celulas[1].getElementsByTagName('input')[0].value,
-        DIGITAL: celulas[2].getElementsByTagName('input')[0].checked ? 1 : 0,
-        OFFSET: celulas[3].getElementsByTagName('input')[0].checked ? 1 : 0,
-        VALOR_IMPRESSAO_DIGITAL: celulas[4].getElementsByTagName('input')[0].value,
-        VALOR_UNITARIO: celulas[5].getElementsByTagName('input')[0].value
-    };
+        var objetoJson = {
+            PRODUTO: celulas[0].innerText,
+            QUANTIDADE: celulas[1].getElementsByTagName('input')[0].value,
+            DIGITAL: celulas[2].getElementsByTagName('input')[0].checked ? 1 : 0,
+            OFFSET: celulas[3].getElementsByTagName('input')[0].checked ? 1 : 0,
+            VALOR_IMPRESSAO_DIGITAL: celulas[4].getElementsByTagName('input')[0].value,
+            VALOR_UNITARIO: celulas[5].getElementsByTagName('input')[0].value
+        };
 
-    // Adiciona o objeto ao array
-    dadosJson.push(objetoJson);
+        dadosJson.push(objetoJson);
+    }
 }
 
-// Converte o array para uma string JSON
 var jsonFinal = JSON.stringify(dadosJson);
+console.log(jsonFinal);
 
-// Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-//console.log(jsonFinal);
   //
   const PAPEL_table = document.getElementById('tabela_campos'); //console.log(PAPEL_table);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('tabela_campos');
-
-// Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
-var linhas = tabela.getElementsByTagName('tbody')[1].getElementsByTagName('tr');
-
-// Array para armazenar os objetos JSON resultantes
+var tbodies = tabela.getElementsByTagName('tbody');
 var dadosJson = [];
+console.log(tbodies.length);
+// Itera sobre cada tbody
+for (var t = 0; t < tbodies.length; t++) {
+  
+    var linhas = tbodies[t].getElementsByTagName('tr');
+    
+    // Itera sobre cada linha do tbody
+    for (var i = 0; i < linhas.length; i++) {
+        var linha = linhas[i];
 
-// Itera sobre cada linha da tabela
-for (var i = 0; i < linhas.length; i++) {
-    var linha = linhas[i];
+        // Obtém as células da linha
+        var celulas = linha.getElementsByTagName('td');
 
-    // Obtém as células da linha
-    var celulas = linha.getElementsByTagName('td');
+        // Cria um objeto JSON para armazenar os valores da linha
+        var objetoJson = {
+            CÓDIGO_PRODUTO: celulas[0].innerText,
+            CÓDIGO_PAPEL: celulas[1].innerText,
+            DESCRIÇÃO: celulas[2].innerText,
+            TIPO: celulas[3].innerText,
+            CF: celulas[4].getElementsByTagName('input')[0].value,
+            CV: celulas[5].getElementsByTagName('input')[0].value,
+            FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
+            PERCA: celulas[7].getElementsByTagName('input')[0].value,
+            GASTO_FOLHA: celulas[8].getElementsByTagName('input')[0].value,
+            PREÇO_FOLHA: celulas[9].innerText,
+            QUANTIDADE_DE_CHAPAS: celulas[10].getElementsByTagName('input')[0].value,
+            PREÇO_CHAPA: celulas[11].innerText
+        };
 
-    // Cria um objeto JSON para armazenar os valores da linha
-    var objetoJson = {
-        CÓDIGO_PRODUTO: celulas[0].innerText,
-        CÓDIGO_PAPEL: celulas[1].innerText,
-        DESCRIÇÃO: celulas[2].innerText,
-        TIPO: celulas[3].innerText,
-        CF: celulas[4].getElementsByTagName('input')[0].value,
-        CV: celulas[5].getElementsByTagName('input')[0].value,
-        FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
-        PERCA: celulas[7].getElementsByTagName('input')[0].value,
-        GASTO_FOLHA: celulas[8].getElementsByTagName('input')[0].value,
-        PREÇO_FOLHA: celulas[9].innerText,
-        QUANTIDADE_DE_CHAPAS: celulas[10].getElementsByTagName('input')[0].value,
-        PREÇO_CHAPA: celulas[11].innerText
-    };
-
-    // Adiciona o objeto ao array
-    dadosJson.push(objetoJson);
+        // Adiciona o objeto ao array
+        dadosJson.push(objetoJson);
+    }
+  
 }
 
 // Converte o array para uma string JSON
 var jsonFinal = JSON.stringify(dadosJson);
 
 // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-//console.log(jsonFinal);
+console.log(jsonFinal);
+
   //
   const ACABAMENTOS_table = document.getElementById('seleccionadoacabamentos');// console.log(ACABAMENTOS_table);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('seleccionadoacabamentos');
-
-// Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
-var linhas = tabela.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-// Array para armazenar os objetos JSON resultantes
+var tbodies = tabela.getElementsByTagName('tbody');
 var dadosJson = [];
 
-// Itera sobre cada linha da tabela
-for (var i = 0; i < linhas.length; i++) {
-    var linha = linhas[i];
+for (var i = 0; i < tbodies.length; i++) {
+    var linhas = tbodies[i].getElementsByTagName('tr');
 
-    // Obtém as células da linha
-    var celulas = linha.getElementsByTagName('td');
+    for (var j = 0; j < linhas.length; j++) {
+        var linha = linhas[j];
+        var celulas = linha.getElementsByTagName('td');
 
-    // Cria um objeto JSON para armazenar os valores da linha
-    var objetoJson = {
-        CÓDIGO_ACABAMENTO: celulas[0].innerText,
-        MÁQUINA: celulas[1].innerText,
-        CUSTO: celulas[2].innerText
-    };
+        var objetoJson = {
+            CÓDIGO_ACABAMENTO: celulas[0].innerText,
+            MÁQUINA: celulas[1].innerText,
+            CUSTO: celulas[2].innerText
+        };
 
-    // Adiciona o objeto ao array
-    dadosJson.push(objetoJson);
+        dadosJson.push(objetoJson);
+    }
 }
 
-// Converte o array para uma string JSON
 var jsonFinal = JSON.stringify(dadosJson);
+console.log(jsonFinal);
 
-// Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-//console.log(jsonFinal);
   //
   const SERVICOS_table = document.getElementById('tabelaAservicos');// console.log(SERVICOS_table);
   //
@@ -926,44 +923,28 @@ var jsonFinal = JSON.stringify(dadosJson);
   //
 // Obtém a tabela pelo ID
 var tabela = document.getElementById('calculo_clique');
-
-// Obtém todos os elementos tbody dentro da tabela
 var tbodies = tabela.getElementsByTagName('tbody');
-
-// Array para armazenar os objetos JSON resultantes
 var dadosJson = [];
 
-// Itera sobre cada tbody
 for (var i = 0; i < tbodies.length; i++) {
-    var tbody = tbodies[i];
+    var linhas = tbodies[i].getElementsByTagName('tr');
 
-    // Obtém todas as linhas (tr) dentro do tbody
-    var linhas = tbody.getElementsByTagName('tr');
-
-    // Itera sobre cada linha da tabela
     for (var j = 0; j < linhas.length; j++) {
         var linha = linhas[j];
-
-        // Obtém as células da linha
         var celulas = linha.getElementsByTagName('td');
 
-        // Verifica se há células na linha
         if (celulas.length >= 2) {
-            // Cria um objeto JSON para armazenar os valores da linha
             var objetoJson = {
                 CLIQUE: celulas[0].innerText,
-                VALOR: celulas[1].innerText.replace('R$ ', '') // Remove o 'R$ ' do valor
+                VALOR: celulas[1].innerText.replace('R$ ', '')
             };
 
-            // Adiciona o objeto ao array
             dadosJson.push(objetoJson);
         }
     }
 }
 
-// Converte o array para uma string JSON
 var jsonFinal = JSON.stringify(dadosJson);
+console.log(jsonFinal);
 
-// Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-//console.log(jsonFinal);
 }
