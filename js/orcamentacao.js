@@ -314,43 +314,43 @@ function selecionarPapel(valor) {
 }
 
 function recuperarNomesPapel(valor, codigo_do_produto) {
-  let papelSelecionado = localStorage.getItem('papelSelecionado');
-  let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
+  const papelSelecionado = localStorage.getItem('papelSelecionado');
+  const arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
-  let promises = arraySelecionados.map(id => {
-    return fetch('api_papel.php?id=' + id)
-      .then(response => response.json())
-      .then(data => {
-        return {
-          id: id,
-          nomePapel: data.descricao_do_papel,
-          codPapel: data.cod_papel,
-          corFrente: data.cor_frente,
-          corVerso: data.cor_verso,
-          tipo_papel: data.tipo_papel,
-          descricao: data.descricao,
-          orelha: data.orelha,
-          preco_chapa: data.valor_chapa,
-          codPapels: data.cod_papels,
-          descricaoPapel: data.descricao_do_papel,
-          medida: data.medida,
-          preco_folha: data.unitario,
-          gramatura: data.gramatura,
-          formato: data.formato,
-          umaFace: data.uma_face,
-        };
-      });
-  });
+  const promises = arraySelecionados.map((id) =>
+    fetch('api_papel.php?id=' + id)
+      .then((response) => response.json())
+      .then((data) => ({
+        id,
+        nomePapel: data.descricao_do_papel,
+        codPapel: data.cod_papel,
+        corFrente: data.cor_frente,
+        corVerso: data.cor_verso,
+        tipo_papel: data.tipo_papel,
+        descricao: data.descricao,
+        orelha: data.orelha,
+        preco_chapa: data.valor_chapa,
+        codPapels: data.cod_papels,
+        descricaoPapel: data.descricao_do_papel,
+        medida: data.medida,
+        preco_folha: data.unitario,
+        gramatura: data.gramatura,
+        formato: data.formato,
+        umaFace: data.uma_face,
+      }))
+  );
+
   Promise.all(promises)
-    .then(results => {
-      let nomePapel = results.map(result => result.nomePapel).join(', ');
-      // console.log(nomePapel); // Movido para dentro do bloco `then`
-      // document.getElementById('nome_papel').value = nomePapel;
+    .then((results) => {
+      const nomePapel = results.map((result) => result.nomePapel).join(', ');
+
       let tableBody = '';
-      if (valor != '1') {
+      if (valor !== '1') {
         tableBody = document.getElementById('personalizaPapel');
         tableBody.innerHTML = '';
-        tableBody.innerHTML += `
+        tableBody.insertAdjacentHTML(
+          'beforeend',
+          `
       <thead>
       <tr>
       <th>CÓDIGO PRODUTO</th>
@@ -366,30 +366,40 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         <th>QUANTIDADE DE CHAPAS</th>
         <th>PREÇO CHAPA</th>
       </tr>
-    </thead>`;
+    </thead>`
+        );
       } else {
         tableBody = document.getElementById('tabela_campos');
       }
 
-
-
       if (!results || results.length === 0) {
-        tableBody.innerHTML += `
+        tableBody.insertAdjacentHTML(
+          'beforeend',
+          `
       <tr>
       <td align="center" colspan="12">
         NENHUM SELECIONADO
       </td>
-    </tr>`;
+    </tr>`
+        );
       }
+
       let cont = 0;
-      results.forEach(result => {
-        tableBody.innerHTML += `<tr>`;
-        if (codigo_do_produto && Array.isArray(codigo_do_produto)) {
-          const objetoCorrespondente = codigo_do_produto.find(obj => obj.cod_PLS.includes(result.codPapels));
-        
-          if (objetoCorrespondente) {
-            tableBody.innerHTML += `
-              <td>${objetoCorrespondente.codigoPP}</td>
+      results.forEach((result) => {
+        tableBody.insertAdjacentHTML(
+          'beforeend',
+          `<tr>
+             <td>${
+               codigo_do_produto &&
+               Array.isArray(codigo_do_produto) &&
+               codigo_do_produto.find(
+                 (obj) => obj.cod_PLS.includes(result.codPapels)
+               )
+                 ? codigo_do_produto.find(
+                     (obj) => obj.cod_PLS.includes(result.codPapels)
+                   ).codigoPP
+                 : result.codPapels
+             }</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
              <td>${result.tipo_papel}</td>
@@ -401,33 +411,12 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
              <td>${result.preco_folha}</td>
              <td><input class="form-control" id="GChapa${result.codPapels}" value="0" type="number"></td>
              <td>${result.preco_chapa}</td>
-           `;
-            cont++;
-          } else {
-            console.error(`Objeto com codigoPLS ${result.codPapels} não encontrado na lista.`);
-          }
-        } else {
-          tableBody.innerHTML += `
-             <td>${result.codPapels}</td>
-             <td>${result.nomePapel}</td>
-             <td>${result.tipo_papel}</td>
-             <td><input class="form-control" value="${result.corFrente}" type="number"></td>
-             <td><input class="form-control" value="${result.corVerso}" type="number"></td>
-             <td><input class="form-control" value="${result.formato}" type="number"></td>
-             <td><input class="form-control" value="${result.orelha}" type="number"></td>
-             <td><input class="form-control" value="0" type="number"></td>
-             <td>${result.preco_folha}</td>
-             <td><input class="form-control" value="0" type="number"></td>
-             <td>${result.preco_chapa}</td>
-           `;
-
-        }
-
-        tableBody.innerHTML += `</tr>`;
-
+           </tr>`
+        );
+        cont++;
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Erro ao recuperar nomes do papel:', error);
     });
 }
