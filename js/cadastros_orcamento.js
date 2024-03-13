@@ -680,61 +680,7 @@ function calcularValor() {
     alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
     Total = 'ERRO';
   } else {
-    if (Manual == false) {
-      if (digital === true) {
-       
-       
-       // Total = SomaValor; console.log(SomaValor + 'TOTAL')
-       Tiragens.map(item => {
-        cod_pProduto = item.produto;
-        Arr_pProduto = [item.produto];
-        Arr_quantidade = +document.getElementById('quantidade' + item.produto).value;
-        Quantidade = +document.getElementById('quantidade').value
-        ValorImpressao += +item.valorImpressaoDigital * Quantidade;
-       
-        SomaValor += ValorAcabamento; console.log(ValorAcabamento)
-        SomaValor += ValorPapel; console.log(ValorPapel)
-        SomaValor += ValorImpressao; console.log(ValorImpressao)
-        SomaValor += (ValorPapel * 0.0102) / 100; console.log((ValorPapel * 0.0102) / 100)
-        // SomaValor += ValorClique; console.log(ValorClique)
-        
-       
-       
-      
-      });
-        // console.log(Arr_pProduto)
-        // for (let chave in Arr_pProduto) {
-        //   console.log(chave)
-        //   let arrayInterno = Arr_pProduto[chave];
-          
-        //   Total = +ValorUnitario_Final * +Arr_quantidade[chave]; console.log(+ValorUnitario_Final)
-        //   Total += (Total * CifConvertido); console.log((Total * CifConvertido))
-        //   Total += ValorFrete; console.log(ValorFrete)
-        //   Total += ValorArte; console.log(ValorArte)
-        //   Total -= (Total * DescontoConvertido); console.log((Total * DescontoConvertido))
-        //   // Obtém o array correspondente à chave
-        //   document.getElementById('preco_unitario' + arrayInterno).value = ValorUnitario_Final;
-        // }
-      }
-      if (offset === true) {
-        SomaValor += ValorAcabamento;
-        SomaValor += ValorPapel;
-        SomaValor += (QtdChapa * ValorChapa);
-        ValorUnitario_Final = parseFloat((SomaValor / Quantidade).toFixed(2));
-        Total = +ValorUnitario_Final * +Quantidade;
-        Total += (Total * CifConvertido);
-        Total += ValorFrete;
-        Total += ValorArte;
-        Total -= (Total * DescontoConvertido);
-        for (let chave in Arr_pProduto) {
-          if (Arr_pProduto.hasOwnProperty(chave)) {
-            // Obtém o array correspondente à chave
-            let arrayInterno = Arr_pProduto[chave];
-            document.getElementById('preco_unitario' + arrayInterno).value = ValorUnitario_Final;
-          }
-        }
-      }
-    } else {
+    if (Manual == true) {
       for (let chave in Arr_pProduto) {
         if (Arr_pProduto.hasOwnProperty(chave)) {
           // Obtém o array correspondente à chave
@@ -744,7 +690,7 @@ function calcularValor() {
         }
       }
     }
-      // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
+    // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
     if (Total.toFixed(2) != 'NaN') {
       document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
       SalvarPO();
@@ -752,6 +698,33 @@ function calcularValor() {
   }
 }
 // ENVIAR PARA O BANCO DE DADOS/SALVAR
+function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
+  const consolidatedObjects = {};
+
+  // Merge all arrays into one
+  const allJsonArrays = [...jsonArray1, ...jsonArray2, ...jsonArray3, ...jsonArray4];
+
+  allJsonArrays.forEach((item) => {
+    const key = item.CÓDIGO_PRODUTO || item.CÓDIGO || item.PRODUTO;
+
+    if (!consolidatedObjects[key]) {
+      consolidatedObjects[key] = {
+        CÓDIGO_PRODUTO: key,
+        VALOR_IMPRESSAO_DIGITAL: 0,
+        PREÇO_CHAPA: 0,
+        CUSTO: 0,
+      };
+    }
+
+    if (key) {
+      consolidatedObjects[key].VALOR_IMPRESSAO_DIGITAL += parseFloat(item.VALOR_IMPRESSAO_DIGITAL || 0);
+      consolidatedObjects[key].PREÇO_CHAPA += parseFloat(item.PREÇO_CHAPA || 0);
+      consolidatedObjects[key].CUSTO += parseFloat(item.CUSTO || 0);
+    }
+  });
+
+  return Object.values(consolidatedObjects);
+}
 function SalvarOrcamento() {
   const contato = document.getElementById('selecione_contato');
   const endereco = document.getElementById('selecione_endereco')
@@ -763,18 +736,15 @@ function SalvarOrcamento() {
     window.location.href = '#selecione_endereco';
     window.alert('O endereço do cliente não foi selecionado!');
   }
-  const PRODUTOS_table = document.getElementById('SelecionadoProudutosProduto');// console.log(PRODUTOS_table);
-  //
- 
-// Obtém a tabela pelo ID
-var tabela = document.getElementById('SelecionadoProudutosProduto');
+  // Obtém a tabela pelo ID
+  var tabela = document.getElementById('SelecionadoProudutosProduto');
 
-// Obtém todas as linhas da tabela
-var tbodyList = tabela.getElementsByTagName('tbody');
-var dadosJson = [];
+  // Obtém todas as linhas da tabela
+  var tbodyList = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
 
-// Itera sobre cada tbody
-for (var j = 0; j < tbodyList.length; j++) {
+  // Itera sobre cada tbody
+  for (var j = 0; j < tbodyList.length; j++) {
     var tbody = tbodyList[j];
 
     // Obtém todas as linhas do tbody atual
@@ -782,169 +752,159 @@ for (var j = 0; j < tbodyList.length; j++) {
 
     // Itera sobre cada linha do tbody
     for (var i = 0; i < linhas.length; i++) {
-        var linha = linhas[i];
+      var linha = linhas[i];
 
-        // Obtém as células da linha
-        var celulas = linha.getElementsByTagName('td');
+      // Obtém as células da linha
+      var celulas = linha.getElementsByTagName('td');
 
-        // Cria um objeto JSON para armazenar os valores da linha
-        var objetoJson = {
-            CÓDIGO: celulas[0].innerText,
-            DESCRIÇÃO: celulas[1].innerText,
-            LARGURA: celulas[2].innerText,
-            ALTURA: celulas[3].innerText,
-            QTD_PÁGINAS: celulas[4].innerText
-        };
+      // Cria um objeto JSON para armazenar os valores da linha
+      var objetoJson = {
+        CÓDIGO: celulas[0].innerText,
+        DESCRIÇÃO: celulas[1].innerText,
+        LARGURA: celulas[2].innerText,
+        ALTURA: celulas[3].innerText,
+        QTD_PÁGINAS: celulas[4].innerText
+      };
 
-        // Adiciona o objeto ao array
-        dadosJson.push(objetoJson);
+      // Adiciona o objeto ao array
+      dadosJson.push(objetoJson);
     }
-}
+  }
 
-// Converte o array para uma string JSON
-var jsonFinal = JSON.stringify(dadosJson);
-
-// Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-console.log(jsonFinal);
+  // Converte o array para uma string JSON
+  var jsonFinal1 = JSON.stringify(dadosJson);
   //
-  const TIRAGENS_table = document.getElementById('ProdutoTIragens'); //console.log(TIRAGENS_table);
-  //
-// Obtém a tabela pelo ID
-var tabela = document.getElementById('ProdutoTIragens');
-var tbodies = tabela.getElementsByTagName('tbody');
-var dadosJson = [];
+  // Obtém a tabela pelo ID
+  var tabela = document.getElementById('ProdutoTIragens');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
 
-for (var i = 0; i < tbodies.length; i++) {
+  for (var i = 0; i < tbodies.length; i++) {
     var linhas = tbodies[i].getElementsByTagName('tr');
 
     for (var j = 0; j < linhas.length; j++) {
-        var linha = linhas[j];
-        var celulas = linha.getElementsByTagName('td');
+      var linha = linhas[j];
+      var celulas = linha.getElementsByTagName('td');
 
-        var objetoJson = {
-            PRODUTO: celulas[0].innerText,
-            QUANTIDADE: celulas[1].getElementsByTagName('input')[0].value,
-            DIGITAL: celulas[2].getElementsByTagName('input')[0].checked ? 1 : 0,
-            OFFSET: celulas[3].getElementsByTagName('input')[0].checked ? 1 : 0,
-            VALOR_IMPRESSAO_DIGITAL: celulas[4].getElementsByTagName('input')[0].value,
-            VALOR_UNITARIO: celulas[5].getElementsByTagName('input')[0].value
-        };
+      var objetoJson = {
+        PRODUTO: celulas[0].innerText,
+        QUANTIDADE: celulas[1].getElementsByTagName('input')[0].value,
+        DIGITAL: celulas[2].getElementsByTagName('input')[0].checked ? 1 : 0,
+        OFFSET: celulas[3].getElementsByTagName('input')[0].checked ? 1 : 0,
+        VALOR_IMPRESSAO_DIGITAL: celulas[4].getElementsByTagName('input')[0].value,
+        VALOR_UNITARIO: celulas[5].getElementsByTagName('input')[0].value
+      };
 
-        dadosJson.push(objetoJson);
+      dadosJson.push(objetoJson);
     }
-}
+  }
 
-var jsonFinal = JSON.stringify(dadosJson);
-console.log(jsonFinal);
+  var jsonFinal2 = JSON.stringify(dadosJson);
+ // console.log(jsonFinal2);
+  // Obtém a tabela pelo ID
+  var tabela = document.getElementById('tabela_campos');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
+  // Itera sobre cada tbody
+  for (var t = 0; t < tbodies.length; t++) {
 
-  //
-  const PAPEL_table = document.getElementById('tabela_campos'); //console.log(PAPEL_table);
-  //
-// Obtém a tabela pelo ID
-var tabela = document.getElementById('tabela_campos');
-var tbodies = tabela.getElementsByTagName('tbody');
-var dadosJson = [];
-console.log(tbodies.length);
-// Itera sobre cada tbody
-for (var t = 0; t < tbodies.length; t++) {
-  
     var linhas = tbodies[t].getElementsByTagName('tr');
-    
+
     // Itera sobre cada linha do tbody
     for (var i = 0; i < linhas.length; i++) {
-        var linha = linhas[i];
+      var linha = linhas[i];
 
-        // Obtém as células da linha
-        var celulas = linha.getElementsByTagName('td');
+      // Obtém as células da linha
+      var celulas = linha.getElementsByTagName('td');
 
-        // Cria um objeto JSON para armazenar os valores da linha
-        var objetoJson = {
-            CÓDIGO_PRODUTO: celulas[0].innerText,
-            CÓDIGO_PAPEL: celulas[1].innerText,
-            DESCRIÇÃO: celulas[2].innerText,
-            TIPO: celulas[3].innerText,
-            CF: celulas[4].getElementsByTagName('input')[0].value,
-            CV: celulas[5].getElementsByTagName('input')[0].value,
-            FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
-            PERCA: celulas[7].getElementsByTagName('input')[0].value,
-            GASTO_FOLHA: celulas[8].getElementsByTagName('input')[0].value,
-            PREÇO_FOLHA: celulas[9].innerText,
-            QUANTIDADE_DE_CHAPAS: celulas[10].getElementsByTagName('input')[0].value,
-            PREÇO_CHAPA: celulas[11].innerText
-        };
+      // Cria um objeto JSON para armazenar os valores da linha
+      var objetoJson = {
+        CÓDIGO_PRODUTO: celulas[0].innerText,
+        CÓDIGO_PAPEL: celulas[1].innerText,
+        DESCRIÇÃO: celulas[2].innerText,
+        TIPO: celulas[3].innerText,
+        CF: celulas[4].getElementsByTagName('input')[0].value,
+        CV: celulas[5].getElementsByTagName('input')[0].value,
+        FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
+        PERCA: celulas[7].getElementsByTagName('input')[0].value,
+        GASTO_FOLHA: celulas[8].getElementsByTagName('input')[0].value,
+        PREÇO_FOLHA: celulas[9].innerText,
+        QUANTIDADE_DE_CHAPAS: celulas[10].getElementsByTagName('input')[0].value,
+        PREÇO_CHAPA: celulas[11].innerText
+      };
 
-        // Adiciona o objeto ao array
-        dadosJson.push(objetoJson);
+      // Adiciona o objeto ao array
+      dadosJson.push(objetoJson);
     }
-  
-}
 
-// Converte o array para uma string JSON
-var jsonFinal = JSON.stringify(dadosJson);
+  }
 
-// Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
-console.log(jsonFinal);
+  // Converte o array para uma string JSON
+  var jsonFinal3 = JSON.stringify(dadosJson);
 
+  // Exibe o resultado no console (você pode enviar essa string JSON para onde for necessário)
   //
-  const ACABAMENTOS_table = document.getElementById('seleccionadoacabamentos');// console.log(ACABAMENTOS_table);
-  //
-// Obtém a tabela pelo ID
-var tabela = document.getElementById('seleccionadoacabamentos');
-var tbodies = tabela.getElementsByTagName('tbody');
-var dadosJson = [];
+  // Obtém a tabela pelo ID
+  var tabela = document.getElementById('seleccionadoacabamentos');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
 
-for (var i = 0; i < tbodies.length; i++) {
+  for (var i = 0; i < tbodies.length; i++) {
     var linhas = tbodies[i].getElementsByTagName('tr');
 
     for (var j = 0; j < linhas.length; j++) {
-        var linha = linhas[j];
-        var celulas = linha.getElementsByTagName('td');
+      var linha = linhas[j];
+      var celulas = linha.getElementsByTagName('td');
 
-        var objetoJson = {
-            CÓDIGO_ACABAMENTO: celulas[0].innerText,
-            MÁQUINA: celulas[1].innerText,
-            CUSTO: celulas[2].innerText
-        };
+      // Get the input elements and their values
+      var campo_cod_prod = celulas[0].innerText;
+      var inputCodigoAcabamento = celulas[1].getElementsByTagName('input')[0];
+      var inputMaquina = celulas[2].getElementsByTagName('input')[0];
+      var inputCustoHora = celulas[3].getElementsByTagName('input')[0];
 
-        dadosJson.push(objetoJson);
+      var objetoJson = {
+        CÓDIGO_PRODUTO: campo_cod_prod,
+        CODIGO_ACABAMENTO: inputCodigoAcabamento.value,
+        MÁQUINA: inputMaquina.value,
+        CUSTO: inputCustoHora.value
+      };
+
+      dadosJson.push(objetoJson);
     }
-}
+  }
 
-var jsonFinal = JSON.stringify(dadosJson);
-console.log(jsonFinal);
 
-  //
-  const SERVICOS_table = document.getElementById('tabelaAservicos');// console.log(SERVICOS_table);
-  //
-
+  var jsonFinal4 = JSON.stringify(dadosJson);
+ // console.log(jsonFinal4);
   //
   const OBSERVACOES_table = document.getElementById('observacao_orc');// console.log(OBSERVACOES_table);
-  const CLICK_table = document.getElementById('calculo_clique');// console.log(CLICK_table);
-  //
-// Obtém a tabela pelo ID
-var tabela = document.getElementById('calculo_clique');
-var tbodies = tabela.getElementsByTagName('tbody');
-var dadosJson = [];
+  // Obtém a tabela pelo ID
+  var tabela = document.getElementById('calculo_clique');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
 
-for (var i = 0; i < tbodies.length; i++) {
+  for (var i = 0; i < tbodies.length; i++) {
     var linhas = tbodies[i].getElementsByTagName('tr');
 
     for (var j = 0; j < linhas.length; j++) {
-        var linha = linhas[j];
-        var celulas = linha.getElementsByTagName('td');
+      var linha = linhas[j];
+      var celulas = linha.getElementsByTagName('td');
 
-        if (celulas.length >= 2) {
-            var objetoJson = {
-                CLIQUE: celulas[0].innerText,
-                VALOR: celulas[1].innerText.replace('R$ ', '')
-            };
+      if (celulas.length >= 2) {
+        var objetoJson = {
+          CLIQUE: celulas[0].innerText,
+          VALOR: celulas[1].innerText.replace('R$ ', '')
+        };
 
-            dadosJson.push(objetoJson);
-        }
+        dadosJson.push(objetoJson);
+      }
     }
-}
+  }
 
-var jsonFinal = JSON.stringify(dadosJson);
-console.log(jsonFinal);
-
+  var jsonFinal5 = JSON.stringify(dadosJson);
+ // console.log(jsonFinal5);
+  const organiza_campos = consolidateObjects(jsonFinal1,jsonFinal2,jsonFinal3,jsonFinal4)
+  organiza_campos.forEach((item) => {
+    console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, TOTAL: ${item.VALOR_IMPRESSAO_DIGITAL + item.PREÇO_CHAPA + item.CUSTO}`);
+  });
 }

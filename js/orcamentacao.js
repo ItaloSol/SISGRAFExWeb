@@ -80,7 +80,7 @@ async function NovoProduto() {
   tableBody.innerHTML += `
       <thead>
         <tr>
-          <th>CÓDIGO</th>
+          <th>CÓDIGO PRODUTO</th>
           <th>DESCRIÇÃO</th>
           <th>TIPO</th>
           <th>ORELHA</th>
