@@ -488,7 +488,7 @@ function RecuperaProdutoSelecionado() {
         tableProduto.innerHTML += `
             <thead>
               <tr>
-              <th>CÓDIGO</th>
+              <th>CÓDIGO PRODUTO</th>
               <th>DESCRIÇÃO</th>
               <th>LARGURA</th>
               <th>ALTURA</th>
@@ -508,7 +508,7 @@ function RecuperaProdutoSelecionado() {
         tableTiragens.innerHTML += `
             <thead>
               <tr>
-              <th>PRODUTO</th>
+              <th>CÓDIGO PRODUTO</th>
                           <th>QUANTIDADE</th>
                           <th>DIGITAL</th>
                           <th>OFFSET</th>
