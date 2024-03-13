@@ -384,7 +384,7 @@ function RecuperaProdutoSelecionado() {
             }
             if (data.cod_acabamentos) {
               campo.cod_AC = {
-                cod_PLS: data.cod_acabamentos,
+                cod_acaba: data.cod_acabamentos,
                 codigoPP: data.cod_produto
               };
             }
@@ -449,6 +449,7 @@ function RecuperaProdutoSelecionado() {
               // Definindo o ID, valor e tipo do input
               inputElementPapel.id = valor;
               inputElementPapel.value = valor;
+              inputElementPapel.type = "hidden";
               // Adicionando o input ao corpo do documento (body)
               document.body.appendChild(inputElementPapel);
                 // Acessando o elemento pelo ID após um pequeno atraso
@@ -471,7 +472,7 @@ function RecuperaProdutoSelecionado() {
                 // Acessando o elemento pelo ID após um pequeno atraso
                 setTimeout(function () {
                   var elemento = document.getElementById(valor);
-                  adicionarAcabamentoDoClone(valor);
+                  adicionarAcabamentoDoClone(valor, data.cod_produto);
                 }, 100);
 
               })
