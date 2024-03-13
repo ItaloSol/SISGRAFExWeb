@@ -160,10 +160,14 @@ function checkedAcabamento() {
   }
 }
 
-function adicionarAcabamentoDoClone(valor) {
+function adicionarAcabamentoDoClone(valor, cod_produto) {
   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
-  arraySelecionados.push(valor);
+  let completo = {
+    cod_produto,
+    valor
+  }
+  arraySelecionados.push(completo);
   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
   recuperarNomesAcabamento('NovoAcabemtnoSe');
   checkedAcabamento();
@@ -178,43 +182,49 @@ function adicionarPapelDoClone(valor) {
   checkedPapel();
 }
 
-function selecionarAcabamento(valor) {
+// function selecionarAcabamento(valor) {
 
-  const selecionado = document.getElementById(valor);
+//   const selecionado = document.getElementById(valor);
 
-  let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
-  let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
+//   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
+//   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
 
-  if (selecionado.checked) {
-    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
+//   if (selecionado.checked) {
+//     document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
 
-    // Adicionar o ID do item selecionado ao array de selecionados
-    arraySelecionados.push(selecionado.value);
-  } else {
-    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
+//     // Adicionar o ID do item selecionado ao array de selecionados
+//     arraySelecionados.push(selecionado.value);
+//   } else {
+//     document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
 
-    // Remover o ID do item desmarcado do array de selecionados
-    arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
-  }
+//     // Remover o ID do item desmarcado do array de selecionados
+//     arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
+//   }
 
-  // Salvar o array de selecionados no localStorage
-  localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
+//   // Salvar o array de selecionados no localStorage
+//   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
 
-  setTimeout(function () {
-    document.getElementById('mensagemAcabamento').innerHTML = '';
-  }, 1000);
-  recuperarNomesAcabamento('NovoAcabemtnoSe')
-}
-if (localStorage.getItem('AcabamentoSelecionado')) {
-  recuperarNomesAcabamento('NovoAcabemtnoSe');
-}
+//   setTimeout(function () {
+//     document.getElementById('mensagemAcabamento').innerHTML = '';
+//   }, 1000);
+//   recuperarNomesAcabamento('NovoAcabemtnoSe')
+// }
+// if (localStorage.getItem('AcabamentoSelecionado')) {
+//   recuperarNomesAcabamento('NovoAcabamentoSe');
+// }
 
-function recuperarNomesAcabamento(iddovalor, codigo_do_produto) {
-  let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
-  let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
+function recuperarNomesAcabamento(iddovalor) {
+  const storedData = localStorage.getItem('AcabamentoSelecionado');
+  let arraySelecionados = storedData ? JSON.parse(storedData) : [];
 
+  // Extract the 'cod_produto' property from each object in the array
+  const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
+
+  // Extract the 'valor' property from each object in the array
+  arraySelecionados = arraySelecionados.map(({ valor }) => valor);
   let promises = arraySelecionados.map(id => {
-    return fetch('api_acabamento.php?id=' + id)
+    // Use the 'id' (which is the 'valor' now) in the fetch request
+    return fetch(`api_acabamento.php?id=${id}`)
       .then(response => response.json())
       .then(data => {
         return {
@@ -225,17 +235,19 @@ function recuperarNomesAcabamento(iddovalor, codigo_do_produto) {
         };
       });
   });
+
   Promise.all(promises)
     .then(results => {
-      let nomePapel = results.map(result => result.nomePapel).join(', ');
-      // console.log(nomePapel); // Movido para dentro do bloco `then`
-      // document.getElementById('nome_papel').value = nomePapel;
+      // Extract unique cod_produto values
+      // (This part is not necessary anymore since we already have the codProdutos array)
+      // const uniqueCodProdutos = [...new Set(codProdutos)];
 
       const tableBody = document.getElementById(iddovalor);
       tableBody.innerHTML = '';
       tableBody.innerHTML += `
     <thead>
     <tr>
+    <th>CÓDIGO PRODUTO</th>
     <th>CÓDIGO ACABAMENTO</th>
     <th>MÁQUINA</th>
     <th>CUSTO</th>
@@ -249,14 +261,15 @@ function recuperarNomesAcabamento(iddovalor, codigo_do_produto) {
     </td>
   </tr>`;
       }
-      results.forEach(result => {
+      results.forEach((result, index) => {
+        const inputId = `acabamento_${index}`;
         tableBody.innerHTML += `
-      
-        <tr>
-          <td>${result.id}</td>
-          <td>${result.MAQUINA}</td>
-          <td>${result.CUSTO_HORA}</td>
-        </tr>`;
+          <tr>
+            <td>${codProdutos[index]}</td>
+            <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
+          </tr>`;
       });
     })
     .catch(error => {
@@ -264,18 +277,16 @@ function recuperarNomesAcabamento(iddovalor, codigo_do_produto) {
     });
 }
 
-function ApagarAcabamento(valor) {
-  // Defina o nome do item que você deseja remover
-  var itemKey = valor;
-  if (localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null) {
-    const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-    if (document.getElementById('selecionarAcabamentos')) {
-      ArrayAcabamentos.map((item) => {
-        document.getElementById('Acaba' + item).checked = false;
-      });
-    }
+function ApagarAcabamento() {
+  // if (localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null) {
+  //   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+  //   if (document.getElementById('selecionarAcabamentos')) {
+  //     ArrayAcabamentos.map((item) => {
+  //       document.getElementById('Acaba' + item).checked = false;
+  //     });
+  //   }
     // Remova o item do localStorage
-    localStorage.removeItem(itemKey);
+    localStorage.removeItem('AcabamentoSelecionado');
     document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
 
     recuperarNomesAcabamento('NovoAcabemtnoSe');
@@ -283,7 +294,7 @@ function ApagarAcabamento(valor) {
       document.getElementById('mensagemAcabamento').innerHTML = '';
     }, 1000);
   }
-}
+//}
 
 // funcções do papel
 function selecionarPapel(valor) {
