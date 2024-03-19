@@ -406,9 +406,10 @@ function retornarQuantidadedeClique(quantidade, codigo) {
   var cf = document.getElementById('GCF' + codigo);
   var cv = document.getElementById('GCV' + codigo);
   var PFolha = +cf.value + +cv.value;
-  var Clique = quantidade;
-  var valorP = 0.027;
-  var valorC = 0.281;
+  var Clique = quantidade / 2;
+  console.log('clique de pagina = ' + quantidade + ' /2 = ' + Clique)
+  var valorP = 0.3; // 0.027
+  var valorC = 0.3; //0.281
   var valorT = 0;
   var Tipo = 'preto';
   if (PFolha >= 4) {
@@ -634,10 +635,9 @@ function calcularValor() {
           alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
           break;
         }
-        document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
         if (digital === true) {
           document.getElementById('settings-list-Clique').style.display = 'block';
-          let VarCliques = retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
+          let VarCliques = retornarQuantidadedeClique(quantidadePaginas, item[i].codigoPapel);
           ValorClique += VarCliques.valor;
           Qtd_ApuraClique += VarCliques.quantidade;
           if (Qtd_ApuraClique >= 8000) {
@@ -685,7 +685,6 @@ function calcularValor() {
         if (Arr_pProduto.hasOwnProperty(chave)) {
           // Obtém o array correspondente à chave
           let arrayInterno = Arr_pProduto[chave];
-          console.log(document.getElementById('preco_unitario' + arrayInterno).value)
           Total += document.getElementById('preco_unitario' + arrayInterno).value * Quantidade;
         }
       }
@@ -698,6 +697,71 @@ function calcularValor() {
   }
 }
 // ENVIAR PARA O BANCO DE DADOS/SALVAR
+function calculateTotal(item) {
+  const { QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL,FORMATO_IMPRESSÃO ,VALOR_IMPRESSAO_DIGITAL } = item;
+  let total = 0;
+
+  
+
+  if (PREÇO_FOLHA && GASTO_FOLHA) {
+    total += PREÇO_FOLHA * GASTO_FOLHA;
+    total /= FORMATO_IMPRESSÃO
+    console.log('valor papel =', PREÇO_FOLHA * GASTO_FOLHA);
+  }
+  if (QUANTIDADE && CUSTO) {
+    total += QUANTIDADE * CUSTO;
+    console.log('valor acabamento =', QUANTIDADE * CUSTO);
+  }
+  if (DIGITAL === 1 && VALOR_IMPRESSAO_DIGITAL) {
+    total += parseFloat(VALOR_IMPRESSAO_DIGITAL);
+    console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
+  }
+
+
+  // Calcule o valor do frete, arte e desconto
+  const ValorFrete = 0;
+  const ValorArte = 0;
+  const DescontoConvertido = 0;
+
+ 
+  
+
+  // Adicione os outros valores
+  // total += ValorFrete;
+  // total += ValorArte;
+  // total -= (total * DescontoConvertido);
+
+  return total;
+}
+
+function mergeObjects(obj1, obj2) {
+  const merged = Object.assign({}, obj1, obj2);
+
+  // Trate os campos específicos aqui
+  if (obj1.QTD_PÁGINAS) merged.QUANTIDADE = obj1.QTD_PÁGINAS;
+  if (obj1.QUANTIDADE) merged.QUANTIDADE = obj1.QUANTIDADE;
+  if (obj1.DIGITAL !== undefined) merged.DIGITAL = obj1.DIGITAL;
+  if (obj1.VALOR_IMPRESSAO_DIGITAL !== undefined)
+    merged.VALOR_IMPRESSAO_DIGITAL = obj1.VALOR_IMPRESSAO_DIGITAL;
+  if (obj1.CÓDIGO_PAPEL !== undefined) merged.CÓDIGO_PAPEL = obj1.CÓDIGO_PAPEL;
+  if (obj1.TIPO !== undefined) merged.TIPO = obj1.TIPO;
+  if (obj1.CF !== undefined) merged.CF = obj1.CF;
+  if (obj1.CV !== undefined) merged.CV = obj1.CV;
+  if (obj1.FORMATO_IMPRESSÃO !== undefined)
+    merged.FORMATO_IMPRESSÃO = obj1.FORMATO_IMPRESSÃO;
+  if (obj1.PERCA !== undefined) merged.PERCA = obj1.PERCA;
+  if (obj1.GASTO_FOLHA !== undefined) merged.GASTO_FOLHA = obj1.GASTO_FOLHA;
+  if (obj1.PREÇO_FOLHA !== undefined) merged.PREÇO_FOLHA = obj1.PREÇO_FOLHA;
+  if (obj1.QUANTIDADE_DE_CHAPAS !== undefined)
+    merged.QUANTIDADE_DE_CHAPAS = obj1.QUANTIDADE_DE_CHAPAS;
+  if (obj1.PREÇO_CHAPA !== undefined) merged.PREÇO_CHAPA = obj1.PREÇO_CHAPA;
+  if (obj1.CODIGO_ACABAMENTO !== undefined)
+    merged.CODIGO_ACABAMENTO = obj1.CODIGO_ACABAMENTO;
+  if (obj1.MÁQUINA !== undefined) merged.MÁQUINA = obj1.MÁQUINA;
+  if (obj1.CUSTO !== undefined) merged.CUSTO = obj1.CUSTO;
+
+  return merged;
+}
 function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
   const consolidatedObjects = {};
 
@@ -707,19 +771,46 @@ function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
   allJsonArrays.forEach((item) => {
     const key = item.CÓDIGO_PRODUTO || item.CÓDIGO || item.PRODUTO;
 
-    if (!consolidatedObjects[key]) {
-      consolidatedObjects[key] = {
-        CÓDIGO_PRODUTO: key,
-        VALOR_IMPRESSAO_DIGITAL: 0,
-        PREÇO_CHAPA: 0,
-        CUSTO: 0,
-      };
-    }
-
     if (key) {
-      consolidatedObjects[key].VALOR_IMPRESSAO_DIGITAL += parseFloat(item.VALOR_IMPRESSAO_DIGITAL || 0);
-      consolidatedObjects[key].PREÇO_CHAPA += parseFloat(item.PREÇO_CHAPA || 0);
-      consolidatedObjects[key].CUSTO += parseFloat(item.CUSTO || 0);
+      if (!consolidatedObjects[key]) {
+        consolidatedObjects[key] = {
+          CÓDIGO_PRODUTO: key,
+          VALOR_IMPRESSAO_DIGITAL: 0,
+          PREÇO_CHAPA: 0,
+          CUSTO: 0,
+          QUANTIDADE: 0,
+          DIGITAL: undefined,
+          VALOR_IMPRESSAO_DIGITAL: 0,
+          CÓDIGO_PAPEL: undefined,
+          TIPO: undefined,
+          PREÇO_CHAPA: 0,
+          CUSTO: 0,
+        };
+      }
+
+      const normalizedItem = item;
+
+      consolidatedObjects[key] = mergeObjects(
+        consolidatedObjects[key],
+        normalizedItem
+      );
+
+      consolidatedObjects[key].VALOR_IMPRESSAO_DIGITAL +=
+        parseFloat(normalizedItem.VALOR_IMPRESSAO_DIGITAL || 0);
+      consolidatedObjects[key].PREÇO_CHAPA += parseFloat(normalizedItem.PREÇO_CHAPA || 0);
+      consolidatedObjects[key].CUSTO += parseFloat(normalizedItem.CUSTO || 0);
+
+      // Atualize a quantidade somente se o valor do item atual for maior do que o valor atual no objeto consolidado
+      if (normalizedItem.QUANTIDADE > consolidatedObjects[key].QUANTIDADE) {
+        consolidatedObjects[key].QUANTIDADE = normalizedItem.QUANTIDADE;
+      }
+
+      // Copie os demais campos do item para o objeto consolidado
+      Object.keys(normalizedItem).forEach((campo) => {
+        if (!consolidatedObjects[key][campo] && campo !== 'CÓDIGO_PRODUTO' && campo !== 'QUANTIDADE') {
+          consolidatedObjects[key][campo] = normalizedItem[campo];
+        }
+      });
     }
   });
 
@@ -903,8 +994,20 @@ function SalvarOrcamento() {
 
   var jsonFinal5 = JSON.stringify(dadosJson);
  // console.log(jsonFinal5);
-  const organiza_campos = consolidateObjects(jsonFinal1,jsonFinal2,jsonFinal3,jsonFinal4)
-  organiza_campos.forEach((item) => {
-    console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, TOTAL: ${item.VALOR_IMPRESSAO_DIGITAL + item.PREÇO_CHAPA + item.CUSTO}`);
-  });
+//  console.log(jsonFinal1);
+//  console.log(jsonFinal2);
+//  console.log(jsonFinal3);
+//  console.log(jsonFinal4);
+ jsonFinal1 = JSON.parse(jsonFinal1);
+ jsonFinal2 = JSON.parse(jsonFinal2);
+ jsonFinal3 = JSON.parse(jsonFinal3);
+ jsonFinal4 = JSON.parse(jsonFinal4);
+ 
+ const organiza_campos = consolidateObjects(jsonFinal1, jsonFinal2, jsonFinal3, jsonFinal4);
+
+ organiza_campos.forEach((item) => {
+  console.log(item)
+   const total = calculateTotal(item);
+   console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, TOTAL: ${total}`);
+ });
 }
