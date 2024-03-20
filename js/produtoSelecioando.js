@@ -321,7 +321,7 @@ function RecuperaProdutoSelecionado() {
             }
             if (data.cod_produto) {
               
-              campo.cod_produto = data.cod_produto;
+              campo.cod_produto = `<input  class="form-control " readonly type="number" name="data.cod_produto" id="data.cod_produto${data.cod_produto}" value="${data.cod_produto}"></input>`;
             }
             if (data.observacao_produto) {
               campo.observacao_produto = data.observacao_produto;
