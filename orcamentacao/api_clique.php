@@ -34,3 +34,17 @@ if (isset($_GET['quantidade'])) {
   }
   echo json_encode($Resultado);
 } 
+
+if (isset($_GET['valor'])) {
+  $query_Dados = $conexao->prepare("SELECT * FROM clique_dados ORDER BY contrato_clique DESC LIMIT 1");
+  $query_Dados->execute();
+   if($linha = $query_Dados->fetch(PDO::FETCH_ASSOC)) {
+    $valorP = $linha["valor_preto"];
+    $valorC = $linha["valor_colorido"];
+  }
+    $Resultado = [
+      "valorP" => $valorP,
+      "valorC" => $valorC
+    ];
+  echo json_encode($Resultado);
+}
