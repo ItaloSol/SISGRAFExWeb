@@ -406,9 +406,10 @@ function retornarQuantidadedeClique(quantidade, codigo) {
   var cf = document.getElementById('GCF' + codigo);
   var cv = document.getElementById('GCV' + codigo);
   var PFolha = +cf.value + +cv.value;
-  var Clique = quantidade;
-  var valorP = 0.027;
-  var valorC = 0.281;
+  var Clique = quantidade / 2;
+  console.log('clique de pagina = ' + quantidade + ' /2 = ' + Clique)
+  var valorP = 0.3; // 0.027
+  var valorC = 0.3; //0.281
   var valorT = 0;
   var Tipo = 'preto';
   if (PFolha >= 4) {
@@ -502,240 +503,6 @@ function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, nume
 function SalvarPO() {
   document.getElementById('SalvarPO').style.display = 'block';
 }
-
-// FUNÇÃO DO CALCULO
-function calcularValor() {
-  const JsProduto = ObterTabelaProduto();
-  const JsTiragens = obterTabelaTiragens();
-  const JsPapeis = JSON.stringify(ObsertPapelCorreto());
-  const JsAcabamentos = obterTabelaAcabamentos();
-  const JsServicos = obterTabelaServicos();
-  const JsObservacao = obterValorObservacao();
-
-  // CIF
-  let CifConvertido = calcularCif();
-
-  // Arte
-  let ValorArte = clacularArte();
-
-  // FRETE
-  let ValorFrete = caluclarFrete();
-
-  // DESCONTO
-  let DescontoConvertido = calcularDesconto();
-
-  // PRODUTO
-  const Produto = JSON.parse(JsProduto)
-  const resultadoProduto = Produto.map(item => {
-    // Realize as manipulações desejadas no objeto item
-  });
-
-  // TIRAGENS
-  const Tiragens = JSON.parse(JsTiragens)
-  let ValorImpressao = 0
-  let Arr_pProduto = 0;
-  let Arr_quantidade = 0;
-  let cod_pProduto = 0
-  var x = 0;
-  let digital, offset = 0;
-  let Quantidade = 0;
-  Tiragens.map(item => {
-    digital = item.digital;
-    offset = item.offset;
-  });
-
-
-
-  // Limpa os Cliques
-  var AdicionandoClique = document.getElementById('calculo_clique');
-  AdicionandoClique.innerHTML = `<tr>
-  <th>CLIQUE</th>
-  <th>VALOR</th>
-  </tr>`;
-
-  // PAPEIS
-
-  const Papeis = JSON.parse(`[${JsPapeis}]`)
-  let ValorPapel = 0;
-  let ValorChapa = 0;
-  let QtdChapa = 0;
-  let PapelUnita = 0;
-  let ValorClique = 0;
-  let Qtd_ApuraClique = 0;
-  let numeroVias, QuantidadeGastaChapa, QuantidadeGasta = 0;
-  Papeis.map(item => {
-    for (i = 0; i < item.length; i++) {
-      if (item[i]) {
-        let tipoProduto = document.getElementById('TIPO_PRODUTO').value;
-        ValorChapa = item[i].precoChapa;
-        let ValorFolha = item[i].precoFolha;
-        let formatoImpressao = item[i].formatoImpressao;
-        let quantidadePaginas = pegarQtdPaginas();
-        let tiragem = pegarQtdTiragem();
-        let perca = item[i].perca;
-        let numeroCoresFrente = item[i].cf;
-        let numeroCoresVerso = item[i].cv;
-        let tipoProdutoString = item[i].tipo;
-        if (tipoProdutoString === "FOLHA") {
-          tipoProduto = 1;
-        } else if (tipoProdutoString === "LIVRO") {
-          tipoProduto = 2;
-        } else if (tipoProdutoString === "BLOCO") {
-          tipoProduto = 3;
-        } else if (tipoProdutoString === "BANNER") {
-          tipoProduto = 4;
-        } else if (tipoProdutoString === "OUTROS") {
-          tipoProduto = 5;
-        } else if (tipoProduto != Number) {
-          tipoProduto = 1;
-        }
-
-        let tipoPapel = 0;
-        let tipoPapelAux = item[i].tipo;
-        if (tipoPapelAux === "FOLHA") {
-          tipoPapel = 1;
-        } else if (tipoPapelAux === "CAPA") {
-          tipoPapel = 2;
-        } else if (tipoPapelAux === "MIOLO") {
-          tipoPapel = 3;
-        } else if (tipoPapelAux === "1ª VIA") {
-          tipoPapel = 4;
-        } else if (tipoPapelAux === "2ª VIA") {
-          tipoPapel = 5;
-        } else if (tipoPapelAux === "3ª VIA") {
-          tipoPapel = 6;
-        } else if (tipoPapel != Number) {
-          tipoPapel = 1;
-        }
-        if (tipoProduto === 3) {
-          for (let j = 0; j < tabelaPapeis.getRowCount(); j++) {
-            let tipoPapelAux = item[i].tipo_papel;
-            if (tipoPapelAux === "1ª VIA" || tipoPapelAux === "2ª VIA" || tipoPapelAux === "3ª VIA") {
-              numeroVias += 1;
-            }
-          }
-        }
-
-
-        QuantidadeGasta = retornaQuantidadeFolhas(
-          +tipoProduto,
-          +tipoPapel,
-          +quantidadePaginas,
-          +formatoImpressao,
-          +tiragem,
-          +numeroVias,
-          +perca
-        );
-        PapelUnita += +ValorFolha;
-        ValorPapel += +ValorFolha * +QuantidadeGasta;
-        if (document.getElementById('Impre' + item[i].codigoPapel).value === '') {
-          var tab = new bootstrap.Tab(document.getElementById('settings-list-item3'));
-          tab.show();
-          alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
-          break;
-        }
-        document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
-        if (digital === true) {
-          document.getElementById('settings-list-Clique').style.display = 'block';
-          let VarCliques = retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel);
-          ValorClique += VarCliques.valor;
-          Qtd_ApuraClique += VarCliques.quantidade;
-          if (Qtd_ApuraClique >= 8000) {
-            window.alert('ATENÇÃO!! \n A QUANTIDADE DE CLIQUE UTILIZADA NESSA OP PASSA DE 8 MIL CLIQUES. \n O VALOR DE CLIQUE UTILIZADO PELA OP ESTÁ MUITO ALTO! \n RECOMENDADO RODAR NA OFFSET.')
-          }
-        } else {
-          document.getElementById('settings-list-Clique').style.display = 'none';
-        }
-        QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
-        QtdChapa += QuantidadeGastaChapa;
-        document.getElementById('GChapa' + item[i].codigoPapel).value = QuantidadeGastaChapa;
-      }
-    }
-  });
-
-
-  // ACABAMENTO
-  const Acabamento = JSON.parse(JsAcabamentos)
-  let ValorAcabamento = 0;
-  let AcabamentoUnita = 0;
-  Acabamento.map(item => {
-    ValorAcabamento += Quantidade * +item.precoAcabamento;
-    AcabamentoUnita += +item.precoAcabamento;
-  });
-
-  // SERVIÇOS
-  ValorServico = JsServicos;
-
-  // OBSERVAÇÃO
-  const Observacao = JsObservacao;
-
-
-
-  //CALCULO
-  let Manual = document.getElementById('ValorManual').checked;
-  let ValorUnitario_Final = 0;
-  let SomaValor = 0;
-  let Total = 0;
-  if (digital === false && offset === false || digital === true && offset === true) {
-    alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
-    Total = 'ERRO';
-  } else {
-    if (Manual == true) {
-      for (let chave in Arr_pProduto) {
-        if (Arr_pProduto.hasOwnProperty(chave)) {
-          // Obtém o array correspondente à chave
-          let arrayInterno = Arr_pProduto[chave];
-          console.log(document.getElementById('preco_unitario' + arrayInterno).value)
-          Total += document.getElementById('preco_unitario' + arrayInterno).value * Quantidade;
-        }
-      }
-    }
-    // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
-    if (Total.toFixed(2) != 'NaN') {
-      document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
-      SalvarPO();
-    }
-  }
-}
-// ENVIAR PARA O BANCO DE DADOS/SALVAR
-function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
-  const consolidatedObjects = {};
-
-  // Merge all arrays into one
-  const allJsonArrays = [...jsonArray1, ...jsonArray2, ...jsonArray3, ...jsonArray4];
-
-  allJsonArrays.forEach((item) => {
-    const key = item.CÓDIGO_PRODUTO || item.CÓDIGO || item.PRODUTO;
-
-    if (!consolidatedObjects[key]) {
-      consolidatedObjects[key] = {
-        CÓDIGO_PRODUTO: key,
-        VALOR_IMPRESSAO_DIGITAL: 0,
-        PREÇO_CHAPA: 0,
-        CUSTO: 0,
-      };
-    }
-
-    if (key) {
-      consolidatedObjects[key].VALOR_IMPRESSAO_DIGITAL += parseFloat(item.VALOR_IMPRESSAO_DIGITAL || 0);
-      consolidatedObjects[key].PREÇO_CHAPA += parseFloat(item.PREÇO_CHAPA || 0);
-      consolidatedObjects[key].CUSTO += parseFloat(item.CUSTO || 0);
-    }
-  });
-
-  return Object.values(consolidatedObjects);
-}
-function SalvarOrcamento() {
-  const contato = document.getElementById('selecione_contato');
-  const endereco = document.getElementById('selecione_endereco')
-  if (contato.value == 'Selecione um contato') {
-    window.location.href = '#selecione_contato';
-    window.alert('O contato do cliente não foi selecionado!');
-  }
-  if (endereco.value == 'Selecione um endereço') {
-    window.location.href = '#selecione_endereco';
-    window.alert('O endereço do cliente não foi selecionado!');
-  }
   // Obtém a tabela pelo ID
   var tabela = document.getElementById('SelecionadoProudutosProduto');
 
@@ -902,9 +669,184 @@ function SalvarOrcamento() {
   }
 
   var jsonFinal5 = JSON.stringify(dadosJson);
- // console.log(jsonFinal5);
-  const organiza_campos = consolidateObjects(jsonFinal1,jsonFinal2,jsonFinal3,jsonFinal4)
-  organiza_campos.forEach((item) => {
-    console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, TOTAL: ${item.VALOR_IMPRESSAO_DIGITAL + item.PREÇO_CHAPA + item.CUSTO}`);
+// FUNÇÃO DO CALCULO
+
+// ENVIAR PARA O BANCO DE DADOS/SALVAR
+function calculateTotal(item) {
+  const { QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL,FORMATO_IMPRESSÃO ,VALOR_IMPRESSAO_DIGITAL } = item;
+  let total = 0;
+
+  
+
+  if (PREÇO_FOLHA && GASTO_FOLHA) {
+    total += PREÇO_FOLHA * GASTO_FOLHA;
+    total /= FORMATO_IMPRESSÃO
+    console.log('valor papel =', PREÇO_FOLHA * GASTO_FOLHA);
+  }
+  if (QUANTIDADE && CUSTO) {
+    total += QUANTIDADE * CUSTO;
+    console.log('valor acabamento =', QUANTIDADE * CUSTO);
+  }
+  if (DIGITAL === 1 && VALOR_IMPRESSAO_DIGITAL) {
+    total += parseFloat(VALOR_IMPRESSAO_DIGITAL);
+    console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
+  }
+
+
+  // Calcule o valor do frete, arte e desconto
+  const ValorFrete = 0;
+  const ValorArte = 0;
+  const DescontoConvertido = 0;
+
+ 
+  
+
+  // Adicione os outros valores
+  // total += ValorFrete;
+  // total += ValorArte;
+  // total -= (total * DescontoConvertido);
+
+  return total;
+}
+
+function mergeObjects(obj1, obj2) {
+  const merged = Object.assign({}, obj1, obj2);
+
+  // Trate os campos específicos aqui
+  if (obj1.QTD_PÁGINAS) merged.QUANTIDADE = obj1.QTD_PÁGINAS;
+  if (obj1.QUANTIDADE) merged.QUANTIDADE = obj1.QUANTIDADE;
+  if (obj1.DIGITAL !== undefined) merged.DIGITAL = obj1.DIGITAL;
+  if (obj1.VALOR_IMPRESSAO_DIGITAL !== undefined)
+    merged.VALOR_IMPRESSAO_DIGITAL = obj1.VALOR_IMPRESSAO_DIGITAL;
+  if (obj1.CÓDIGO_PAPEL !== undefined) merged.CÓDIGO_PAPEL = obj1.CÓDIGO_PAPEL;
+  if (obj1.TIPO !== undefined) merged.TIPO = obj1.TIPO;
+  if (obj1.CF !== undefined) merged.CF = obj1.CF;
+  if (obj1.CV !== undefined) merged.CV = obj1.CV;
+  if (obj1.FORMATO_IMPRESSÃO !== undefined)
+    merged.FORMATO_IMPRESSÃO = obj1.FORMATO_IMPRESSÃO;
+  if (obj1.PERCA !== undefined) merged.PERCA = obj1.PERCA;
+  if (obj1.GASTO_FOLHA !== undefined) merged.GASTO_FOLHA = obj1.GASTO_FOLHA;
+  if (obj1.PREÇO_FOLHA !== undefined) merged.PREÇO_FOLHA = obj1.PREÇO_FOLHA;
+  if (obj1.QUANTIDADE_DE_CHAPAS !== undefined)
+    merged.QUANTIDADE_DE_CHAPAS = obj1.QUANTIDADE_DE_CHAPAS;
+  if (obj1.PREÇO_CHAPA !== undefined) merged.PREÇO_CHAPA = obj1.PREÇO_CHAPA;
+  if (obj1.CODIGO_ACABAMENTO !== undefined)
+    merged.CODIGO_ACABAMENTO = obj1.CODIGO_ACABAMENTO;
+  if (obj1.MÁQUINA !== undefined) merged.MÁQUINA = obj1.MÁQUINA;
+  if (obj1.CUSTO !== undefined) merged.CUSTO = obj1.CUSTO;
+
+  return merged;
+}
+function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
+  const consolidatedObjects = {};
+
+  // Merge all arrays into one
+  const allJsonArrays = [...jsonArray1, ...jsonArray2, ...jsonArray3, ...jsonArray4];
+
+  allJsonArrays.forEach((item) => {
+    const key = item.CÓDIGO_PRODUTO || item.CÓDIGO || item.PRODUTO;
+
+    if (key) {
+      if (!consolidatedObjects[key]) {
+        consolidatedObjects[key] = {
+          CÓDIGO_PRODUTO: key,
+          VALOR_IMPRESSAO_DIGITAL: 0,
+          PREÇO_CHAPA: 0,
+          CUSTO: 0,
+          QUANTIDADE: 0,
+          DIGITAL: undefined,
+          VALOR_IMPRESSAO_DIGITAL: 0,
+          CÓDIGO_PAPEL: undefined,
+          TIPO: undefined,
+          PREÇO_CHAPA: 0,
+          CUSTO: 0,
+        };
+      }
+
+      const normalizedItem = item;
+
+      consolidatedObjects[key] = mergeObjects(
+        consolidatedObjects[key],
+        normalizedItem
+      );
+
+      consolidatedObjects[key].VALOR_IMPRESSAO_DIGITAL +=
+        parseFloat(normalizedItem.VALOR_IMPRESSAO_DIGITAL || 0);
+      consolidatedObjects[key].PREÇO_CHAPA += parseFloat(normalizedItem.PREÇO_CHAPA || 0);
+      consolidatedObjects[key].CUSTO += parseFloat(normalizedItem.CUSTO || 0);
+
+      // Atualize a quantidade somente se o valor do item atual for maior do que o valor atual no objeto consolidado
+      if (normalizedItem.QUANTIDADE > consolidatedObjects[key].QUANTIDADE) {
+        consolidatedObjects[key].QUANTIDADE = normalizedItem.QUANTIDADE;
+      }
+
+      // Copie os demais campos do item para o objeto consolidado
+      Object.keys(normalizedItem).forEach((campo) => {
+        if (!consolidatedObjects[key][campo] && campo !== 'CÓDIGO_PRODUTO' && campo !== 'QUANTIDADE') {
+          consolidatedObjects[key][campo] = normalizedItem[campo];
+        }
+      });
+    }
   });
+
+  return Object.values(consolidatedObjects);
+}
+
+
+ // console.log(jsonFinal5);
+//  console.log(jsonFinal1);
+//  console.log(jsonFinal2);
+//  console.log(jsonFinal3);
+//  console.log(jsonFinal4);
+ jsonFinal1 = JSON.parse(jsonFinal1);
+ jsonFinal2 = JSON.parse(jsonFinal2);
+ jsonFinal3 = JSON.parse(jsonFinal3);
+ jsonFinal4 = JSON.parse(jsonFinal4);
+ 
+ const organiza_campos = consolidateObjects(jsonFinal1, jsonFinal2, jsonFinal3, jsonFinal4);
+ function calcularValor() {
+
+  // CIF
+  let CifConvertido = calcularCif();
+
+  // Arte
+  let ValorArte = clacularArte();
+
+  // FRETE
+  let ValorFrete = caluclarFrete();
+
+  // DESCONTO
+  let DescontoConvertido = calcularDesconto();
+
+  //CALCULO
+  let Total = 0;
+  if (digital === false && offset === false || digital === true && offset === true) {
+    alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
+    Total = 'ERRO';
+  } else {
+    
+      organiza_campos.forEach((item) => {
+        console.log(item)
+         const total = calculateTotal(item);
+         console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, TOTAL: ${total}`);
+       });
+    
+    // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
+  
+  }
+}
+ 
+ 
+ 
+ function SalvarOrcamento() {
+  const contato = document.getElementById('selecione_contato');
+  const endereco = document.getElementById('selecione_endereco')
+  if (contato.value == 'Selecione um contato') {
+    window.location.href = '#selecione_contato';
+    window.alert('O contato do cliente não foi selecionado!');
+  }
+  if (endereco.value == 'Selecione um endereço') {
+    window.location.href = '#selecione_endereco';
+    window.alert('O endereço do cliente não foi selecionado!');
+  }
 }

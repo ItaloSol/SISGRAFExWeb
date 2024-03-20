@@ -152,12 +152,12 @@ PPCheck.addEventListener('click', vle => {
 })
 //  SELECIONAR ACABAMENTO
 function checkedAcabamento() {
-  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  if (document.getElementById('selecionarAcabamentos')) {
-    ArrayAcabamentos.map((item) => {
-      document.getElementById('Acaba' + item).checked = true;
-    })
-  }
+  // const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+  // if (document.getElementById('selecionarAcabamentos')) {
+  //   ArrayAcabamentos.map((item) => {
+  //     document.getElementById('Acaba' + item).checked = true;
+  //   })
+  // }
 }
 
 function adicionarAcabamentoDoClone(valor, cod_produto) {

@@ -284,13 +284,16 @@ $refresh = 0;
                   <div data-i18n="Accordion">Financeiro</div>
                 </a>
               </li>
+            
+               
+            <?php  } ?>
+            <?php if ($EXP_I == '1') {  ?>
             <li class="menu-item">
                 <a href="../relatorios/tl-relatorio-faturamentos.php" class="menu-link">
                   <div data-i18n="Accordion">Faturamentos</div>
                 </a>
               </li>
-               
-            <?php  } ?>
+              <?php  } ?>
             <li class="menu-item">
               <a href="../relatorios/tl-relatorio-detalhamento-de-cliente.php" class="menu-link">
                 <div data-i18n="Accordion">Detalhamento de Cliente</div>
