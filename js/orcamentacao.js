@@ -219,10 +219,11 @@ function adicionarPapelDoClone(valor, cod_produto) {
 
 function recuperarNomesAcabamento(iddovalor) {
   const storedData = localStorage.getItem('AcabamentoSelecionado');
+
   let arraySelecionados = storedData ? JSON.parse(storedData) : [];
+  const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
 
   // Extract the 'cod_produto' property from each object in the array
-  const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
 
   // Extract the 'valor' property from each object in the array
   arraySelecionados = arraySelecionados.map(({ valor }) => valor);
@@ -330,15 +331,19 @@ function selecionarPapel(valor) {
 }
 
 function recuperarNomesPapel(valor, codigo_do_produto) {
-  const papelSelecionado = localStorage.getItem('papelSelecionado');
-  const arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
+  const storedData = localStorage.getItem('papelSelecionado');
+  let arraySelecionados = storedData ? JSON.parse(storedData) : [];
+  const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
+  // Extract the 'cod_produto' property from each object in the array
+
   // Extract the 'valor' property from each object in the array
-  arraySelecionados = arraySelecionados.map(({ valor }) => valor);
-  const promises = arraySelecionados.map((id) =>
-    fetch('api_papel.php?id=' + id + '&cod='+ codigo_do_produto)
+
+  //arraySelecionados = arraySelecionados.map(({ valor }) => valor);
+  let promises = arraySelecionados.map(id => {
+    return fetch('api_papel.php?id=' + id.valor + '&codi='+ id.cod_produto)
       .then((response) => response.json())
-      .then((data) => ({
-        id,
+      .then(data => { 
+        return { id,
         nomePapel: data.descricao_do_papel,
         codPapel: data.cod_papel,
         corFrente: data.cor_frente,
@@ -354,8 +359,9 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         gramatura: data.gramatura,
         formato: data.formato,
         umaFace: data.uma_face,
-      }))
-  );
+        };
+      });
+    });
 
   Promise.all(promises)
     .then((results) => {
