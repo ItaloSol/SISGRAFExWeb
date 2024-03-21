@@ -345,7 +345,7 @@ function RecuperaPapapelClonado() {
 
               setTimeout(function () {
                 var elemento = document.getElementById(data.cod_papel);
-                adicionarPapelDoClone(data.cod_papel);
+                adicionarPapelDoClone(data.cod_papel, data.cod_produto);
               }, 100);
 
             }

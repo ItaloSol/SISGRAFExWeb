@@ -152,12 +152,12 @@ PPCheck.addEventListener('click', vle => {
 })
 //  SELECIONAR ACABAMENTO
 function checkedAcabamento() {
-  // const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  // if (document.getElementById('selecionarAcabamentos')) {
-  //   ArrayAcabamentos.map((item) => {
-  //     document.getElementById('Acaba' + item).checked = true;
-  //   })
-  // }
+  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+  if (document.getElementById('selecionarAcabamentos')) {
+    ArrayAcabamentos.map((item) => {
+      document.getElementById('Acaba' + item.valor).checked = true;
+    })
+  }
 }
 
 function adicionarAcabamentoDoClone(valor, cod_produto) {
@@ -173,10 +173,14 @@ function adicionarAcabamentoDoClone(valor, cod_produto) {
   checkedAcabamento();
 }
 
-function adicionarPapelDoClone(valor) {
+function adicionarPapelDoClone(valor, cod_produto) {
   let PapelSelecionado = localStorage.getItem('papelSelecionado');
   let arraySelecionados = PapelSelecionado ? JSON.parse(PapelSelecionado) : [];
-  arraySelecionados.push(valor);
+  let completo = {
+    cod_produto,
+    valor
+  }
+  arraySelecionados.push(completo);
   localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
   recuperarNomesPapel('personalizaPapel');
   checkedPapel();
@@ -278,22 +282,23 @@ function recuperarNomesAcabamento(iddovalor) {
 }
 
 function ApagarAcabamento() {
-  // if (localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null) {
-  //   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  //   if (document.getElementById('selecionarAcabamentos')) {
-  //     ArrayAcabamentos.map((item) => {
-  //       document.getElementById('Acaba' + item).checked = false;
-  //     });
-  //   }
-    // Remova o item do localStorage
-    localStorage.removeItem('AcabamentoSelecionado');
-    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
-
-    recuperarNomesAcabamento('NovoAcabemtnoSe');
-    setTimeout(function () {
-      document.getElementById('mensagemAcabamento').innerHTML = '';
-    }, 1000);
+  if (localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null) {
+    const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+    if (document.getElementById('selecionarAcabamentos')) {
+      ArrayAcabamentos.map((item) => {
+        document.getElementById('Acaba' + item.valor).checked = false;
+      });
+    }
   }
+  // Remova o item do localStorage
+  localStorage.removeItem('AcabamentoSelecionado');
+  document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
+
+  recuperarNomesAcabamento('NovoAcabemtnoSe');
+  setTimeout(function () {
+    document.getElementById('mensagemAcabamento').innerHTML = '';
+  }, 1000);
+}
 //}
 
 // funcções do papel
@@ -327,9 +332,10 @@ function selecionarPapel(valor) {
 function recuperarNomesPapel(valor, codigo_do_produto) {
   const papelSelecionado = localStorage.getItem('papelSelecionado');
   const arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
-
+  // Extract the 'valor' property from each object in the array
+  arraySelecionados = arraySelecionados.map(({ valor }) => valor);
   const promises = arraySelecionados.map((id) =>
-    fetch('api_papel.php?id=' + id)
+    fetch('api_papel.php?id=' + id + '&cod='+ codigo_do_produto)
       .then((response) => response.json())
       .then((data) => ({
         id,
@@ -400,17 +406,16 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         tableBody.insertAdjacentHTML(
           'beforeend',
           `<tr>
-             <td>${
-               codigo_do_produto &&
-               Array.isArray(codigo_do_produto) &&
-               codigo_do_produto.find(
-                 (obj) => obj.cod_PLS.includes(result.codPapels)
-               )
-                 ? codigo_do_produto.find(
-                     (obj) => obj.cod_PLS.includes(result.codPapels)
-                   ).codigoPP
-                 : result.codPapels
-             }</td>
+             <td>${codigo_do_produto &&
+            Array.isArray(codigo_do_produto) &&
+            codigo_do_produto.find(
+              (obj) => obj.cod_PLS.includes(result.codPapels)
+            )
+            ? codigo_do_produto.find(
+              (obj) => obj.cod_PLS.includes(result.codPapels)
+            ).codigoPP
+            : result.codPapels
+          }</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
              <td>${result.tipo_papel}</td>
@@ -438,7 +443,7 @@ function checkedPapel() {
     const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
     if (document.getElementById('PapelsSelecionado')) {
       ArrayPapels.map((item) => {
-        document.getElementById('Papel' + item).checked = true;
+        document.getElementById('Papel' + item.valor).checked = true;
       })
     }
   }
@@ -451,7 +456,7 @@ function ApagarPapel(valor) {
     const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
     if (document.getElementById('PapelsSelecionado')) {
       ArrayPapels.map((item) => {
-        document.getElementById('Papel' + item).checked = false;
+        document.getElementById('Papel' + item.valor).checked = false;
       })
     }
     // Remova o item do localStorage

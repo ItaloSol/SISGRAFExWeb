@@ -455,7 +455,7 @@ function RecuperaProdutoSelecionado() {
                 // Acessando o elemento pelo ID após um pequeno atraso
               setTimeout(function () {
                 var elemento = document.getElementById(valor);
-                adicionarPapelDoClone(valor);
+                adicionarPapelDoClone(valor, data.cod_produto);
               }, 100);
               })
             }
