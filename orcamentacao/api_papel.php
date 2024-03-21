@@ -13,7 +13,7 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 if (isset($_GET['id'])) {
 
   $pesquisa = $_GET['id'];
-
+  $cod = $_GET['cod'];
   $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $pesquisa  ");
   $query_do_papel->execute();
   if ($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -34,7 +34,7 @@ if (isset($_GET['id'])) {
       $Do_Papel['valor_chapa'] = $linha5['parametro'];
     }
 
-    $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE  cod_papel = $pesquisa ");
+    $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE  cod_papel = $pesquisa AND cod_produto = $cod ");
     $query_papel->execute();
 
     if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
