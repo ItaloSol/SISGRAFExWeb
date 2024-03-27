@@ -329,7 +329,80 @@ function selecionarPapel(valor) {
   }, 1000);
   recuperarNomesPapel('personalizaPapel')
 }
+//Editar papel
+function AbrirEditarPapel(valor) {
+    const select = document.getElementById(valor);
+    const cadastrarPapel = document.getElementById('cadastrarPapel')
+    const editarPapel = document.getElementById('EditarPapel')
+    const papelEditado = document.getElementById('idpapeleditado');
+    let numeros = valor.replace(/\D/g, ''); // Remove tudo que não for dígito
+  if(select.checked == false){
+    cadastrarPapel.style.display = 'block';
+    editarPapel.style.display = 'none';
+    document.getElementById('Nome_papel').value = '';
+        document.getElementById('Mediada_Papel').value = '';
+        document.getElementById('Gramatura_Papel').value = '';
+        document.getElementById('Fomato_Papel').value = '';
+        document.getElementById('umaface_Papel').checked = '';
+        document.getElementById('valor_Papel').value = '';
+  }else{
+    document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Papel Selecionado!</div></div>';
 
+    cadastrarPapel.style.display = 'none';
+    editarPapel.style.display = 'block';
+    papelEditado.name = numeros;
+    fetch(`api_papel.php?cod=${numeros}`)
+    .then(response => response.json())
+    .then(data => {
+      let valores = data.map(papel => ({
+        cod: papel.cod,
+        descricao: papel.descricao,
+        medida: papel.medida,
+        gramatura: papel.gramatura,
+        formato: papel.formato,
+        uma_face: papel.uma_face,
+        unitario: papel.unitario,
+      }));
+   
+      valores.forEach(result => {
+        document.getElementById('Nome_papel').value = result.descricao;
+        document.getElementById('Mediada_Papel').value = result.medida;
+        document.getElementById('Gramatura_Papel').value = result.gramatura;
+        document.getElementById('Fomato_Papel').value = result.formato;
+        if(+result.uma_face >= 1){
+          document.getElementById('umaface_Papel').checked = result.uma_face;
+        }
+        document.getElementById('valor_Papel').value = result.unitario;
+      });
+    });
+  }
+
+  setTimeout(function () {
+    document.getElementById('mensagemPapel').innerHTML = '';
+  }, 1000);
+}
+//SALVAR EDIÇÃO
+function EditarPapel() {
+  const idPapel = document.getElementById('idpapeleditado').name;
+  const   Nome_papel   = document.getElementById('Nome_papel').value;
+  const   Mediada_Papel   = document.getElementById('Mediada_Papel').value; 
+  const   Gramatura_Papel   = document.getElementById('Gramatura_Papel').value;
+  const   Fomato_Papel   = document.getElementById('Fomato_Papel').value;
+  const   umaface_Papel   = document.getElementById('umaface_Papel').checked;
+  const   valor_Papel   = document.getElementById('valor_Papel').value;
+  return fetch('api_papel.php?atualiza=' + idPapel + '&nome='+ Nome_papel 
+  + '&Mediada_Papel='+ Mediada_Papel
+  + '&Gramatura_Papel='+ Gramatura_Papel
+  + '&Fomato_Papel='+ Fomato_Papel
+  + '&umaface_Papel='+ umaface_Papel
+  + '&valor_Papel='+ valor_Papel)
+  .then((response) => response.json())
+  .then(data => { 
+
+  })
+
+
+}
 function recuperarNomesPapel(valor, codigo_do_produto) {
   const storedData = localStorage.getItem('papelSelecionado');
   let arraySelecionados = storedData ? JSON.parse(storedData) : [];
@@ -499,11 +572,12 @@ function abriPapels() {
             <th>CODIGO</th>
             <th>DESCRIÇÃO</th>
             <th>MEDIDA</th>
-            <th>GRAMATURA</th>
+            <th>GRAMA<br>TURA</th>
             <th>FORMATO</th>
             <th>UMA FACE</th>
             <th>VALOR</th>
-            <th>SELECIONAR</th>
+            <th>SELECI<br>ONAR</th>
+            <th>EDITAR</th>
           </tr>
         </thead>`;
 
@@ -517,7 +591,8 @@ function abriPapels() {
             <td>${result.formato}</td>
             <td>${result.uma_face}</td>
             <td>${result.unitario}</td>
-            <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+            <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"> </td>
+            <td> <input class="form-check-input" type="checkbox" id="Editar${result.cod}" value="EDITAR" onclick="AbrirEditarPapel(this.id);"/></td>
           </tr>`;
       });
     });
