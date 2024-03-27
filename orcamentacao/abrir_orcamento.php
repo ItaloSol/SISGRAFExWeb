@@ -779,7 +779,8 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
                             <div class="row">
                               <div class="col-3">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal23">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal23"
+                                onclick="abriAcabamentos()">
                                   SELECIONAR ACABAMENTO
                                 </button>
                               </div>
@@ -982,20 +983,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                       <h5 class="modal-title">ACABAMENTO</h5>
                     </div>
                     <div class="modal-body">
-                      <?php
-                      $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos ORDER BY CODIGO DESC");
-                      $query_acabamento->execute();
-                      $a = 0;
-                      while ($linha = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
-                        $acabamento[$a] = [
-                          'CODIGO' => $linha['CODIGO'],
-                          'MAQUINA' => $linha['MAQUINA'],
-                          'ATIVA' => $linha['ATIVA'],
-                          'CUSTO_HORA' => $linha['CUSTO_HORA'],
-                        ];
-                        $a++;
-                      }
-                      ?>
+                      
                       <div class="row">
                         <div id="mensagemAcabamento"></div>
                         <div class="col-4">
@@ -1007,8 +995,11 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                             <label class="form-label colorbranca" for="valor_Acabamento">CUSTO HORA</label>
                             <input type="number" id="valor_Acabamento" class="form-control phone-mask" placeholder="0" />
                           </div>
-                          <div class="mb-3">
+                          <div id="cadastrarAcabamento" class="mb-3">
                             <button class="btn rounded-pill btn-success" onclick="CadastraAcabamento()">CADASTRAR</button>
+                          </div>
+                          <div id="editarAcabamento" style="display: none;" class="mb-3">
+                          <input class="btn rounded-pill btn-success" id="idAcabamentoeditado" name="" value="EDITAR" onclick="EditarAcabamento();"/>
                           </div>
                         </div>
 
@@ -1022,19 +1013,12 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                             <tr>
                               <th>CODIGO</th>
                               <th>MÁQUINA</th>
-                              <th>ATIVA</th>
                               <th>CUSTO HORA</th>
                               <th>SELECIONAR</th>
                             </tr>
-                            <?php for ($i = 0; $i < $a; $i++) {
-                              echo '<tr>
-                                <td>' . $acabamento[$i]['CODIGO'] . '</td>
-                                <td>' . $acabamento[$i]['MAQUINA'] . '</td>
-                                <td>' . $acabamento[$i]['ATIVA'] . '</td>
-                                <td>' . $acabamento[$i]['CUSTO_HORA'] . '</td>
-                                <td><input class="form-check-input" type="checkbox" id="Acaba' . $acabamento[$i]['CODIGO'] . '" value="' . $acabamento[$i]['CODIGO'] . '" onclick="selecionarAcabamento(this.id)"></td>
-                              </tr>';
-                            } ?>
+                            <tr>
+                                  <td align="center" colspan="4">NENHUM SELECIONADO</td>
+                                </tr>
 
                           </table>
                         </div>
