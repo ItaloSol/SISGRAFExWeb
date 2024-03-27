@@ -154,9 +154,11 @@ PPCheck.addEventListener('click', vle => {
 function checkedAcabamento() {
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
   if (document.getElementById('selecionarAcabamentos')) {
-    ArrayAcabamentos.map((item) => {
-      document.getElementById('Acaba' + item.valor).checked = true;
-    })
+    if (ArrayAcabamentos != []) {
+      ArrayAcabamentos.map((item) => {
+        document.getElementById('Acaba' + item.valor).checked = true;
+      })
+    }
   }
 }
 
@@ -186,36 +188,7 @@ function adicionarPapelDoClone(valor, cod_produto) {
   checkedPapel();
 }
 
-// function selecionarAcabamento(valor) {
 
-//   const selecionado = document.getElementById(valor);
-
-//   let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
-//   let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
-
-//   if (selecionado.checked) {
-//     document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
-
-//     // Adicionar o ID do item selecionado ao array de selecionados
-//     arraySelecionados.push(selecionado.value);
-//   } else {
-//     document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
-
-//     // Remover o ID do item desmarcado do array de selecionados
-//     arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
-//   }
-
-//   // Salvar o array de selecionados no localStorage
-//   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
-
-//   setTimeout(function () {
-//     document.getElementById('mensagemAcabamento').innerHTML = '';
-//   }, 1000);
-//   recuperarNomesAcabamento('NovoAcabemtnoSe')
-// }
-// if (localStorage.getItem('AcabamentoSelecionado')) {
-//   recuperarNomesAcabamento('NovoAcabamentoSe');
-// }
 
 function recuperarNomesAcabamento(iddovalor) {
   const storedData = localStorage.getItem('AcabamentoSelecionado');
@@ -252,7 +225,6 @@ function recuperarNomesAcabamento(iddovalor) {
       tableBody.innerHTML += `
     <thead>
     <tr>
-    <th>CÓDIGO PRODUTO</th>
     <th>CÓDIGO ACABAMENTO</th>
     <th>MÁQUINA</th>
     <th>CUSTO</th>
@@ -270,7 +242,6 @@ function recuperarNomesAcabamento(iddovalor) {
         const inputId = `acabamento_${index}`;
         tableBody.innerHTML += `
           <tr>
-            <td>${codProdutos[index]}</td>
             <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
             <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
             <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
@@ -324,7 +295,7 @@ function selecionarPapel(dado) {
 
     // Remover o ID do item desmarcado do array de selecionados
     arraySelecionados = arraySelecionados.filter(item => item.valor !== completo.valor);
-}
+  }
 
   // Salvar o array de selecionados no localStorage
   localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
@@ -336,50 +307,50 @@ function selecionarPapel(dado) {
 }
 //Editar papel
 function AbrirEditarPapel(valor) {
-    const select = document.getElementById(valor);
-    const cadastrarPapel = document.getElementById('cadastrarPapel')
-    const editarPapel = document.getElementById('EditarPapel')
-    const papelEditado = document.getElementById('idpapeleditado');
-    let numeros = valor.replace(/\D/g, ''); // Remove tudo que não for dígito
-  if(select.checked == false){
+  const select = document.getElementById(valor);
+  const cadastrarPapel = document.getElementById('cadastrarPapel')
+  const editarPapel = document.getElementById('EditarPapel')
+  const papelEditado = document.getElementById('idpapeleditado');
+  let numeros = valor.replace(/\D/g, ''); // Remove tudo que não for dígito
+  if (select.checked == false) {
     cadastrarPapel.style.display = 'block';
     editarPapel.style.display = 'none';
     document.getElementById('Nome_papel').value = '';
-        document.getElementById('Mediada_Papel').value = '';
-        document.getElementById('Gramatura_Papel').value = '';
-        document.getElementById('Fomato_Papel').value = '';
-        document.getElementById('umaface_Papel').checked = '';
-        document.getElementById('valor_Papel').value = '';
-  }else{
+    document.getElementById('Mediada_Papel').value = '';
+    document.getElementById('Gramatura_Papel').value = '';
+    document.getElementById('Fomato_Papel').value = '';
+    document.getElementById('umaface_Papel').checked = '';
+    document.getElementById('valor_Papel').value = '';
+  } else {
     document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Papel Selecionado!</div></div>';
 
     cadastrarPapel.style.display = 'none';
     editarPapel.style.display = 'block';
     papelEditado.name = numeros;
     fetch(`api_papel.php?cod=${numeros}`)
-    .then(response => response.json())
-    .then(data => {
-      let valores = data.map(papel => ({
-        cod: papel.cod,
-        descricao: papel.descricao,
-        medida: papel.medida,
-        gramatura: papel.gramatura,
-        formato: papel.formato,
-        uma_face: papel.uma_face,
-        unitario: papel.unitario,
-      }));
-   
-      valores.forEach(result => {
-        document.getElementById('Nome_papel').value = result.descricao;
-        document.getElementById('Mediada_Papel').value = result.medida;
-        document.getElementById('Gramatura_Papel').value = result.gramatura;
-        document.getElementById('Fomato_Papel').value = result.formato;
-        if(+result.uma_face >= 1){
-          document.getElementById('umaface_Papel').checked = result.uma_face;
-        }
-        document.getElementById('valor_Papel').value = result.unitario;
+      .then(response => response.json())
+      .then(data => {
+        let valores = data.map(papel => ({
+          cod: papel.cod,
+          descricao: papel.descricao,
+          medida: papel.medida,
+          gramatura: papel.gramatura,
+          formato: papel.formato,
+          uma_face: papel.uma_face,
+          unitario: papel.unitario,
+        }));
+
+        valores.forEach(result => {
+          document.getElementById('Nome_papel').value = result.descricao;
+          document.getElementById('Mediada_Papel').value = result.medida;
+          document.getElementById('Gramatura_Papel').value = result.gramatura;
+          document.getElementById('Fomato_Papel').value = result.formato;
+          if (+result.uma_face >= 1) {
+            document.getElementById('umaface_Papel').checked = result.uma_face;
+          }
+          document.getElementById('valor_Papel').value = result.unitario;
+        });
       });
-    });
   }
 
   setTimeout(function () {
@@ -389,12 +360,12 @@ function AbrirEditarPapel(valor) {
 //SALVAR EDIÇÃO
 async function EditarPapel() {
   const idPapel = document.getElementById('idpapeleditado').name;
-  const   Nome_papel   = document.getElementById('Nome_papel').value;
-  const   Mediada_Papel   = document.getElementById('Mediada_Papel').value; 
-  const   Gramatura_Papel   = document.getElementById('Gramatura_Papel').value;
-  const   Fomato_Papel   = document.getElementById('Fomato_Papel').value;
-  const   umaface_Papel   = document.getElementById('umaface_Papel').checked;
-  const   valor_Papel   = document.getElementById('valor_Papel').value;
+  const Nome_papel = document.getElementById('Nome_papel').value;
+  const Mediada_Papel = document.getElementById('Mediada_Papel').value;
+  const Gramatura_Papel = document.getElementById('Gramatura_Papel').value;
+  const Fomato_Papel = document.getElementById('Fomato_Papel').value;
+  const umaface_Papel = document.getElementById('umaface_Papel').checked;
+  const valor_Papel = document.getElementById('valor_Papel').value;
   const response = await fetch('api_papel.php?atualiza=' + idPapel + '&nome=' + Nome_papel
     + '&Mediada_Papel=' + Mediada_Papel
     + '&Gramatura_Papel=' + Gramatura_Papel
@@ -432,28 +403,29 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
 
   //arraySelecionados = arraySelecionados.map(({ valor }) => valor);
   let promises = arraySelecionados.map(id => {
-    return fetch('api_papel.php?id=' + id.valor + '&codi='+ id.cod_produto)
+    return fetch('api_papel.php?id=' + id.valor + '&codi=' + id.cod_produto)
       .then((response) => response.json())
-      .then(data => { 
-        return { id,
-        nomePapel: data.descricao_do_papel,
-        codPapel: data.cod_papel,
-        corFrente: data.cor_frente,
-        corVerso: data.cor_verso,
-        tipo_papel: data.tipo_papel,
-        descricao: data.descricao,
-        orelha: data.orelha,
-        preco_chapa: data.valor_chapa,
-        codPapels: data.cod_papels,
-        descricaoPapel: data.descricao_do_papel,
-        medida: data.medida,
-        preco_folha: data.unitario,
-        gramatura: data.gramatura,
-        formato: data.formato,
-        umaFace: data.uma_face,
+      .then(data => {
+        return {
+          id,
+          nomePapel: data.descricao_do_papel,
+          codPapel: data.cod_papel,
+          corFrente: data.cor_frente,
+          corVerso: data.cor_verso,
+          tipo_papel: data.tipo_papel,
+          descricao: data.descricao,
+          orelha: data.orelha,
+          preco_chapa: data.valor_chapa,
+          codPapels: data.cod_papels,
+          descricaoPapel: data.descricao_do_papel,
+          medida: data.medida,
+          preco_folha: data.unitario,
+          gramatura: data.gramatura,
+          formato: data.formato,
+          umaFace: data.uma_face,
         };
       });
-    });
+  });
 
   Promise.all(promises)
     .then((results) => {
@@ -653,11 +625,12 @@ async function pesquisarpapel() {
             <th>CODIGO</th>
             <th>DESCRIÇÃO</th>
             <th>MEDIDA</th>
-            <th>GRAMATURA</th>
+            <th>GRAMA<br>TURA</th>
             <th>FORMATO</th>
             <th>UMA FACE</th>
             <th>VALOR</th>
-            <th>SELECIONAR</th>
+            <th>SELECI<br>ONAR</th>
+            <th>EDITAR</th>
           </tr>
         </thead>`;
 
@@ -672,6 +645,7 @@ async function pesquisarpapel() {
             <td>${result.uma_face}</td>
             <td>${result.unitario}</td>
             <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+            <td> <input class="form-check-input" type="checkbox" id="Editar${result.cod}" value="EDITAR" onclick="AbrirEditarPapel(this.id);"/></td>
           </tr>`;
           });
         });
@@ -708,11 +682,12 @@ async function pesquisarpapelcode() {
             <th>CODIGO</th>
             <th>DESCRIÇÃO</th>
             <th>MEDIDA</th>
-            <th>GRAMATURA</th>
+            <th>GRAMA<br>TURA</th>
             <th>FORMATO</th>
             <th>UMA FACE</th>
             <th>VALOR</th>
-            <th>SELECIONAR</th>
+            <th>SELECI<br>ONAR</th>
+            <th>EDITAR</th>
           </tr>
         </thead>`;
 
@@ -726,7 +701,9 @@ async function pesquisarpapelcode() {
             <td>${result.formato}</td>
             <td>${result.uma_face}</td>
             <td>${result.unitario}</td>
+             <th>EDITAR</th>
             <td><input value="${result.cod}" class="form-check-input" id="Papel${result.cod}" onclick="selecionarPapel(this.id)" type="checkbox"></td>
+            <td> <input class="form-check-input" type="checkbox" id="Editar${result.cod}" value="EDITAR" onclick="AbrirEditarPapel(this.id);"/></td>
           </tr>`;
           });
         });
@@ -758,20 +735,19 @@ function abriAcabamentos() {
           <tr>
           <th>CODIGO</th>
           <th>MÁQUINA</th>
-          <th>ATIVA</th>
           <th>CUSTO HORA</th>
           <th>SELECIONAR</th>
+          <th>EDITAR</th>
           </tr>
         </thead>`;
-
       valores.forEach(result => {
         completaInserteAcabamento.innerHTML += `
           <tr>
             <td>${result.CODIGO}</td>
             <td>${result.MAQUINA}</td>
-            <td>${result.ATIVA}</td>
             <td>${result.CUSTO_HORA}</td>
-            <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+            <td><input type="checkbox" class="form-check-input" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+            <td> <input class="form-check-input" type="checkbox" id="Editar${result.CODIGO}" value="EDITAR" onclick="AbrirEditarAcabamento(this.id);"/></td>
           </tr>`;
       });
     });
@@ -780,6 +756,110 @@ function abriAcabamentos() {
     checkedAcabamento();
   }, 1000)
 
+}
+
+function selecionarAcabamento(dado) {
+  const selecionado = document.getElementById(dado);
+  let valor = dado.replace(/\D/g, '');
+  let cod_produto = 0;
+  let completo = {
+    cod_produto,
+    valor
+  }
+
+  let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
+  let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
+
+  if (selecionado.checked == true) {
+    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Acabamento Selecionado!</div></div>';
+
+    // Adicionar o ID do item selecionado ao array de selecionados
+    arraySelecionados.push(completo);
+  } else {
+    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Acabamento Desmarcado!</div></div>';
+
+    // Remover o ID do item desmarcado do array de selecionados
+    arraySelecionados = arraySelecionados.filter(item => item.valor !== completo.valor);
+  }
+
+  // Salvar o array de selecionados no localStorage
+  localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
+
+  setTimeout(function () {
+    document.getElementById('mensagemAcabamento').innerHTML = '';
+  }, 1000);
+  recuperarNomesAcabamento('NovoAcabemtnoSe')
+}
+
+function AbrirEditarAcabamento(valor) {
+  const select = document.getElementById(valor);
+  const cadastraracabamento = document.getElementById('cadastrarAcabamento')
+  const editaracabamento = document.getElementById('editarAcabamento')
+  const acabamentoEditado = document.getElementById('idAcabamentoeditado');
+  let numeros = valor.replace(/\D/g, ''); // Remove tudo que não for dígito
+  if (select.checked == false) {
+    cadastraracabamento.style.display = 'block';
+    editaracabamento.style.display = 'none';
+    document.getElementById('Nome_Acabamento').value = '';
+    document.getElementById('valor_Acabamento').value = '';
+
+  } else {
+    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Acabamento Selecionado!</div></div>';
+
+    cadastraracabamento.style.display = 'none';
+    editaracabamento.style.display = 'block';
+    acabamentoEditado.name = numeros;
+    fetch(`api_acabamento.php?cod=${numeros}`)
+      .then(response => response.json())
+      .then(data => {
+        let valores = data.map(acabamento => ({
+          MAQUINA: acabamento.MAQUINA,
+          CUSTO_HORA: acabamento.CUSTO_HORA,
+
+        }));
+
+        valores.forEach(result => {
+          document.getElementById('Nome_Acabamento').value = result.MAQUINA;
+          document.getElementById('valor_Acabamento').value = result.CUSTO_HORA;
+        });
+      });
+  }
+
+  setTimeout(function () {
+    document.getElementById('mensagemAcabamento').innerHTML = '';
+  }, 1000);
+}
+//SALVAR EDIÇÃO
+async function EditarAcabamento() {
+  const idacabamento = document.getElementById('idAcabamentoeditado').name;
+  const Nome_acabamento = document.getElementById('Nome_Acabamento').value;
+  const valor_acabamento = document.getElementById('valor_Acabamento').value;
+
+  const response = await fetch('api_acabamento.php?atualiza='
+    + idacabamento
+    + '&nome=' + Nome_acabamento
+    + '&valor_acabamento=' + valor_acabamento);
+  const data = await response.json();
+  if (data.Sucesso === true) {
+    document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso! Acabamento Editado!</div></div>';
+  }
+  const cadastraracabamento = document.getElementById('cadastrarAcabamento')
+  const editaracabamento = document.getElementById('editarAcabamento')
+  cadastraracabamento.style.display = 'block';
+  editaracabamento.style.display = 'none';
+  document.getElementById('Nome_Acabamento').value = '';
+  document.getElementById('valor_Acabamento').value = '';
+
+  setTimeout(function () {
+    document.getElementById('mensagemAcabamento').innerHTML = '';
+    abriAcabamentos();
+  }, 1000);
+
+
+}
+
+if (localStorage.getItem('AcabamentoSelecionado')) {
+  recuperarNomesAcabamento('NovoAcabamentoSe');
 }
 
 async function pesquisaracabamento() {
@@ -803,9 +883,9 @@ async function pesquisaracabamento() {
             <tr>
             <th>CODIGO</th>
             <th>MÁQUINA</th>
-            <th>ATIVA</th>
             <th>CUSTO HORA</th>
             <th>SELECIONAR</th>
+            <th>EDITAR</th>
             </tr>
           </thead>`;
 
@@ -814,9 +894,9 @@ async function pesquisaracabamento() {
             <tr>
               <td>${result.CODIGO}</td>
               <td>${result.MAQUINA}</td>
-              <td>${result.ATIVA}</td>
               <td>${result.CUSTO_HORA}</td>
-              <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+              <td><input type="checkbox" class="form-check-input" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+              <td> <input class="form-check-input" type="checkbox" id="Editar${result.CODIGO}" value="EDITAR" onclick="AbrirEditarAcabamento(this.id);"/></td>
             </tr>`;
           });
         });
@@ -849,9 +929,9 @@ async function pesquisaracabamentocode() {
             <tr>
             <th>CODIGO</th>
             <th>MÁQUINA</th>
-            <th>ATIVA</th>
             <th>CUSTO HORA</th>
             <th>SELECIONAR</th>
+            <th>EDITAR</th>
             </tr>
           </thead>`;
 
@@ -862,7 +942,8 @@ async function pesquisaracabamentocode() {
               <td>${result.MAQUINA}</td>
               <td>${result.ATIVA}</td>
               <td>${result.CUSTO_HORA}</td>
-              <td><input type="checkbox" class="form-check-input" id="Servi${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+              <td><input type="checkbox" class="form-check-input" id="Acaba${result.CODIGO}" value="${result.CODIGO}" onclick="selecionarAcabamento(this.id)"></td>
+              <td> <input class="form-check-input" type="checkbox" id="Editar${result.CODIGO}" value="EDITAR" onclick="AbrirEditarAcabamento(this.id);"/></td>
             </tr>`;
           });
         });
@@ -1028,7 +1109,7 @@ function abriServicos() {
           <td>${result.valor_minimo}</td>
           <td>${result.valor_unitario}</td>
           <td>${result.tipo_servico}</td>
-          <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
+          <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id);"></td>
         </tr>`;
       });
     });
@@ -1077,7 +1158,7 @@ async function pesquisarservico() {
               <td>${result.valor_minimo}</td>
               <td>${result.valor_unitario}</td>
               <td>${result.tipo_result}</td>
-              <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
+              <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id);"></td>
             </tr>`;
           });
         });
