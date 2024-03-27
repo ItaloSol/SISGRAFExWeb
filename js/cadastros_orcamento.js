@@ -34,6 +34,7 @@ function CadastraPapel() {
 
   }
 }
+
 // Acabamento
 function CadastraAcabamento() {
   const Nome_Acabamento = document.getElementById('Nome_Acabamento').value.toUpperCase();
@@ -63,6 +64,7 @@ function CadastraAcabamento() {
 
   }
 }
+
 // Servico
 function CadastraServico() {
   const Nome_Servico = document.getElementById('Nome_Servico').value.toUpperCase();
@@ -96,6 +98,7 @@ function CadastraServico() {
 
   }
 }
+
 const freteObserva = document.getElementById('check_frete');
 const arteObserva = document.getElementById('check_arte');
 freteObserva.addEventListener('click', vlr => {
@@ -112,6 +115,54 @@ arteObserva.addEventListener('click', vlr => {
     document.getElementById('arte').disabled = true
   }
 })
+
+/// SALVAR NOVO PRODUTO
+function SalvaProdutoNovo(){
+  // OBTEM PAPEIS
+  // console.log(jsonFinal2);
+  // Obtém a tabela pelo ID
+  var tabela = document.getElementById('personalizaPapel');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
+  // Itera sobre cada tbody
+  for (var t = 0; t < tbodies.length; t++) {
+
+    var linhas = tbodies[t].getElementsByTagName('tr');
+
+    // Itera sobre cada linha do tbody
+    for (var i = 0; i < linhas.length; i++) {
+      var linha = linhas[i];
+
+      // Obtém as células da linha
+      var celulas = linha.getElementsByTagName('td');
+
+      // Cria um objeto JSON para armazenar os valores da linha
+      var objetoJson = {
+        CÓDIGO_PRODUTO: celulas[0].innerText,
+        CÓDIGO_PAPEL: celulas[1].innerText,
+        DESCRIÇÃO: celulas[2].innerText,
+        TIPO: celulas[3].innerText,
+        CF: celulas[4].getElementsByTagName('input')[0].value,
+        CV: celulas[5].getElementsByTagName('input')[0].value,
+        FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
+        PERCA: celulas[7].getElementsByTagName('input')[0].value,
+        GASTO_FOLHA: celulas[8].getElementsByTagName('input')[0].value,
+        PREÇO_FOLHA: celulas[9].innerText,
+        QUANTIDADE_DE_CHAPAS: celulas[10].getElementsByTagName('input')[0].value,
+        PREÇO_CHAPA: celulas[11].innerText
+      };
+
+      // Adiciona o objeto ao array
+      dadosJson.push(objetoJson);
+    }
+
+  }
+
+  // Converte o array para uma string JSON
+  var jsonFinal3 = JSON.stringify(dadosJson);
+
+}
+
 
 // CALCULO ORÇAMENTO
 // Tabela Produto
@@ -135,6 +186,7 @@ function ObterTabelaProduto() {
   return JSON.stringify(Produtos);
   //(jsonProdutos);
 }
+
 //Tabela Tiragens
 function obterTabelaTiragens() {
   const tabela = document.getElementById('ProdutoTIragens');
@@ -241,6 +293,7 @@ function obterTabelaPapeis() {
   //(jsonData);
 
 }
+
 // Tabela Acabamentos
 function obterTabelaAcabamentos() {
   const tabela = document.getElementById('seleccionadoacabamentos');
@@ -267,6 +320,7 @@ function obterTabelaAcabamentos() {
   return JSON.stringify(dados);
   //(jsonData);
 }
+
 // Tabela Serviços
 function obterTabelaServicos() {
   const tabela = document.getElementById('tabelaAservicos');
@@ -290,6 +344,7 @@ function obterTabelaServicos() {
 
   //(jsonData);
 }
+
 // Valor Observacao
 function obterValorObservacao() {
   const textareaObservacao = document.getElementById('observacao_orc');
@@ -325,11 +380,13 @@ function caluclarFrete() {
   }
   return ValorFrete;
 }
+
 function calcularDesconto() {
   const ValorDesconto = Number(document.getElementById('desconto').value);
   let DescontoConvertido = +ValorDesconto / 100;
   return DescontoConvertido;
 }
+
 function pegarQtdPaginas(codProduto) {
   // Encontre a tabela pelo ID
   var tabela = document.getElementById("SelecionadoProudutosProduto");
@@ -355,6 +412,7 @@ function pegarQtdPaginas(codProduto) {
   // Retorne 0 ou algum valor padrão caso o produto não seja encontrado
   return 0;
 }
+
 function pegarQtdTiragem(codProduto) {
   // Encontre o elemento da tabela pelo ID
   var tabela = document.getElementById("ProdutoTIragens");
@@ -499,6 +557,7 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
   }
   return quantidadeFolhasF1; // Converte a string de volta para número
 }
+
 function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas) {
   var quantidadeChapas = 0;
   var coresTotal = +numeroCoresFrente + +numeroCoresVerso;
@@ -523,9 +582,6 @@ function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, nume
 
   return quantidadeChapas;
 }
-
-
-
 
 // FUNÇÃO DO CALCULO
 
@@ -557,6 +613,7 @@ function calcularTotal(item) {
   return total;
 
 }
+
 function calculateUnitario(item) {
   console.log(`INICIO -------------------------------`)
   const { CÓDIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
@@ -622,6 +679,7 @@ function mergeObjects(obj1, obj2) {
 
   return merged;
 }
+
 function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
   const consolidatedObjects = {};
 
@@ -676,6 +734,7 @@ function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
 
   return Object.values(consolidatedObjects);
 }
+
 function BuscaDados() {
   // Obtém a tabela pelo ID
   var tabela = document.getElementById('SelecionadoProudutosProduto');
@@ -856,9 +915,6 @@ function BuscaDados() {
   return consolidateObjects(jsonFinal1, jsonFinal2, jsonFinal3, jsonFinal4)
 }
 
-
-
-
 function calcularValor() {
   var AdicionandoClique = document.getElementById('calculo_clique');
   AdicionandoClique.innerHTML = '';
@@ -1024,8 +1080,6 @@ function calcularValor() {
 
   }
 }
-
-
 
 function SalvarOrcamento() {
   const contato = document.getElementById('selecione_contato');

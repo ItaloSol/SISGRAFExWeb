@@ -918,8 +918,11 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                             <label class="form-label colorbranca" for="valor_Papel">VALOR UNITÁRIO</label>
                             <input type="number" id="valor_Papel" class="form-control phone-mask" placeholder="0" />
                           </div>
-                          <div class="mb-3">
+                          <div id="cadastrarPapel" class="mb-3">
                             <button class="btn rounded-pill btn-success" onclick="CadastraPapel();">CADASTRAR</button>
+                          </div>
+                          <div id="EditarPapel" style="display: none;" class="mb-3">
+                            <input class="btn rounded-pill btn-success" id="idpapeleditado" name="" value="EDITAR" onclick="EditarPapel();"/>
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
