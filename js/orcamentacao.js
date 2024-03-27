@@ -398,7 +398,23 @@ function EditarPapel() {
   + '&valor_Papel='+ valor_Papel)
   .then((response) => response.json())
   .then(data => { 
-
+    if(data.Sucesso === true){
+      document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso! Papel Editado!</div></div>';
+    }
+    const cadastrarPapel = document.getElementById('cadastrarPapel')
+    const editarPapel = document.getElementById('EditarPapel')
+    cadastrarPapel.style.display = 'block';
+    editarPapel.style.display = 'none';
+    document.getElementById('Nome_papel').value = '';
+        document.getElementById('Mediada_Papel').value = '';
+        document.getElementById('Gramatura_Papel').value = '';
+        document.getElementById('Fomato_Papel').value = '';
+        document.getElementById('umaface_Papel').checked = '';
+        document.getElementById('valor_Papel').value = '';
+        setTimeout(function () {
+          document.getElementById('mensagemPapel').innerHTML = '';
+          abriPapels()
+        }, 1000);
   })
 
 
