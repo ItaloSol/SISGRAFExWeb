@@ -11,7 +11,6 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 
 //DEFINE QUAL ENTRADA FOI USADO
 if (isset($_GET['id'])) {
-  
   $pesquisa = $_GET['id'];
   $cod = $_GET['codi'];
   $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $pesquisa  ");
@@ -33,7 +32,11 @@ if (isset($_GET['id'])) {
     if ($linha5 = $query_chapa->fetch(PDO::FETCH_ASSOC)) {
       $Do_Papel['valor_chapa'] = $linha5['parametro'];
     }
-    $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE  cod_papel = $pesquisa AND cod_produto = $cod ");
+    if($cod != 0){
+      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE  cod_papel = $pesquisa AND cod_produto = $cod ");
+    
+   
+   
     $query_papel->execute();
 
     if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -44,6 +47,7 @@ if (isset($_GET['id'])) {
       $Do_Papel['descricao'] = $linha3['descricao'];
       $Do_Papel['orelha'] = $linha3['orelha'];
     }
+  }
   }
 
   echo json_encode($Do_Papel);
@@ -72,7 +76,7 @@ if(isset($_GET['atualiza'])){
   ];
   echo json_encode($Resultado);
 }
-if(!isset($_GET['atualiza'])){
+if(!isset($_GET['atualiza']) && !isset($_GET['id'])){
 if(isset($_GET['nome']) || isset($_GET['cod']) ){
   if(isset($_GET['nome'])){
     $nome = $_GET['nome'];
@@ -108,6 +112,7 @@ if(isset($_GET['nome']) || isset($_GET['cod']) ){
   }
   echo json_encode($Do_Papel);
 }else{
+  
   $query_papel_todos = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
   $query_papel_todos->execute();
   while ($linha = $query_papel_todos->fetch(PDO::FETCH_ASSOC)) {
