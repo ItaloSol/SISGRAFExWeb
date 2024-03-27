@@ -757,16 +757,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                               </div>
                             </div>
                             <div class="table-responsive text-nowrap">
-                              <label class="form-label" for="basic-default-phone">TIPO</label>
-                              <select class="form-select">
-                                <option>SELECIONE</option>
-                                <option>CAPA</option>
-                                <option>MIOLO</option>
-                                <option>FOLHA</option>
-                                <option>1° VIA</option>
-                                <option>2° VIA</option>
-                                <option>3° VIA</option>
-                              </select>
+                             
 
                               <table id="personalizaPapel" class="table table-bordered table-hover">
                                 <tr>

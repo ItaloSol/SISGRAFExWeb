@@ -303,9 +303,14 @@ function ApagarAcabamento() {
 //}
 
 // funcções do papel
-function selecionarPapel(valor) {
-  const selecionado = document.getElementById(valor);
-  // console.log(selecionado.checked);
+function selecionarPapel(dado) {
+  const selecionado = document.getElementById(dado);
+  let valor = dado.replace(/\D/g, '');
+  let cod_produto = 0;
+  let completo = {
+    cod_produto,
+    valor
+  }
   let papelSelecionado = localStorage.getItem('papelSelecionado');
   let arraySelecionados = papelSelecionado ? JSON.parse(papelSelecionado) : [];
 
@@ -313,13 +318,13 @@ function selecionarPapel(valor) {
     document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso. Papel Selecionado!</div></div>';
 
     // Adicionar o ID do item selecionado ao array de selecionados
-    arraySelecionados.push(selecionado.value);
+    arraySelecionados.push(completo);
   } else {
     document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Papel Desmarcado!</div></div>';
 
     // Remover o ID do item desmarcado do array de selecionados
-    arraySelecionados = arraySelecionados.filter(id => id !== selecionado.value);
-  }
+    arraySelecionados = arraySelecionados.filter(item => item.valor !== completo.valor);
+}
 
   // Salvar o array de selecionados no localStorage
   localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
@@ -382,7 +387,7 @@ function AbrirEditarPapel(valor) {
   }, 1000);
 }
 //SALVAR EDIÇÃO
-function EditarPapel() {
+async function EditarPapel() {
   const idPapel = document.getElementById('idpapeleditado').name;
   const   Nome_papel   = document.getElementById('Nome_papel').value;
   const   Mediada_Papel   = document.getElementById('Mediada_Papel').value; 
@@ -390,32 +395,30 @@ function EditarPapel() {
   const   Fomato_Papel   = document.getElementById('Fomato_Papel').value;
   const   umaface_Papel   = document.getElementById('umaface_Papel').checked;
   const   valor_Papel   = document.getElementById('valor_Papel').value;
-  return fetch('api_papel.php?atualiza=' + idPapel + '&nome='+ Nome_papel 
-  + '&Mediada_Papel='+ Mediada_Papel
-  + '&Gramatura_Papel='+ Gramatura_Papel
-  + '&Fomato_Papel='+ Fomato_Papel
-  + '&umaface_Papel='+ umaface_Papel
-  + '&valor_Papel='+ valor_Papel)
-  .then((response) => response.json())
-  .then(data => { 
-    if(data.Sucesso === true){
-      document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso! Papel Editado!</div></div>';
-    }
-    const cadastrarPapel = document.getElementById('cadastrarPapel')
-    const editarPapel = document.getElementById('EditarPapel')
-    cadastrarPapel.style.display = 'block';
-    editarPapel.style.display = 'none';
-    document.getElementById('Nome_papel').value = '';
-        document.getElementById('Mediada_Papel').value = '';
-        document.getElementById('Gramatura_Papel').value = '';
-        document.getElementById('Fomato_Papel').value = '';
-        document.getElementById('umaface_Papel').checked = '';
-        document.getElementById('valor_Papel').value = '';
-        setTimeout(function () {
-          document.getElementById('mensagemPapel').innerHTML = '';
-          abriPapels()
-        }, 1000);
-  })
+  const response = await fetch('api_papel.php?atualiza=' + idPapel + '&nome=' + Nome_papel
+    + '&Mediada_Papel=' + Mediada_Papel
+    + '&Gramatura_Papel=' + Gramatura_Papel
+    + '&Fomato_Papel=' + Fomato_Papel
+    + '&umaface_Papel=' + umaface_Papel
+    + '&valor_Papel=' + valor_Papel);
+  const data = await response.json();
+  if (data.Sucesso === true) {
+    document.getElementById('mensagemPapel').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso! Papel Editado!</div></div>';
+  }
+  const cadastrarPapel = document.getElementById('cadastrarPapel');
+  const editarPapel = document.getElementById('EditarPapel');
+  cadastrarPapel.style.display = 'block';
+  editarPapel.style.display = 'none';
+  document.getElementById('Nome_papel').value = '';
+  document.getElementById('Mediada_Papel').value = '';
+  document.getElementById('Gramatura_Papel').value = '';
+  document.getElementById('Fomato_Papel').value = '';
+  document.getElementById('umaface_Papel').checked = '';
+  document.getElementById('valor_Papel').value = '';
+  setTimeout(function () {
+    document.getElementById('mensagemPapel').innerHTML = '';
+    abriPapels();
+  }, 1000);
 
 
 }
@@ -473,10 +476,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         <th>CV</th>
         <th>FORMATO IMPRESSÃO</th>
         <th>PERCA(%)</th>
-        <th>GASTO FOLHA</th>
         <th>PREÇO FOLHA</th>
-        <th>QUANTIDADE DE CHAPAS</th>
-        <th>PREÇO CHAPA</th>
       </tr>
     </thead>`
         );
@@ -513,15 +513,24 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
           }</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
-             <td>${result.tipo_papel}</td>
+             <td>
+             <select class="form-select">
+               <option>SELECIONE</option>
+               <option>CAPA</option>
+               <option>MIOLO</option>
+               <option>FOLHA</option>
+               <option>1° VIA</option>
+               <option>2° VIA</option>
+               <option>3° VIA</option>
+             </select></td>
              <td><input class="form-control" id="GCF${result.codPapels}" value="${result.corFrente}" type="number"></td>
              <td><input class="form-control" id="GCV${result.codPapels}" value="${result.corVerso}" type="number"></td>
              <td><input class="form-control formato-impressao" id="Impre${result.codPapels}"  type="number"></td>
              <td><input class="form-control" value="5" type="number"></td>
-             <td><input class="form-control" id="GFolha${result.codPapels}" value="0" type="number"></td>
+            
              <td>${result.preco_folha}</td>
-             <td><input class="form-control" id="GChapa${result.codPapels}" value="0" type="number"></td>
-             <td>${result.preco_chapa}</td>
+            
+            
            </tr>`
         );
         cont++;
