@@ -152,7 +152,9 @@ PPCheck.addEventListener('click', vle => {
 })
 //  SELECIONAR ACABAMENTO
 function checkedAcabamento() {
+
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
+  recuperarNomesAcabamento('NovoAcabemtnoSe')
   if (document.getElementById('selecionarAcabamentos')) {
     if (ArrayAcabamentos != []) {
       ArrayAcabamentos.map((item) => {
@@ -1233,3 +1235,126 @@ setTimeout(function () {
     });
   });
 }, 3000); // Atraso
+function createJSONGerais() {
+  // Create an empty JSON object
+  const jsonObj = {};
+
+  // Gather all the input values
+  jsonObj.tpp = document.getElementById('NovoPP').checked? 'PP' : 'PE';
+  jsonObj.tipoecommerce = document.getElementById('NovoTipoCommerce').checked;
+  jsonObj.tipoativo = document.getElementById('NovoTipoativo').checked;
+  jsonObj.descricao = document.getElementById('Novodescricao').value;
+  jsonObj.largura = document.getElementById('NovoNovolargura').value;
+  jsonObj.altura = document.getElementById('Novoaltura').value;
+  jsonObj.espessura = document.getElementById('Novoespessura').value;
+  jsonObj.peso = document.getElementById('Novopeso').value;
+  jsonObj.qtdfolhas = document.getElementById('Novoqtdfolhas').value;
+  jsonObj.tipoproduto = document.getElementById('NovotipoProduto').value;
+
+  // Other input values can be gathered similarly
+
+  // Log the JSON object
+  console.log(jsonObj);
+  return jsonObj;
+}
+function createJSONValores() {
+  // Create an empty JSON object
+  const jsonObj = {};
+
+  // Gather all the input values
+  jsonObj.prevenda = document.getElementById('prev').checked;
+  jsonObj.valorunitario = document.getElementById('valorunitario').value;
+  jsonObj.valorpromo = document.getElementById('promo').checked ? document.getElementById('valorpromo').value : null;
+
+  // Log the JSON object
+  console.log(jsonObj);
+  return jsonObj;
+}
+function createJsonEstoque(){
+  const jsonObj = {};
+  jsonObj.estoque = document.getElementById('qtdestoque').value;
+  jsonObj.avisa = document.getElementById('avisoestoque').checked;
+  jsonObj.aviso = document.getElementById('qtdaviso').value;
+
+  console.log(jsonObj);
+  return jsonObj;
+}
+function createJsonPedidos(){
+  const jsonObj = {};
+  jsonObj.pedidoMin = document.getElementById('qtdmin').value;
+  jsonObj.pedidoavisa = document.getElementById('qtdmaxestoque').checked;
+  jsonObj.pedidoMax = document.getElementById('qtdmax').value;
+
+  console.log(jsonObj);
+  return jsonObj;
+}
+// Call the function when the submit button is clicked
+function Dados_Novo_Produto(){
+  var tabela = document.getElementById('personalizaPapel');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
+  // Itera sobre cada tbody
+  for (var t = 0; t < tbodies.length; t++) {
+
+    var linhas = tbodies[t].getElementsByTagName('tr');
+
+    // Itera sobre cada linha do tbody
+    for (var i = 0; i < linhas.length; i++) {
+      var linha = linhas[i];
+
+      // Obtém as células da linha
+      var celulas = linha.getElementsByTagName('td');
+
+      // Cria um objeto JSON para armazenar os valores da linha
+      var objetoJson = {
+        CÓDIGO_PAPEL: celulas[1].innerText,
+        DESCRIÇÃO: celulas[2].innerText,
+        TIPO: celulas[3].querySelector('select').value,
+        CF: celulas[4].getElementsByTagName('input')[0].value,
+        CV: celulas[5].getElementsByTagName('input')[0].value,
+        FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
+        PERCA: celulas[7].getElementsByTagName('input')[0].value,
+      };
+
+      // Adiciona o objeto ao array
+      dadosJson.push(objetoJson);
+    }
+
+  }
+
+  // Converte o array para uma string JSON
+  var jsonPapel = JSON.stringify(dadosJson);
+  console.log(jsonPapel)
+  var tabela = document.getElementById('NovoAcabemtnoSe');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
+
+  for (var i = 0; i < tbodies.length; i++) {
+    var linhas = tbodies[i].getElementsByTagName('tr');
+
+    for (var j = 0; j < linhas.length; j++) {
+      var linha = linhas[j];
+      var celulas = linha.getElementsByTagName('td');
+
+      // Get the input elements and their values
+      var inputCodigoAcabamento = celulas[0].getElementsByTagName('input')[0];
+
+      var objetoJson = {
+        CODIGO_ACABAMENTO: inputCodigoAcabamento.value,
+      };
+
+      dadosJson.push(objetoJson);
+    }
+  }
+  var jsonAcabamento = JSON.stringify(dadosJson);
+console.log(jsonAcabamento)
+
+  var JsonDadosGeral = createJSONGerais();
+  var JsonValores = createJSONValores();
+  var JsonEstoque = createJsonEstoque();
+  var JsonPedidos = createJsonPedidos();
+  console.log(JsonDadosGeral)
+  console.log(JsonValores)
+  console.log(JsonEstoque)
+  console.log(JsonPedidos)
+}
