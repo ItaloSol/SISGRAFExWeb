@@ -865,7 +865,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                       <br>
                       <div class=" text-end  row justify-content-end">
                         <div class="col-sm-10">
-                          <button type="submit" class="btn btn-primary">SALVAR</button>
+                          <input type="submit" class="btn btn-primary" value="SALVAR" onclick="Dados_Novo_Produto()" />
                         </div>
                       </div>
                     </div>
