@@ -553,8 +553,8 @@ function RecuperaProdutoSelecionado() {
        
     
         setTimeout(function () {
-          recuperarNomesPapel('1', codigo_do_produto );
-        recuperarNomesAcabamento('seleccionadoacabamentos', codigo_do_acabado);
+          recuperarNomesPapel('tabela_campos', codigo_do_produto );
+        recuperarNomesAcabamento('selecionarAcabamentos', codigo_do_acabado);
         document.getElementById('load1').style.display = 'none';
         }, 1000);
         

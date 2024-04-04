@@ -678,7 +678,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                   </button>
                   <div class="table-responsive text-nowrap">
                     <div class="card-body">
-                      <div class="row mb-3">
+                      <div id="tipo_de_produto_div" class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-default-name">TIPO DE PRODUTO</label>
                         <div class="col-sm-10">
                           <input name="TPP" class="form-check-input" type="radio" value="PP" id="NovoPP" required />
@@ -693,33 +693,33 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                       </div>
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="Novodescricao">DESCRIÇÃO DO PRODUTO</label>
-                        <div class="col-sm-10">
+                        <div id="descricao_div" class="col-sm-10">
                           <input type="text" class="form-control" id="Novodescricao" placeholder="DESCRIÇÃO" />
                           <div class="form-text">MÁXIMO 150 CARACTERES</div>
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <div class="col-sm-3">
+                        <div id="largura_div" class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="NovoLARGURA">LARGURA</label>
-                          <input type="text" id="NovoNovolargura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
+                          <input type="number" id="NovoNovolargura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
-                        <div class="col-sm-3">
+                        <div id="altura_div" class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="NovoALTURA">ALTURA</label>
                           <input type="number" id="Novoaltura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
-                        <div class="col-sm-3">
+                        <div id="espessura_div" class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="Novoespessura">ESPESSURA</label>
                           <input type="number" id="Novoespessura" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
-                        <div class="col-sm-3">
+                        <div id="peso_div" class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="NovoPESO">PESO</label>
                           <input type="number" id="Novopeso" class="form-control phone-mask" placeholder="0,0" aria-label="0,0" />
                         </div>
-                        <div class="col-sm-3">
+                        <div id="folhas_div" class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="Novoqtdfolhas">QUANTIDADE FOLHAS</label>
-                          <input type="number" value="0" id="Novoqtdfolhas" class="form-control phone-mask" placeholder="1" aria-label="1" />
+                          <input type="number" value="1" id="Novoqtdfolhas" class="form-control phone-mask" min="1" placeholder="1" aria-label="1" />
                         </div>
-                        <div class="col-sm-3">
+                        <div id="tipo_div" class="col-sm-3">
                           <label class="col-sm-2 col-form-label" for="NovoLARGURA">TIPO</label>
                           <select class="form-select" id="NovotipoProduto" aria-label="Default select example">
                             <option desabled>SELECIONE</option>
