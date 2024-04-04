@@ -154,11 +154,11 @@ PPCheck.addEventListener('click', vle => {
 function checkedAcabamento() {
 
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  recuperarNomesAcabamento('NovoAcabemtnoSe')
   if (document.getElementById('seleccionadoacabamentos')) {
     if (ArrayAcabamentos != []) {
       ArrayAcabamentos.map((item) => {
         if(document.getElementById('Acaba' + item.valor)){
+          recuperarNomesAcabamento('NovoAcabemtnoSe')
         document.getElementById('Acaba' + item.valor).checked = true;
         }
       })
@@ -175,7 +175,7 @@ function adicionarAcabamentoDoClone(valor, cod_produto) {
   }
   arraySelecionados.push(completo);
   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
-  recuperarNomesAcabamento('NovoAcabemtnoSe');
+  recuperarNomesAcabamento('seleccionadoacabamentos');
   checkedAcabamento();
 }
 
@@ -192,9 +192,8 @@ function adicionarPapelDoClone(valor, cod_produto) {
   checkedPapel();
 }
 
-
-
 function recuperarNomesAcabamento(iddovalor) {
+  console.log(iddovalor)
   const storedData = localStorage.getItem('AcabamentoSelecionado');
 
   let arraySelecionados = storedData ? JSON.parse(storedData) : [];
@@ -230,6 +229,7 @@ function recuperarNomesAcabamento(iddovalor) {
       tableBody.innerHTML += `
       <thead>
       <tr>
+      <th>CÓDIGO PRODUTO</th>
       <th>CÓDIGO ACABAMENTO</th>
       <th>MÁQUINA</th>
       <th>CUSTO</th>
@@ -239,7 +239,6 @@ function recuperarNomesAcabamento(iddovalor) {
       tableBody.innerHTML += `
       <thead>
       <tr>
-      <th>CÓDIGO PRODUTO</th>
       <th>CÓDIGO ACABAMENTO</th>
       <th>MÁQUINA</th>
       <th>CUSTO</th>
@@ -257,19 +256,19 @@ function recuperarNomesAcabamento(iddovalor) {
       results.forEach((result, index) => {
         const inputId = `acabamento_${index}`;
         if(iddovalor == 'seleccionadoacabamentos'){
-        tableBody.innerHTML += `
-          <tr>
-            <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
-            <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
-            <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
-          </tr>`;
-        }else{
           tableBody.innerHTML += ` <tr>
           <td>${codProdutos[index]}</td>
           <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
           <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
           <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
         </tr>`;
+        }else{
+          tableBody.innerHTML += `
+          <tr>
+            <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
+          </tr>`;
         }
       });
     })
@@ -283,7 +282,9 @@ function ApagarAcabamento() {
     const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
     if (document.getElementById('seleccionadoacabamentos')) {
       ArrayAcabamentos.map((item) => {
-        document.getElementById('Acaba' + item.valor).checked = false;
+        if(document.getElementById('Acaba' + item.valor)){
+          document.getElementById('Acaba' + item.valor).checked = false;
+        }
       });
     }
   }
@@ -835,7 +836,9 @@ function abriAcabamentos() {
   }, 1000)
 
 }
-
+if (localStorage.getItem('AcabamentoSelecionado')) {
+  recuperarNomesAcabamento('selecionarAcabamentos');
+}
 function selecionarAcabamento(dado) {
   const selecionado = document.getElementById(dado);
   let valor = dado.replace(/\D/g, '');
@@ -1146,6 +1149,7 @@ function selecionarServico(valor) {
 if (localStorage.getItem('ServicoSelecionado')) {
   recuperarNomesServico('tabelaAservicos');
 }
+
 
 function abriServicos() {
   document.getElementById('load1').style.display = 'flex';
