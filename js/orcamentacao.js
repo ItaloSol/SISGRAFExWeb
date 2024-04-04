@@ -155,10 +155,12 @@ function checkedAcabamento() {
 
   const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
   recuperarNomesAcabamento('NovoAcabemtnoSe')
-  if (document.getElementById('selecionarAcabamentos')) {
+  if (document.getElementById('seleccionadoacabamentos')) {
     if (ArrayAcabamentos != []) {
       ArrayAcabamentos.map((item) => {
+        if(document.getElementById('Acaba' + item.valor)){
         document.getElementById('Acaba' + item.valor).checked = true;
+        }
       })
     }
   }
@@ -224,14 +226,26 @@ function recuperarNomesAcabamento(iddovalor) {
 
       const tableBody = document.getElementById(iddovalor);
       tableBody.innerHTML = '';
+     if(iddovalor == 'seleccionadoacabamentos'){
       tableBody.innerHTML += `
-    <thead>
-    <tr>
-    <th>CÓDIGO ACABAMENTO</th>
-    <th>MÁQUINA</th>
-    <th>CUSTO</th>
-    </tr>
-  </thead>`;
+      <thead>
+      <tr>
+      <th>CÓDIGO ACABAMENTO</th>
+      <th>MÁQUINA</th>
+      <th>CUSTO</th>
+      </tr>
+    </thead>`;
+     } else{
+      tableBody.innerHTML += `
+      <thead>
+      <tr>
+      <th>CÓDIGO PRODUTO</th>
+      <th>CÓDIGO ACABAMENTO</th>
+      <th>MÁQUINA</th>
+      <th>CUSTO</th>
+      </tr>
+    </thead>`;
+     }
       if (!results || results.length === 0) {
         tableBody.innerHTML += `
     <tr>
@@ -242,12 +256,21 @@ function recuperarNomesAcabamento(iddovalor) {
       }
       results.forEach((result, index) => {
         const inputId = `acabamento_${index}`;
+        if(iddovalor == 'seleccionadoacabamentos'){
         tableBody.innerHTML += `
           <tr>
             <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
             <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
             <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
           </tr>`;
+        }else{
+          tableBody.innerHTML += ` <tr>
+          <td>${codProdutos[index]}</td>
+          <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
+          <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
+          <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
+        </tr>`;
+        }
       });
     })
     .catch(error => {
@@ -258,7 +281,7 @@ function recuperarNomesAcabamento(iddovalor) {
 function ApagarAcabamento() {
   if (localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null) {
     const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-    if (document.getElementById('selecionarAcabamentos')) {
+    if (document.getElementById('seleccionadoacabamentos')) {
       ArrayAcabamentos.map((item) => {
         document.getElementById('Acaba' + item.valor).checked = false;
       });
@@ -434,26 +457,50 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       const nomePapel = results.map((result) => result.nomePapel).join(', ');
 
       let tableBody = '';
-      if (valor !== '1') {
+      if (valor !== 'tabela_campos') {
         tableBody = document.getElementById('personalizaPapel');
         tableBody.innerHTML = '';
-        tableBody.insertAdjacentHTML(
-          'beforeend',
-          `
-      <thead>
-      <tr>
-      <th>CÓDIGO PRODUTO</th>
-        <th>CÓDIGO PAPEL</th>
-        <th>DESCRIÇÃO</th>
-        <th>TIPO</th>
-        <th>CF</th>
-        <th>CV</th>
-        <th>FORMATO IMPRESSÃO</th>
-        <th>PERCA(%)</th>
-        <th>PREÇO FOLHA</th>
-      </tr>
-    </thead>`
-        );
+        if(valor == 'tabela_campos'){ 
+          tableBody.insertAdjacentHTML(
+            'beforeend',
+            `
+        <thead>
+        <tr>
+        <th>CÓDIGO PRODUTO</th>
+          <th>CÓDIGO PAPEL</th>
+          <th>DESCRIÇÃO</th>
+          <th>TIPO</th>
+          <th>CF</th>
+          <th>CV</th>
+          <th>FORMATO IMPRESSÃO</th>
+          <th>PERCA(%)</th>
+          <th>GASTO FOLHA</th>
+          <th>PREÇO FOLHA</th>
+          <th>QUANTIDADE DE CHAPAS</th>
+          <th>PREÇO CHAPA</th>
+        </tr>
+      </thead>`
+          );
+        }else{
+          tableBody.insertAdjacentHTML(
+            'beforeend',
+            `
+        <thead>
+        <tr>
+        <th>CÓDIGO PRODUTO</th>
+          <th>CÓDIGO PAPEL</th>
+          <th>DESCRIÇÃO</th>
+          <th>TIPO</th>
+          <th>CF</th>
+          <th>CV</th>
+          <th>FORMATO IMPRESSÃO</th>
+          <th>PERCA(%)</th>
+          <th>PREÇO FOLHA</th>
+        </tr>
+      </thead>`
+          );
+        }
+        
       } else {
         tableBody = document.getElementById('tabela_campos');
       }
@@ -472,6 +519,34 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
 
       let cont = 0;
       results.forEach((result) => {
+        if(valor == 'tabela_campos'){
+          tableBody.insertAdjacentHTML(
+            'beforeend',
+            `<tr>
+               <td>${codigo_do_produto &&
+              Array.isArray(codigo_do_produto) &&
+              codigo_do_produto.find(
+                (obj) => obj.cod_PLS.includes(result.codPapels)
+              )
+              ? codigo_do_produto.find(
+                (obj) => obj.cod_PLS.includes(result.codPapels)
+              ).codigoPP
+              : result.codPapels
+            }</td>
+               <td>${result.codPapels}</td>
+               <td>${result.nomePapel}</td>
+               <td>${result.tipo_papel}</td>
+               <td><input class="form-control" id="GCF${result.codPapels}" value="${result.corFrente}" type="number"></td>
+               <td><input class="form-control" id="GCV${result.codPapels}" value="${result.corVerso}" type="number"></td>
+               <td><input class="form-control formato-impressao" id="Impre${result.codPapels}"  type="number"></td>
+               <td><input class="form-control" value="5" type="number"></td>
+               <td><input class="form-control" id="GFolha${result.codPapels}" value="0" type="number"></td>
+               <td>${result.preco_folha}</td>
+               <td><input class="form-control" id="GChapa${result.codPapels}" value="0" type="number"></td>
+               <td>${result.preco_chapa}</td>
+             </tr>`
+          );
+        }else{
         tableBody.insertAdjacentHTML(
           'beforeend',
           `<tr>
@@ -507,6 +582,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
             
            </tr>`
         );
+        }
         cont++;
       });
     })
@@ -858,10 +934,6 @@ async function EditarAcabamento() {
   }, 1000);
 
 
-}
-
-if (localStorage.getItem('AcabamentoSelecionado')) {
-  recuperarNomesAcabamento('NovoAcabamentoSe');
 }
 
 async function pesquisaracabamento() {
@@ -1240,7 +1312,13 @@ function createJSONGerais() {
   const jsonObj = {};
 
   // Gather all the input values
-  jsonObj.tpp = document.getElementById('NovoPP').checked? 'PP' : 'PE';
+  if (document.getElementById('NovoPP').checked) {
+    jsonObj.tpp = 'PP';
+  } else if (document.getElementById('NovoPE').checked) {
+    jsonObj.tpp = 'PE';
+  } else {
+    jsonObj.tpp = '';
+  }
   jsonObj.tipoecommerce = document.getElementById('NovoTipoCommerce').checked;
   jsonObj.tipoativo = document.getElementById('NovoTipoativo').checked;
   jsonObj.descricao = document.getElementById('Novodescricao').value;
@@ -1254,7 +1332,6 @@ function createJSONGerais() {
   // Other input values can be gathered similarly
 
   // Log the JSON object
-  console.log(jsonObj);
   return jsonObj;
 }
 function createJSONValores() {
@@ -1267,7 +1344,6 @@ function createJSONValores() {
   jsonObj.valorpromo = document.getElementById('promo').checked ? document.getElementById('valorpromo').value : null;
 
   // Log the JSON object
-  console.log(jsonObj);
   return jsonObj;
 }
 function createJsonEstoque(){
@@ -1276,7 +1352,6 @@ function createJsonEstoque(){
   jsonObj.avisa = document.getElementById('avisoestoque').checked;
   jsonObj.aviso = document.getElementById('qtdaviso').value;
 
-  console.log(jsonObj);
   return jsonObj;
 }
 function createJsonPedidos(){
@@ -1285,7 +1360,6 @@ function createJsonPedidos(){
   jsonObj.pedidoavisa = document.getElementById('qtdmaxestoque').checked;
   jsonObj.pedidoMax = document.getElementById('qtdmax').value;
 
-  console.log(jsonObj);
   return jsonObj;
 }
 // Call the function when the submit button is clicked
@@ -1324,14 +1398,13 @@ function Dados_Novo_Produto(){
 
   // Converte o array para uma string JSON
   var jsonPapel = JSON.stringify(dadosJson);
-  console.log(jsonPapel)
   var tabela = document.getElementById('NovoAcabemtnoSe');
   var tbodies = tabela.getElementsByTagName('tbody');
   var dadosJson = [];
 
   for (var i = 0; i < tbodies.length; i++) {
     var linhas = tbodies[i].getElementsByTagName('tr');
-
+    if(linhas.length > 1){
     for (var j = 0; j < linhas.length; j++) {
       var linha = linhas[j];
       var celulas = linha.getElementsByTagName('td');
@@ -1345,16 +1418,91 @@ function Dados_Novo_Produto(){
 
       dadosJson.push(objetoJson);
     }
+  }else{
+    window.alert('SELECIONE UM ACABAMENTO')
+  }
+
   }
   var jsonAcabamento = JSON.stringify(dadosJson);
-console.log(jsonAcabamento)
-
+  var EM_BRANCO = 0;
   var JsonDadosGeral = createJSONGerais();
   var JsonValores = createJSONValores();
   var JsonEstoque = createJsonEstoque();
   var JsonPedidos = createJsonPedidos();
+  console.log(jsonAcabamento)
+  console.log(jsonPapel)
   console.log(JsonDadosGeral)
   console.log(JsonValores)
   console.log(JsonEstoque)
   console.log(JsonPedidos)
+  if(JsonDadosGeral.tpp === ''){
+    window.alert('TIPO DE PRODUÇÃO É OBRIGATÓRIO');
+    document.getElementById('tipo_de_produto_div').classList.add('erro')
+    EM_BRANCO++;
+  }else{
+    document.getElementById('tipo_de_produto_div').classList.remove('erro')
+  }
+  if(JsonDadosGeral.descricao === ''){
+    window.alert('DESCRIÇÃO DO PRODUTO É OBRIGATÓRIO');
+    document.getElementById('descricao_div').classList.add('erro')
+    EM_BRANCO++;
+  }
+  else{
+    document.getElementById('descricao_div').classList.remove('erro')
+  }
+  if(JsonDadosGeral.largura === ''){
+    window.alert('LARGURA DO PRODUTO É OBRIGATÓRIO');
+    document.getElementById('largura_div').classList.add('erro')
+    EM_BRANCO++;
+  }else{
+    document.getElementById('largura_div').classList.remove('erro')
+  } 
+  if(JsonDadosGeral.altura === ''){
+    window.alert('ALTURA DO PRODUTO É OBRIGATÓRIO');
+    document.getElementById('altura_div').classList.add('erro')
+    EM_BRANCO++;
+  }else{
+    document.getElementById('altura_div').classList.remove('erro')
+  } 
+  if(JsonDadosGeral.espessura === ''){
+    window.alert('ESPESSURA DO PRODUTO É OBRIGATÓRIO');
+    document.getElementById('espessura_div').classList.add('erro')
+    EM_BRANCO++;
+  }else{
+    document.getElementById('espessura_div').classList.remove('erro')
+  } 
+  if(JsonDadosGeral.peso === ''){
+    window.alert('PESO DO PRODUTO É OBRIGATÓRIO');
+    document.getElementById('peso_div').classList.add('erro')
+    EM_BRANCO++;
+  }else{
+    document.getElementById('peso_div').classList.remove('erro')
+  } 
+  if(JsonDadosGeral.qtdfolhas === ''){
+    window.alert('QUANTIDADE DE FOLHAS É OBRIGATÓRIO');
+    document.getElementById('folhas_div').classList.add('erro')
+    EM_BRANCO++;
+  }else{
+    document.getElementById('folhas_div').classList.remove('erro')
+  } 
+  if(JsonDadosGeral.tipoproduto === 'SELECIONE'){
+    window.alert('TIPO DO PRODUTO É OBRIGATÓRIO');
+    document.getElementById('tipo_div').classList.add('erro')
+    EM_BRANCO++;
+  }else{
+    document.getElementById('tipo_div').classList.remove('erro')
+  }
+  // if(jsonPapel.tipo[0] === 'SELECIONE'){
+  //   window.alert('TIPO DO PAPEL É OBRIGATÓRIO');
+  // } 
+  if(EM_BRANCO == 0){
+    if(window.confirm(`VOCÊ CONFIRMA A QUANTIDADE DE PAGINAS DE "${JsonDadosGeral.qtdfolhas}"? \n
+    E VOCÊ CONFIRMA O TIPO DO PRODUTO DE "${JsonDadosGeral.tipoproduto}"?
+    \n (ISSO AFETARÁ NO CALCÚLO DE FOLHAS A SEREM UTILIZADAS)`))
+    {
+      console.log('Envia daddos')
+    }else{
+      console.log('espera')
+    }
+  }
 }

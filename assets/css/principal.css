@@ -14,6 +14,9 @@
   font-weight: 900;
   
 }
+.erro {
+  background-color: #f1bdbd;
+}
 /* Navbar */
 .formato-impressao {
   margin-bottom: 15px;
