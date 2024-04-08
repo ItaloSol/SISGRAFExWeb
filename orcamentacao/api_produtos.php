@@ -7,8 +7,8 @@ $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
 $hora = date('H:i:s');
 $Solicitacao = json_decode(file_get_contents("php://input"), true);
-$query_produtosa = $conexao->prepare("SELECT DISTINCT c.cod, p.*, c.* FROM produtos p
-INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO
+$query_produtosa = $conexao->prepare("SELECT DISTINCT * FROM produtos p
+
 ORDER BY p.CODIGO DESC LIMIT 45");
 $query_produtosa->execute();
 $pp = [];
@@ -16,21 +16,21 @@ while ($linha = $query_produtosa->fetch(PDO::FETCH_ASSOC)) {
     $pp[] = [
         'CODIGO' => $linha['CODIGO'], // Ajuste para $linha['id']
         'TIPO_PRODUTO' => $linha['TIPO'],
-        'CODPRODUTO' => $linha['cod'], // Ajuste para $linha['cod_produto']
+        'CODPRODUTO' => $linha['CODIGO'], // Ajuste para $linha['cod_produto']
         'DESCRICAO' => $linha['DESCRICAO'],
         'TIPO' => 'PP',
         'VALOR_UNITARIO' => $linha['PRECO_CUSTO'],
     ];
 }
 
-$query_produtos = $conexao->prepare("SELECT DISTINCT c.cod, p.*, c.* FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO ORDER BY p.CODIGO DESC LIMIT 45");
+$query_produtos = $conexao->prepare("SELECT DISTINCT * FROM produtos_pr_ent p ORDER BY p.CODIGO DESC LIMIT 45");
 $query_produtos->execute();
 $pe = [];
 while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
     $pe[] = [
         'CODIGO' => $linha['CODIGO'], // Ajuste para $linha['id']
         'TIPO_PRODUTO' => $linha['TIPO'],
-        'CODPRODUTO' => $linha['cod'], // Ajuste para $linha['cod_produto']
+        'CODPRODUTO' => $linha['CODIGO'], // Ajuste para $linha['cod_produto']
         'DESCRICAO' => $linha['DESCRICAO'],
         'TIPO' => 'PE',
         'VALOR_UNITARIO' => $linha['VLR_UNIT'],
@@ -46,7 +46,7 @@ if (!empty($Solicitacao)) {
     };
     $pesquisa = $Solicitacao['valor'];
     if ($Solicitacao['TipoProdutoSelect'] == 'PP') {
-        $query_produtos = $conexao->prepare("SELECT * FROM produtos p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO  WHERE p.$Tipo_Consulta LIKE '%$pesquisa%' ORDER BY p.CODIGO DESC LIMIT 45");
+        $query_produtos = $conexao->prepare("SELECT * FROM produtos p  WHERE p.$Tipo_Consulta LIKE '%$pesquisa%' ORDER BY p.CODIGO DESC LIMIT 45");
         $query_produtos->execute();
         $VALOR = [];
         while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
@@ -60,7 +60,7 @@ if (!empty($Solicitacao)) {
             ];
         }
     } else {
-        $query_produtos = $conexao->prepare("SELECT * FROM produtos_pr_ent p INNER JOIN tabela_calculos_op c ON c.cod_produto = p.CODIGO  WHERE p.$Tipo_Consulta LIKE '%$pesquisa%' ORDER BY p.CODIGO DESC LIMIT 45");
+        $query_produtos = $conexao->prepare("SELECT * FROM produtos_pr_ent p   WHERE p.$Tipo_Consulta LIKE '%$pesquisa%' ORDER BY p.CODIGO DESC LIMIT 45");
         $query_produtos->execute();
         $VALOR = [];
         while ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
