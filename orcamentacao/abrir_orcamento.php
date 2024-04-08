@@ -270,7 +270,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
-  
+
                 <div class="card">
                   <div id="SelecioandoProduto"></div>
                   <h5 class="card-header">PRODUTOS
@@ -301,8 +301,8 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                         </tr>
                       </thead>
 
-                        <tr>
-                          <td align="center" colspan="5">NENHUM SELECIONADO</td>
+                      <tr>
+                        <td align="center" colspan="5">NENHUM SELECIONADO</td>
 
                     </table>
                   </div>
@@ -324,9 +324,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                         </tr>
                       </thead>
 
-                        <tr>
-                          <td align="center" colspan="7">NENHUM SELECIONADO</td>
-                          </tr>
+                      <tr>
+                        <td align="center" colspan="7">NENHUM SELECIONADO</td>
+                      </tr>
 
                     </table>
                   </div>
@@ -380,7 +380,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <th>Valor total</th>
                         </tr>
                       </thead>
-                      
+
                     </table>
                   </div>
                 </div>
@@ -398,10 +398,10 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <th>PREÇO ACABAMENTO</th>
                         </tr>
                       </thead>
-                      
-                        <tr>
-                          <td align="center" colspan="12">NENHUM SELECIONADO</td>
-                          <tr>
+
+                      <tr>
+                        <td align="center" colspan="12">NENHUM SELECIONADO</td>
+                      <tr>
                     </table>
                   </div>
                 </div>
@@ -413,8 +413,8 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                            <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc"  id="observacao_orc" class="col-12"></textarea>
-                            <input type="hidden" name="cod">
+                          <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc" id="observacao_orc" class="col-12"></textarea>
+                          <input type="hidden" name="cod">
                         </tr>
                     </table>
                   </div>
@@ -444,9 +444,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <th>VALOR SERVIÇO</th>
                         </tr>
                       </thead>
-                        <tr>
-                          <td colspan="3" align="center">NENHUM SELECIONADO</td>
-                        </tr>
+                      <tr>
+                        <td colspan="3" align="center">NENHUM SELECIONADO</td>
+                      </tr>
                     </table>
                   </div>
                 </div>
@@ -544,9 +544,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
               </div>
             </div>
           </div>
-       
+
           <div class="container row ">
-            
+
             <div class="col-3">
               <label class="form-label m-0 p-0">CIF (%)</label>
               <input type="text" class="form-control" id="cif" placeholder="0%" aria-describedby="defaultFormControlHelp" />
@@ -567,19 +567,19 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             </div>
             <div>
               <br>
-               <br>
-              
-            <button style="margin-bottom: 20px; display: block" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
-                          CALCULAR VALOR DO ORÇAMENTO
-                        </button><br>
-                        </div>
-                        
+              <br>
+
+              <button style="margin-bottom: 20px; display: block" type="button" class="btn btn-warning" id="calcularValor" onclick="calcularValor()">
+                CALCULAR VALOR DO ORÇAMENTO
+              </button><br>
+            </div>
+
           </div>
           <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
           <input type="text" class="form-control" id="ValorTotalOrc" placeholder="Valor do orçamento final" aria-describedby="defaultFormControlHelp" /><br></br>
-          <button style="margin-bottom: 20px; display: none" type="submit" class="btn btn-success" onclick="SalvarOrcamento()" id="SalvarPO" >
-                          Salvar orçamento
-                        </button>
+          <button style="margin-bottom: 20px; display: none" type="submit" class="btn btn-success" onclick="SalvarOrcamento()" id="SalvarPO">
+            Salvar orçamento
+          </button>
           <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
           <!-- <button type="submit" class="btn btn-success">Salvar</button> -->
         </div>
@@ -737,7 +737,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           <a class="list-group-item list-group-item-action" id="estoque" data-bs-toggle="list" href="#estoque1">ESTOQUE</a>
                           <a class="list-group-item list-group-item-action " id="pedidos" data-bs-toggle="list" href="#pedidos1">PEDIDOS</a>
                         </div>
-                      
+
                         <div class="tab-content px-0 mt-0">
                           <div class="tab-pane fade show active" id="papeis1">
 
@@ -757,7 +757,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                               </div>
                             </div>
                             <div class="table-responsive text-nowrap">
-                             
+
 
                               <table id="personalizaPapel" class="table table-bordered table-hover">
                                 <tr>
@@ -779,8 +779,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
                             <div class="row">
                               <div class="col-3">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal23"
-                                onclick="abriAcabamentos()">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal23" onclick="abriAcabamentos()">
                                   SELECIONAR ACABAMENTO
                                 </button>
                               </div>
@@ -818,12 +817,12 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                                 <div class="col-sm-3">
                                   <label class="col-sm-2 col-form-label" for="valorunitario">VALOR
                                     UNITÁRIO(R$)</label>
-                                  <input type="number" class="form-control" id="valorunitario" placeholder="0,00" />
+                                  <input type="number"  value="0" class="form-control" id="valorunitario" placeholder="0,00" />
                                 </div>
                                 <label class="col-sm-2 col-form-label" for="promo">VALOR PROMOCIONAL(R$)</label>
                                 <div class="col-sm-3">
-                                  <input class="form-check-input" name="promo" type="checkbox" value="promo" id="promo" />
-                                  <input type="number" class="form-control" id="valorpromo" placeholder="0,00" />
+                                  <input class="form-check-input"  name="promo" type="checkbox" value="promo" id="promo" />
+                                  <input type="number"  value="0" class="form-control" id="valorpromo" placeholder="0,00" />
                                 </div>
                               </div>
 
@@ -836,11 +835,11 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">QUANTIDADE NO ESTOQUE
                                   FÍSICO</label>
-                                <input type="number" class="form-control" id="qtdestoque" placeholder="0" />
+                                <input type="number" class="form-control" value="0" id="qtdestoque" placeholder="0" />
                               </div>
                               <div class="mb-3">
                                 <label class="form-label" for="avisoestoque">AVISO DE ESTOQUE?<input class="form-check-input" name="avisoestoque" type="checkbox" value="avisoestoque" id="avisoestoque" /> </label>
-                                <input type="number" class="form-control" id="qtdaviso" placeholder="0" />
+                                <input type="number" value="0" class="form-control" id="qtdaviso" placeholder="0" />
                               </div>
 
                             </div>
@@ -851,11 +850,14 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">QUANTIDADE MÍNIMA</label>
-                                <input type="number" class="form-control" id="qtdmin" placeholder="0" />
+                                <input type="number"  value="0" class="form-control" id="qtdmin" placeholder="0" />
                               </div>
                               <div class="mb-3">
-                                <label class="form-label" for="qtdmaxestoque">QUANTIDADE MÁXIMA<input class="form-check-input" name="qtdmaxestoque" type="checkbox" value="qtdmaxestoque" id="qtdmaxestoque" /> </label>
-                                <input type="number" class="form-control" id="qtdmax" placeholder="0" />
+                                <label class="form-label" for="qtdmaxestoque">QUANTIDADE MÁXIMA
+                                </label>
+                                <input class="form-check-input" name="qtdmaxestoque" type="checkbox" value="qtdmaxestoque" id="qtdmaxestoque" />
+
+                                <input type="number" value="0" class="form-control" id="qtdmax" placeholder="0" />
                               </div>
 
                             </div>
@@ -914,7 +916,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                             <button class="btn rounded-pill btn-success" onclick="CadastraPapel();">CADASTRAR</button>
                           </div>
                           <div id="EditarPapel" style="display: none;" class="mb-3">
-                            <input class="btn rounded-pill btn-success" id="idpapeleditado" name="" value="EDITAR" onclick="EditarPapel();"/>
+                            <input class="btn rounded-pill btn-success" id="idpapeleditado" name="" value="EDITAR" onclick="EditarPapel();" />
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
@@ -983,7 +985,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                       <h5 class="modal-title">ACABAMENTO</h5>
                     </div>
                     <div class="modal-body">
-                      
+
                       <div class="row">
                         <div id="mensagemAcabamento"></div>
                         <div class="col-4">
@@ -999,7 +1001,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                             <button class="btn rounded-pill btn-success" onclick="CadastraAcabamento()">CADASTRAR</button>
                           </div>
                           <div id="editarAcabamento" style="display: none;" class="mb-3">
-                          <input class="btn rounded-pill btn-success" id="idAcabamentoeditado" name="" value="EDITAR" onclick="EditarAcabamento();"/>
+                            <input class="btn rounded-pill btn-success" id="idAcabamentoeditado" name="" value="EDITAR" onclick="EditarAcabamento();" />
                           </div>
                         </div>
 
@@ -1017,8 +1019,8 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                               <th>SELECIONAR</th>
                             </tr>
                             <tr>
-                                  <td align="center" colspan="4">NENHUM SELECIONADO</td>
-                                </tr>
+                              <td align="center" colspan="4">NENHUM SELECIONADO</td>
+                            </tr>
 
                           </table>
                         </div>
@@ -1028,7 +1030,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 </div>
               </div>
 
-                       
+
 
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
               <script>

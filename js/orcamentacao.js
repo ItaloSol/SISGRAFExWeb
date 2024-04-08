@@ -157,9 +157,9 @@ function checkedAcabamento() {
   if (document.getElementById('seleccionadoacabamentos')) {
     if (ArrayAcabamentos != []) {
       ArrayAcabamentos.map((item) => {
-        if(document.getElementById('Acaba' + item.valor)){
+        if (document.getElementById('Acaba' + item.valor)) {
           recuperarNomesAcabamento('NovoAcabemtnoSe')
-        document.getElementById('Acaba' + item.valor).checked = true;
+          document.getElementById('Acaba' + item.valor).checked = true;
         }
       })
     }
@@ -175,7 +175,7 @@ function adicionarAcabamentoDoClone(valor, cod_produto) {
   }
   arraySelecionados.push(completo);
   localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
-  recuperarNomesAcabamento('seleccionadoacabamentos');
+  recuperarNomesAcabamento('NovoAcabemtnoSe');
   checkedAcabamento();
 }
 
@@ -188,12 +188,11 @@ function adicionarPapelDoClone(valor, cod_produto) {
   }
   arraySelecionados.push(completo);
   localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
-  recuperarNomesPapel('personalizaPapel');
+  recuperarNomesAcabamento('personalizaPapel');
   checkedPapel();
 }
 
 function recuperarNomesAcabamento(iddovalor) {
-  console.log(iddovalor)
   const storedData = localStorage.getItem('AcabamentoSelecionado');
 
   let arraySelecionados = storedData ? JSON.parse(storedData) : [];
@@ -225,8 +224,8 @@ function recuperarNomesAcabamento(iddovalor) {
 
       const tableBody = document.getElementById(iddovalor);
       tableBody.innerHTML = '';
-     if(iddovalor == 'seleccionadoacabamentos'){
-      tableBody.innerHTML += `
+      if (iddovalor == 'seleccionadoacabamentos') {
+        tableBody.innerHTML += `
       <thead>
       <tr>
       <th>CÓDIGO PRODUTO</th>
@@ -235,8 +234,8 @@ function recuperarNomesAcabamento(iddovalor) {
       <th>CUSTO</th>
       </tr>
     </thead>`;
-     } else{
-      tableBody.innerHTML += `
+      } else {
+        tableBody.innerHTML += `
       <thead>
       <tr>
       <th>CÓDIGO ACABAMENTO</th>
@@ -244,7 +243,7 @@ function recuperarNomesAcabamento(iddovalor) {
       <th>CUSTO</th>
       </tr>
     </thead>`;
-     }
+      }
       if (!results || results.length === 0) {
         tableBody.innerHTML += `
     <tr>
@@ -255,14 +254,14 @@ function recuperarNomesAcabamento(iddovalor) {
       }
       results.forEach((result, index) => {
         const inputId = `acabamento_${index}`;
-        if(iddovalor == 'seleccionadoacabamentos'){
+        if (iddovalor == 'seleccionadoacabamentos') {
           tableBody.innerHTML += ` <tr>
           <td>${codProdutos[index]}</td>
           <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
           <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
           <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
         </tr>`;
-        }else{
+        } else {
           tableBody.innerHTML += `
           <tr>
             <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
@@ -282,7 +281,7 @@ function ApagarAcabamento() {
     const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
     if (document.getElementById('seleccionadoacabamentos')) {
       ArrayAcabamentos.map((item) => {
-        if(document.getElementById('Acaba' + item.valor)){
+        if (document.getElementById('Acaba' + item.valor)) {
           document.getElementById('Acaba' + item.valor).checked = false;
         }
       });
@@ -461,7 +460,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       if (valor !== 'tabela_campos') {
         tableBody = document.getElementById('personalizaPapel');
         tableBody.innerHTML = '';
-        if(valor == 'tabela_campos'){ 
+        if (valor == 'tabela_campos') {
           tableBody.insertAdjacentHTML(
             'beforeend',
             `
@@ -482,7 +481,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         </tr>
       </thead>`
           );
-        }else{
+        } else {
           tableBody.insertAdjacentHTML(
             'beforeend',
             `
@@ -501,7 +500,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       </thead>`
           );
         }
-        
+
       } else {
         tableBody = document.getElementById('tabela_campos');
       }
@@ -520,7 +519,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
 
       let cont = 0;
       results.forEach((result) => {
-        if(valor == 'tabela_campos'){
+        if (valor == 'tabela_campos') {
           tableBody.insertAdjacentHTML(
             'beforeend',
             `<tr>
@@ -547,20 +546,20 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
                <td>${result.preco_chapa}</td>
              </tr>`
           );
-        }else{
-        tableBody.insertAdjacentHTML(
-          'beforeend',
-          `<tr>
+        } else {
+          tableBody.insertAdjacentHTML(
+            'beforeend',
+            `<tr>
              <td>${codigo_do_produto &&
-            Array.isArray(codigo_do_produto) &&
-            codigo_do_produto.find(
-              (obj) => obj.cod_PLS.includes(result.codPapels)
-            )
-            ? codigo_do_produto.find(
-              (obj) => obj.cod_PLS.includes(result.codPapels)
-            ).codigoPP
-            : result.codPapels
-          }</td>
+              Array.isArray(codigo_do_produto) &&
+              codigo_do_produto.find(
+                (obj) => obj.cod_PLS.includes(result.codPapels)
+              )
+              ? codigo_do_produto.find(
+                (obj) => obj.cod_PLS.includes(result.codPapels)
+              ).codigoPP
+              : result.codPapels
+            }</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
              <td>
@@ -582,7 +581,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
             
             
            </tr>`
-        );
+          );
         }
         cont++;
       });
@@ -1350,7 +1349,7 @@ function createJSONValores() {
   // Log the JSON object
   return jsonObj;
 }
-function createJsonEstoque(){
+function createJsonEstoque() {
   const jsonObj = {};
   jsonObj.estoque = document.getElementById('qtdestoque').value;
   jsonObj.avisa = document.getElementById('avisoestoque').checked;
@@ -1358,7 +1357,7 @@ function createJsonEstoque(){
 
   return jsonObj;
 }
-function createJsonPedidos(){
+function createJsonPedidos() {
   const jsonObj = {};
   jsonObj.pedidoMin = document.getElementById('qtdmin').value;
   jsonObj.pedidoavisa = document.getElementById('qtdmaxestoque').checked;
@@ -1367,7 +1366,7 @@ function createJsonPedidos(){
   return jsonObj;
 }
 // Call the function when the submit button is clicked
-function Dados_Novo_Produto(){
+function Dados_Novo_Produto() {
   var tabela = document.getElementById('personalizaPapel');
   var tbodies = tabela.getElementsByTagName('tbody');
   var dadosJson = [];
@@ -1385,12 +1384,12 @@ function Dados_Novo_Produto(){
 
       // Cria um objeto JSON para armazenar os valores da linha
       var objetoJson = {
-        CÓDIGO_PAPEL: celulas[1].innerText,
-        DESCRIÇÃO: celulas[2].innerText,
+        CODIGO_PAPEL: celulas[1].innerText,
+        DESCRICAO: celulas[2].innerText,
         TIPO: celulas[3].querySelector('select').value,
         CF: celulas[4].getElementsByTagName('input')[0].value,
         CV: celulas[5].getElementsByTagName('input')[0].value,
-        FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
+        FORMATO_IMPRESSAO: celulas[6].getElementsByTagName('input')[0].value,
         PERCA: celulas[7].getElementsByTagName('input')[0].value,
       };
 
@@ -1402,111 +1401,134 @@ function Dados_Novo_Produto(){
 
   // Converte o array para uma string JSON
   var jsonPapel = JSON.stringify(dadosJson);
+ 
   var tabela = document.getElementById('NovoAcabemtnoSe');
   var tbodies = tabela.getElementsByTagName('tbody');
   var dadosJson = [];
 
   for (var i = 0; i < tbodies.length; i++) {
     var linhas = tbodies[i].getElementsByTagName('tr');
-    if(linhas.length > 1){
-    for (var j = 0; j < linhas.length; j++) {
-      var linha = linhas[j];
-      var celulas = linha.getElementsByTagName('td');
+      for (var j = 0; j < linhas.length; j++) {
+        var linha = linhas[j];
+        var celulas = linha.getElementsByTagName('td');
+        console.log(celulas[0].getElementsByTagName('input')[0])
+        // Get the input elements and their values
+        var inputCodigoAcabamento = celulas[0].getElementsByTagName('input')[1];
+        var objetoJson = {
+          CODIGO_ACABAMENTO: inputCodigoAcabamento.value,
+        };
 
-      // Get the input elements and their values
-      var inputCodigoAcabamento = celulas[0].getElementsByTagName('input')[0];
-
-      var objetoJson = {
-        CODIGO_ACABAMENTO: inputCodigoAcabamento.value,
-      };
-
-      dadosJson.push(objetoJson);
-    }
-  }else{
-    window.alert('SELECIONE UM ACABAMENTO')
+        dadosJson.push(objetoJson);
+      }
   }
 
-  }
-  var jsonAcabamento = JSON.stringify(dadosJson);
   var EM_BRANCO = 0;
+  var jsonAcabamento = JSON.stringify(dadosJson);
   var JsonDadosGeral = createJSONGerais();
   var JsonValores = createJSONValores();
   var JsonEstoque = createJsonEstoque();
   var JsonPedidos = createJsonPedidos();
-  console.log(jsonAcabamento)
-  console.log(jsonPapel)
-  console.log(JsonDadosGeral)
-  console.log(JsonValores)
-  console.log(JsonEstoque)
-  console.log(JsonPedidos)
-  if(JsonDadosGeral.tpp === ''){
+  
+  if (JsonDadosGeral.tpp === '') {
     window.alert('TIPO DE PRODUÇÃO É OBRIGATÓRIO');
     document.getElementById('tipo_de_produto_div').classList.add('erro')
     EM_BRANCO++;
-  }else{
+  } else {
     document.getElementById('tipo_de_produto_div').classList.remove('erro')
   }
-  if(JsonDadosGeral.descricao === ''){
+  if (JsonDadosGeral.descricao === '') {
     window.alert('DESCRIÇÃO DO PRODUTO É OBRIGATÓRIO');
     document.getElementById('descricao_div').classList.add('erro')
     EM_BRANCO++;
   }
-  else{
+  else {
     document.getElementById('descricao_div').classList.remove('erro')
   }
-  if(JsonDadosGeral.largura === ''){
+  if (JsonDadosGeral.largura === '') {
     window.alert('LARGURA DO PRODUTO É OBRIGATÓRIO');
     document.getElementById('largura_div').classList.add('erro')
     EM_BRANCO++;
-  }else{
+  } else {
     document.getElementById('largura_div').classList.remove('erro')
-  } 
-  if(JsonDadosGeral.altura === ''){
+  }
+  if (JsonDadosGeral.altura === '') {
     window.alert('ALTURA DO PRODUTO É OBRIGATÓRIO');
     document.getElementById('altura_div').classList.add('erro')
     EM_BRANCO++;
-  }else{
+  } else {
     document.getElementById('altura_div').classList.remove('erro')
-  } 
-  if(JsonDadosGeral.espessura === ''){
+  }
+  if (JsonDadosGeral.espessura === '') {
     window.alert('ESPESSURA DO PRODUTO É OBRIGATÓRIO');
     document.getElementById('espessura_div').classList.add('erro')
     EM_BRANCO++;
-  }else{
+  } else {
     document.getElementById('espessura_div').classList.remove('erro')
-  } 
-  if(JsonDadosGeral.peso === ''){
+  }
+  if (JsonDadosGeral.peso === '') {
     window.alert('PESO DO PRODUTO É OBRIGATÓRIO');
     document.getElementById('peso_div').classList.add('erro')
     EM_BRANCO++;
-  }else{
+  } else {
     document.getElementById('peso_div').classList.remove('erro')
-  } 
-  if(JsonDadosGeral.qtdfolhas === ''){
+  }
+  if (JsonDadosGeral.qtdfolhas === '') {
     window.alert('QUANTIDADE DE FOLHAS É OBRIGATÓRIO');
     document.getElementById('folhas_div').classList.add('erro')
     EM_BRANCO++;
-  }else{
+  } else {
     document.getElementById('folhas_div').classList.remove('erro')
-  } 
-  if(JsonDadosGeral.tipoproduto === 'SELECIONE'){
+  }
+  if (JsonDadosGeral.tipoproduto === 'SELECIONE') {
     window.alert('TIPO DO PRODUTO É OBRIGATÓRIO');
     document.getElementById('tipo_div').classList.add('erro')
     EM_BRANCO++;
-  }else{
+  } else {
     document.getElementById('tipo_div').classList.remove('erro')
   }
   // if(jsonPapel.tipo[0] === 'SELECIONE'){
   //   window.alert('TIPO DO PAPEL É OBRIGATÓRIO');
   // } 
-  if(EM_BRANCO == 0){
-    if(window.confirm(`VOCÊ CONFIRMA A QUANTIDADE DE PAGINAS DE "${JsonDadosGeral.qtdfolhas}"? \n
+  if (EM_BRANCO == 0) {
+    if (window.confirm(`VOCÊ CONFIRMA A QUANTIDADE DE PAGINAS DE "${JsonDadosGeral.qtdfolhas}"? \n
     E VOCÊ CONFIRMA O TIPO DO PRODUTO DE "${JsonDadosGeral.tipoproduto}"?
-    \n (ISSO AFETARÁ NO CALCÚLO DE FOLHAS A SEREM UTILIZADAS)`))
-    {
-      console.log('Envia daddos')
-    }else{
-      console.log('espera')
+    \n (ISSO AFETARÁ NO CALCÚLO DE FOLHAS A SEREM UTILIZADAS)`)) {
+      console.log(jsonAcabamento)
+      console.log(jsonPapel)
+      console.log(JsonDadosGeral)
+      console.log(JsonValores)
+      console.log(JsonEstoque)
+      console.log(JsonPedidos)
+      // create a new FormData object
+      const url = 'api_cadastra_produto.php';
+      const queryParams = new URLSearchParams({
+        acabamento:jsonAcabamento,
+        papel:jsonPapel,
+        dadosGerais: JSON.stringify(JsonDadosGeral),
+        valores: JSON.stringify(JsonValores),
+        estoque: JSON.stringify(JsonEstoque),
+        pedidos: JSON.stringify(JsonPedidos)
+      });
+      window.open(`${url}?${queryParams}`, '_blank');
+      fetch(`${url}?${queryParams}`, {
+        method: 'GET'
+      })
+      .then(response => {
+          return response.json();
+        })
+      .then(data => {
+          // handle the response from the server
+          if(data.sucesso == true){
+            window.alert(`PRODUTO CADASTRADO COM SUCESSO CÓDIGO ${data.cod} `)
+            ApagarProdutoCloando();
+          }
+        })
+      .catch(error => {
+          // handle any errors that occurred
+          console.error(error);
+        });
+    } else {
+    
     }
   }
 }
