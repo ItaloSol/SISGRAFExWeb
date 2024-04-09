@@ -1,5 +1,5 @@
 // PRODUTO PARA PRODUÇÃO = PP
-if(localStorage.getItem('ProdutoSelecionadoPP') != null && localStorage.getItem('ProdutoSelecionadoPP') != '[]'){
+if(localStorage.getItem('ProdutoSelecionadoPP') != null && localStorage.getItem('ProdutoSelecionadoPP') != '[]' || localStorage.getItem('ProdutoSelecionadoPE') != null && localStorage.getItem('ProdutoSelecionadoPE') != '[]'){
   RecuperaProdutoSelecionado();
 }
 
@@ -135,12 +135,14 @@ async function SelecionarSelecioandoPE() {
       document.getElementById('ErroSelecionar').innerHTML = '';
       document.getElementById('load1').style.display = 'none';
     }, 5000);
-    if (localStorage.getItem('ProdutoSelecioando') != null && localStorage.getItem('ProdutoSelecioando') != '[]') {
-      const ArraySelecionado = JSON.parse(localStorage.getItem('ProdutoSelecioando'));
+    if (localStorage.getItem('ProdutoSelecionadoPE') != null && localStorage.getItem('ProdutoSelecionadoPE') != '[]') {
+      const ArraySelecionado = JSON.parse(localStorage.getItem('ProdutoSelecionadoPE'));
 
       for (const item of ArraySelecionado) {
         const elemento = await waitForElementPE(item);
-        elemento.innerHTML = 'Selecioando';
+        if(elemento){
+          elemento.innerHTML = 'Selecioando';
+        }
       }
       document.getElementById('load1').style.display = 'none';
     }
@@ -148,8 +150,8 @@ async function SelecionarSelecioandoPE() {
 }
 
 // FUNÇÕES GERAIS QUE COMANDAM TODAS AS ACIMA
-if(localStorage.getItem('ProdutoSelecioando') != null && localStorage.getItem('ProdutoSelecioando') != '[]'){
-  RecuperaProdutoSelecionado();
+if(localStorage.getItem('ProdutoSelecionadoPE') != null && localStorage.getItem('ProdutoSelecionadoPE') != '[]'){
+  SelecionarSelecioandoPE();
 }
 
 if (localStorage.getItem('ProdutoSelecionadoPP') != '[]' && localStorage.getItem('ProdutoSelecionadoPP') != null) {
@@ -162,7 +164,7 @@ function ApagarProdutoSelecioando() {
   SelecionarSelecioandoApagarPP();
   // Remova o item do localStorage
   localStorage.removeItem('ProdutoSelecionadoPP');
-  localStorage.removeItem('ProdutoSelecioando');
+  localStorage.removeItem('ProdutoSelecionadoPE');
   document.getElementById('ApagarProdutoSelecioando').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de produto Selecioando Limpa</div></div>';
   ApagarPapel('papelSelecionado');
   ApagarAcabamento('AcabamentoSelecionado');
@@ -178,8 +180,8 @@ function SelecionarProduto(valor) {
   const PP = document.getElementById('ppRadio');
    let ativo = PP.checked ? true : false;
   let selecionado = document.getElementById(valor);
-  let ProdutoSelecioando = localStorage.getItem('ProdutoSelecioando');
-  let arraySelecioandos = ProdutoSelecioando ? JSON.parse(ProdutoSelecioando) : [];
+  let ProdutoSelecionadoPE = localStorage.getItem('ProdutoSelecionadoPE');
+  let arraySelecioandos = ProdutoSelecionadoPE ? JSON.parse(ProdutoSelecionadoPE) : [];
   let ProdutoSelecionadoPP = localStorage.getItem('ProdutoSelecionadoPP');
   let arraySelecioandosPP = ProdutoSelecionadoPP ? JSON.parse(ProdutoSelecionadoPP) : [];
   const SelecionadoProdutoSelecioando = Number(document.getElementById(valor).name.
@@ -189,7 +191,7 @@ function SelecionarProduto(valor) {
     if (ativo) {
       arraySelecioandosPP = arraySelecioandosPP.filter(id => id !== selecionado.id);
     }else{
-      ProdutoSelecioando = ProdutoSelecioando.filter(id => id !== selecionado.id);
+      ProdutoSelecionadoPE = ProdutoSelecionadoPE.filter(id => id !== selecionado.id);
     }
     document.getElementById(valor).innerHTML = 'Selecionar Produto'
   } else {
@@ -204,7 +206,7 @@ function SelecionarProduto(valor) {
     document.getElementById(valor).innerHTML = 'Selecioando'
   }
   
-  localStorage.setItem('ProdutoSelecioando', JSON.stringify(arraySelecioandos));
+  localStorage.setItem('ProdutoSelecionadoPE', JSON.stringify(arraySelecioandos));
   localStorage.setItem('ProdutoSelecionadoPP', JSON.stringify(arraySelecioandosPP));
   setTimeout(function () {
     document.getElementById('SelecioandoProduto').innerHTML = '';
@@ -213,6 +215,7 @@ function SelecionarProduto(valor) {
 }
 
 async function SelecionarSelecioando() {
+  document.getElementById('load1').style.display = 'flex';
   if (document.getElementById('produtosTableBody')) {
     setTimeout(function () {
       document.getElementById('ErroSelecionar').innerHTML = '';
@@ -231,7 +234,6 @@ async function SelecionarSelecioando() {
 }
 
 function RecuperaProdutoSelecionado() {
-  
   let codigo_do_produto = [];
   let codigo_do_acabado = [];
   if (localStorage.getItem('AcabamentoSelecionado')) {
@@ -251,11 +253,9 @@ function RecuperaProdutoSelecionado() {
         tipo = 'PP';
       } else {
         tipo = 'PE';
-        produto = 'ProdutoSelecioando';
+        produto = 'ProdutoSelecionadoPE';
       }
          tableBody = document.getElementById('tabela_campos');
-         
-       
          tableBody.innerHTML = '';
          tableBody.innerHTML += `
       <thead>
@@ -274,12 +274,15 @@ function RecuperaProdutoSelecionado() {
         <th>PREÇO CHAPA</th>
       </tr>
     </thead>`;
+   
     document.getElementById('load1').style.display = 'flex';
   
       let produtoSelecionado = localStorage.getItem(produto);
       let arraySelecionados = produtoSelecionado ? JSON.parse(produtoSelecionado) : [];
+     
       let promises = arraySelecionados.map(id => {
         const ids = Number(id.replace('Produto', ''))
+        console.log('api_produto_select.php?id=' + ids + '&tipo=' + tipo);
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
@@ -288,11 +291,9 @@ function RecuperaProdutoSelecionado() {
              ApagarProdutoSelecioando();
             }
             let campo = {};
-            if (data.cod_calculo) {
-              campo.cod_calculo = data.cod_calculo;
-            }
-            if(data.tipo_produto_papel){
-              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="TIPO_PRODUTO" name="TIPO_PRODUTO" value="${data.tipo_produto_papel}">`;
+          
+            if(data.TIPO){
+              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="TIPO_PRODUTO" name="TIPO_PRODUTO" value="${data.TIPO}">`;
             }
             if (data.CODIGO) {
               campo.CODIGO = data.CODIGO;
@@ -300,9 +301,7 @@ function RecuperaProdutoSelecionado() {
             if (data.unitario) {
               campo.unitario = data.unitario;
             }
-            if (data.CODIGO_LI) {
-              campo.CODIGO_LI = data.CODIGO_LI;
-            }
+            
             if (data.DESCRICAO) {
               campo.DESCRICAO = data.DESCRICAO;
             }
@@ -314,11 +313,9 @@ function RecuperaProdutoSelecionado() {
               campo.tipo_papel = data.tipo_papel;
             }
             if (data.quantidade) {
-              campo.quantidade = `<input class="form-control" type="number" id="quantidade" name="quantidade" value="${data.quantidade}"><input class="form-control" type="hidden" id="quantidade${data.CODIGO}" name="quantidade${data.CODIGO}" value="${data.quantidade}">`;
+              campo.quantidade = `<input class="form-control" type="number" id="quantidade" name="quantidade" value="0">`;
             }
-            if (data.descrisaozinha_prod) {
-              campo.descrisaozinha_prod = data.descrisaozinha_prod;
-            }
+           
             if (data.cod_produto) {
               
               campo.cod_produto = `<input  class="form-control " readonly type="number" name="data.cod_produto" id="data.cod_produto${data.cod_produto}" value="${data.cod_produto}"></input>`;
@@ -357,28 +354,15 @@ function RecuperaProdutoSelecionado() {
             if (data.TIPO) {
               campo.TIPO = data.TIPO;
             }
-            
-            if (data.VENDAS) {
-              campo.VENDAS = data.VENDAS;
-            }
+       
             if (data.ATIVO) {
               campo.ATIVO = data.ATIVO;
             }
-            if (data.USO_ECOMMERCE) {
-              campo.USO_ECOMMERCE = data.USO_ECOMMERCE;
-            }
+           
             if (data.PRECO_CUSTO) {
               campo.PRECO_CUSTO = data.PRECO_CUSTO;
             }
-            if (data.PROMOCIONAL) {
-              campo.PROMOCIONAL = data.PROMOCIONAL;
-            }
-            if (data.PRECO_PROMOCIONAL) {
-              campo.PRECO_PROMOCIONAL = data.PRECO_PROMOCIONAL;
-            }
-            if (data.ID_CATEGORIA) {
-              campo.ID_CATEGORIA = data.ID_CATEGORIA;
-            }
+         
             if (data.cod_acabamentos) {
               campo.cod_acabamentos = data.cod_acabamentos;
             }
@@ -397,51 +381,14 @@ function RecuperaProdutoSelecionado() {
             if (data.cod_papels) {
               campo.cod_papels = data.cod_papels;  
             }
-            if (data.PRE_VENDA) {
-              campo.PRE_VENDA = data.PRE_VENDA;
-            }
+          
             if (data.ALTURA) {
               campo.ALTURA = data.ALTURA;
             }
             if (data.cod_produto_papel) {
               campo.cod_produto_papel = data.cod_produto_papel;
             }
-            if (data.PROM) {
-              campo.PROM = data.PROM;
-            }
-            if (data.VLR_PROM) {
-              campo.VLR_PROM = data.VLR_PROM;
-            }
-            if (data.INICIO_PROM) {
-              campo.INICIO_PROM = data.INICIO_PROM;
-            }
-            if (data.FIM_PROM) {
-              campo.FIM_PROM = data.FIM_PROM;
-            }
-            if (data.ESTOQUE) {
-              campo.ESTOQUE = data.ESTOQUE;
-            }
-            if (data.AVISO_ESTOQUE) {
-              campo.AVISO_ESTOQUE = data.AVISO_ESTOQUE;
-            }
-            if (data.AVISO_ESTOQUE_UN) {
-              campo.AVISO_ESTOQUE_UN = data.AVISO_ESTOQUE_UN;
-            }
-            if (data.VLR_UNIT) {
-              campo.VLR_UNIT = data.VLR_UNIT;
-            }
-            if (data.ULT_MOV) {
-              campo.ULT_MOV = data.ULT_MOV;
-            }
-            if (data.PD_QTD_MIN) {
-              campo.PD_QTD_MIN = data.PD_QTD_MIN;
-            }
-            if (data.PD_MAX) {
-              campo.PD_MAX = data.PD_MAX;
-            }
-            if (data.PD_QTD_MAX) {
-              campo.PD_QTD_MAX = data.PD_QTD_MAX;
-            }
+        
 
             if (data.cod_papels) {
               data.cod_papels.forEach(valor => {
