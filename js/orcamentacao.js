@@ -1038,20 +1038,107 @@ function checkedServico() {
     })
   }
 }
+// abrir editar serviço
+function AbrirEditarServico(valor) {
+  const select = document.getElementById(valor);
+  const cadastrarServico = document.getElementById('cadastrarServico')
+  const editarServico = document.getElementById('editarServico')
+  const ServicoEditado = document.getElementById('idservico');
+  let numeros = valor.replace(/\D/g, ''); // Remove tudo que não for dígito
+  if (select.checked == false) {
+    cadastrarServico.style.display = 'block';
+    editarServico.style.display = 'none';
+    document.getElementById('Nome_Servico').value = '';
+  document.getElementById('valor_min').value = '';
+  document.getElementById('tipoServico').value = '';
+  document.getElementById('Servico_Geral').checked = '';
+  document.getElementById('valorUnitario').value = '';
+  } else {
+    document.getElementById('mensagemServico').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Servico Selecionado!</div></div>';
 
+    cadastrarServico.style.display = 'none';
+    editarServico.style.display = 'block';
+    ServicoEditado.name = numeros;
+    fetch(`api_Servico.php?cod=${numeros}`)
+      .then(response => response.json())
+      .then(data => {
+        let valores = data.map(Servico => ({
+          cod: Servico.cod,
+          descricao: Servico.descricao,
+          min: Servico.valor_minimo,
+          tipo: Servico.tipo_servico,
+          geral: Servico.servico_geral,
+          unitario: Servico.valor_unitario,
+        }));
+
+        valores.forEach(result => {
+          document.getElementById('Nome_Servico').value = result.descricao;
+          document.getElementById('valor_min').value = result.min;
+          document.getElementById('tipoServico').value = result.tipo;
+          if (+result.geral >= 1) {
+            document.getElementById('Servico_Geral').checked = result.geral;
+          }
+          document.getElementById('valorUnitario').value = result.unitario;
+        });
+      });
+  }
+
+  setTimeout(function () {
+    document.getElementById('mensagemServico').innerHTML = '';
+  }, 1000);
+}
+
+// salvar editar serviço
+async function EditarServico() {
+  const idservico = document.getElementById('idservico').name;
+  const Nome_Servico = document.getElementById('Nome_Servico').value;
+  const valor_min = document.getElementById('valor_min').value;
+  const valorUnitario = document.getElementById('valorUnitario').value;
+  const tipoServico = document.getElementById('tipoServico').value;
+  const Servico_Geral = document.getElementById('Servico_Geral').checked;
+  console.log('api_servico.php?atualiza=' + idservico + '&nome=' + Nome_Servico
+  + '&valorUnitario=' + valorUnitario
+  + '&tipoServico=' + tipoServico
+  + '&valor_min=' + valor_min
+  + '&Servico_Geral=' + Servico_Geral);
+  const response = await fetch('api_servico.php?atualiza=' + idservico + '&nome=' + Nome_Servico
+    + '&valorUnitario=' + valorUnitario
+    + '&tipoServico=' + tipoServico
+    + '&valor_min=' + valor_min
+    + '&Servico_Geral=' + Servico_Geral);
+  const data = await response.json();
+  if (data.Sucesso === true) {
+    document.getElementById('mensagemServico').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Sucesso! Servico Editado!</div></div>';
+  }
+  const cadastrarServico = document.getElementById('cadastrarServico');
+  const editarServico = document.getElementById('editarServico');
+  cadastrarServico.style.display = 'block';
+  editarServico.style.display = 'none';
+  document.getElementById('Nome_Servico').value = '';
+  document.getElementById('valor_min').value = '';
+  document.getElementById('tipoServico').value = '';
+  document.getElementById('Servico_Geral').checked = '';
+  document.getElementById('valorUnitario').value = '';
+  setTimeout(function () {
+    document.getElementById('mensagemServico').innerHTML = '';
+    abriServicos();
+  }, 1000);
+
+
+}
 function ApagarServicoSelecioando(valor) {
   // Defina o nome do item que você deseja remover
   var itemKey = valor;
   if (localStorage.getItem('ServicoSelecionado') != '[]' && localStorage.getItem('ServicoSelecionado') != null) {
-    const ArrayAcabamentos = JSON.parse(localStorage.getItem('ServicoSelecionado'));
+    const Arrayservico = JSON.parse(localStorage.getItem('ServicoSelecionado'));
     if (document.getElementById('selecionarServicos')) {
-      ArrayAcabamentos.map((item) => {
+      Arrayservico.map((item) => {
         document.getElementById('Servi' + item).checked = false;
       });
     }
     // Remova o item do localStorage
     localStorage.removeItem(itemKey);
-    document.getElementById('mensagemServico').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
+    document.getElementById('mensagemServico').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de serviços limpa com sucesso!</div></div>';
 
     recuperarNomesServico('tabelaAservicos');
     setTimeout(function () {
@@ -1175,6 +1262,7 @@ function abriServicos() {
           <th>VALOR UNITÁRIO</th>
           <th>TIPO DO SERVIÇO</th>
           <th>SELECIONAR</th>
+          <th>EDITAR</th>
           </tr>
         </thead>`;
 
@@ -1187,6 +1275,7 @@ function abriServicos() {
           <td>${result.valor_unitario}</td>
           <td>${result.tipo_servico}</td>
           <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id);"></td>
+          <td> <input class="form-check-input" type="checkbox" id="Editar${result.cod}" value="EDITAR" onclick="AbrirEditarServico(this.id);"/></td>
         </tr>`;
       });
     });
@@ -1224,6 +1313,7 @@ async function pesquisarservico() {
             <th>VALOR UNITÁRIO</th>
             <th>TIPO DO SERVIÇO</th>
             <th>SELECIONAR</th>
+            <th>EDITAR</th>
             </tr>
           </thead>`;
 
@@ -1234,8 +1324,9 @@ async function pesquisarservico() {
               <td>${result.descricao}</td>
               <td>${result.valor_minimo}</td>
               <td>${result.valor_unitario}</td>
-              <td>${result.tipo_result}</td>
+              <td>${result.tipo_servico}</td>
               <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id);"></td>
+              <td> <input class="form-check-input" type="checkbox" id="Editar${result.cod}" value="EDITAR" onclick="AbrirEditarServico(this.id);"/></td>
             </tr>`;
           });
         });
@@ -1274,6 +1365,7 @@ async function pesquisarservicocode() {
             <th>VALOR UNITÁRIO</th>
             <th>TIPO DO SERVIÇO</th>
             <th>SELECIONAR</th>
+            <th>EDITAR</th>
             </tr>
           </thead>`;
 
@@ -1284,8 +1376,9 @@ async function pesquisarservicocode() {
               <td>${result.descricao}</td>
               <td>${result.valor_minimo}</td>
               <td>${result.valor_unitario}</td>
-              <td>${result.tipo_result}</td>
+              <td>${result.tipo_servico}</td>
               <td><input type="checkbox"  class="form-check-input" id="Servi${result.cod}" value="${result.cod}" onclick="selecionarServico(this.id)"></td>
+              <td> <input class="form-check-input" type="checkbox" id="Editar${result.cod}" value="EDITAR" onclick="AbrirEditarServico(this.id);"/></td>
             </tr>`;
           });
         });

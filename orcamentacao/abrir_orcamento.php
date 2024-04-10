@@ -1,3 +1,6 @@
+<?php
+phpinfo();
+?>
 <style>
   .tira {
     display: none;
@@ -505,8 +508,11 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                           </select>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3" id="cadastrarServico">
                           <a class="btn rounded-pill btn-success" onclick="CadastraServico()">CADASTRAR</a>
+                        </div>
+                        <div class="mb-3" style="display: none;" id="editarServico">
+                          <input type="submit" class="btn rounded-pill btn-success" id="idservico" value="EDITAR" onclick="EditarServico()">
                         </div>
                       </div>
 
