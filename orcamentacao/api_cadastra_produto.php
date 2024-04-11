@@ -53,7 +53,12 @@ $aviso = $estoque['aviso'];
 $pedidoMin = $pedidos['pedidoMin'];
 $pedidoavisa = $pedidos['pedidoavisa'];
 $pedidoMax = $pedidos['pedidoMax'];
-
+if($tipoecommerce != '0' || $tipoecommerce != '1'){
+  $tipoecommerce = 0;
+}
+if($tipoativo != '0' || $tipoativo != '1'){
+  $tipoativo = 0;
+}
 if ($tpp == 'PP') {
   $query_cadastra_produto = $conexao->prepare("INSERT INTO `produtos`(  `DESCRICAO`, `LARGURA`, `ALTURA`, `ESPESSURA`, `PESO`, `QTD_PAGINAS`, `TIPO`, `ATIVO`, `USO_ECOMMERCE`, `PRECO_CUSTO`) VALUES ('$descricao','$largura','$altura','$espessura','$peso','$qtdfolhas','$tipoproduto',$tipoativo,$tipoecommerce, 0)");
     $query_cadastra_produto->execute();

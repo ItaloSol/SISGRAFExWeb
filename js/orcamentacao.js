@@ -1059,7 +1059,7 @@ function AbrirEditarServico(valor) {
     cadastrarServico.style.display = 'none';
     editarServico.style.display = 'block';
     ServicoEditado.name = numeros;
-    fetch(`api_Servico.php?cod=${numeros}`)
+    fetch(`api_servico.php?cod=${numeros}`)
       .then(response => response.json())
       .then(data => {
         let valores = data.map(Servico => ({

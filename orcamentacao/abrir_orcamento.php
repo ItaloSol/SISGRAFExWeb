@@ -1,6 +1,3 @@
-<?php
-phpinfo();
-?>
 <style>
   .tira {
     display: none;
@@ -237,6 +234,29 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Crédito</label>
                       <div class="col-sm-10">
+                        <?php 
+                        if($Tabela_Clientes['credito'] < 0){
+                          echo ' <div id="alerta<?=$a?>"
+                          role="bs-toast"
+                          class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
+                          role="alert"
+                          aria-live="assertive"
+                          aria-atomic="true">
+                          <div class="toast-header">
+                            <i class="bx bx-bell me-2"></i>
+                            <div class="me-auto fw-semibold">Aviso!</div>
+                            <small>
+                          
+                            </small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                          </div>
+                          
+                          <div class="toast-body">
+                            O SALDO DO CLIENTE ESTÁ NEGATIVO! 
+                          </div>
+                          </div>';
+                        }
+                        ?>
                         <input type="text" class="form-control" disabled value="<?= number_format($Tabela_Clientes['credito'], 2, ',', '.') ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>

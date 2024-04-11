@@ -608,13 +608,13 @@ function calcularTotal(item) {
   total += ValorFrete;
   total += ValorArte;
   total -= (total * DescontoConvertido);
-  console.log(`TOTAL APOS EXTRAS = ${total}`)
+  console.log(`TOTAL APOS EXTRAS(CIF, ARTE, FRETE, DESCONTO) = ${total}`)
   console.log(`FIM TOTAL -------------------------------`)
   return total;
 
 }
 
-function calculateUnitario(item) {
+function calculateUnitario(item, clique) {
   console.log(`INICIO -------------------------------`)
   const { CÓDIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
   let total = 0;
@@ -645,8 +645,17 @@ function calculateUnitario(item) {
       console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
     }
 
-    document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total.toFixed(2);
   }
+  const clicado = clique / QUANTIDADE;
+  
+  console.log('Clique dividido por unidade = '+ clicado)
+  total /= QUANTIDADE;
+  console.log('Valor unitario de papel = '+ total)
+  total += clicado;
+  console.log('Valor unitario total = '+ total)
+  document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total.toFixed(2);
+
+  
   console.log(`FIM -------------------------------`)
   return total;
 }
@@ -1056,7 +1065,7 @@ function calcularValor() {
     organiza_campos.forEach((item) => {
       console.log(item)
       setTimeout(() => {
-        const unitario = calculateUnitario(item);
+        const unitario = calculateUnitario(item, ValorClique);
         console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, Unitario: ${unitario}`);
       }, 200);
     });
@@ -1071,7 +1080,6 @@ function calcularValor() {
     }, 500);
 
     setTimeout(() => {
-      Total += +ValorClique;
       console.log(`+ VALOR DE CLIQUE TOTAL = ${ValorClique}`)
       document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
       console.log(`TOTAL ORÇAMENTO: ${Total}`);
