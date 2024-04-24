@@ -614,10 +614,13 @@ function calcularTotal(item) {
 
 }
 
-function calculateUnitario(item, clique) {
+function calculateUnitario(item, clique, manual) {
   console.log(`INICIO -------------------------------`)
   const { CÓDIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
   let total = 0;
+  if(manual == true){
+    total = document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value;
+  }else{
   if (OFFSET == 1) {
     if (PREÇO_CHAPA && QUANTIDADE_DE_CHAPAS) {
       total += PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS;
@@ -634,29 +637,31 @@ function calculateUnitario(item, clique) {
     if (PREÇO_FOLHA && GASTO_FOLHA) {
       total += PREÇO_FOLHA * GASTO_FOLHA;
       total /= FORMATO_IMPRESSÃO
-      console.log('valor papel =', PREÇO_FOLHA * GASTO_FOLHA);
+      total /= GASTO_FOLHA;
+      console.log('valor papel =', PREÇO_FOLHA * GASTO_FOLHA , ' FInal ', total);
     }
     if (QUANTIDADE && CUSTO) {
       total += CUSTO;
       console.log('valor acabamento =', CUSTO);
     }
-    if (DIGITAL === 1 && VALOR_IMPRESSAO_DIGITAL) {
-      total += parseFloat(VALOR_IMPRESSAO_DIGITAL);
-      console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
-    }
-
   }
   const clicado = clique / QUANTIDADE;
   
   console.log('Clique dividido por unidade = '+ clicado)
-  total /= QUANTIDADE;
+ // total /= QUANTIDADE;
   console.log('Valor unitario de papel = '+ total)
   total += clicado;
+  if (DIGITAL === 1 && VALOR_IMPRESSAO_DIGITAL) {
+    total += parseFloat(VALOR_IMPRESSAO_DIGITAL);
+    console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
+  }
+}
   console.log('Valor unitario total = '+ total)
   document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total.toFixed(2);
 
   
   console.log(`FIM -------------------------------`)
+  
   return total;
 }
 
@@ -1058,6 +1063,7 @@ function calcularValor() {
 
   //CALCULO
   let Total = 0;
+  const manual = document.getElementById('ValorManual').checked;
   if (digital === false && offset === false || digital === true && offset === true) {
     alert('SELECIONE O TIPO DE IMPRESSÃO DIGITAL OU OFSSET!')
     Total = 'ERRO';
@@ -1065,7 +1071,7 @@ function calcularValor() {
     organiza_campos.forEach((item) => {
       console.log(item)
       setTimeout(() => {
-        const unitario = calculateUnitario(item, ValorClique);
+        const unitario = calculateUnitario(item, ValorClique, manual);
         console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, Unitario: ${unitario}`);
       }, 200);
     });
