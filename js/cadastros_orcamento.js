@@ -1024,17 +1024,17 @@ function calcularValor() {
         );
         PapelUnita += +ValorFolha;
         ValorPapel += +ValorFolha * +QuantidadeGasta;
-        if (document.getElementById('Impre' + item[i].codigoPapel).value === '') {
+        if (document.getElementById('Impre' + item[i].codigoPapel+ item[i].produto ).value === '') {
           var tab = new bootstrap.Tab(document.getElementById('settings-list-item3'));
           tab.show();
           alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
           break;
         }
-        document.getElementById('GFolha' + item[i].codigoPapel).value = QuantidadeGasta;
+        document.getElementById('GFolha' + item[i].codigoPapel+ item[i].produto).value = QuantidadeGasta;
         if (digital === true) {
           document.getElementById('settings-list-Clique').style.display = 'block';
 
-          retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel)
+          retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel+ item[i].produto)
             .then(result => {
               ValorClique += +result.valor;
               Qtd_ApuraClique += result.quantidade;
@@ -1053,7 +1053,7 @@ function calcularValor() {
           QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
           console.log(QuantidadeGastaChapa)
           QtdChapa += QuantidadeGastaChapa;
-          document.getElementById('GChapa' + item[i].codigoPapel).value = QuantidadeGastaChapa;
+          document.getElementById('GChapa' + item[i].codigoPapel+ item[i].produto).value = QuantidadeGastaChapa;
         }
       }
     }

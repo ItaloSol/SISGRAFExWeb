@@ -360,7 +360,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 <div class="card">
                   <div id="mensagemPapelApagado"></div>
                   <h5 style="display: flex; align-items: center;" class="card-header">PAPEL
-                  </h5>
+                  </h5> <div class="col-3"><a class="btn btn-outline-primary" href="corte-papeis.pdf" target=”_blank”><iconify-icon icon="uil:table"></iconify-icon>&nbsp;TABELA<br>CORTES DE PAPEL</a></div> 
                   <span id="AlertaCampos" class="badge bg-danger">Preencha todos os campos em vermelho para calcular o valor do orçamento.</span>
                   <div class="table-responsive text-nowrap">
                     <table id="tabela_campos" class="table table-striped">
