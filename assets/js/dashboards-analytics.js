@@ -448,30 +448,35 @@
     const QtdPo2 = obterValor('QtdPo2');
     const QtdPo3 = obterValor('QtdPo3');
     const QtdPo4 = obterValor('QtdPo4');
+    const QtdPo5 = obterValor('QtdPo5');
     //// PRODUCAO
     const QtdPP = obterValor('QtdPP');
     const QtdPP1 = obterValor('QtdPP1');
     const QtdPP2 = obterValor('QtdPP2');
     const QtdPP3 = obterValor('QtdPP3');
     const QtdPP4 = obterValor('QtdPP4');
+    const QtdPP5 = obterValor('QtdPP5');
      //// Blocos
      const Qtdbloo1 = obterValor('Qtdbloo1');
      const Qtdbloo2 = obterValor('Qtdbloo2');
      const Qtdbloo3 = obterValor('Qtdbloo3');
      const Qtdbloo4 = obterValor('Qtdbloo4');
      const Qtdbloo5 = obterValor('Qtdbloo5');
+     const Qtdbloo6 = obterValor('Qtdbloo6');
      //// LIVROS
      const QtdLIVRO1 = obterValor('QtdLIVRO1');
      const QtdLIVRO2 = obterValor('QtdLIVRO2');
      const QtdLIVRO3 = obterValor('QtdLIVRO3');
      const QtdLIVRO4 = obterValor('QtdLIVRO4');
      const QtdLIVRO5 = obterValor('QtdLIVRO5');
+     const QtdLIVRO6 = obterValor('QtdLIVRO6');
       //// FOLHA
       const QtdFOLHA1 = obterValor('QtdFOLHA1');
       const QtdFOLHA2 = obterValor('QtdFOLHA2');
       const QtdFOLHA3 = obterValor('QtdFOLHA3');
       const QtdFOLHA4 = obterValor('QtdFOLHA4');
       const QtdFOLHA5 = obterValor('QtdFOLHA5');
+      const QtdFOLHA6 = obterValor('QtdFOLHA6');
   /// QUANTITATIVOS
   const QtdPos = document.querySelector("#Qtd_PO"),
   QtdPo = {
@@ -510,7 +515,7 @@
     },
     series: [
       {
-        data: [QtdP0, QtdPo1, QtdPo2, QtdPo3, QtdPo4]
+        data: [QtdP0, QtdPo1, QtdPo2, QtdPo3, QtdPo4, QtdPo5]
       },
     ],
     xaxis: {
@@ -577,7 +582,7 @@
     },
     series: [
       {
-        data: [QtdPP, QtdPP1, QtdPP2, QtdPP3, QtdPP4]
+        data: [QtdPP, QtdPP1, QtdPP2, QtdPP3, QtdPP4, QtdPP5]
       },
     ],
     xaxis: {
@@ -644,7 +649,7 @@
     },
     series: [
       {
-        data: [Qtdbloo1, Qtdbloo4, Qtdbloo2, Qtdbloo3, Qtdbloo5]
+        data: [Qtdbloo1, Qtdbloo4, Qtdbloo2, Qtdbloo3, Qtdbloo5, Qtdbloo6]
       },
     ],
     xaxis: {
@@ -711,7 +716,7 @@ Qtdlivro = {
   },
   series: [
     {
-      data: [QtdLIVRO1, QtdLIVRO4, QtdLIVRO2, QtdLIVRO3, QtdLIVRO5]
+      data: [QtdLIVRO1, QtdLIVRO4, QtdLIVRO2, QtdLIVRO3, QtdLIVRO5, QtdLIVRO6]
     },
   ],
   xaxis: {
@@ -778,7 +783,7 @@ Qtdfolha = {
   },
   series: [
     {
-      data: [QtdFOLHA1, QtdFOLHA4, QtdFOLHA2, QtdFOLHA3, QtdFOLHA5]
+      data: [QtdFOLHA1, QtdFOLHA4, QtdFOLHA2, QtdFOLHA3, QtdFOLHA5, QtdFOLHA6]
     },
   ],
   xaxis: {

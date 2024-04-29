@@ -26,6 +26,7 @@ if (isset($_GET['id'])) {
   } else {
     $servico = [];
   }
+  echo json_encode($servico);
 }
   if (isset($_GET['atualiza'])) {
     $atualiza = $_GET['atualiza'];

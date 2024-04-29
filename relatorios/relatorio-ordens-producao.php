@@ -461,7 +461,7 @@ if (isset($_POST['campos19'])) {
     }
 }
 if (isset($Campos)) {
-    $Query_Campos = $Campos;
+    $Query_Campos = $Campos . ', cod_cliente ';
 }
 if ($Produto != null) {
     $Query_Produto = ' AND '. $Produto;
