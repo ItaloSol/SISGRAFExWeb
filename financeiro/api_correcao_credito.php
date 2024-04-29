@@ -153,7 +153,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
       }
       $valor_faturamento = $valor_faturamento + $linha['VLR_FAT'];
 
-      //echo $linha['cod'].' '.$linha['VLR_FAT'] .'<br>';
+      // echo $linha['cod'].' '.$linha['VLR_FAT'] .'<br>';
       $i++;
     }
     $Total_Faturamentos = $valor_faturamento;
@@ -163,7 +163,7 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
     // /////////////////////////////////////// FIM OP FINALZIADAS ///////////////////////////////////////////////////////////////
 
     // /////////////////////////////////// OP ABERTAS //////////////////////////////////////////////////////
-    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.status != '11' AND o.status != '13'");
+    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.tipo_cliente = '$tipo_cliente' AND o.status != '11' AND o.status != '13'");
     $query_ordens_Abertas->execute();
     $i = 0;
     $valor_emproducao = 0;
@@ -188,18 +188,18 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
 
         $query_Pesquisa_Orc_QQ = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento  WHERE cod_produto = '$cod_produto_QQ' AND cod_orcamento = $Pesquisa_Orc_QQ ");
         $query_Pesquisa_Orc_QQ->execute();
-        // echo "codigo op: ". $Cod_Op_QQ ."<br>";
+        //  echo "codigo op: ". $Cod_Op_QQ ."<br>";
 
 
         if ($linha_QQ2 = $query_Pesquisa_Orc_QQ->fetch(PDO::FETCH_ASSOC)) {
           $Valor_QQ = $linha_QQ2['quantidade'] * $linha_QQ2['preco_unitario'];
 
-          //   echo "Valor Total: ". $Valor_QQ . "<br>";
+            //  echo "Valor Total: ". $Valor_QQ . "<br>";
           $QQvalor_total_Faturamentos = $conexao->prepare("SELECT * FROM faturamentos f WHERE  f.CODIGO_OP = '$Cod_Op_QQ'");
           $QQvalor_total_Faturamentos->execute();
           while ($linhaQQ = $QQvalor_total_Faturamentos->fetch(PDO::FETCH_ASSOC)) {
-            // echo "Valores de fatuamento: ". $linhaQQ['VLR_FAT']. "<br>";
-            //   echo 'CALCULO: '. $Valor_QQ .' - '. $linhaQQ['VLR_FAT'] ;
+            //  echo "Valores de fatuamento: ". $linhaQQ['VLR_FAT']. "<br>";
+              //  echo 'CALCULO: '. $Valor_QQ .' - '. $linhaQQ['VLR_FAT'] ;
             $Valor_QQ = $Valor_QQ - $linhaQQ['VLR_FAT'];
           }
         }
@@ -241,13 +241,13 @@ if (isset($_GET['cod']) && isset($_GET['tipo'])) {
 
     $Saldo_Correto = $Valor_Notas_Totais - $Total_Faturamentos - $Total_EmProducao;
     $Diferenca_Correcao = $Saldo_Correto - $Tabela_Clientes['credito'];
-    // echo $Tabela_Clientes['nome'] . ' Credito: ' . $Valor_Notas_Totais . ' Fatruamento: ' . $Total_Faturamentos . ' Valor Em produção: ' . $Total_EmProducao . ' Soldo Correto = ' .  $Saldo_Correto . ' Saldo Atual: ' . $Tabela_Clientes['credito'] .  '<br>';
+    //  echo $Tabela_Clientes['nome'] . ' Credito: ' . $Valor_Notas_Totais . ' Fatruamento: ' . $Total_Faturamentos . ' Valor Em produção: ' . $Total_EmProducao . ' Soldo Correto = ' .  $Saldo_Correto . ' Saldo Atual: ' . $Tabela_Clientes['credito'] .  '<br>';
 
     $credito = $Saldo_Correto;
     $credito = round($credito, 2);
     $cod_cliente = $Tabela_Clientes['cod'];
     $credito_anterior = $Tabela_Clientes['credito'];
-
+   
     if ($tipo_cliente == 2) {
       $query_aceitalas = $conexao->prepare("UPDATE tabela_clientes_juridicos SET credito = '$credito' WHERE cod = $cod_cliente ");
       $query_aceitalas->execute();

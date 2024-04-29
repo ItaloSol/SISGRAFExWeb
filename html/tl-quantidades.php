@@ -33,6 +33,12 @@ $i = 0;
 if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
     $QtdPo4 = $linha['QTD'];
 }
+$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2024-01-01' AND data_emissao <= '2024-12-31'");
+$QuantidadePO->execute();
+$i = 0;
+if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPo5 = $linha['QTD'];
+}
 $QuantidadePP = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_ordens_producao WHERE status != '13' AND data_emissao >= '2019-01-01' AND data_emissao <= '2019-12-31'");
 $QuantidadePP->execute();
 $i = 0;
@@ -62,6 +68,12 @@ $QuantidadePP->execute();
 $i = 0;
 if ($linha = $QuantidadePP->fetch(PDO::FETCH_ASSOC)) {
     $QtdPP4 = $linha['QTD'];
+}
+$QuantidadePP = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_ordens_producao  WHERE status != '13' AND data_emissao >= '2024-01-01' AND data_emissao <= '2024-12-31'");
+$QuantidadePP->execute();
+$i = 0;
+if ($linha = $QuantidadePP->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPP5 = $linha['QTD'];
 }
 $QuantidadeBLOCO = $conexao->prepare("SELECT SUM(tpo.QUANTIDADE) AS QTD FROM tabela_ordens_producao top
 INNER JOIN tabela_orcamentos tbo
@@ -128,7 +140,19 @@ $i = 0;
 if ($linha = $QuantidadeBLOCO->fetch(PDO::FETCH_ASSOC)) {
     $Qtdbloo5 = $linha['QTD'];
 }
-
+$QuantidadeBLOCO = $conexao->prepare("SELECT SUM(tpo.QUANTIDADE) AS QTD FROM tabela_ordens_producao top
+INNER JOIN tabela_orcamentos tbo
+ON tbo.cod = top.orcamento_base
+INNER JOIN tabela_produtos_orcamento tpo
+ON tbo.cod = tpo.cod_orcamento
+INNER JOIN produtos p
+ON p.CODIGO = tpo.cod_produto
+WHERE top.status != '13' AND  ( top.data_entrega >= '2024-01-01' AND top.data_entrega <= '2024-12-31') AND   p.TIPO = 'BLOCO';");
+$QuantidadeBLOCO->execute();
+$i = 0;
+if ($linha = $QuantidadeBLOCO->fetch(PDO::FETCH_ASSOC)) {
+    $Qtdbloo6 = $linha['QTD'];
+}
 /// LIVRO
 
 $QuantidadeBLOCO = $conexao->prepare("SELECT SUM(tpo.QUANTIDADE) AS QTD FROM tabela_ordens_producao top
@@ -195,6 +219,19 @@ $QuantidadeLIVRO->execute();
 $i = 0;
 if ($linha = $QuantidadeLIVRO->fetch(PDO::FETCH_ASSOC)) {
     $QtdLIVRO5 = $linha['QTD'];
+}
+$QuantidadeLIVRO = $conexao->prepare("SELECT SUM(tpo.QUANTIDADE) AS QTD FROM tabela_ordens_producao top
+INNER JOIN tabela_orcamentos tbo
+ON tbo.cod = top.orcamento_base
+INNER JOIN tabela_produtos_orcamento tpo
+ON tbo.cod = tpo.cod_orcamento
+INNER JOIN produtos p
+ON p.CODIGO = tpo.cod_produto
+WHERE top.status != '13' AND  ( top.data_entrega >= '2024-01-01' AND top.data_entrega <= '2024-12-31') AND   p.TIPO = 'LIVRO';");
+$QuantidadeLIVRO->execute();
+$i = 0;
+if ($linha = $QuantidadeLIVRO->fetch(PDO::FETCH_ASSOC)) {
+    $QtdLIVRO6 = $linha['QTD'];
 }
 
 ///
@@ -266,14 +303,27 @@ $i = 0;
 if ($linha = $QuantidadeFOLHA->fetch(PDO::FETCH_ASSOC)) {
     $QtdFOLHA5 = $linha['QTD'];
 }
+$QuantidadeFOLHA = $conexao->prepare("SELECT SUM(tpo.QUANTIDADE) AS QTD FROM tabela_ordens_producao top
+INNER JOIN tabela_orcamentos tbo
+ON tbo.cod = top.orcamento_base
+INNER JOIN tabela_produtos_orcamento tpo
+ON tbo.cod = tpo.cod_orcamento
+INNER JOIN produtos p
+ON p.CODIGO = tpo.cod_produto
+WHERE top.status != '13' AND  ( top.data_entrega >= '2024-01-01' AND top.data_entrega <= '2024-12-31') AND   p.TIPO = 'FOLHA';");
+$QuantidadeFOLHA->execute();
+$i = 0;
+if ($linha = $QuantidadeFOLHA->fetch(PDO::FETCH_ASSOC)) {
+    $QtdFOLHA6 = $linha['QTD'];
+}
 
 ///
 //// CALCULOS
-$Aumento_Orcamento = ceil((($QtdPo4 - $QtdPo3) / $QtdPo3) * 100);
-$Aumento_Op = ceil((($QtdPP4 - $QtdPP3) / $QtdPP3) * 100);
-$Aumento_Blocos = ceil((($Qtdbloo5 - $Qtdbloo3) / $Qtdbloo3) * 100);
-$Aumento_Livros = ceil((($QtdLIVRO5 - $QtdLIVRO3) / $QtdLIVRO3) * 100);
-$Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
+$Aumento_Orcamento = ceil((($QtdPo5 - $QtdPo4) / $QtdPo4) * 100);
+$Aumento_Op = ceil((($QtdPP5 - $QtdPP4) / $QtdPP4) * 100);
+$Aumento_Blocos = ceil((($Qtdbloo6 - $Qtdbloo4) / $Qtdbloo4) * 100);
+$Aumento_Livros = ceil((($QtdLIVRO6 - $QtdLIVRO4) / $QtdLIVRO4) * 100);
+$Aumento_MANUAL = ceil((($QtdFOLHA6 - $QtdFOLHA4) / $QtdFOLHA4) * 100);
 ///
 ?>
 <div class="col-12">
@@ -304,8 +354,8 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                                     <span class="badge bg-label-warning rounded-pill">Ano <?= $Ano ?></span>
                                                                 </div>
                                                                 <div class="mt-sm-auto">
-                                                                    <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_Orcamento ?>%</small>
-                                                                    <h3 class="mb-0"><?= number_format($QtdPo4, 0, ".", "."); ?> P.O</h3>
+                                                                    <small class="text-danger text-nowrap fw-semibold"><i class="bx bx-chevron-down"></i> <?= $Aumento_Orcamento ?>%</small>
+                                                                    <h3 class="mb-0"><?= number_format($QtdPo5, 0, ".", "."); ?> P.O</h3>
                                                                 </div>
 
                                                             </div>
@@ -359,6 +409,12 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                                     <?= number_format($QtdPo4, 0, ".", ".");  ?>
                                                                 </span></td>
                                                         </tr>
+                                                        <tr>
+                                                            <td><strong>2024</strong></td>
+                                                            <td><span id="QtdPo5" class="badge bg-label-primary me-1">
+                                                                    <?= number_format($QtdPo5, 0, ".", ".");  ?>
+                                                                </span></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -391,8 +447,8 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                                 <span class="badge bg-label-warning rounded-pill">Ano <?= $Ano ?></span>
                                                             </div>
                                                             <div class="mt-sm-auto">
-                                                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_Op ?>%</small>
-                                                                <h3 class="mb-0"><?= number_format($QtdPP4, 0, ".", ".");  ?> O.P</h3>
+                                                                <small class="text-danger text-nowrap fw-semibold"><i class="bx bx-chevron-down"></i> <?= $Aumento_Op ?>%</small>
+                                                                <h3 class="mb-0"><?= number_format($QtdPP5, 0, ".", ".");  ?> O.P</h3>
                                                             </div>
 
                                                         </div>
@@ -448,6 +504,12 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                                 <?= number_format($QtdPP4, 0, ".", "."); ?>
                                                             </span></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><strong>2024</strong></td>
+                                                        <td><span id="QtdPP5" class="badge bg-label-primary me-1">
+                                                                <?= number_format($QtdPP5, 0, ".", "."); ?>
+                                                            </span></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -476,8 +538,8 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                         <span class="badge bg-label-warning rounded-pill">Ano <?= $Ano ?></span>
                                                     </div>
                                                     <div class="mt-sm-auto">
-                                                        <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_Blocos ?>%</small>
-                                                        <h3 class="mb-0"><?= number_format($Qtdbloo5, 0, ".", "."); ?> Blocos</h3>
+                                                        <small class="text-danger text-nowrap fw-semibold"><i class="bx bx-chevron-down"></i> <?= $Aumento_Blocos ?>%</small>
+                                                        <h3 class="mb-0"><?= number_format($Qtdbloo6, 0, ".", "."); ?> Blocos</h3>
                                                     </div>
 
                                                 </div>
@@ -496,8 +558,8 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                         <span class="badge bg-label-warning rounded-pill">Ano <?= $Ano ?></span>
                                                     </div>
                                                     <div class="mt-sm-auto">
-                                                        <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_Livros ?>%</small>
-                                                        <h3 class="mb-0"><?= number_format($QtdLIVRO5, 0, ".", "."); ?> Livros</h3>
+                                                        <small class="text-danger text-nowrap fw-semibold"><i class="bx bx-chevron-down"></i> <?= $Aumento_Livros ?>%</small>
+                                                        <h3 class="mb-0"><?= number_format($QtdLIVRO6, 0, ".", "."); ?> Livros</h3>
                                                     </div>
 
                                                 </div>
@@ -516,8 +578,8 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                     <span class="badge bg-label-warning rounded-pill">Ano <?= $Ano ?></span>
                                                 </div>
                                                 <div class="mt-sm-auto">
-                                                    <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?= $Aumento_MANUAL ?>%</small>
-                                                    <h3 class="mb-0"><?= number_format($QtdFOLHA5, 0, ".", "."); ?> FOLHAS</h3>
+                                                    <small class="text-danger text-nowrap fw-semibold"><i class="bx bx-chevron-down"></i> <?= $Aumento_MANUAL ?>%</small>
+                                                    <h3 class="mb-0"><?= number_format($QtdFOLHA6, 0, ".", "."); ?> FOLHAS</h3>
                                                 </div>
 
                                             </div>
@@ -575,6 +637,12 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                                 <?= number_format($Qtdbloo5, 0, ".", ".");   ?>
                                                             </span></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><strong>2024</strong></td>
+                                                        <td><span id="Qtdbloo6" class="badge bg-label-primary me-1">
+                                                                <?= number_format($Qtdbloo6, 0, ".", ".");   ?>
+                                                            </span></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -626,6 +694,12 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                                 <?= number_format($QtdLIVRO5, 0, ".", ".");  ?>
                                                             </span></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><strong>2024</strong></td>
+                                                        <td><span id="QtdLIVRO6" class="badge bg-label-primary me-1">
+                                                                <?= number_format($QtdLIVRO6, 0, ".", ".");  ?>
+                                                            </span></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -675,6 +749,12 @@ $Aumento_MANUAL = ceil((($QtdFOLHA5 - $QtdFOLHA3) / $QtdFOLHA3) * 100);
                                                         <td><strong>2023</strong></td>
                                                         <td><span id="QtdFOLHA5" class="badge bg-label-primary me-1">
                                                                 <?= number_format($QtdFOLHA5, 0, ".", ".");  ?>
+                                                            </span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>2024</strong></td>
+                                                        <td><span id="QtdFOLHA6" class="badge bg-label-primary me-1">
+                                                                <?= number_format($QtdFOLHA6, 0, ".", ".");  ?>
                                                             </span></td>
                                                     </tr>
                                                 </tbody>

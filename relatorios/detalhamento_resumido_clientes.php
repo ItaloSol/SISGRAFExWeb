@@ -536,8 +536,8 @@ $notas_credito = "<table style=' solid black;  border-collapse:collapse; font-si
         </tr>
         <tr>";
 if ($Total_Notas == 0) {
-    $relatorio = '<tr><td>N/C</td><TD>N/C</TD><TD>N/C</TD>';
-    $fecha_notas = '<tr><th colspan="3" style="text-align: right;">VALOR TOTAL: (+) R$ 0</th></tr>';
+    $relatorio = "<tr><td  colspan='1'>N/C</td><TD colspan='2'>N/C</TD><TD colspan='5'>N/C</TD>";
+    $fecha_notas = '<tr><th colspan="8" style="text-align: right;">VALOR TOTAL: (+) R$ 0</th></tr>';
 } else {
 
 
@@ -578,7 +578,7 @@ $Tabela_faturamento = "
         <th colspan='2'>VALOR</th>
         </tr>";
 if ($Total_Faturamentos == 0) {
-    $relatorio = '<tr><td>N/C</td><td>N/C</td><td>N/C</td><td>N/C</td>';
+    $relatorio = '<tr><td>N/C</td><td>N/C</td><td>N/C</td><td colspan="2">N/C</td><td colspan="2">N/C</td>';
 }
 while ($Total_Faturamentos > $Percorrer_Faturamentos) {
     if ($Percorrer_Faturamentos == 0) {

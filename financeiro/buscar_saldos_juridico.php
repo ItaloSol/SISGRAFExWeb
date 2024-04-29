@@ -130,7 +130,7 @@ while ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
     // /////////////////////////////////////// FIM OP FINALZIADAS ///////////////////////////////////////////////////////////////
 
     // /////////////////////////////////// OP ABERTAS //////////////////////////////////////////////////////
-    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.status != '11' AND o.status != '13'");
+    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND tipo_cliente = '$tipo_cliente' AND o.status != '11' AND o.status != '13'");
     $query_ordens_Abertas->execute();
     $i = 0;
     $valor_emproducao = 0;

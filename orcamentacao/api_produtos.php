@@ -53,7 +53,7 @@ if (!empty($Solicitacao)) {
             $VALOR[] = [
                 'CODIGO' => $linha['CODIGO'],
                 'TIPO_PRODUTO' => $linha['TIPO'],
-                'CODPRODUTO' => $linha['cod'],
+                'CODPRODUTO' => $linha['CODIGO'],
                 'DESCRICAO' => $linha['DESCRICAO'],
                 'TIPO' => 'PP',
                 'VALOR_UNITARIO' => $linha['PRECO_CUSTO'],
@@ -67,7 +67,7 @@ if (!empty($Solicitacao)) {
             $VALOR[] = [
                 'CODIGO' => $linha['CODIGO'],
                 'TIPO_PRODUTO' => $linha['TIPO'],
-                'CODPRODUTO' => $linha['cod'],
+                'CODPRODUTO' => $linha['CODIGO'],
                 'DESCRICAO' => $linha['DESCRICAO'],
                 'TIPO' => 'PE',
                 'VALOR_UNITARIO' => $linha['VLR_UNIT'],

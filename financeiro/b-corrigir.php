@@ -161,7 +161,7 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
     // /////////////////////////////////////// FIM OP FINALZIADAS ///////////////////////////////////////////////////////////////
 
     // /////////////////////////////////// OP ABERTAS //////////////////////////////////////////////////////
-    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.status != '11' AND o.status != '13'");
+    $query_ordens_Abertas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.cod_cliente = '$cod' AND o.tipo_cliente = '$tipo_cliente' AND o.status != '11' AND o.status != '13'");
     $query_ordens_Abertas->execute();
     $i = 0;
     $valor_emproducao = 0;
@@ -237,8 +237,8 @@ if ($linha = $query_Clientes_Juridicos->fetch(PDO::FETCH_ASSOC)) {
         $Valor_Notas_Totais[$numero_clientes] = 0;
     }
 
-    $Saldo_Correto[$numero_clientes] = $Valor_Notas_Totais[$numero_clientes] - $Total_Faturamentos[$numero_clientes] - $Total_EmProducao[$numero_clientes];
-    $Diferenca_Correcao[$numero_clientes] = $Saldo_Correto[$numero_clientes] - $Tabela_Clientes[$numero_clientes]['credito'];
+     $Saldo_Correto[$numero_clientes] = $Valor_Notas_Totais[$numero_clientes] - $Total_Faturamentos[$numero_clientes] - $Total_EmProducao[$numero_clientes];
+     $Diferenca_Correcao[$numero_clientes] = $Saldo_Correto[$numero_clientes] - $Tabela_Clientes[$numero_clientes]['credito'];
     echo $Tabela_Clientes[$numero_clientes]['nome'] . ' Credito: ' . $Valor_Notas_Totais[$numero_clientes] . ' Fatruamento: ' . $Total_Faturamentos[$numero_clientes] . ' Valor Em produção: ' . $Total_EmProducao[$numero_clientes] . ' Soldo Correto = ' .  $Saldo_Correto[$numero_clientes] . ' Saldo Atual: ' . $Tabela_Clientes[$numero_clientes]['credito'] .  '<br>';
 
     $credito = $Saldo_Correto[$numero_clientes];
