@@ -433,6 +433,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       .then(data => {
         return {
           id,
+          codproduto: id.cod_produto,
           nomePapel: data.descricao_do_papel,
           codPapel: data.cod_papel,
           corFrente: data.cor_frente,
@@ -523,26 +524,17 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
           tableBody.insertAdjacentHTML(
             'beforeend',
             `<tr>
-               <td>${codigo_do_produto &&
-              Array.isArray(codigo_do_produto) &&
-              codigo_do_produto.find(
-                (obj) => obj.cod_PLS.includes(result.codPapels)
-              )
-              ? codigo_do_produto.find(
-                (obj) => obj.cod_PLS.includes(result.codPapels)
-              ).codigoPP
-              : result.codPapels
-            }</td>
+               <td>${result.codproduto}</td>
                <td>${result.codPapels}</td>
                <td>${result.nomePapel}</td>
                <td>${result.tipo_papel}</td>
-               <td><input class="form-control" id="GCF${result.codPapels}" value="${result.corFrente}" type="number"></td>
-               <td><input class="form-control" id="GCV${result.codPapels}" value="${result.corVerso}" type="number"></td>
-               <td><input class="form-control formato-impressao" id="Impre${result.codPapels}"  type="number"></td>
+               <td><input class="form-control" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
+               <td><input class="form-control" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
+               <td><input class="form-control formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
                <td><input class="form-control" value="5" type="number"></td>
-               <td><input class="form-control" id="GFolha${result.codPapels}" value="0" type="number"></td>
+               <td><input class="form-control" id="GFolha${result.codPapels}${result.codproduto}" value="0" type="number"></td>
                <td>${result.preco_folha}</td>
-               <td><input class="form-control" id="GChapa${result.codPapels}" value="0" type="number"></td>
+               <td><input class="form-control" id="GChapa${result.codPapels}${result.codproduto}" value="0" type="number"></td>
                <td>${result.preco_chapa}</td>
              </tr>`
           );
@@ -550,16 +542,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
           tableBody.insertAdjacentHTML(
             'beforeend',
             `<tr>
-             <td>${codigo_do_produto &&
-              Array.isArray(codigo_do_produto) &&
-              codigo_do_produto.find(
-                (obj) => obj.cod_PLS.includes(result.codPapels)
-              )
-              ? codigo_do_produto.find(
-                (obj) => obj.cod_PLS.includes(result.codPapels)
-              ).codigoPP
-              : result.codPapels
-            }</td>
+             <td>${result.codproduto}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
              <td>
@@ -572,9 +555,9 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
                <option>2° VIA</option>
                <option>3° VIA</option>
              </select></td>
-             <td><input class="form-control" id="GCF${result.codPapels}" value="${result.corFrente}" type="number"></td>
-             <td><input class="form-control" id="GCV${result.codPapels}" value="${result.corVerso}" type="number"></td>
-             <td><input class="form-control formato-impressao" id="Impre${result.codPapels}"  type="number"></td>
+             <td><input class="form-control" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
+             <td><input class="form-control" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
+             <td><input class="form-control formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
              <td><input class="form-control" value="5" type="number"></td>
             
              <td>${result.preco_folha}</td>
