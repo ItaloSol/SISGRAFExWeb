@@ -117,7 +117,7 @@ arteObserva.addEventListener('click', vlr => {
 })
 
 /// SALVAR NOVO PRODUTO
-function SalvaProdutoNovo(){
+function SalvaProdutoNovo() {
   // OBTEM PAPEIS
   // console.log(jsonFinal2);
   // Obtém a tabela pelo ID
@@ -614,54 +614,56 @@ function calcularTotal(item) {
 
 }
 
-function calculateUnitario(item, clique, manual) {
+function calculateUnitario(item, clique, manual, servico) {
   console.log(`INICIO -------------------------------`)
   const { CÓDIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
   let total = 0;
-  if(manual == true){
+  if (manual == true) {
     total = document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value;
-  }else{
-  if (OFFSET == 1) {
-    if (PREÇO_CHAPA && QUANTIDADE_DE_CHAPAS) {
-      total += PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS;
-      total /= FORMATO_IMPRESSÃO
-      console.log('valor chapa =', PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS);
+  } else {
+    if (OFFSET == 1) {
+      if (PREÇO_CHAPA && QUANTIDADE_DE_CHAPAS) {
+        total += PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS;
+        total /= FORMATO_IMPRESSÃO
+        console.log('valor chapa =', PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS);
+      }
+      if (QUANTIDADE && CUSTO) {
+        total += CUSTO;
+        console.log('valor acabamento =', CUSTO);
+      }
+      document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total;
     }
-    if (QUANTIDADE && CUSTO) {
-      total += CUSTO;
-      console.log('valor acabamento =', CUSTO);
+    if (DIGITAL == 1) {
+      if (PREÇO_FOLHA && GASTO_FOLHA) {
+        total += PREÇO_FOLHA * GASTO_FOLHA;
+        total /= FORMATO_IMPRESSÃO
+        total /= GASTO_FOLHA;
+        console.log('valor papel =', PREÇO_FOLHA * GASTO_FOLHA, ' FInal ', total);
+      }
+      if (QUANTIDADE && CUSTO) {
+        total += CUSTO;
+        console.log('valor acabamento =', CUSTO);
+      }
     }
-    document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total;
+    const clicado = clique / QUANTIDADE;
+
+    console.log('Clique dividido por unidade = ' + clicado)
+    // total /= QUANTIDADE;
+    console.log('Valor unitario de papel = ' + total)
+    total += clicado;
+    if (DIGITAL === 1 && VALOR_IMPRESSAO_DIGITAL) {
+      total += parseFloat(VALOR_IMPRESSAO_DIGITAL);
+      console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
+    }
   }
-  if (DIGITAL == 1) {
-    if (PREÇO_FOLHA && GASTO_FOLHA) {
-      total += PREÇO_FOLHA * GASTO_FOLHA;
-      total /= FORMATO_IMPRESSÃO
-      total /= GASTO_FOLHA;
-      console.log('valor papel =', PREÇO_FOLHA * GASTO_FOLHA , ' FInal ', total);
-    }
-    if (QUANTIDADE && CUSTO) {
-      total += CUSTO;
-      console.log('valor acabamento =', CUSTO);
-    }
-  }
-  const clicado = clique / QUANTIDADE;
-  
-  console.log('Clique dividido por unidade = '+ clicado)
- // total /= QUANTIDADE;
-  console.log('Valor unitario de papel = '+ total)
-  total += clicado;
-  if (DIGITAL === 1 && VALOR_IMPRESSAO_DIGITAL) {
-    total += parseFloat(VALOR_IMPRESSAO_DIGITAL);
-    console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
-  }
-}
-  console.log('Valor unitario total = '+ total)
+  console.log(' Adicioando valor de serviço a cada unidade ' + servico);
+  total += servico;
+  console.log('Valor unitario total = ' + total)
   document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total.toFixed(2);
 
-  
+
   console.log(`FIM -------------------------------`)
-  
+
   return total;
 }
 
@@ -1024,17 +1026,21 @@ function calcularValor() {
         );
         PapelUnita += +ValorFolha;
         ValorPapel += +ValorFolha * +QuantidadeGasta;
-        if (document.getElementById('Impre' + item[i].codigoPapel+ item[i].produto ).value === '') {
+        if (document.getElementById('Impre' + item[i].codigoPapel + item[i].produto).value === '') {
           var tab = new bootstrap.Tab(document.getElementById('settings-list-item3'));
           tab.show();
           alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
           break;
+        }else{
+          setTimeout(() => {
+            document.getElementById('SalvarPO').style.display = 'block';
+           }, 500);
         }
-        document.getElementById('GFolha' + item[i].codigoPapel+ item[i].produto).value = QuantidadeGasta;
+        document.getElementById('GFolha' + item[i].codigoPapel + item[i].produto).value = QuantidadeGasta;
         if (digital === true) {
           document.getElementById('settings-list-Clique').style.display = 'block';
 
-          retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel+ item[i].produto)
+          retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel + item[i].produto)
             .then(result => {
               ValorClique += +result.valor;
               Qtd_ApuraClique += result.quantidade;
@@ -1053,7 +1059,7 @@ function calcularValor() {
           QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
           console.log(QuantidadeGastaChapa)
           QtdChapa += QuantidadeGastaChapa;
-          document.getElementById('GChapa' + item[i].codigoPapel+ item[i].produto).value = QuantidadeGastaChapa;
+          document.getElementById('GChapa' + item[i].codigoPapel + item[i].produto).value = QuantidadeGastaChapa;
         }
       }
     }
@@ -1070,10 +1076,12 @@ function calcularValor() {
   } else {
     organiza_campos.forEach((item) => {
       console.log(item)
+      const servico = obterTabelaServicos();
       setTimeout(() => {
-        const unitario = calculateUnitario(item, ValorClique, manual);
+        const unitario = calculateUnitario(item, ValorClique, manual, servico);
         console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, Unitario: ${unitario}`);
       }, 200);
+      
     });
     setTimeout(() => {
       organiza_campos = BuscaDados();
@@ -1091,7 +1099,7 @@ function calcularValor() {
       console.log(`TOTAL ORÇAMENTO: ${Total}`);
     }, 500);
     // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
-
+    
   }
 }
 
