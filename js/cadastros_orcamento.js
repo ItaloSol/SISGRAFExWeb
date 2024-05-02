@@ -138,8 +138,8 @@ function SalvaProdutoNovo() {
 
       // Cria um objeto JSON para armazenar os valores da linha
       var objetoJson = {
-        CÓDIGO_PRODUTO: celulas[0].innerText,
-        CÓDIGO_PAPEL: celulas[1].innerText,
+        CODIGO_PRODUTO: celulas[0].innerText,
+        CODIGO_PAPEL: celulas[1].innerText,
         DESCRIÇÃO: celulas[2].innerText,
         TIPO: celulas[3].innerText,
         CF: celulas[4].getElementsByTagName('input')[0].value,
@@ -347,8 +347,10 @@ function obterTabelaServicos() {
 
 // Valor Observacao
 function obterValorObservacao() {
-  const textareaObservacao = document.getElementById('observacao_orc');
-  return textareaObservacao.value;
+  const textareaObservacao = {
+    OBSERVACAO: document.getElementById('observacao_orc').value
+  }
+  return textareaObservacao;
   // (valorObservacao);
 }
 
@@ -393,7 +395,7 @@ function pegarQtdPaginas(codProduto) {
 
   // Itere pelas linhas da tabela, excluindo o cabeçalho
   for (var i = 1; i < tabela.rows.length; i++) {
-    // Obtenha a primeira célula correspondente à coluna "CÓDIGO DO PRODUTO" (índice 0)
+    // Obtenha a primeira célula correspondente à coluna "CODIGO DO PRODUTO" (índice 0)
     var celulaCodProduto = tabela.rows[i].getElementsByTagName("td")[0];
 
     // Pegue o valor dentro da célula
@@ -419,7 +421,7 @@ function pegarQtdTiragem(codProduto) {
 
   // Itere pelas linhas da tabela, excluindo o cabeçalho
   for (var i = 1; i < tabela.rows.length; i++) {
-    // Obtenha a primeira célula correspondente à coluna "CÓDIGO DO PRODUTO" (índice 0)
+    // Obtenha a primeira célula correspondente à coluna "CODIGO DO PRODUTO" (índice 0)
     var celulaCodProduto = tabela.rows[i].getElementsByTagName("td")[0];
 
     // Pegue o valor dentro da célula
@@ -616,10 +618,10 @@ function calcularTotal(item) {
 
 function calculateUnitario(item, clique, manual, servico) {
   console.log(`INICIO -------------------------------`)
-  const { CÓDIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
+  const { CODIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
   let total = 0;
   if (manual == true) {
-    total = document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value;
+    total = document.getElementById('preco_unitario' + CODIGO_PRODUTO).value;
   } else {
     if (OFFSET == 1) {
       if (PREÇO_CHAPA && QUANTIDADE_DE_CHAPAS) {
@@ -631,7 +633,7 @@ function calculateUnitario(item, clique, manual, servico) {
         total += CUSTO;
         console.log('valor acabamento =', CUSTO);
       }
-      document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total;
+      document.getElementById('preco_unitario' + CODIGO_PRODUTO).value = total;
     }
     if (DIGITAL == 1) {
       if (PREÇO_FOLHA && GASTO_FOLHA) {
@@ -659,7 +661,7 @@ function calculateUnitario(item, clique, manual, servico) {
   console.log(' Adicioando valor de serviço a cada unidade ' + servico);
   total += servico;
   console.log('Valor unitario total = ' + total)
-  document.getElementById('preco_unitario' + CÓDIGO_PRODUTO).value = total.toFixed(2);
+  document.getElementById('preco_unitario' + CODIGO_PRODUTO).value = total.toFixed(2);
 
 
   console.log(`FIM -------------------------------`)
@@ -676,7 +678,7 @@ function mergeObjects(obj1, obj2) {
   if (obj1.DIGITAL !== undefined) merged.DIGITAL = obj1.DIGITAL;
   if (obj1.VALOR_IMPRESSAO_DIGITAL !== undefined)
     merged.VALOR_IMPRESSAO_DIGITAL = obj1.VALOR_IMPRESSAO_DIGITAL;
-  if (obj1.CÓDIGO_PAPEL !== undefined) merged.CÓDIGO_PAPEL = obj1.CÓDIGO_PAPEL;
+  if (obj1.CODIGO_PAPEL !== undefined) merged.CODIGO_PAPEL = obj1.CODIGO_PAPEL;
   if (obj1.TIPO !== undefined) merged.TIPO = obj1.TIPO;
   if (obj1.CF !== undefined) merged.CF = obj1.CF;
   if (obj1.CV !== undefined) merged.CV = obj1.CV;
@@ -703,19 +705,19 @@ function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
   const allJsonArrays = [...jsonArray1, ...jsonArray2, ...jsonArray3, ...jsonArray4];
 
   allJsonArrays.forEach((item) => {
-    const key = item.CÓDIGO_PRODUTO || item.CÓDIGO || item.PRODUTO;
+    const key = item.CODIGO_PRODUTO || item.CODIGO || item.PRODUTO;
 
     if (key) {
       if (!consolidatedObjects[key]) {
         consolidatedObjects[key] = {
-          CÓDIGO_PRODUTO: key,
+          CODIGO_PRODUTO: key,
           VALOR_IMPRESSAO_DIGITAL: 0,
           PREÇO_CHAPA: 0,
           CUSTO: 0,
           QUANTIDADE: 0,
           DIGITAL: undefined,
           VALOR_IMPRESSAO_DIGITAL: 0,
-          CÓDIGO_PAPEL: undefined,
+          CODIGO_PAPEL: undefined,
           TIPO: undefined,
           PREÇO_CHAPA: 0,
           CUSTO: 0,
@@ -741,7 +743,7 @@ function consolidateObjects(jsonArray1, jsonArray2, jsonArray3, jsonArray4) {
 
       // Copie os demais campos do item para o objeto consolidado
       Object.keys(normalizedItem).forEach((campo) => {
-        if (!consolidatedObjects[key][campo] && campo !== 'CÓDIGO_PRODUTO' && campo !== 'QUANTIDADE') {
+        if (!consolidatedObjects[key][campo] && campo !== 'CODIGO_PRODUTO' && campo !== 'QUANTIDADE') {
           consolidatedObjects[key][campo] = normalizedItem[campo];
         }
       });
@@ -775,7 +777,7 @@ function BuscaDados() {
 
       // Cria um objeto JSON para armazenar os valores da linha
       var objetoJson = {
-        CÓDIGO: celulas[0].getElementsByTagName('input')[0].value,
+        CODIGO: celulas[0].getElementsByTagName('input')[0].value,
         DESCRIÇÃO: celulas[1].innerText,
         LARGURA: celulas[2].innerText,
         ALTURA: celulas[3].innerText,
@@ -835,8 +837,8 @@ function BuscaDados() {
 
       // Cria um objeto JSON para armazenar os valores da linha
       var objetoJson = {
-        CÓDIGO_PRODUTO: celulas[0].innerText,
-        CÓDIGO_PAPEL: celulas[1].innerText,
+        CODIGO_PRODUTO: celulas[0].innerText,
+        CODIGO_PAPEL: celulas[1].innerText,
         DESCRIÇÃO: celulas[2].innerText,
         TIPO: celulas[3].innerText,
         CF: celulas[4].getElementsByTagName('input')[0].value,
@@ -879,7 +881,7 @@ function BuscaDados() {
       var inputCustoHora = celulas[3].getElementsByTagName('input')[0];
 
       var objetoJson = {
-        CÓDIGO_PRODUTO: campo_cod_prod,
+        CODIGO_PRODUTO: campo_cod_prod,
         CODIGO_ACABAMENTO: inputCodigoAcabamento.value,
         MÁQUINA: inputMaquina.value,
         CUSTO: inputCustoHora.value
@@ -893,7 +895,14 @@ function BuscaDados() {
   var jsonFinal4 = JSON.stringify(dadosJson);
   // console.log(jsonFinal4);
   //
-  const OBSERVACOES_table = document.getElementById('observacao_orc');// console.log(OBSERVACOES_table);
+
+  jsonFinal1 = JSON.parse(jsonFinal1);  //  console.log(jsonFinal1);
+  jsonFinal2 = JSON.parse(jsonFinal2);  //  console.log(jsonFinal2);
+  jsonFinal3 = JSON.parse(jsonFinal3); //  console.log(jsonFinal3);
+  jsonFinal4 = JSON.parse(jsonFinal4); //  console.log(jsonFinal4);
+  return consolidateObjects(jsonFinal1, jsonFinal2, jsonFinal3, jsonFinal4)
+}
+function DadoClique() {
   // Obtém a tabela pelo ID
   var tabela = document.getElementById('calculo_clique');
   var tbodies = tabela.getElementsByTagName('tbody');
@@ -918,17 +927,35 @@ function BuscaDados() {
   }
 
   var jsonFinal5 = JSON.stringify(dadosJson);
-
-  jsonFinal1 = JSON.parse(jsonFinal1);
-  jsonFinal2 = JSON.parse(jsonFinal2);
-  jsonFinal3 = JSON.parse(jsonFinal3);
-  jsonFinal4 = JSON.parse(jsonFinal4);
   // console.log(jsonFinal5);
-  //  console.log(jsonFinal1);
-  //  console.log(jsonFinal2);
-  //  console.log(jsonFinal3);
-  //  console.log(jsonFinal4);
-  return consolidateObjects(jsonFinal1, jsonFinal2, jsonFinal3, jsonFinal4)
+  return jsonFinal5 = JSON.parse(jsonFinal5);
+}
+function DadosServico() {
+  var tabela = document.getElementById('tabelaAservicos');
+  var tbodies = tabela.getElementsByTagName('tbody');
+  var dadosJson = [];
+
+  for (var i = 0; i < tbodies.length; i++) {
+    var linhas = tbodies[i].getElementsByTagName('tr');
+
+    for (var j = 0; j < linhas.length; j++) {
+      var linha = linhas[j];
+      var celulas = linha.getElementsByTagName('td');
+
+      if (celulas.length >= 2) {
+        var objetoJson = {
+          CODIGO_PRODUTO: celulas[0].innerText,
+          DESCRICAO_SERVICO: celulas[1].innerText,
+          VALOR_SERVICO: celulas[2].innerText.replace('R$ ', '')
+        };
+
+        dadosJson.push(objetoJson);
+      }
+    }
+  }
+
+  var jsonFinal6 = JSON.stringify(dadosJson);
+  return jsonFinal6 = JSON.parse(jsonFinal6);
 }
 
 function calcularValor() {
@@ -1031,10 +1058,10 @@ function calcularValor() {
           tab.show();
           alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
           break;
-        }else{
+        } else {
           setTimeout(() => {
             document.getElementById('SalvarPO').style.display = 'block';
-           }, 500);
+          }, 500);
         }
         document.getElementById('GFolha' + item[i].codigoPapel + item[i].produto).value = QuantidadeGasta;
         if (digital === true) {
@@ -1075,13 +1102,12 @@ function calcularValor() {
     Total = 'ERRO';
   } else {
     organiza_campos.forEach((item) => {
-      console.log(item)
       const servico = obterTabelaServicos();
       setTimeout(() => {
         const unitario = calculateUnitario(item, ValorClique, manual, servico);
-        console.log(`CÓDIGO_PRODUTO: ${item.CÓDIGO_PRODUTO}, Unitario: ${unitario}`);
+        console.log(`CODIGO_PRODUTO: ${item.CODIGO_PRODUTO}, Unitario: ${unitario}`);
       }, 200);
-      
+
     });
     setTimeout(() => {
       organiza_campos = BuscaDados();
@@ -1099,19 +1125,37 @@ function calcularValor() {
       console.log(`TOTAL ORÇAMENTO: ${Total}`);
     }, 500);
     // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
-    
+
   }
 }
+
 
 function SalvarOrcamento() {
   const contato = document.getElementById('selecione_contato');
   const endereco = document.getElementById('selecione_endereco')
-  if (contato.value == 'Selecione um contato') {
+  const observacao = document.getElementById('observacao_orc').value;
+
+  if (contato.value == 'Selecione um contato' || endereco.value == 'Selecione um endereço') {
     window.location.href = '#selecione_contato';
-    window.alert('O contato do cliente não foi selecionado!');
-  }
-  if (endereco.value == 'Selecione um endereço') {
-    window.location.href = '#selecione_endereco';
-    window.alert('O endereço do cliente não foi selecionado!');
+    window.alert('O Contato do cliente ou o Endereço não foi selecionado!');
+  } else {
+    let SalvaDados = BuscaDados();
+    const dados = {
+      contato: contato.value,
+      endereco: endereco.value,
+      linhas: JSON.stringify(SalvaDados),
+      DadosServico: JSON.stringify(DadosServico()),
+      DadoClique: JSON.stringify(DadoClique()),
+      obterValorObservacao: observacao
+    };
+
+    const url = 'api_cadastrar_orcamento.php';
+    const params = [];
+    for (const key in dados) {
+      params.push(`${key}=${encodeURIComponent(dados[key])}`);
+    }
+    const queryString = params.join('&');
+
+    window.open(`${url}?${queryString}`, '_blank');
   }
 }
