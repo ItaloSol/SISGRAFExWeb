@@ -140,7 +140,7 @@ function SalvaProdutoNovo() {
       var objetoJson = {
         CODIGO_PRODUTO: celulas[0].innerText,
         CODIGO_PAPEL: celulas[1].innerText,
-        DESCRIÇÃO: celulas[2].innerText,
+        DESCRICAO: celulas[2].innerText,
         TIPO: celulas[3].innerText,
         CF: celulas[4].getElementsByTagName('input')[0].value,
         CV: celulas[5].getElementsByTagName('input')[0].value,
@@ -176,7 +176,7 @@ function ObterTabelaProduto() {
     const celulas = linha.cells;
     const item = {
       código: celulas[0].textContent,
-      descrição: celulas[1].textContent,
+      descricao: celulas[1].textContent,
       largura: celulas[2].textContent,
       altura: celulas[3].textContent,
       "qtd. páginas": celulas[4].textContent
@@ -585,7 +585,7 @@ function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, nume
   return quantidadeChapas;
 }
 
-// FUNÇÃO DO CALCULO
+// FUNCAO DO CALCULO
 
 // ENVIAR PARA O BANCO DE DADOS/SALVAR
 function calcularTotal(item) {
@@ -610,6 +610,7 @@ function calcularTotal(item) {
   total += ValorFrete;
   total += ValorArte;
   total -= (total * DescontoConvertido);
+
   console.log(`TOTAL APOS EXTRAS(CIF, ARTE, FRETE, DESCONTO) = ${total}`)
   console.log(`FIM TOTAL -------------------------------`)
   return total;
@@ -778,7 +779,7 @@ function BuscaDados() {
       // Cria um objeto JSON para armazenar os valores da linha
       var objetoJson = {
         CODIGO: celulas[0].getElementsByTagName('input')[0].value,
-        DESCRIÇÃO: celulas[1].innerText,
+        DESCRICAO_PRODUTO: celulas[1].innerText,
         LARGURA: celulas[2].innerText,
         ALTURA: celulas[3].innerText,
         QTD_PÁGINAS: celulas[4].innerText
@@ -839,7 +840,7 @@ function BuscaDados() {
       var objetoJson = {
         CODIGO_PRODUTO: celulas[0].innerText,
         CODIGO_PAPEL: celulas[1].innerText,
-        DESCRIÇÃO: celulas[2].innerText,
+        DESCRICAO_PAPEL: celulas[2].innerText,
         TIPO: celulas[3].innerText,
         CF: celulas[4].getElementsByTagName('input')[0].value,
         CV: celulas[5].getElementsByTagName('input')[0].value,
@@ -1079,7 +1080,7 @@ function calcularValor() {
 
 
           if (Qtd_ApuraClique >= 8000) {
-            window.alert('ATENÇÃO!! \n A QUANTIDADE DE CLIQUE UTILIZADA NESSA OP PASSA DE 8 MIL CLIQUES. \n O VALOR DE CLIQUE UTILIZADO PELA OP ESTÁ MUITO ALTO! \n RECOMENDADO RODAR NA OFFSET.')
+            window.alert('ATENCAO!! \n A QUANTIDADE DE CLIQUE UTILIZADA NESSA OP PASSA DE 8 MIL CLIQUES. \n O VALOR DE CLIQUE UTILIZADO PELA OP ESTÁ MUITO ALTO! \n RECOMENDADO RODAR NA OFFSET.')
           }
         } else {
           console.log(tipoProduto + ' + ' + tipoPapel + ' + ' + numeroCoresFrente + ' + ' + numeroCoresVerso + ' + ' + formatoImpressao + ' + ' + quantidadePaginas)
@@ -1134,19 +1135,43 @@ function SalvarOrcamento() {
   const contato = document.getElementById('selecione_contato');
   const endereco = document.getElementById('selecione_endereco')
   const observacao = document.getElementById('observacao_orc').value;
-
+  const codigoCliente =  document.getElementById('codigoCliente');
+  const tipocliente =  document.getElementById('tipoCliente');
+  const cif = document.getElementById('cif')
+  const arte = document.getElementById('arte')
+  const frete = document.getElementById('frete')
+  const desconto = document.getElementById('desconto')
+  const total = document.getElementById('ValorTotalOrc')
+  const menu = document.getElementById('ValorManual')
+  const tipo_produto = document.getElementById('TIPO_PRODUTO');
+  var manual = 0;
+  if(menu == true){
+     manual = 1;
+  }else{
+     manual = 0;
+  }
   if (contato.value == 'Selecione um contato' || endereco.value == 'Selecione um endereço') {
     window.location.href = '#selecione_contato';
     window.alert('O Contato do cliente ou o Endereço não foi selecionado!');
   } else {
     let SalvaDados = BuscaDados();
+    console.log(SalvaDados)
     const dados = {
+      cod: codigoCliente.value,
+      tipo: tipocliente.value,
       contato: contato.value,
       endereco: endereco.value,
+      cif: cif.value, 
+      arte: arte.value,
+      frete: frete.value,
+      desconto: desconto.value,
+      manual: manual,
+      tipo_produto: tipo_produto,
       linhas: JSON.stringify(SalvaDados),
       DadosServico: JSON.stringify(DadosServico()),
       DadoClique: JSON.stringify(DadoClique()),
-      obterValorObservacao: observacao
+      obterValorObservacao: observacao,
+      valorTotal: total.value
     };
 
     const url = 'api_cadastrar_orcamento.php';
