@@ -171,13 +171,13 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-default-name">Tipo de Pessoa</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" disabled id="basic-default-name" value="<?= $cliente ?>" placeholder="Fisicou ou Juridica" />
+                          <input type="text" class="form-control" id="tipoCliente" disabled id="basic-default-name" value="<?= $cliente ?>" placeholder="Fisica ou Juridica" />
                         </div>
                       </div>
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-default-company">Código do Cliente</label>
                         <div class="col-sm-10">
-                          <input type="text" disabled value="<?= $Pesquisa_Cliente ?>" class="form-control" id="basic-default-company" placeholder="" />
+                          <input type="text" id="codigoCliente" disabled value="<?= $Pesquisa_Cliente ?>" class="form-control" id="basic-default-company" placeholder="" />
                         </div>
                       </div>
                       <div class="row mb-3">
@@ -575,21 +575,21 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
             <div class="col-3">
               <label class="form-label m-0 p-0">CIF (%)</label>
-              <input type="text" class="form-control" id="cif" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+              <input type="number" class="form-control" id="cif" placeholder="0%" aria-describedby="defaultFormControlHelp" />
             </div>
             <div class="col-3">
               <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
               <input class="form-check-input mt-0" id="check_arte" type="checkbox" aria-label="checkbox button for following text input" />
-              <input type="text" class="form-control" disabled id="arte" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
+              <input type="number" class="form-control" disabled id="arte" placeholder="R$ 00,00" aria-label="Text input with checkbox button" />
             </div>
             <div class="col-3">
               <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
               <input class="form-check-input mt-0" type="checkbox" id="check_frete" aria-label="checkbox button for following text input" />
-              <input type="text" class="form-control" disabled id="frete" placeholder="R$ 00,00" aria-label="Text input with radio button" />
+              <input type="number" class="form-control" disabled id="frete" placeholder="R$ 00,00" aria-label="Text input with radio button" />
             </div>
             <div class="col-3">
               <label class="form-label m-0 p-0">Desconto (%)</label>
-              <input type="text" class="form-control" id="desconto" placeholder="0%" aria-describedby="defaultFormControlHelp" />
+              <input type="number" class="form-control" id="desconto" placeholder="0%" aria-describedby="defaultFormControlHelp" />
             </div>
             <div>
               <br>
