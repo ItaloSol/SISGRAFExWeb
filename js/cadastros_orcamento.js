@@ -1144,6 +1144,7 @@ function SalvarOrcamento() {
   const total = document.getElementById('ValorTotalOrc')
   const menu = document.getElementById('ValorManual')
   const tipo_produto = document.getElementById('TIPO_PRODUTO');
+  const data_validade = document.getElementById('data_validade')
   var manual = 0;
   if(menu == true){
      manual = 1;
@@ -1166,7 +1167,8 @@ function SalvarOrcamento() {
       frete: frete.value,
       desconto: desconto.value,
       manual: manual,
-      tipo_produto: tipo_produto,
+      tipo_produto: tipo_produto.name,
+      data: data_validade.value,
       linhas: JSON.stringify(SalvaDados),
       DadosServico: JSON.stringify(DadosServico()),
       DadoClique: JSON.stringify(DadoClique()),
@@ -1180,7 +1182,23 @@ function SalvarOrcamento() {
       params.push(`${key}=${encodeURIComponent(dados[key])}`);
     }
     const queryString = params.join('&');
-
-    window.open(`${url}?${queryString}`, '_blank');
+    
+    fetch(`${url}?${queryString}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro na solicitação!');
+        }
+        // Aqui você pode lidar com a resposta da solicitação se necessário
+        return response.json(); // Ou outro método para obter o corpo da resposta
+      })
+      .then(data => {
+        // Aqui você pode lidar com os dados da resposta, se necessário
+        console.log(data)
+        window.location.href = `tl-orcamento.php?cod=${data.orcamento}&tipo=${data.tipo}`;
+      })
+      .catch(error => {
+        // Aqui você pode lidar com erros de solicitação
+        console.error('Erro:', error);
+      });
   }
 }

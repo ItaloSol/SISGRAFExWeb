@@ -8,6 +8,8 @@ $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
 ?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c; width: 100%; height: 100vh; z-index: 9999999999999; align-items: center; justify-content: center; display: flex; color: white; font-size: 40px;"> CARREGANDO<br> <div><br> <img style="position:absolute; margin-left: -220px;  justify-content: start; display: flex; color: white; font-size: 40px;" src="../img/preloader.svg"> </div> </div>
 <?php
+$cod = $_GET['cod'];
+$tipo = 2;
 if (isset($_GET['acao'])) {
 
   if ($_GET['acao'] == '6') {
@@ -37,7 +39,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -45,13 +47,13 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           var elemento = document.querySelector('.VALORES');
             
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -67,7 +69,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-               ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+               ?><script> 
+                var cod = document.getElementById('codigoOP').value;
+               setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '13') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '13'  WHERE cod = '$cod' ");
@@ -96,7 +100,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -104,14 +108,14 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -127,7 +131,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-                       ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+                       ?><script> 
+                        var cod = document.getElementById('codigoOP').value;
+                       setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '2') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '2'  WHERE cod = '$cod' ");
@@ -183,17 +189,18 @@ if (isset($_GET['acao'])) {
       $itens++;
     }
 
-
+    echo $cod;
     ?>
          <input class="VALORES" type="text" id="<?= $cliente ?>" name="<?= $tipocli ?>" value="<?= $cliente ?> <?= $tipocli ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
-      
+          var cod = document.getElementById('codigoOP').value;
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -209,7 +216,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-                       ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+                       ?><script> 
+                        var cod = document.getElementById('codigoOP').value;
+                       setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '3') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '3'  WHERE cod = '$cod' ");
@@ -238,7 +247,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -246,14 +255,14 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -269,7 +278,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+         ?><script> 
+          var cod = document.getElementById('codigoOP').value;
+         setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '7') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '7'  WHERE cod = '$cod' ");
@@ -325,14 +336,15 @@ if (isset($_GET['acao'])) {
     }
     ?>
          <input class="VALORES" type="text" id="<?= $cliente ?>" name="<?= $tipocli ?>" value="<?= $cliente ?> <?= $tipocli ?>"/>
+         <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
-      
+          var cod = document.getElementById('codigoOP').value;
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -348,7 +360,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-          ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+          ?><script> 
+           var cod = document.getElementById('codigoOP').value;
+          setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '4') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '4'  WHERE cod = '$cod' ");
@@ -377,7 +391,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -385,14 +399,14 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -408,7 +422,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-          ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+          ?><script> 
+           var cod = document.getElementById('codigoOP').value;
+          setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '5') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '5'  WHERE cod = '$cod' ");
@@ -437,7 +453,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -445,14 +461,14 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -468,7 +484,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+         ?><script> 
+          var cod = document.getElementById('codigoOP').value;
+         setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '9') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '1'  WHERE cod = '$cod' ");
@@ -497,7 +515,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -505,14 +523,14 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -528,7 +546,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+         ?><script> 
+          var cod = document.getElementById('codigoOP').value;
+         setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '11') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '11'  WHERE cod = '$cod' ");
@@ -557,7 +577,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -565,14 +585,14 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -588,7 +608,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+         ?><script> 
+          var cod = document.getElementById('codigoOP').value;
+         setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '12') {
     $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '12'  WHERE cod = '$cod' ");
@@ -617,7 +639,7 @@ if (isset($_GET['acao'])) {
     $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos WHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
     ?>
@@ -625,14 +647,14 @@ if (isset($_GET['acao'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.name;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.name;
       
               // Faz a requisição fetch
               fetch(url)
@@ -648,7 +670,9 @@ if (isset($_GET['acao'])) {
         
                   </script>
               <?php
-         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+         ?><script> 
+          var cod = document.getElementById('codigoOP').value;
+         setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
 }
 if (isset($_GET['data'])) {
@@ -680,7 +704,7 @@ if (isset($_GET['data'])) {
   $buscacliente = $conexao->prepare("SELECT * FROM tabela_ororcamentosHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
-                $cod = $_GET['cod'] = $linha['cod_cliente'];
+                
                 $tipo = $linha['tipo_cliente'];
             }
   ?>
@@ -688,14 +712,14 @@ if (isset($_GET['data'])) {
          <input type="number" value="<?= $cod ?>" id="codigoOP">
       <script>
           // Seleciona o elemento com a classe "VALORES"
-          var cod = document.getElementById('codigoOp');
+          var cod = document.getElementById('codigoOP').value;
           // Seleciona o elemento com a classe "VALORES"
           var elemento = document.querySelector('.VALORES');
       
           // Verifica se o elemento foi encontrado
           if (elemento) {
               // Constrói a URL para a API
-              var url = '../financeiro/api_correcao_credito.php?cod=' + elemento.id + '&tipo=' + elemento.className;
+              var url = '../financeiro/api_correcao_credito.php?cod=' + cod + '&tipo=' + elemento.className;
       
               // Faz a requisição fetch
               fetch(url)
@@ -711,5 +735,7 @@ if (isset($_GET['data'])) {
         
                   </script>
               <?php
-         ?><script> setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}`;}, 1000);    </script><?php
+         ?><script> 
+          var cod = document.getElementById('codigoOP').value;
+         setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
 }
