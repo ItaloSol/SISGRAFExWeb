@@ -981,7 +981,7 @@
                                   echo '<th><a href="painel.php?b=DT&Pg=' . $Pg . '">PREVISÃO de Entrega</a></th>';
                                   echo '<th><a href="painel.php?b=S&Pg=' . $Pg . '">Status</a></th>';
                                   echo '<th><a href="painel.php?b=P&Pg=' . $Pg . '">Produto</a></th>';
-                                  $Orderby = "data_emissao DESC ";
+                                  $Orderby = "data_emissao DESC, cod DESC ";
                                 }
                               } else {
 
@@ -992,7 +992,7 @@
                                 echo '<th>PREVISÃO de Entrega</th>';
                                 echo '<th>Status</th>';
                                 echo '<th>Produto</th>';
-                                $Orderby = "data_emissao DESC ";
+                                $Orderby = "data_emissao DESC, cod DESC ";
                               }
 
                               ?>

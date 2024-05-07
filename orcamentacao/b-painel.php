@@ -531,7 +531,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                 echo '<th>Data de Validade</th>';
                 echo '<th>Status</th>';
 
-                $Orderby = "data_emissao DESC ";
+                $Orderby = "cod DESC ";
 
 
                 ?>
