@@ -141,27 +141,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 </div>
                 <div class="card-body">
 
-                  <div class="mb-3 row">
 
-
-                    <label for="html5-date-input" class="col-md-2 col-form-label">Data de Validade</label>
-                    <div class="col-md-10">
-                      <div class="input-group">
-
-
-                        <div class="row">
-                          <div class="col-12">
-                            <input class="form-control " type="date" name="data_validade" id="data_validade" value="<?= $data30 ?>" />
-                          </div>
-
-                        </div>
-                        <!--  -->
-
-
-                      </div>
-
-                    </div>
-                  </div>
                   <br>
                   <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Informações do Cliente</h5>
@@ -234,9 +214,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Crédito</label>
                       <div class="col-sm-10">
-                        <?php 
-                        if($Tabela_Clientes['credito'] < 0){
-                          echo ' <div id="alerta<?=$a?>"
+                        <?php
+                        if ($Tabela_Clientes['credito'] < 0) {
+                          echo ' <div id="alertaSaldo"
                           role="bs-toast"
                           class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show "
                           role="alert"
@@ -270,7 +250,13 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
       </div>
     </div>
   </div>
-
+  <script>
+    setTimeout(() => {
+      if (document.getElementById('alertaSaldo')) {
+        document.getElementById('alertaSaldo').style.display = 'none';
+      }
+    }, 4500);
+  </script>
   <!-- Informações Sobre o Orçamento (Segundo Drop) -->
   <div class="card accordion-item">
     <h2 class="accordion-header" id="headingTwo">
@@ -280,6 +266,19 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
     </h2>
     <div id="accordionTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
+        <div class="mb-3 row">
+          <label for="html5-date-input" class="col-md-2 col-form-label">Data de Validade</label>
+          <div class="col-md-10">
+            <div class="input-group">
+              <div class="row">
+                <div class="col-12">
+                  <input class="form-control " type="date" name="data_validade" id="data_validade" value="<?= $data30 ?>" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
         <div class="col-lg-12">
           <div class="demo-inline-spacing mt-3">
             <div class="list-group list-group-horizontal-md text-md-center">
@@ -360,7 +359,8 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                 <div class="card">
                   <div id="mensagemPapelApagado"></div>
                   <h5 style="display: flex; align-items: center;" class="card-header">PAPEL
-                  </h5> <div class="col-3"><a class="btn btn-outline-primary" href="corte-papeis.pdf" target=”_blank”><iconify-icon icon="uil:table"></iconify-icon>&nbsp;TABELA<br>CORTES DE PAPEL</a></div> 
+                  </h5>
+                  <div class="col-3"><a class="btn btn-outline-primary" href="corte-papeis.pdf" target=”_blank”><iconify-icon icon="uil:table"></iconify-icon>&nbsp;TABELA<br>CORTES DE PAPEL</a></div>
                   <span id="AlertaCampos" class="badge bg-danger">Preencha todos os campos em vermelho para calcular o valor do orçamento.</span>
                   <div class="table-responsive text-nowrap">
                     <table id="tabela_campos" class="table table-striped">
@@ -843,12 +843,12 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                                 <div class="col-sm-3">
                                   <label class="col-sm-2 col-form-label" for="valorunitario">VALOR
                                     UNITÁRIO(R$)</label>
-                                  <input type="number"  value="0" class="form-control" id="valorunitario" placeholder="0,00" />
+                                  <input type="number" value="0" class="form-control" id="valorunitario" placeholder="0,00" />
                                 </div>
                                 <label class="col-sm-2 col-form-label" for="promo">VALOR PROMOCIONAL(R$)</label>
                                 <div class="col-sm-3">
-                                  <input class="form-check-input"  name="promo" type="checkbox" value="promo" id="promo" />
-                                  <input type="number"  value="0" class="form-control" id="valorpromo" placeholder="0,00" />
+                                  <input class="form-check-input" name="promo" type="checkbox" value="promo" id="promo" />
+                                  <input type="number" value="0" class="form-control" id="valorpromo" placeholder="0,00" />
                                 </div>
                               </div>
 
@@ -876,7 +876,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
                               <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">QUANTIDADE MÍNIMA</label>
-                                <input type="number"  value="0" class="form-control" id="qtdmin" placeholder="0" />
+                                <input type="number" value="0" class="form-control" id="qtdmin" placeholder="0" />
                               </div>
                               <div class="mb-3">
                                 <label class="form-label" for="qtdmaxestoque">QUANTIDADE MÁXIMA

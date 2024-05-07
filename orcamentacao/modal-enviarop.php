@@ -23,6 +23,11 @@
             <label for="data" class="form-label">Data de Prova</label>
             <input type="date" id="data" name="data" class="form-control" required />
           </div>
+          <?php   $data90 = date('Y-m-d', strtotime('+' . 90 . 'day', strtotime($hoje))); ?>
+          <div class="col mb-0">
+            <label for="data_entrega" class="form-label">Data de Entrega</label>
+            <input type="date" id="data_entrega" value="<?= $data90 ?>" name="data_entrega" class="form-control" required />
+          </div>
 
         </div>
       </div>

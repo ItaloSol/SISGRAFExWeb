@@ -167,7 +167,7 @@ if (isset($_GET['acao'])) {
     $endereco =  $_POST['endereco'];
     $contato = $_POST['contato'];
     $data_emiss = date('Y-m-d');
-    $data_entrega = date('Y-m-d', strtotime('+' . 90 . 'day', strtotime($data_emiss)));
+    $data_entrega = $_POST['data_entrega'];
     //  echo $data_emiss . ' ' . $data_entrega;
     $itens = 1;
 
