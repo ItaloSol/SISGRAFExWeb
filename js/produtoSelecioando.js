@@ -293,7 +293,7 @@ function RecuperaProdutoSelecionado() {
             let campo = {};
           
             if(data.TIPO){
-              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="TIPO_PRODUTO" name="TIPO_PRODUTO" value="${data.TIPO}">`;
+              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="TIPO_PRODUTO" name="${tipo}" value="${data.TIPO}">`;
             }
             if (data.CODIGO) {
               campo.CODIGO = data.CODIGO;

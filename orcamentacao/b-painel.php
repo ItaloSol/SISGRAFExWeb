@@ -46,13 +46,7 @@ if (isset($_GET['PS'])) {
       $Where = 'cod = ' . $_GET['PS'];
     }
   }
-  if ($_GET['Tp'] == 'pro') {
-    if (!is_numeric($_GET['PS'])) {
-      notificaerro();
-    } else {
-      $Where = 'cod_produto = ' . $_GET['PS'];
-    }
-  }
+  
 
   if ($_GET['Tp'] == 'cli') {
     if (!is_numeric($_GET['PS'])) {
@@ -83,17 +77,17 @@ if (isset($_GET['PS'])) {
     }
   }
   if (isset($Where)) {
-    $query_sd_posto = $conexao->prepare("SELECT count(cod) as Pg FROM tabela_orcamentos WHERE $Where ");
+    $query_pesquisa_orc = $conexao->prepare("SELECT count(cod) as Pg FROM tabela_orcamentos WHERE $Where ");
   } else {
-    $query_sd_posto = $conexao->prepare("SELECT count(cod) as Pg FROM tabela_orcamentos ");
+    $query_pesquisa_orc = $conexao->prepare("SELECT count(cod) as Pg FROM tabela_orcamentos ");
   }
 } else {
-  $query_sd_posto = $conexao->prepare("SELECT count(cod) as Pg FROM tabela_orcamentos ");
+  $query_pesquisa_orc = $conexao->prepare("SELECT count(cod) as Pg FROM tabela_orcamentos ");
 }
 
-$query_sd_posto->execute();
+$query_pesquisa_orc->execute();
 $i = 0;
-if ($linha = $query_sd_posto->fetch(PDO::FETCH_ASSOC)) {
+if ($linha = $query_pesquisa_orc->fetch(PDO::FETCH_ASSOC)) {
   $i = $linha['Pg'];
 };
 $total_paginas = $i / 50;
@@ -338,7 +332,6 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
           <label for="exampleFormControlSelect1" class="form-label">Pesquisar por</label>
           <select class="form-select" name="Tp" id="exampleFormControlSelect1" aria-label="Default select example">
             <option value="orc">Código Orçamento</option>
-            <option value="pro">Produto</option>
             <option value="nomepro">Nome Produto</option>
             <option value="clinom">Nome Cliente</option>
             <option value="cli">Cod Cliente</option>
