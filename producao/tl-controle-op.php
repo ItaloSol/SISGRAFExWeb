@@ -1157,7 +1157,6 @@ if (isset($_GET['cod'])) {
         $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_ordens_producao o INNER JOIN sts_op s ON o.`status` = s.CODIGO WHERE o.status != '11' AND o.status != '12' AND o.status != '13' ORDER BY  o.data_entrega DESC LIMIT 45");
       }
 
-
       if (isset($query_ordens_finalizadas)) {
         $query_ordens_finalizadas->execute();
 
@@ -1251,7 +1250,7 @@ if (isset($_GET['cod'])) {
           if (!isset($Ordens_Finalizadas[0]['cod'])) {
             echo '<tr>
                         <td>
-                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Nenhum Resultado Encontrado, Confira o código ou se já está em produção.</strong>
+                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Nenhum Resultado Encontrado, ainda não possui ordem de produção ou confira o código ou.</strong>
                         </td>
                         <td></td>
                         <td>
