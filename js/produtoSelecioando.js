@@ -293,7 +293,7 @@ function RecuperaProdutoSelecionado() {
             let campo = {};
           
             if(data.TIPO){
-              campo.TIPO_PRODUTO = `<input class="form-control" type="hidden" id="TIPO_PRODUTO" name="${tipo}" value="${data.TIPO}">`;
+              campo.TIPO_PRODUTO = `<input class="form-control2" type="hidden" id="TIPO_PRODUTO" name="${tipo}" value="${data.TIPO}">`;
             }
             if (data.CODIGO) {
               campo.CODIGO = data.CODIGO;
@@ -313,21 +313,21 @@ function RecuperaProdutoSelecionado() {
               campo.tipo_papel = data.tipo_papel;
             }
             if (data.quantidade) {
-              campo.quantidade = `<input class="form-control" type="number" id="quantidade" name="quantidade" value="0">`;
+              campo.quantidade = `<input class="form-control2" type="number" id="quantidade" name="quantidade" value="0">`;
             }
            
             if (data.cod_produto) {
               
-              campo.cod_produto = `<input  class="form-control " readonly type="number" name="data.cod_produto" id="data.cod_produto${data.cod_produto}" value="${data.cod_produto}"></input>`;
+              campo.cod_produto = `<input  class="form-control2 " readonly type="number" name="data.cod_produto" id="data.cod_produto${data.cod_produto}" value="${data.cod_produto}"></input>`;
             }
             if (data.observacao_produto) {
               campo.observacao_produto = data.observacao_produto;
             }
             if (data.preco_unitario) {
-              campo.preco_unitario = `<input class="form-control" type="number" name="preco_unitario" id="preco_unitario${data.CODIGO}" value="${data.preco_unitario}">`;
+              campo.preco_unitario = `<input class="form-control2" type="number" name="preco_unitario" id="preco_unitario${data.CODIGO}" value="${data.preco_unitario}">`;
             }
             if (data.valor_digital) {
-              campo.valor_digital = `<input class="form-control" type="number" name="valor_digital" id="valor_digital${data.CODIGO}" value="${data.valor_digital}">`;
+              campo.valor_digital = `<input class="form-control2" type="number" name="valor_digital" id="valor_digital${data.CODIGO}" value="${data.valor_digital}">`;
             }
             if (data.tipo_trabalho) {
               campo.tipo_trabalho = data.tipo_trabalho;
