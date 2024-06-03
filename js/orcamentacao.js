@@ -1585,7 +1585,7 @@ function Dados_Novo_Produto() {
         estoque: JSON.stringify(JsonEstoque),
         pedidos: JSON.stringify(JsonPedidos)
       });
-      window.open(`${url}?${queryParams}`, '_blank');
+     // window.open(`${url}?${queryParams}`, '_blank');
       fetch(`${url}?${queryParams}`, {
         method: 'GET'
       })
@@ -1596,7 +1596,10 @@ function Dados_Novo_Produto() {
           // handle the response from the server
           if(data.sucesso == true){
             window.alert(`PRODUTO CADASTRADO COM SUCESSO CÓDIGO ${data.cod} `)
+            ApagarAcabamento('AcabamentoSelecionado')
+            ApagarPapel('papelSelecionado')
             ApagarProdutoCloando();
+
           }
         })
       .catch(error => {

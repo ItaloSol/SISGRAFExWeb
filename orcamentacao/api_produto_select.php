@@ -13,11 +13,13 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 //DEFINE QUAL ENTRADA FOI USADO
 
 if (empty($Solicitacao)) {
-
+  
     $pesquisa = $_GET['id'];
     if ($_GET['tipo'] == 'PP') {
+        $tipo_produto = 1;
         $tabela = 'produtos';
     } else {
+        $tipo_produto = 2;
         $tabela = 'produtos_pr_ent';
     }
     $qtd_papels = 0;
@@ -49,7 +51,7 @@ if (empty($Solicitacao)) {
         $cod_produto = $linha['CODIGO'];
         $VALOR = $linha;
         if (isset($linha['cod_produto'])) {
-            $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE cod_produto = $cod_produto  ");
+            $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE cod_produto = $cod_produto AND tipo_produto = '$tipo_produto'  ");
             $query_do_acabamento->execute();
             while($linha4 = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
                 $cod_acabamento = $linha4['cod_acabamento'];
@@ -63,7 +65,7 @@ if (empty($Solicitacao)) {
             $VALOR["cod_produto_papel"] = null;
         }
         if (isset($linha['cod_papel'])) {
-            $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE cod_produto = $cod_produto  ");
+            $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE cod_produto = $cod_produto AND tipo_produto = '$tipo_produto'  ");
             $query_do_papel->execute();
             while($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
                 $cod_papel = $linha4['cod_papel'];

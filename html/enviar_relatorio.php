@@ -15,7 +15,7 @@ if (!empty($feedback)) {
   $texto = $feedback['texto'];
   $Atividade_Satisfacao = $conexao->prepare("INSERT INTO tabela_satisfacao_justificativa (data , hora, cod_user,nota,feedback) VALUES ('$hoje' , '$hora' , '$cod_user','$nota','$texto')");
   $Atividade_Satisfacao->execute();
-  $update_atendente = $conexao->prepare("UPDATE tabela_atendentes SET feedback = '3' WHERE codigo_atendente = '$cod_user'");
+  $update_atendente = $conexao->prepare("UPDATE tabela_atendentes SET feedback = '4' WHERE codigo_atendente = '$cod_user'");
   $update_atendente->execute();
   $_SESSION["feedback"] = 'true';
   $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Feedback enviado' , '$cod_user' , '$dataHora')");

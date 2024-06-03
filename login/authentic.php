@@ -53,7 +53,7 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     $hoje = date('Y-m-d H:i:s');
     $_SESSION["feedback"] = 'false';
     
-    if ($user['feedback'] == '3') {
+    if ($user['feedback'] == '4') {
       $_SESSION["feedback"] = 'true';
     }
     $LOGIN = $conexao->prepare("UPDATE tabela_atendentes SET DT_ULT_LOGIN = '$hoje' , bkp = '$bkp' WHERE codigo_atendente = '$cod' ");
@@ -115,32 +115,32 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
 
 
 
-    $_SESSION['atualizacoes'] = '<div  style="height:50em;   overflow-y: scroll;" id="alerta4"
-            role="bs-toast"
-            class=" bs-toast toast toast-placement-ex m-2 fade bg-danger top-0 start-50 translate-middle-x show "
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true">
-            <div class="toast-header">
-              <i class="bx bx-bell me-2"></i>
-              <div  class="me-auto fw-semibold">ATUALIZAÇÕES!</div>
-              <small>
+    // $_SESSION['atualizacoes'] = '<div  style="height:50em;   overflow-y: scroll;" id="alerta4"
+    //         role="bs-toast"
+    //         class=" bs-toast toast toast-placement-ex m-2 fade bg-danger top-0 start-50 translate-middle-x show "
+    //         role="alert"
+    //         aria-live="assertive"
+    //         aria-atomic="true">
+    //         <div class="toast-header">
+    //           <i class="bx bx-bell me-2"></i>
+    //           <div  class="me-auto fw-semibold">ATUALIZAÇÕES!</div>
+    //           <small>
                 
-                </small>
-              <button type="button" style="position: relative;" class="btn-close d-md-block" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
+    //             </small>
+    //           <button type="button" style="position: relative;" class="btn-close d-md-block" data-bs-dismiss="toast" aria-label="Close"></button>
+    //         </div>
             
-            <div class="toast-body">
-            <div class="demo-inline-spacing mt-3">
-            <div class="list-group list-group-flush ">
+    //         <div class="toast-body">
+    //         <div class="demo-inline-spacing mt-3">
+    //         <div class="list-group list-group-flush ">
               
-              ' . $versao_VERSAO . '
+    //           ' . $versao_VERSAO . '
               
-              V.' . $Codigo_Versao[0] . ' <br> <div class="allign-center">Para mais informações consulte o <br> menu de <a " href="../atualizacao/tl-atualizacao.php"><span class="btn btn-primary" style="background-color:blue; color:white padding: 2px;">ATUALIZAÇÕES</span></a></div>
-            </div>
-          </div>
-            </div>
-          </div>';
+    //           V.' . $Codigo_Versao[0] . ' <br> <div class="allign-center">Para mais informações consulte o <br> menu de <a " href="../atualizacao/tl-atualizacao.php"><span class="btn btn-primary" style="background-color:blue; color:white padding: 2px;">ATUALIZAÇÕES</span></a></div>
+    //         </div>
+    //       </div>
+    //         </div>
+    //       </div>';
     echo "<script>window.location = '../html/painel.php?p'</script>";
   } else {
     $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
