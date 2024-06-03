@@ -528,13 +528,13 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
                <td>${result.codPapels}</td>
                <td>${result.nomePapel}</td>
                <td>${result.tipo_papel}</td>
-               <td><input class="form-control" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
-               <td><input class="form-control" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
-               <td><input class="form-control formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
-               <td><input class="form-control" value="5" type="number"></td>
-               <td><input class="form-control" id="GFolha${result.codPapels}${result.codproduto}" value="0" type="number"></td>
+               <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
+               <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
+               <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
+               <td><input class="form-control2" value="5" type="number"></td>
+               <td><input class="form-control2" id="GFolha${result.codPapels}${result.codproduto}" value="0" type="number"></td>
                <td>${result.preco_folha}</td>
-               <td><input class="form-control" id="GChapa${result.codPapels}${result.codproduto}" value="0" type="number"></td>
+               <td><input class="form-control2" id="GChapa${result.codPapels}${result.codproduto}" value="0" type="number"></td>
                <td>${result.preco_chapa}</td>
              </tr>`
           );
@@ -555,10 +555,10 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
                <option>2° VIA</option>
                <option>3° VIA</option>
              </select></td>
-             <td><input class="form-control" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
-             <td><input class="form-control" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
-             <td><input class="form-control formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
-             <td><input class="form-control" value="5" type="number"></td>
+             <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
+             <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
+             <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
+             <td><input class="form-control2" value="5" type="number"></td>
             
              <td>${result.preco_folha}</td>
             
@@ -1585,7 +1585,7 @@ function Dados_Novo_Produto() {
         estoque: JSON.stringify(JsonEstoque),
         pedidos: JSON.stringify(JsonPedidos)
       });
-      window.open(`${url}?${queryParams}`, '_blank');
+     // window.open(`${url}?${queryParams}`, '_blank');
       fetch(`${url}?${queryParams}`, {
         method: 'GET'
       })
@@ -1596,7 +1596,10 @@ function Dados_Novo_Produto() {
           // handle the response from the server
           if(data.sucesso == true){
             window.alert(`PRODUTO CADASTRADO COM SUCESSO CÓDIGO ${data.cod} `)
+            ApagarAcabamento('AcabamentoSelecionado')
+            ApagarPapel('papelSelecionado')
             ApagarProdutoCloando();
+
           }
         })
       .catch(error => {
