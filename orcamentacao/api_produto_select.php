@@ -58,8 +58,13 @@ if (empty($Solicitacao)) {
                     $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acabamento;
                 $qtd_acabamentos++;
             }
-            $VALOR["cod_acabamentos"] = $Do_Acabamento_cod;
-            $VALOR["cod_produto_papel"] = $linha['cod_produto'];
+            if(isset($Do_Acabamento_cod)){
+                $VALOR["cod_acabamentos"] = $Do_Acabamento_cod;
+                $VALOR["cod_produto_papel"] = $linha['cod_produto'];
+            }else{
+                $VALOR["cod_acabamentos"] = null;
+                $VALOR["cod_produto_papel"] = null;
+            }
         }else{
             $VALOR["cod_acabamentos"] = null;
             $VALOR["cod_produto_papel"] = null;
@@ -73,7 +78,12 @@ if (empty($Solicitacao)) {
                 $qtd_papels++;
             }
            
+        if(isset($Do_papel1_cod)){
         $VALOR["cod_papels"] = $Do_papel1_cod;
+
+        }else{
+            $VALOR["cod_papels"] = null;
+        }
         }else{
             $VALOR["cod_papels"] = null;
         }

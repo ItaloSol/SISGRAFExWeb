@@ -13,6 +13,7 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 if (isset($_GET['id'])) {
   $pesquisa = $_GET['id'];
   $cod = $_GET['codi'];
+  $tipo = $_GET['tipo'];
   $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $pesquisa  ");
   $query_do_papel->execute();
   if ($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -25,15 +26,16 @@ if (isset($_GET['id'])) {
       'uma_face' => $linha4['uma_face'],
       'unitario' => $linha4['unitario']
     ];
-
+  
     $query_chapa = $conexao->prepare("SELECT * FROM configuracoes WHERE  configuracao = 'valor de chapa' ");
     $query_chapa->execute();
 
     if ($linha5 = $query_chapa->fetch(PDO::FETCH_ASSOC)) {
       $Do_Papel['valor_chapa'] = $linha5['parametro'];
     }
+  }
     if($cod != 0){
-      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE  cod_papel = $pesquisa AND cod_produto = $cod ");
+      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE cod_produto = $cod AND tipo_produto = $tipo");
     
    
    
@@ -48,9 +50,15 @@ if (isset($_GET['id'])) {
       $Do_Papel['orelha'] = $linha3['orelha'];
     }
   }
-  }
-
+ if(isset($Do_Papel)){
   echo json_encode($Do_Papel);
+ }else{
+  $Resultado = [   
+     'cod_papel' => null,
+ ];
+ echo json_encode($Resultado);
+ }
+
 
  
 } 
