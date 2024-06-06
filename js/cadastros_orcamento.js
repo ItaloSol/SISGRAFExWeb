@@ -230,6 +230,7 @@ function ObterPapelCorreto() {
     // Passo 3: Acessar e manipular os valores contidos em cada célula
     for (let j = 0; j < celulas.length; j++) {
       const valorCelula = celulas[j].innerText;
+      if(celulas[1]){
       item[i] = {
         produto: celulas[0].textContent,
         codigoPapel: celulas[1].textContent,
@@ -244,6 +245,7 @@ function ObterPapelCorreto() {
         quantidadeChapas: celulas[10].querySelector('input').value,
         precoChapa: celulas[11].textContent
       };
+    }
     }
   }
   return item;
@@ -837,6 +839,7 @@ function BuscaDados() {
       var celulas = linha.getElementsByTagName('td');
 
       // Cria um objeto JSON para armazenar os valores da linha
+      if(celulas[1]){
       var objetoJson = {
         CODIGO_PRODUTO: celulas[0].innerText,
         CODIGO_PAPEL: celulas[1].innerText,
@@ -851,6 +854,25 @@ function BuscaDados() {
         QUANTIDADE_DE_CHAPAS: celulas[10].getElementsByTagName('input')[0].value,
         PREÇO_CHAPA: celulas[11].innerText
       };
+    }else{
+      if(document.getElementById('ValorManual').checked == false){
+      window.alert('A CAIXA DE VALOR UNITARIO DEVE SER INSERIDA MANUALMETE MEDIANTE ATIVAÇÃO DA CAIXA "INSERIR MANUALMENTE"');
+      }
+      var objetoJson = {
+        CODIGO_PRODUTO: 0 ,
+        CODIGO_PAPEL: 0 ,
+        DESCRICAO_PAPEL: 0 ,
+        TIPO: 0 ,
+        CF: 0 ,
+        CV: 0 ,
+        FORMATO_IMPRESSÃO: 0 ,
+        PERCA: 0 ,
+        GASTO_FOLHA: 0 ,
+        PREÇO_FOLHA: 0 ,
+        QUANTIDADE_DE_CHAPAS: 0 ,
+        PREÇO_CHAPA: 0 
+      };
+    }
 
       // Adiciona o objeto ao array
       dadosJson.push(objetoJson);
@@ -875,6 +897,8 @@ function BuscaDados() {
       var linha = linhas[j];
       var celulas = linha.getElementsByTagName('td');
 
+      if(celulas[1]){
+
       // Get the input elements and their values
       var campo_cod_prod = celulas[0].innerText;
       var inputCodigoAcabamento = celulas[1].getElementsByTagName('input')[0];
@@ -887,6 +911,15 @@ function BuscaDados() {
         MÁQUINA: inputMaquina.value,
         CUSTO: inputCustoHora.value
       };
+    }else{
+
+      var objetoJson = {
+        CODIGO_PRODUTO: 0,
+        CODIGO_ACABAMENTO: 0,
+        MÁQUINA: 0,
+        CUSTO: 0
+      };
+    }
 
       dadosJson.push(objetoJson);
     }
@@ -1057,7 +1090,7 @@ function calcularValor() {
         if (document.getElementById('Impre' + item[i].codigoPapel + item[i].produto).value === '') {
           var tab = new bootstrap.Tab(document.getElementById('settings-list-item3'));
           tab.show();
-          alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
+           window.alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
           break;
         } else {
           setTimeout(() => {

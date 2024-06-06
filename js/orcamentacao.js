@@ -423,33 +423,42 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
   let arraySelecionados = storedData ? JSON.parse(storedData) : [];
   const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
   // Extract the 'cod_produto' property from each object in the array
-
+  const tipo = localStorage.getItem('ProdutoClonado');
+  let tipoProduto = 1;
+  if (tipo != '[]') {
+    tipoProduto = 2;
+  }
   // Extract the 'valor' property from each object in the array
-
   //arraySelecionados = arraySelecionados.map(({ valor }) => valor);
   let promises = arraySelecionados.map(id => {
-    return fetch('api_papel.php?id=' + id.valor + '&codi=' + id.cod_produto)
+    return fetch('api_papel.php?id=' + id.valor + '&codi=' + id.cod_produto + '&tipo=' + tipoProduto)
       .then((response) => response.json())
       .then(data => {
-        return {
-          id,
-          codproduto: id.cod_produto,
-          nomePapel: data.descricao_do_papel,
-          codPapel: data.cod_papel,
-          corFrente: data.cor_frente,
-          corVerso: data.cor_verso,
-          tipo_papel: data.tipo_papel,
-          descricao: data.descricao,
-          orelha: data.orelha,
-          preco_chapa: data.valor_chapa,
-          codPapels: data.cod_papels,
-          descricaoPapel: data.descricao_do_papel,
-          medida: data.medida,
-          preco_folha: data.unitario,
-          gramatura: data.gramatura,
-          formato: data.formato,
-          umaFace: data.uma_face,
-        };
+        if (data.codPapel == null) {
+          return {
+            codPapel: false
+          }
+        } else {
+          return {
+            codPapel: data.cod_papel,
+            id,
+            codproduto: id.cod_produto,
+            nomePapel: data.descricao_do_papel,
+            corFrente: data.cor_frente,
+            corVerso: data.cor_verso,
+            tipo_papel: data.tipo_papel,
+            descricao: data.descricao,
+            orelha: data.orelha,
+            preco_chapa: data.valor_chapa,
+            codPapels: data.cod_papels,
+            descricaoPapel: data.descricao_do_papel,
+            medida: data.medida,
+            preco_folha: data.unitario,
+            gramatura: data.gramatura,
+            formato: data.formato,
+            umaFace: data.uma_face,
+          };
+        }
       });
   });
 
@@ -506,7 +515,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
         tableBody = document.getElementById('tabela_campos');
       }
 
-      if (!results || results.length === 0) {
+      if (!results || results.length <= 1 || results.codPapel == false) {
         tableBody.insertAdjacentHTML(
           'beforeend',
           `
@@ -516,14 +525,13 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       </td>
     </tr>`
         );
-      }
-
-      let cont = 0;
-      results.forEach((result) => {
-        if (valor == 'tabela_campos') {
-          tableBody.insertAdjacentHTML(
-            'beforeend',
-            `<tr>
+      } else {
+        let cont = 0;
+        results.forEach((result) => {
+          if (valor == 'tabela_campos') {
+            tableBody.insertAdjacentHTML(
+              'beforeend',
+              `<tr>
                <td>${result.codproduto}</td>
                <td>${result.codPapels}</td>
                <td>${result.nomePapel}</td>
@@ -537,11 +545,11 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
                <td><input class="form-control2" id="GChapa${result.codPapels}${result.codproduto}" value="0" type="number"></td>
                <td>${result.preco_chapa}</td>
              </tr>`
-          );
-        } else {
-          tableBody.insertAdjacentHTML(
-            'beforeend',
-            `<tr>
+            );
+          } else {
+            tableBody.insertAdjacentHTML(
+              'beforeend',
+              `<tr>
              <td>${result.codproduto}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
@@ -564,11 +572,13 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
             
             
            </tr>`
-          );
-        }
-        cont++;
-      });
+            );
+          }
+          cont++;
+        });
+      }
     })
+
     .catch((error) => {
       console.error('Erro ao recuperar nomes do papel:', error);
     });
@@ -1032,10 +1042,10 @@ function AbrirEditarServico(valor) {
     cadastrarServico.style.display = 'block';
     editarServico.style.display = 'none';
     document.getElementById('Nome_Servico').value = '';
-  document.getElementById('valor_min').value = '';
-  document.getElementById('tipoServico').value = '';
-  document.getElementById('Servico_Geral').checked = '';
-  document.getElementById('valorUnitario').value = '';
+    document.getElementById('valor_min').value = '';
+    document.getElementById('tipoServico').value = '';
+    document.getElementById('Servico_Geral').checked = '';
+    document.getElementById('valorUnitario').value = '';
   } else {
     document.getElementById('mensagemServico').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Servico Selecionado!</div></div>';
 
@@ -1080,10 +1090,10 @@ async function EditarServico() {
   const tipoServico = document.getElementById('tipoServico').value;
   const Servico_Geral = document.getElementById('Servico_Geral').checked;
   console.log('api_servico.php?atualiza=' + idservico + '&nome=' + Nome_Servico
-  + '&valorUnitario=' + valorUnitario
-  + '&tipoServico=' + tipoServico
-  + '&valor_min=' + valor_min
-  + '&Servico_Geral=' + Servico_Geral);
+    + '&valorUnitario=' + valorUnitario
+    + '&tipoServico=' + tipoServico
+    + '&valor_min=' + valor_min
+    + '&Servico_Geral=' + Servico_Geral);
   const response = await fetch('api_servico.php?atualiza=' + idservico + '&nome=' + Nome_Servico
     + '&valorUnitario=' + valorUnitario
     + '&tipoServico=' + tipoServico
@@ -1477,25 +1487,25 @@ function Dados_Novo_Produto() {
 
   // Converte o array para uma string JSON
   var jsonPapel = JSON.stringify(dadosJson);
- 
+
   var tabela = document.getElementById('NovoAcabemtnoSe');
   var tbodies = tabela.getElementsByTagName('tbody');
   var dadosJson = [];
 
   for (var i = 0; i < tbodies.length; i++) {
     var linhas = tbodies[i].getElementsByTagName('tr');
-      for (var j = 0; j < linhas.length; j++) {
-        var linha = linhas[j];
-        var celulas = linha.getElementsByTagName('td');
-        console.log(celulas[0].getElementsByTagName('input')[0])
-        // Get the input elements and their values
-        var inputCodigoAcabamento = celulas[0].getElementsByTagName('input')[1];
-        var objetoJson = {
-          CODIGO_ACABAMENTO: inputCodigoAcabamento.value,
-        };
+    for (var j = 0; j < linhas.length; j++) {
+      var linha = linhas[j];
+      var celulas = linha.getElementsByTagName('td');
+      console.log(celulas[0].getElementsByTagName('input')[0])
+      // Get the input elements and their values
+      var inputCodigoAcabamento = celulas[0].getElementsByTagName('input')[1];
+      var objetoJson = {
+        CODIGO_ACABAMENTO: inputCodigoAcabamento.value,
+      };
 
-        dadosJson.push(objetoJson);
-      }
+      dadosJson.push(objetoJson);
+    }
   }
 
   var EM_BRANCO = 0;
@@ -1504,7 +1514,7 @@ function Dados_Novo_Produto() {
   var JsonValores = createJSONValores();
   var JsonEstoque = createJsonEstoque();
   var JsonPedidos = createJsonPedidos();
-  
+
   if (JsonDadosGeral.tpp === '') {
     window.alert('TIPO DE PRODUÇÃO É OBRIGATÓRIO');
     document.getElementById('tipo_de_produto_div').classList.add('erro')
@@ -1578,23 +1588,23 @@ function Dados_Novo_Produto() {
       // create a new FormData object
       const url = 'api_cadastra_produto.php';
       const queryParams = new URLSearchParams({
-        acabamento:jsonAcabamento,
-        papel:jsonPapel,
+        acabamento: jsonAcabamento,
+        papel: jsonPapel,
         dadosGerais: JSON.stringify(JsonDadosGeral),
         valores: JSON.stringify(JsonValores),
         estoque: JSON.stringify(JsonEstoque),
         pedidos: JSON.stringify(JsonPedidos)
       });
-     // window.open(`${url}?${queryParams}`, '_blank');
+      // window.open(`${url}?${queryParams}`, '_blank');
       fetch(`${url}?${queryParams}`, {
         method: 'GET'
       })
-      .then(response => {
+        .then(response => {
           return response.json();
         })
-      .then(data => {
+        .then(data => {
           // handle the response from the server
-          if(data.sucesso == true){
+          if (data.sucesso == true) {
             window.alert(`PRODUTO CADASTRADO COM SUCESSO CÓDIGO ${data.cod} `)
             ApagarAcabamento('AcabamentoSelecionado')
             ApagarPapel('papelSelecionado')
@@ -1602,12 +1612,12 @@ function Dados_Novo_Produto() {
 
           }
         })
-      .catch(error => {
+        .catch(error => {
           // handle any errors that occurred
           console.error(error);
         });
     } else {
-    
+
     }
   }
 }
