@@ -827,7 +827,7 @@ $valor_total_Finalizadas = 0;
                         for ($a = 0; $a < $qtdX; $a++) { ?>
                           <tr>
                             <td>
-                              <?= $Produtos_orcamento[$a]['cod'] ?>
+                              <?= $Produtos_orcamento[$a]['cod_produto'] ?>
                             </td>
                             <td>
                               <?= $produto_diametro[$a]['DESCRICAO'] ?>
@@ -876,7 +876,7 @@ $valor_total_Finalizadas = 0;
                         for ($a = 0; $a < $qtdX; $a++) { ?>
                           <tr>
                             <td>
-                              <?= $Produtos_orcamento[$a]['cod'] ?>
+                              <?= $Produtos_orcamento[$a]['cod_produto'] ?>
                             </td>
                             <td>
                               <?= $Produtos_orcamento[$a]['quantidade'] ?>

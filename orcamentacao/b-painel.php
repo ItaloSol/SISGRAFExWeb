@@ -825,7 +825,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                     '
                                   <td>
                                   <div class="">
-                                  <a class="btn rounded-pill btn-info" href="tl-orcamento.php?cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
+                                  <a class="btn rounded-pill btn-info" href="tl-orcamento.php?&cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
                               </div>
                                   </td>
                                   </tr>';
@@ -841,7 +841,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                     '
                                   <td>
                                   <div class="">
-                                  <a class="btn rounded-pill btn-info" href="tl-orcamento.php?cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
+                                  <a class="btn rounded-pill btn-info" href="tl-orcamento.php?&cod=' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"' . $Ordens_Finalizadas[$Percorrer_Finalizadas]['cod'] . '"><i class="bx bx-edit-alt me-1"></i> Selecionar</a>
                               </div>
                                   </td>
                                   </tr>';
