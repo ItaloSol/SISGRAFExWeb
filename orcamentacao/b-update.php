@@ -6,7 +6,9 @@ $cod = $_GET['cod'];
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
-?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c; width: 100%; height: 100vh; z-index: 9999999999999; align-items: center; justify-content: center; display: flex; color: white; font-size: 40px;"> CARREGANDO<br> <div><br> <img style="position:absolute; margin-left: -220px;  justify-content: start; display: flex; color: white; font-size: 40px;" src="../img/preloader.svg"> </div> </div>
+$valido = date('Y-m-d', strtotime('+' . 15 . 'day', strtotime($hoje)));
+?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c;width: 100%;height: 100vh;z-index: 9999999999999;align-items: center;justify-content: center;display: flex;color: white;font-size: 40px;align-content: space-around;flex-wrap: wrap;flex-direction: row;"> CARREGANDO<br> <div><br> <img style="/* position:absolute; */margin-left: -220px;justify-content: start;display: flex;color: white;font-size: 40px;flex-wrap: nowrap;flex-direction: column;margin-top: -40;" src="../img/preloader.svg"> <br>
+<div style="/* margin: -200px; */margin-left: -400px;font-size: 12px;"><p style="display: flex; justify-content: center; margin-bottom: -20px;">VOCÊ NÃO PODE ATUALIZAR ESSA PAGINA!</p><br> CASO CONGELE NESSA PAGINA ENTRE EM CONTATO COM A SEÇÃO DE INFORMÁTICA URGENTE!</div></div></div>
 <?php
 $cod = $_GET['cod'];
 $tipo = 2;
@@ -489,7 +491,7 @@ if (isset($_GET['acao'])) {
          setTimeout(function() {window.location.href = `tl-orcamento.php?cod=${cod}&tipo=${elemento.name}`;}, 1000);    </script><?php
   }
   if ($_GET['acao'] == '9') {
-    $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '1'  WHERE cod = '$cod' ");
+    $query_aceitalas = $conexao->prepare("UPDATE tabela_orcamentos SET status = '1' , data_validade = '$valido'  WHERE cod = '$cod' ");
     $query_aceitalas->execute();
     $_SESSION['msg'] = ' <div id="alerta"
             role="bs-toast"
@@ -701,7 +703,7 @@ if (isset($_GET['data'])) {
         </div>';
   $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Alterou a data de validade do Orçamento $cod e o status para 1 - EM AVALIAÇÃO' , '$cod_user' , '$dataHora')");
   $Atividade_Supervisao->execute();
-  $buscacliente = $conexao->prepare("SELECT * FROM tabela_ororcamentosHERE cod = $cod ");
+  $buscacliente = $conexao->prepare("SELECT * FROM tabela_orcamentos wHERE cod = $cod ");
             $buscacliente->execute();
             if ($linha = $buscacliente->fetch(PDO::FETCH_ASSOC)) {
                 

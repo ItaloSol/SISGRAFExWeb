@@ -5,7 +5,8 @@ include_once('../conexoes/conexao.php');
 include_once('../conexoes/conn.php');
 date_default_timezone_set('America/Sao_Paulo');
 $dataHora = date('d/m/Y H:i:s');
-?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c; width: 100%; height: 100vh; z-index: 9999999999999; align-items: center; justify-content: center; display: flex; color: white; font-size: 40px;"> CARREGANDO<br> <div><br> <img style="position:absolute; margin-left: -220px;  justify-content: start; display: flex; color: white; font-size: 40px;" src="../img/preloader.svg"> </div> </div>
+?> <div id="load1" class="mb-5" style="position:absolute;background-color: #01010c;width: 100%;height: 100vh;z-index: 9999999999999;align-items: center;justify-content: center;display: flex;color: white;font-size: 40px;align-content: space-around;flex-wrap: wrap;flex-direction: row;"> CARREGANDO<br> <div><br> <img style="/* position:absolute; */margin-left: -220px;justify-content: start;display: flex;color: white;font-size: 40px;flex-wrap: nowrap;flex-direction: column;margin-top: -40;" src="../img/preloader.svg"> <br>
+<div style="/* margin: -200px; */margin-left: -400px;font-size: 12px;"><p style="display: flex; justify-content: center; margin-bottom: -20px;">VOCÊ NÃO PODE ATUALIZAR ESSA PAGINA!</p><br> CASO CONGELE NESSA PAGINA ENTRE EM CONTATO COM A SEÇÃO DE INFORMÁTICA URGENTE!</div></div></div>
 <?php
 if (isset($_POST['excluir'])) {
     if (isset($_POST['valor']) && isset($_POST['forma_pagamento']) && isset($_POST['codigo_cliente'])) {

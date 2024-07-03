@@ -3,6 +3,7 @@
     display: none;
   }
 </style>
+
 <?php include_once("../html/../html/navbar.php");
 $_SESSION["pag"] = array(1, 0);
 

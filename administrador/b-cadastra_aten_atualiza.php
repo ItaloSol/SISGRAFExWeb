@@ -13,6 +13,7 @@ if(isset($_POST['submit'])){
         $nome = $_POST['nome'];
         $codigo = $_POST['codigo'];
         $login = $_POST['login'];
+        $secao = $_POST['secao'];
        if($_POST['senha'] > "0"){ $senha =  md5($_POST["senha"]); }else{$senha = 0;}
         $tipo = $_POST['tipo'];
         if(isset($_POST['option1'])){
@@ -87,6 +88,7 @@ if(isset($_POST['submit'])){
         $nome = $_POST['nome'];
         $codigo = $_POST['codigo'];
         $login = $_POST['login'];
+        $secao = $_POST['secao'];
        if($_POST['senha'] > "0"){ $senha =  md5($_POST["senha"]); }else{$senha = 0;}
         $tipo = $_POST['tipo'];
     if(isset($_POST['option1'])){
@@ -130,7 +132,7 @@ if(isset($_POST['submit'])){
             $query_Atendente->execute();
               
               
-            $query_Atendente = $conexao->prepare("UPDATE tabela_atendentes SET nome_atendente= '$nome', senha_atendente= '$senha', tipo_atendente= '$tipo', mudanca_senha= '$hoje'
+            $query_Atendente = $conexao->prepare("UPDATE tabela_atendentes SET nome_atendente= '$nome', secao_atendente = '$secao', login_atendente = '$login', senha_atendente= '$senha', tipo_atendente= '$tipo', mudanca_senha= '$hoje'
             WHERE codigo_atendente = '$codigo' ");
             $query_Atendente->execute();
         }else{
@@ -139,7 +141,7 @@ if(isset($_POST['submit'])){
             $query_Atendente->execute();
               
               
-            $query_Atendente = $conexao->prepare("UPDATE tabela_atendentes SET nome_atendente= '$nome', tipo_atendente= '$tipo'
+            $query_Atendente = $conexao->prepare("UPDATE tabela_atendentes SET secao_atendente = '$secao', login_atendente = '$login', nome_atendente= '$nome', tipo_atendente= '$tipo'
             WHERE codigo_atendente = '$codigo' ");
             $query_Atendente->execute();
         }
