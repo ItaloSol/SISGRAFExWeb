@@ -22,55 +22,55 @@ if (isset($_POST['sim'])) {
   }
   if ($codSts == '1') {
     // sec tec
-    $staDe = "data_apr_cliente = '" . $data . "' ";
+    $staDe = ", data_apr_cliente = '" . $data . "' ";
   }
   if ($codSts == '2') {
     // pre imp
-    $staDe = "DT_ENTRADA_PRE_IMP = '" . $data . "' ";
+    $staDe = ", DT_ENTRADA_PRE_IMP = '" . $data . "' ";
   }
   if ($codSts == '3') {
     // diagramacao
-    $staDe = "data_ent_tipografia = '" . $data . "' ";
+    $staDe = ", data_ent_tipografia = '" . $data . "' ";
   }
   if ($stsOPPR == '4') {
     // prova
-    $staDe = "data_apr_cliente = '" . $data . "' ";
+    $staDe = ", data_apr_cliente = '" . $data . "' ";
   }
   if ($codSts == '4') {
     // prova
-    $staDe = "DT_ENTG_PROVA = '" . $data . "' ";
+    $staDe = ", DT_ENTG_PROVA = '" . $data . "' ";
   }
   if ($codSts == '5') {
     // aprovacao cliente
-    $staDe = "data_envio_div_cmcl = '" . $data . "' ";
+    $staDe = ", data_envio_div_cmcl = '" . $data . "' ";
   }
   if ($codSts == '6') {
     // offset
-    $staDe = "data_ent_offset = '" . $data . "' ";
+    $staDe = ", data_ent_offset = '" . $data . "' ";
   }
   if ($codSts == '7') {
     // digital
-    $staDe = "DT_ENT_DIGITAL = '" . $data . "' ";
+    $staDe = ", DT_ENT_DIGITAL = '" . $data . "' ";
   }
   if ($codSts == '8') {
     // tipografia
-    $staDe = "data_ent_tipografia = '" . $data . "' ";
+    $staDe = ", data_ent_tipografia = '" . $data . "' ";
   }
   if ($codSts == '9') {
     // acabamamento
-    $staDe = "data_ent_acabamento = '" . $data . "' ";
+    $staDe = ", data_ent_acabamento = '" . $data . "' ";
   }
    if($codSts == '10'){
   //     // expedicao
-   $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO'  ";
+   $staDe = ", DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO'  ";
    }
    if ($codSts == '13') {
     // CTP
-    $staDe = "DT_CANCELAMENTO = '" . $data . "' ";
+    $staDe = ", DT_CANCELAMENTO = '" . $data . "' ";
   }
    if($codSts == '17'){
     //     // expedicao
-     $staDe = "DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO' ";
+     $staDe = ", DT_ENVIADO_EXPEDICAO = '".$data."' , secao_op = 'EXPEDIÇÃO' ";
      }
 
   if ($codSts == '13') {
@@ -80,23 +80,23 @@ if (isset($_POST['sim'])) {
 
   if ($codSts == '14') {
     // CTP
-    $staDe = "DT_ENTRADA_CTP = '" . $data . "' ";
+    $staDe = ", DT_ENTRADA_CTP = '" . $data . "' ";
   }
   if ($codSts == '15') {
     // esperando arquivo
-    $staDe = "data_envio_div_cmcl = '" . $data . "' ";
+    $staDe = ", data_envio_div_cmcl = '" . $data . "' ";
   }
   if ($codSts == '16') {
     // plotter
-    $staDe = "DT_ENTRADA_PLOTTER = '" . $data . "' ";
+    $staDe = ", DT_ENTRADA_PLOTTER = '" . $data . "' ";
   }
   if ($codSts == '18') {
     // plotter
-    $staDe = "DT_SUSPENDIDA = '" . $data . "' ";
+    $staDe = ", DT_SUSPENDIDA = '" . $data . "' ";
   }
   if ($codSts == '19') {
     // plotter
-    $staDe = "DT_ENCAMINHADO_FORA = '" . $data . "' ";
+    $staDe = ", DT_ENCAMINHADO_FORA = '" . $data . "' ";
   }
 
   if (isset($_POST['D_emiss'])) {
@@ -464,21 +464,22 @@ if (isset($_POST['sim'])) {
       $op = $operador[1];
       $op_ = $operador[0];
       if(!isset($Where)){
-        $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$codSts'  , op_secao = '$op', secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , COD_ATENDENTE = '$op_' , tipo_trabalho = '$tipotrabalho' , $staDe WHERE cod = $cod  ");
+        $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$codSts'  , op_secao = '$op', secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , COD_ATENDENTE = '$op_' , tipo_trabalho = '$tipotrabalho'  $staDe WHERE cod = $cod  ");
       }else{
-      $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$codSts'  , op_secao = '$op', secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , COD_ATENDENTE = '$op_' , tipo_trabalho = '$tipotrabalho' , $Where , $staDe WHERE cod = $cod  ");
+      $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status = '$codSts'  , op_secao = '$op', secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , COD_ATENDENTE = '$op_' , tipo_trabalho = '$tipotrabalho' , $Where  $staDe WHERE cod = $cod  ");
 
       }
     } else {
       if(!isset($Where)){
-        $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', tipo_trabalho='$tipotrabalho' , secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao' , $staDe WHERE  cod=$cod");
+        $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', tipo_trabalho='$tipotrabalho' , secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao'  $staDe WHERE  cod=$cod");
       }else{
-      $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', tipo_trabalho='$tipotrabalho' , secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao', $Where , $staDe WHERE  cod=$cod");
+      $salvar_edit_op = $conexao->prepare("UPDATE tabela_ordens_producao SET status='$codSts', tipo_trabalho='$tipotrabalho' , secao_op = '$secao' , prioridade_op = '$prioridade' , descricao = '$descricao', $Where  $staDe WHERE  cod=$cod");
       }
     }
     //  echo "INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Numero op: $cod | status: $codSts - $NOVOS_Sts  | tipo do trabalho: $tipotrabalho | prioridade op: $prioridade ' , '$cod_user' , '$dataHora'";
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Numero op: $cod | status: $codSts - $NOVOS_Sts  | tipo do trabalho: $tipotrabalho | prioridade op: $prioridade ' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
+   
     $salvar_edit_op->execute();
     $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
       role="bs-toast"

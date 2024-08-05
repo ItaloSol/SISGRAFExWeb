@@ -3,42 +3,82 @@ include_once("../html/navbar.php"); ?>
 <div class="quantidamess"></div>
 <?php
 $Ano = date('Y');
-$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2019-01-01' AND data_emissao <= '2019-12-31'");
+$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') and data_emissao >= '2019-01-01' AND data_emissao <= '2019-12-31'");
 $QuantidadePO->execute();
 $i = 0;
 if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
     $QtdPo = $linha['QTD'];
 }
-$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2020-01-01' AND data_emissao <= '2020-12-31'");
+$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') and data_emissao >= '2020-01-01' AND data_emissao <= '2020-12-31'");
 $QuantidadePO->execute();
 $i = 0;
 if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
     $QtdPo1 = $linha['QTD'];
 }
-$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2021-01-01' AND data_emissao <= '2021-12-31'");
+$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') and data_emissao >= '2021-01-01' AND data_emissao <= '2021-12-31'");
 $QuantidadePO->execute();
 $i = 0;
 if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
     $QtdPo2 = $linha['QTD'];
 }
-$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2022-01-01' AND data_emissao <= '2022-12-31'");
+$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') and data_emissao >= '2022-01-01' AND data_emissao <= '2022-12-31'");
 $QuantidadePO->execute();
 $i = 0;
 if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
     $QtdPo3 = $linha['QTD'];
 }
-$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2023-01-01' AND data_emissao <= '2023-12-31'");
+$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') and data_emissao >= '2023-01-01' AND data_emissao <= '2023-12-31'");
 $QuantidadePO->execute();
 $i = 0;
 if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
     $QtdPo4 = $linha['QTD'];
 }
-$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE data_emissao >= '2024-01-01' AND data_emissao <= '2024-12-31'");
+$QuantidadePO = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') and data_emissao >= '2024-01-01' AND data_emissao <= '2024-12-31'");
 $QuantidadePO->execute();
 $i = 0;
 if ($linha = $QuantidadePO->fetch(PDO::FETCH_ASSOC)) {
     $QtdPo5 = $linha['QTD'];
 }
+/// valor 
+
+$QuantidadePOReais = $conexao->prepare("SELECT sum(valor_total) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') AND data_emissao >= '2019-01-01' AND data_emissao <= '2019-12-31'");
+$QuantidadePOReais->execute();
+$i = 0;
+if ($linha = $QuantidadePOReais->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPoR = $linha['QTD'];
+}
+$QuantidadePOReais = $conexao->prepare("SELECT sum(valor_total) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') AND data_emissao >= '2020-01-01' AND data_emissao <= '2020-12-31'");
+$QuantidadePOReais->execute();
+$i = 0;
+if ($linha = $QuantidadePOReais->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPoR1 = $linha['QTD'];
+}
+$QuantidadePOReais = $conexao->prepare("SELECT sum(valor_total) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') AND data_emissao >= '2021-01-01' AND data_emissao <= '2021-12-31'");
+$QuantidadePOReais->execute();
+$i = 0;
+if ($linha = $QuantidadePOReais->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPoR2 = $linha['QTD'];
+}
+$QuantidadePOReais = $conexao->prepare("SELECT sum(valor_total) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') AND data_emissao >= '2022-01-01' AND data_emissao <= '2022-12-31'");
+$QuantidadePOReais->execute();
+$i = 0;
+if ($linha = $QuantidadePOReais->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPoR3 = $linha['QTD'];
+}
+$QuantidadePOReais = $conexao->prepare("SELECT sum(valor_total) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') AND data_emissao >= '2023-01-01' AND data_emissao <= '2023-12-31'");
+$QuantidadePOReais->execute();
+$i = 0;
+if ($linha = $QuantidadePOReais->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPoR4 = $linha['QTD'];
+}
+$QuantidadePOReais = $conexao->prepare("SELECT sum(valor_total) AS QTD FROM tabela_orcamentos WHERE STATUS IN ('2','4','7','8','9','11') AND data_emissao >= '2024-01-01' AND data_emissao <= '2024-12-31'");
+$QuantidadePOReais->execute();
+$i = 0;
+if ($linha = $QuantidadePOReais->fetch(PDO::FETCH_ASSOC)) {
+    $QtdPoR5 = $linha['QTD'];
+}
+
+///
 $QuantidadePP = $conexao->prepare("SELECT count(cod) AS QTD FROM tabela_ordens_producao WHERE status != '13' AND data_emissao >= '2019-01-01' AND data_emissao <= '2019-12-31'");
 $QuantidadePP->execute();
 $i = 0;
@@ -377,6 +417,7 @@ $Aumento_MANUAL = ceil((($QtdFOLHA6 - $QtdFOLHA4) / $QtdFOLHA4) * 100);
                                                     <tr>
                                                         <th>ANO</th>
                                                         <th>QUANTIDADE</th>
+                                                        <th>R$</th>
                                                     </tr>
                                                     <tbody class="table-border-bottom-0">
                                                         <tr>
@@ -384,11 +425,17 @@ $Aumento_MANUAL = ceil((($QtdFOLHA6 - $QtdFOLHA4) / $QtdFOLHA4) * 100);
                                                             <td><span id="QtdP0" class="badge bg-label-primary me-1">
                                                                     <?= number_format($QtdPo, 0, ".", ".");  ?>
                                                                 </span></td>
+                                                                <td><span id="QtdP0" class="badge bg-label-success me-1">
+                                                                   R$  <?= number_format($QtdPoR, 0, ".", ".");  ?>
+                                                                </span></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>2020</strong></td>
                                                             <td><span id="QtdPo1" class="badge bg-label-primary me-1">
                                                                     <?= number_format($QtdPo1, 0, ".", ".");  ?>
+                                                                </span></td>
+                                                                <td><span id="QtdP0" class="badge bg-label-success me-1">
+                                                                R$  <?= number_format($QtdPoR1, 0, ".", ".");  ?>
                                                                 </span></td>
                                                         </tr>
                                                         <tr>
@@ -396,11 +443,17 @@ $Aumento_MANUAL = ceil((($QtdFOLHA6 - $QtdFOLHA4) / $QtdFOLHA4) * 100);
                                                             <td><span id="QtdPo2" class="badge bg-label-primary me-1">
                                                                     <?= number_format($QtdPo2, 0, ".", "."); ?>
                                                                 </span></td>
+                                                                <td><span id="QtdPo2" class="badge bg-label-success me-1">
+                                                                R$  <?= number_format($QtdPoR2, 0, ".", "."); ?>
+                                                                </span></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>2022</strong></td>
                                                             <td><span id="QtdPo3" class="badge bg-label-primary me-1">
                                                                     <?= number_format($QtdPo3, 0, ".", ".");  ?>
+                                                                </span></td>
+                                                                <td><span id="QtdPo2" class="badge bg-label-success me-1">
+                                                                R$  <?= number_format($QtdPoR3, 0, ".", "."); ?>
                                                                 </span></td>
                                                         </tr>
                                                         <tr>
@@ -408,11 +461,17 @@ $Aumento_MANUAL = ceil((($QtdFOLHA6 - $QtdFOLHA4) / $QtdFOLHA4) * 100);
                                                             <td><span id="QtdPo4" class="badge bg-label-primary me-1">
                                                                     <?= number_format($QtdPo4, 0, ".", ".");  ?>
                                                                 </span></td>
+                                                                <td><span id="QtdPo2" class="badge bg-label-success me-1">
+                                                                R$  <?= number_format($QtdPoR4, 0, ".", "."); ?>
+                                                                </span></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>2024</strong></td>
                                                             <td><span id="QtdPo5" class="badge bg-label-primary me-1">
                                                                     <?= number_format($QtdPo5, 0, ".", ".");  ?>
+                                                                </span></td>
+                                                                <td><span id="QtdPo2" class="badge bg-label-success me-1">
+                                                                R$  <?= number_format($QtdPoR5, 0, ".", "."); ?>
                                                                 </span></td>
                                                         </tr>
                                                     </tbody>

@@ -48,228 +48,169 @@ if (document.getElementById('Tipoativo')) {
 }
 //
 async function NovoProduto() {
-  let descricao = await document.getElementById('descricao').value;
-  let largura = await document.getElementById('largura').value;
-  let altura = await document.getElementById('altura').value;
-  let espessura = await document.getElementById('espessura').value;
-  let peso = await document.getElementById('peso').value;
-  let qtdfolhas = await document.getElementById('qtdfolhas').value;
-  let valor_Papel = await document.getElementById('valor_Papel').value;
-  let tipoProduto = await document.getElementById('tipoProduto').value;
-  let PP = await document.getElementById('PP').checked;
-  let PE = await document.getElementById('PE').checked;
-  let TipoCommerce = await document.getElementById('TipoCommerce').value;
-  let Tipoativo = await document.getElementById('Tipoativo').checked;
+  // Obter valores dos campos do formulário
+  let descricao = document.getElementById('descricao').value;
+  let largura = document.getElementById('largura').value;
+  let altura = document.getElementById('altura').value;
+  let espessura = document.getElementById('espessura').value;
+  let peso = document.getElementById('peso').value;
+  let qtdfolhas = document.getElementById('qtdfolhas').value;
+  let valor_Papel = document.getElementById('valor_Papel').value;
+  let tipoProduto = document.getElementById('tipoProduto').value;
+  let PP = document.getElementById('PP').checked;
+  let PE = document.getElementById('PE').checked;
+  let TipoCommerce = document.getElementById('TipoCommerce').value;
+  let Tipoativo = document.getElementById('Tipoativo').checked;
+
   const Selecionados = {
-    'descricao': descricao,
-    'largura': largura,
-    'altura': altura,
-    'espessura': espessura,
-    'peso': peso,
-    'qtdfolhas': qtdfolhas,
-    'valor_Papel': valor_Papel,
-    'tipoProduto': tipoProduto,
-    'PP': PP,
-    'PP': PE,
-    'TipoCommerce': TipoCommerce,
-    'Tipoativo': Tipoativo,
-  }
+    descricao,
+    largura,
+    altura,
+    espessura,
+    peso,
+    qtdfolhas,
+    valor_Papel,
+    tipoProduto,
+    PP,
+    PE,
+    TipoCommerce,
+    Tipoativo
+  };
 
   const tableBody = document.getElementById('personalizaPapel');
-  tableBody.innerHTML = '';
-  tableBody.innerHTML += `
-      <thead>
-        <tr>
-          <th>CÓDIGO PRODUTO</th>
-          <th>DESCRIÇÃO</th>
-          <th>TIPO</th>
-          <th>ORELHA</th>
-          <th>CORES FRENTE</th>
-          <th>CORES VERSO</th>
-        </tr>
+  tableBody.innerHTML = `
+    <thead>
+      <tr>
+        <th>CÓDIGO PRODUTO</th>
+        <th>DESCRIÇÃO</th>
+        <th>TIPO</th>
+        <th>ORELHA</th>
+        <th>CORES FRENTE</th>
+        <th>CORES VERSO</th>
+      </tr>
     </thead>`;
+
   if (!results || results.length === 0) {
     tableBody.innerHTML += `
       <tr>
-      <td align="center" colspan="6">
-        NENHUM SELECIONADO
-      </td>
-    </tr>`;
-  }
-  results.forEach(result => {
-    tableBody.innerHTML += `
-        
-          <tr>
-            <td>${Selecionados.nomePapel}</td>
-            <td>${Selecionados.codPapel}</td>
-            <td>${Selecionados.descricao}</td>
-            <td>${Selecionados.tipo_papel}</td>
-            <td>${Selecionados.corFrente}</td>
-            <td>${Selecionados.corVerso}</td>
-            <td><input class="form-control" value="${Selecionados.formato}" type="number"></td>
-            <td><input class="form-control" value="${Selecionados.orelha}" type="number"></td>
-            <td><input class="form-control" value="0" type="number"></td>
-            <td>${Selecionados.preco_folha}</td>
-            <td><input class="form-control" type="number" placeholder="0"></td>
-             <td><input class="form-control" type="number" placeholder="0"></td>
-          </tr>`;
-  });
-
-  localStorage.setItem('NovoProduto', JSON.stringify(Selecionados));
-  // console.log(localStorage.getItem('NovoProduto'));
-  if (localStorage.getItem('NovoProduto')) {
-    // Obter os dados do localStorage
-    const selecionadosString = localStorage.getItem('NovoProduto');
-    const selecionados = JSON.parse(selecionadosString);
-
-    // Iterar sobre os pares chave-valor do objeto
-    Object.entries(selecionados).forEach(([chave, valor]) => {
-      // Preencher os valores nos elementos HTML correspondentes
-      document.getElementById(chave).value = valor;
+        <td align="center" colspan="6">NENHUM SELECIONADO</td>
+      </tr>`;
+  } else {
+    results.forEach(result => {
+      tableBody.innerHTML += `
+        <tr>
+          <td>${Selecionados.descricao}</td>
+          <td>${Selecionados.largura}</td>
+          <td>${Selecionados.altura}</td>
+          <td>${Selecionados.espessura}</td>
+          <td>${Selecionados.peso}</td>
+          <td>${Selecionados.qtdfolhas}</td>
+          <td><input class="form-control" value="${Selecionados.valor_Papel}" type="number"></td>
+          <td>${Selecionados.tipoProduto}</td>
+          <td>${Selecionados.PP}</td>
+          <td>${Selecionados.PE}</td>
+          <td>${Selecionados.TipoCommerce}</td>
+          <td>${Selecionados.Tipoativo}</td>
+        </tr>`;
     });
   }
 
+  // Armazenar dados no localStorage
+  localStorage.setItem('NovoProduto', JSON.stringify(Selecionados));
+
+  // Recuperar dados do localStorage e preencher campos
+  const selecionadosString = localStorage.getItem('NovoProduto');
+  if (selecionadosString) {
+    const selecionados = JSON.parse(selecionadosString);
+    Object.entries(selecionados).forEach(([chave, valor]) => {
+      const element = document.getElementById(chave);
+      if (element) {
+        element.value = valor;
+      }
+    });
+  }
 }
 
-const selecionar_um_produto = document.getElementById('selecionar_um_produto');
-selecionar_um_produto.addEventListener('click', vle => {
+// Adicionar eventos de clique
+document.getElementById('selecionar_um_produto').addEventListener('click', () => {
   SelecionarClonadoPE();
   SelecionarSelecioando();
-})
-const PECheck = document.getElementById('peRadio');
-PECheck.addEventListener('click', vle => {
+});
+document.getElementById('peRadio').addEventListener('click', () => {
   SelecionarClonadoPE();
   SelecionarSelecioandoPE();
-})
-const novoo = document.getElementById('novo-produto');
-novoo.addEventListener('click', vle => {
+});
+document.getElementById('novo-produto').addEventListener('click', () => {
   RecuperaPapapelClonado();
-})
-const PPCheck = document.getElementById('ppRadio');
-PPCheck.addEventListener('click', vle => {
+});
+document.getElementById('ppRadio').addEventListener('click', () => {
   SelecionarClonadoPE();
   SelecionarSelecioando();
-})
-//  SELECIONAR ACABAMENTO
-function checkedAcabamento() {
+});
 
-  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-  if (document.getElementById('seleccionadoacabamentos')) {
-    if (ArrayAcabamentos != []) {
-      ArrayAcabamentos.map((item) => {
-        if (document.getElementById('Acaba' + item.valor)) {
-          recuperarNomesAcabamento('NovoAcabemtnoSe')
-          document.getElementById('Acaba' + item.valor).checked = true;
-        }
-      })
+// Função para verificar e marcar acabamentos
+function checkedAcabamento() {
+  const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado')) || [];
+  ArrayAcabamentos.forEach(item => {
+    const element = document.getElementById('Acaba' + item.valor);
+    if (element) {
+      element.checked = true;
     }
-  }
+  });
 }
 
+// Adicionar e remover acabamentos
 function adicionarAcabamentoDoClone(valor, cod_produto) {
-  let AcabamentoSelecionado = localStorage.getItem('AcabamentoSelecionado');
-  let arraySelecionados = AcabamentoSelecionado ? JSON.parse(AcabamentoSelecionado) : [];
-  let completo = {
-    cod_produto,
-    valor
-  }
-  arraySelecionados.push(completo);
-  localStorage.setItem('AcabamentoSelecionado', JSON.stringify(arraySelecionados));
+  let AcabamentoSelecionado = JSON.parse(localStorage.getItem('AcabamentoSelecionado')) || [];
+  AcabamentoSelecionado.push({ cod_produto, valor });
+  localStorage.setItem('AcabamentoSelecionado', JSON.stringify(AcabamentoSelecionado));
   recuperarNomesAcabamento('NovoAcabemtnoSe');
   checkedAcabamento();
 }
 
 function adicionarPapelDoClone(valor, cod_produto) {
-  let PapelSelecionado = localStorage.getItem('papelSelecionado');
-  let arraySelecionados = PapelSelecionado ? JSON.parse(PapelSelecionado) : [];
-  let completo = {
-    cod_produto,
-    valor
-  }
-  arraySelecionados.push(completo);
-  localStorage.setItem('papelSelecionado', JSON.stringify(arraySelecionados));
+  let PapelSelecionado = JSON.parse(localStorage.getItem('papelSelecionado')) || [];
+  PapelSelecionado.push({ cod_produto, valor });
+  localStorage.setItem('papelSelecionado', JSON.stringify(PapelSelecionado));
   recuperarNomesAcabamento('personalizaPapel');
   checkedPapel();
 }
 
 function recuperarNomesAcabamento(iddovalor) {
   const storedData = localStorage.getItem('AcabamentoSelecionado');
-
   let arraySelecionados = storedData ? JSON.parse(storedData) : [];
   const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
-
-  // Extract the 'cod_produto' property from each object in the array
-
-  // Extract the 'valor' property from each object in the array
-  arraySelecionados = arraySelecionados.map(({ valor }) => valor);
-  let promises = arraySelecionados.map(id => {
-    // Use the 'id' (which is the 'valor' now) in the fetch request
-    return fetch(`api_acabamento.php?id=${id}`)
-      .then(response => response.json())
-      .then(data => {
-        return {
-          id: id,
-          MAQUINA: data.MAQUINA,
-          ATIVA: data.ATIVA,
-          CUSTO_HORA: data.CUSTO_HORA,
-        };
-      });
-  });
-
+  let promises = arraySelecionados.map(({ valor }) => fetch(`api_acabamento.php?id=${valor}`).then(response => response.json()));
+  
   Promise.all(promises)
     .then(results => {
-      // Extract unique cod_produto values
-      // (This part is not necessary anymore since we already have the codProdutos array)
-      // const uniqueCodProdutos = [...new Set(codProdutos)];
-
       const tableBody = document.getElementById(iddovalor);
-      tableBody.innerHTML = '';
-      if (iddovalor == 'seleccionadoacabamentos') {
-        tableBody.innerHTML += `
-      <thead>
-      <tr>
-      <th>CÓDIGO PRODUTO</th>
-      <th>CÓDIGO ACABAMENTO</th>
-      <th>MÁQUINA</th>
-      <th>CUSTO</th>
-      </tr>
-    </thead>`;
-      } else {
-        tableBody.innerHTML += `
-      <thead>
-      <tr>
-      <th>CÓDIGO ACABAMENTO</th>
-      <th>MÁQUINA</th>
-      <th>CUSTO</th>
-      </tr>
-    </thead>`;
-      }
+      tableBody.innerHTML = `
+        <thead>
+          <tr>
+            <th>CÓDIGO ACABAMENTO</th>
+            <th>MÁQUINA</th>
+            <th>CUSTO</th>
+          </tr>
+        </thead>`;
+      
       if (!results || results.length === 0) {
         tableBody.innerHTML += `
-    <tr>
-    <td align="center" colspan="3">
-      NENHUM SELECIONADO
-    </td>
-  </tr>`;
-      }
-      results.forEach((result, index) => {
-        const inputId = `acabamento_${index}`;
-        if (iddovalor == 'seleccionadoacabamentos') {
-          tableBody.innerHTML += ` <tr>
-          <td>${codProdutos[index]}</td>
-          <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
-          <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
-          <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
-        </tr>`;
-        } else {
-          tableBody.innerHTML += `
           <tr>
-            <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id"> <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
-            <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
-            <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
+            <td align="center" colspan="3">NENHUM SELECIONADO</td>
           </tr>`;
-        }
-      });
+      } else {
+        results.forEach((result, index) => {
+          const inputId = `acabamento_${index}`;
+          tableBody.innerHTML += `
+            <tr>
+              <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id">
+              <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
+              <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
+              <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
+            </tr>`;
+        });
+      }
     })
     .catch(error => {
       console.error('Erro ao recuperar nomes do acabamento:', error);
@@ -277,23 +218,53 @@ function recuperarNomesAcabamento(iddovalor) {
 }
 
 function ApagarAcabamento() {
-  if (localStorage.getItem('AcabamentoSelecionado') != '[]' && localStorage.getItem('AcabamentoSelecionado') != null) {
-    const ArrayAcabamentos = JSON.parse(localStorage.getItem('AcabamentoSelecionado'));
-    if (document.getElementById('seleccionadoacabamentos')) {
-      ArrayAcabamentos.map((item) => {
-        if (document.getElementById('Acaba' + item.valor)) {
-          document.getElementById('Acaba' + item.valor).checked = false;
-        }
-      });
-    }
-  }
-  // Remova o item do localStorage
   localStorage.removeItem('AcabamentoSelecionado');
-  document.getElementById('mensagemAcabamento').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div></div>';
-
+  document.getElementById('mensagemAcabamento').innerHTML = `
+    <div id="alerta1" role="bs-toast" class="bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="bx bx-bell me-2"></i>
+        <div class="me-auto fw-semibold">Aviso!</div>
+      </div>
+      <div class="toast-body">Seleção de acabamentos limpa com sucesso!</div>
+    </div>`;
+  
   recuperarNomesAcabamento('NovoAcabemtnoSe');
-  setTimeout(function () {
+  setTimeout(() => {
     document.getElementById('mensagemAcabamento').innerHTML = '';
+  }, 1000);
+}
+
+// Funções do papel
+function selecionarPapel(dado) {
+  const selecionado = JSON.parse(localStorage.getItem('papelSelecionado')) || [];
+  selecionado.push(dado);
+  localStorage.setItem('papelSelecionado', JSON.stringify(selecionado));
+}
+
+function checarPapel() {
+  const selecionados = JSON.parse(localStorage.getItem('papelSelecionado')) || [];
+  selecionados.forEach(item => {
+    const element = document.getElementById('papel_' + item.valor);
+    if (element) {
+      element.checked = true;
+    }
+  });
+}
+
+function apagarPapel() {
+  localStorage.removeItem('papelSelecionado');
+  document.getElementById('mensagemPapel').innerHTML = `
+    <div id="alerta2" role="bs-toast" class="bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="bx bx-bell me-2"></i>
+        <div class="me-auto fw-semibold">Aviso!</div>
+      </div>
+      <div class="toast-body">Seleção de papéis limpa com sucesso!</div>
+    </div>`;
+  
+  recuperarNomesAcabamento('personalizaPapel');
+  setTimeout(() => {
+    document.getElementById('mensagemPapel').innerHTML = '';
   }, 1000);
 }
 //}
@@ -467,6 +438,7 @@ function recuperarNomesPapel(valor, codigo_do_produto) {
       const nomePapel = results.map((result) => result.nomePapel).join(', ');
 
       let tableBody = '';
+      let valor = 'tabela_campos';
       if (valor !== 'tabela_campos') {
         tableBody = document.getElementById('personalizaPapel');
         tableBody.innerHTML = '';

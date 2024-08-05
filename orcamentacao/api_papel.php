@@ -34,7 +34,7 @@ if (isset($_GET['id'])) {
       $Do_Papel['valor_chapa'] = $linha5['parametro'];
     }
   }
-    if($cod != 0){
+    if($cod != null){
       $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE cod_produto = $cod AND tipo_produto = $tipo");
     
    
