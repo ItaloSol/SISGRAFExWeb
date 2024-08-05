@@ -7,7 +7,24 @@
 ?>
 
 <?php
-if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1'] != '' || $_POST['numero2'] != '')) {
+if 
+    
+   (     isset($_POST['numero1']) || isset($_POST['numero2']) || isset($_POST['Cod_Orcamento'] ) )
+
+  {
+  if (isset($_POST['Cod_Orcamento'])) {
+    $cod_orcamento = $_POST['Cod_Orcamento'];
+    $query_orcamentos = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO WHERE cod = $cod_orcamento ");
+    $query_orcamentos->execute();
+    $qtdX = 0;
+    if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
+      $Pesquisa_Cliente = $linha['cod_cliente'];
+      $Tipo_Cliente = $linha['tipo_cliente'];
+    }
+    $_POST['numero1'] =  $Pesquisa_Cliente;
+    $_POST['numero2'] = $Pesquisa_Cliente;
+    $_POST['tipo_cliente'] = $Tipo_Cliente;
+  }
 
   $cod_orcamento = 000;
   if ($_POST['numero1'] != '') {
@@ -41,19 +58,19 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
   while ($linha = $configuracoes->fetch(PDO::FETCH_ASSOC)) {
     $preco_chapa = $linha['parametro'];
   }
-
+  
   if ($Tipo_Cliente == '1') {
 
     $cliente = 'Fisico';
-    $query_PRODUTOS = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE cod = '$Pesquisa_Cliente'");
+    $query_clientes = $conexao->prepare("SELECT * FROM tabela_clientes_fisicos  WHERE cod = '$Pesquisa_Cliente'");
   }
   if ($Tipo_Cliente == '2') {
     $cliente = 'Juridico';
-    $query_PRODUTOS = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos  WHERE cod = '$Pesquisa_Cliente'");
+    $query_clientes = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos  WHERE cod = '$Pesquisa_Cliente'");
   }
-  $query_PRODUTOS->execute();
+  $query_clientes->execute();
 
-  while ($linha2 = $query_PRODUTOS->fetch(PDO::FETCH_ASSOC)) {
+  while ($linha2 = $query_clientes->fetch(PDO::FETCH_ASSOC)) {
     $Tabela_Clientes = [
       'cod' => $linha2['cod'],
       'nome' => $linha2['nome'],
@@ -65,7 +82,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
       $documento = $linha2['cpf'];
     }
   }
-
+ 
 
   $Clientes_Contato_Juridicos = $conexao->prepare("SELECT * FROM tabela_associacao_contatos a INNER JOIN tabela_contatos e ON a.cod_contato = e.cod WHERE a.cod_cliente = '$Pesquisa_Cliente' AND a.tipo_cliente = '$Tipo_Cliente' LIMIT 15");
   $Clientes_Contato_Juridicos->execute();
@@ -121,6 +138,9 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
 
 ?>
+  <?php
+
+  ?>
   <div class=" orcamento-- "></div>
   <!-- Tela de Orçamento -->
   <!-- INFORMAÇÃO DO CLIENTE  -->
@@ -292,7 +312,14 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
-
+              <?php 
+              if(isset($_POST['produtos'])){
+                $Produtos = $_POST['produtos'];
+                $TipoProdutoEditar = $_POST['ttipo_produto'];
+                echo '<input type="hidden" value="'.$TipoProdutoEditar.'" id="TipoProdutosEditarem">';
+                echo '<input type="hidden" value="'.$Produtos.'" id="ProdutosEditarem">';
+              }
+              ?>
                 <div class="card">
                   <div id="SelecioandoProduto"></div>
                   <h5 class="card-header">PRODUTOS
@@ -942,7 +969,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
                             <button class="btn rounded-pill btn-success" onclick="CadastraPapel();">CADASTRAR</button>
                           </div>
                           <div id="EditarPapel" style="display: none;" class="mb-3">
-                            <input class="btn rounded-pill btn-success" id="idpapeleditado" name="" value="EDITAR" onclick="EditarPapel();" />
+                            <input class="btn rounded-pill btn-success" id="idpapeleditado" name="" value="EDITAR" onclick="EditarPapel()" />
                           </div>
                         </div>
                         <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
@@ -1309,7 +1336,7 @@ if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1']
 
               <?php
             } else {
-              if ((isset($_POST['numero1']) || isset($_POST['numero2'])) && ($_POST['numero1'] == '' || $_POST['numero2'] == '')) { ?>
+              if (     !isset($_POST['numero1']) || !isset($_POST['numero2']) )  {  ?>
                 <div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
                   <div class="toast-header"> <i class="bx bx-bell me-2"></i>
                     <div class="me-auto fw-semibold">Aviso!</div> <small> </small>

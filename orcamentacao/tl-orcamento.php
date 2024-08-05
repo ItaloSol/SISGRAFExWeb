@@ -366,8 +366,7 @@ $valor_total_Finalizadas = 0;
       <div class="accordion mt-3" id="accordionExample5">
         <div class="card accordion-item active">
           <h2 class="accordion-header" id="headingOne">
-            <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne5"
-              aria-expanded="true" aria-controls="accordionOne5">
+            <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne5" aria-expanded="true" aria-controls="accordionOne5">
               Ações
             </button>
           </h2>
@@ -379,28 +378,28 @@ $valor_total_Finalizadas = 0;
                   <div class="card-header d-flex align-items-center justify-content-between">
                   </div>
                   <div class="card-body">
-                  <?php if (isset($_SESSION['msg'])) {
+                    <?php if (isset($_SESSION['msg'])) {
                       echo $_SESSION['msg'];
                       unset($_SESSION['msg']);
                     } ?>
                     <div class="mb-3 row">
                       <label for="html5-date-input" class="col-md-2 col-form-label">Status</label>
-                     
-                      <div class="col-md-10">
-                       <?php if($ORC_ADM_I == '1'){  ?> <form method="POST" action="saveobs.php"> <?php } ?>
-                       <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
-                        <select name="Status_selecionado" class="form-select">
-                          <option>
-                            <?= $Orcamento_pesquisa['status'] ?> -
-                            <?= $Orcamento_pesquisa['STS_DESCRICAO'] ?>
-                          </option>
-                          <?php for ($i = 0; $i < $Sts; $i++) {
-                            echo '<option value="' . $Codigo_Sts_P[$i] . '" >' . $Codigo_Sts_P[$i] . ' - ' . $Nome_Sts_P[$i] . '</option>';
-                          } ?>
 
-                        </select>
-                        <?php if($ORC_ADM_I == '1'){ ?>  <button type="submit" name="alterar_status" style="color: aliceblue;" class="btn rounded-pill btn-warning">ALTERAR</button>
-                        </form>
+                      <div class="col-md-10">
+                        <?php if ($ORC_ADM_I == '1') {  ?> <form method="POST" action="saveobs.php"> <?php } ?>
+                          <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
+                          <select name="Status_selecionado" class="form-select">
+                            <option>
+                              <?= $Orcamento_pesquisa['status'] ?> -
+                              <?= $Orcamento_pesquisa['STS_DESCRICAO'] ?>
+                            </option>
+                            <?php for ($i = 0; $i < $Sts; $i++) {
+                              echo '<option value="' . $Codigo_Sts_P[$i] . '" >' . $Codigo_Sts_P[$i] . ' - ' . $Nome_Sts_P[$i] . '</option>';
+                            } ?>
+
+                          </select>
+                          <?php if ($ORC_ADM_I == '1') { ?> <button type="submit" name="alterar_status" style="color: aliceblue;" class="btn rounded-pill btn-warning">ALTERAR</button>
+                          </form>
                         <?php } ?>
                       </div>
                     </div>
@@ -424,7 +423,7 @@ $valor_total_Finalizadas = 0;
                     }
 
                     //  $od = 'ativo';
-                    
+
                     // $producao = 'href';
                     // $expedicao = 'href';
                     ?>
@@ -471,69 +470,65 @@ $valor_total_Finalizadas = 0;
                         <div class=" mb-3 ">
                           <?php if ($Orcamento_pesquisa['status'] == 1 || $Orcamento_pesquisa['status'] == 3 || $Orcamento_pesquisa['status'] == 11 || $Orcamento_pesquisa['status'] == 4) {
                             if ($Orcamento_pesquisa['valor_total'] <= $Tabela_Clientes['credito']) { ?>
-                              <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod"
-                                class="btn btn-warning">
+                              <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod" class="btn btn-warning">
                                 <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
                                 Enviar para Produção
                               </a>
-                            </div>
-                            <div class=" mb-3">
-                              <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp"
-                                class="btn btn-warning">
-                                <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar
-                                para Expedição
-                              </a>
-                            </div>
-                          <?php } else {
+                        </div>
+                        <div class=" mb-3">
+                          <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp" class="btn btn-warning">
+                            <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar
+                            para Expedição
+                          </a>
+                        </div>
+                        <?php } else {
                               if ($Orcamento_pesquisa['status'] == '4' || $Orcamento_pesquisa['status'] == '11') { ?>
-                              <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod"
-                                class="btn btn-warning">
-                                <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
-                                Enviar para Produção
-                              </a>
-                            </div>
-                            <div class=" mb-3">
-                              <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp"
-                                class="btn btn-warning">
-                                <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar
-                                para Expedição
-                              </a>
-                            </div>
-                          <?php } else {
+                          <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paprod" class="btn btn-warning">
+                            <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
+                            Enviar para Produção
+                          </a>
+                      </div>
+                      <div class=" mb-3">
+                        <a data-bs-toggle="modal" style="color: white;" data-bs-target="#paraexp" class="btn btn-warning">
+                          <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar
+                          para Expedição
+                        </a>
+                      </div>
+                      <?php } else {
                                 if ($Orcamento_pesquisa['status'] == '3') {
                                   echo '</div>';
                                 } else { ?>
 
-                              <a href="b-update.php?acao=3&cod=<?= $cod_orcamento ?>" class="btn btn-warning">
-                                <iconify-icon icon="mdi:file-send-outline" width="24" height="24"></iconify-icon><br>
-                                <span>Saldo insuficiente!</span><br> Enviar o ordenador de despesa
-                              </a>
-                            </div>
+                        <a href="b-update.php?acao=3&cod=<?= $cod_orcamento ?>" class="btn btn-warning">
+                          <iconify-icon icon="mdi:file-send-outline" width="24" height="24"></iconify-icon><br>
+                          <span>Saldo insuficiente!</span><br> Enviar o ordenador de despesa
+                        </a>
+                    </div>
 
-                          <?php }
+                <?php }
                               }
                             }
                           } else {
                             if ($Orcamento_pesquisa['status'] == '5' || $Orcamento_pesquisa['status'] == '6' || $Orcamento_pesquisa['status'] == '12' || $Orcamento_pesquisa['status'] == '13' || $Orcamento_pesquisa['status'] == '14' || $Orcamento_pesquisa['status'] == '15') {
-                              if($ORC_ADM_I == '1'){
-                              echo '<a id="resetar" style="color: white;"
+                              if ($ORC_ADM_I == '1') {
+                                echo '<a id="resetar" style="color: white;"
                               class="btn btn-warning">
                               <iconify-icon icon="carbon:reset" width="24" height="24"></iconify-icon><br> Voltar para em Avaliação!
                             </a> </div>';
                               }
                             } else { ?>
-                        <a class="btn btn-warning">
-                          <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
-                          Enviar para Produção
-                        </a>
-                      </div>
-                      <div class=" mb-3">
-                        <a class="btn btn-warning">
-                          <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar para
-                          Expedição
-                        </a>
-                      </div>
-                    <?php }
+                <a class="btn btn-warning">
+                  <iconify-icon icon="fluent:production-20-regular" width="24" height="24"></iconify-icon><br>
+                  Enviar para Produção
+                </a>
+                  </div>
+                  <div class=" mb-3">
+                    <a class="btn btn-warning">
+                      <iconify-icon icon="fluent-mdl2:product" width="24" height="24"></iconify-icon><br> Enviar para
+                      Expedição
+                    </a>
+                  </div>
+              <?php }
                           } ?>
 
                 </div>
@@ -566,39 +561,33 @@ $valor_total_Finalizadas = 0;
                       </div>
 
                     <?php } ?>
-                  </div>
-
-
-
-                </div>
-                <div class=" mb-3">
-                  <div id="simpleszao" class="">
-                    <a class="btn btn-warning" target="_blank"
-                      href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>&Tp=1"
-                      style="color: white;">
-                      <iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO
-                      <br> SIMPLES
-                    </a>
-                  </div>
-                  <div id="detalhadao" class="tira">
-                    <a class="btn btn-warning" target="_blank"
-                      href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>&Tp=2"
-                      style="color: white;">
-                      <iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO
-                      <br> DETALHADO
-                    </a>
-                  </div>
-                  <div id="selects">
-                    <div class="col-sm-6">
-                      <input type="radio" name="detalhe" id="SIMPLES" value="1" checked> <label
-                        for="SIMPLES">SIMPLES</label>
                     </div>
-                    <div class="col-sm-6">
-                      <input type="radio" name="detalhe" id="DETALHADO" value="2"> <label
-                        for="DETALHADO">DETALHADO</label>
+
+
+
+                  </div>
+                  <div class=" mb-3">
+                    <div id="simpleszao" class="">
+                      <a class="btn btn-warning" target="_blank" href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>&Tp=1" style="color: white;">
+                        <iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO
+                        <br> SIMPLES
+                      </a>
+                    </div>
+                    <div id="detalhadao" class="tira">
+                      <a class="btn btn-warning" target="_blank" href="../relatorios/relatorio-orcamento-unico.php?cod=<?= $cod_orcamento ?>&Tp=2" style="color: white;">
+                        <iconify-icon icon="codicon:file-pdf" width="24" height="24"></iconify-icon><br> GERAR RELATÓRIO
+                        <br> DETALHADO
+                      </a>
+                    </div>
+                    <div id="selects">
+                      <div class="col-sm-6">
+                        <input type="radio" name="detalhe" id="SIMPLES" value="1" checked> <label for="SIMPLES">SIMPLES</label>
+                      </div>
+                      <div class="col-sm-6">
+                        <input type="radio" name="detalhe" id="DETALHADO" value="2"> <label for="DETALHADO">DETALHADO</label>
+                      </div>
                     </div>
                   </div>
-                </div>
               </div>
             </div>
 
@@ -615,8 +604,7 @@ $valor_total_Finalizadas = 0;
   <div class="accordion mt-3" id="accordionExample">
     <div class="card accordion-item active">
       <h2 class="accordion-header" id="headingOne">
-        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne"
-          aria-expanded="true" aria-controls="accordionOne">
+        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne">
           Orçamento
         </button>
       </h2>
@@ -633,8 +621,7 @@ $valor_total_Finalizadas = 0;
                   <label for="html5-date-input" class="col-md-2 col-form-label">Codigo Orçamento</label>
                   <div class="col-md-10">
                     <div class="input-group">
-                      <input type="text" id="cod_orc_" class="cod_orc_ form-control" value="<?= $cod_orcamento ?>"
-                        disabled />
+                      <input type="text" id="cod_orc_" class="cod_orc_ form-control" value="<?= $cod_orcamento ?>" disabled />
                     </div>
                     <br>
                   </div>
@@ -645,12 +632,10 @@ $valor_total_Finalizadas = 0;
                         <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
                         <div class="row">
                           <div class="col-6">
-                            <input class="form-control " type="date" name="data"
-                              value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
+                            <input class="form-control " type="date" name="data" value="<?= $Orcamento_pesquisa['data_validade'] ?>" />
                           </div>
                           <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                              data-bs-target="#smallModal">
+                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#smallModal">
                               Atualizar Data
                             </button>
                           </div>
@@ -661,10 +646,8 @@ $valor_total_Finalizadas = 0;
                           <div class="modal-dialog modal-sm" role="document">
                             <div class="modal-content">
                               <div class="modal-header  ">
-                                <h5 class="modal-title align-items-center justify-content-center"
-                                  id="exampleModalLabel2">Atualizar Data de validade do Orçamento</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                  aria-label="Close"></button>
+                                <h5 class="modal-title align-items-center justify-content-center" id="exampleModalLabel2">Atualizar Data de validade do Orçamento</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body align-items-center justify-content-center">
 
@@ -695,36 +678,31 @@ $valor_total_Finalizadas = 0;
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-name">Tipo de Pessoa</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="basic-default-name" value="<?= $cliente ?>"
-                          placeholder="Fisicou ou Juridica" />
+                        <input type="text" class="form-control" id="basic-default-name" value="<?= $cliente ?>" placeholder="Fisicou ou Juridica" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Código do Cliente</label>
                       <div class="col-sm-10">
-                        <input type="text" value="<?= $Pesquisa_Cliente ?>" class="form-control"
-                          id="basic-default-company" placeholder="" />
+                        <input type="text" value="<?= $Pesquisa_Cliente ?>" class="form-control" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Nome do Cliente</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Tabela_Clientes['nome'] ?>"
-                          id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Tabela_Clientes['nome'] ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">CPF/CNPJ</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $documento ?>" id="basic-default-company"
-                          placeholder="" />
+                        <input type="text" class="form-control" value="<?= $documento ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Nome p/ Contato</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['nome_contato'] ?>"
-                          id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['nome_contato'] ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                   </div>
@@ -733,30 +711,25 @@ $valor_total_Finalizadas = 0;
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Telefone Principal</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['telefone'] ?>"
-                          id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Contato_Puxado['telefone'] ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Cidade</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['cidade'] ?>"
-                          id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['cidade'] ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">UF</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['uf'] ?>"
-                          id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado['uf'] ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label" for="basic-default-company">Crédito</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                          value="<?= number_format($Tabela_Clientes['credito'], 2, ',', '.') ?>"
-                          id="basic-default-company" placeholder="" />
+                        <input type="text" class="form-control" value="<?= number_format($Tabela_Clientes['credito'], 2, ',', '.') ?>" id="basic-default-company" placeholder="" />
                       </div>
                     </div>
                   </div>
@@ -773,29 +746,21 @@ $valor_total_Finalizadas = 0;
   <!-- Informações Sobre o Orçamento (Segundo Drop) -->
   <div class="card accordion-item">
     <h2 class="accordion-header" id="headingTwo">
-      <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionTwo"
-        aria-expanded="true" aria-controls="accordionTwo">
+      <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="true" aria-controls="accordionTwo">
         Informações Sobre o Orçamento
       </button>
     </h2>
-    <div id="accordionTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
-      data-bs-parent="#accordionExample">
+    <div id="accordionTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <div class="col-lg-12">
           <div class="demo-inline-spacing mt-3">
             <div class="list-group list-group-horizontal-md text-md-center">
-              <a class="list-group-item list-group-item-action active" id="home-list-item" data-bs-toggle="list"
-                href="#horizontal-prod">Produtos</a>
-              <a class="list-group-item list-group-item-action" id="profile-list-item1" data-bs-toggle="list"
-                href="#horizontal-tir">Tiragens</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item3" data-bs-toggle="list"
-                href="#horizontal-pap">Papel</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item4" data-bs-toggle="list"
-                href="#horizontal-aca">Acabamentos</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item5" data-bs-toggle="list"
-                href="#horizontal-ser">Serviços</a>
-              <a class="list-group-item list-group-item-action" id="settings-list-item6" data-bs-toggle="list"
-                href="#horizontal-obs">Observações</a>
+              <a class="list-group-item list-group-item-action active" id="home-list-item" data-bs-toggle="list" href="#horizontal-prod">Produtos</a>
+              <a class="list-group-item list-group-item-action" id="profile-list-item1" data-bs-toggle="list" href="#horizontal-tir">Tiragens</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item3" data-bs-toggle="list" href="#horizontal-pap">Papel</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item4" data-bs-toggle="list" href="#horizontal-aca">Acabamentos</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item5" data-bs-toggle="list" href="#horizontal-ser">Serviços</a>
+              <a class="list-group-item list-group-item-action" id="settings-list-item6" data-bs-toggle="list" href="#horizontal-obs">Observações</a>
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
@@ -806,7 +771,7 @@ $valor_total_Finalizadas = 0;
                     </button> </h5> -->
 
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
+                    <table id="TabelaProdutosOrcamento" class="table table-striped">
                       <thead>
                         <tr>
                           <th>CÓDIGO</th>
@@ -817,7 +782,13 @@ $valor_total_Finalizadas = 0;
                           <th>OBSERVAÇÕES</th>
                         </tr>
                       </thead>
-                      <tbody class="table-border-bottom-0">
+                          <form method="POST" action="abrir_orcamento.php">
+                            <input type="hidden" value="<?= $cod_orcamento ?>" name="Cod_Orcamento">
+                            <input type="hidden" id="produtos_orc_edit" name="produtos">
+                            <input type="hidden" id="ttipo_produto" value="<?=  $tipo_produto ?>" name="ttipo_produto">
+                            <button type="submit" onclick="coletarCodigos()">Editar</button>
+                          </form>
+                        <tbody class="table-border-bottom-0">
                         <?php
                         for ($a = 0; $a < $qtdX; $a++) { ?>
                           <tr>
@@ -889,10 +860,8 @@ $valor_total_Finalizadas = 0;
                               <td><input class="form-check-input" type="checkbox"></td>
                             <?php } ?>
 
-                            <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['valor_digital'] ?>"
-                                type="number"></td>
-                            <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['preco_unitario'] ?>"
-                                type="number"></td>
+                            <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['valor_digital'] ?>" type="number"></td>
+                            <td><input class="form-control" value="<?= $Produtos_orcamento[$a]['preco_unitario'] ?>" type="number"></td>
                           </tr>
                         <?php }
                         if ($qtdX == 0) {
@@ -1014,8 +983,7 @@ $valor_total_Finalizadas = 0;
                       <thead>
                         <tr>
                           <form method="POST" action="saveobs.php">
-                            <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc"
-                              class="col-12"><?= $Orcamento_pesquisa['descricao'] ?></textarea>
+                            <textarea class="form-control" placeholder="Coloque uma Observação" name="observacao_orc" class="col-12"><?= $Orcamento_pesquisa['descricao'] ?></textarea>
                             <input type="hidden" name="cod" value="<?= $cod_orcamento ?>">
                         </tr>
                     </table>
@@ -1056,30 +1024,24 @@ $valor_total_Finalizadas = 0;
             <div class="container row ">
               <div class="col-3">
                 <label class="form-label m-0 p-0">CIF (%)</label>
-                <input type="text" class="form-control" id="defaultFormControlInput"
-                  value="<?= $Orcamento_pesquisa['sif'] ?>" placeholder="0%"
-                  aria-describedby="defaultFormControlHelp" />
+                <input type="text" class="form-control" id="defaultFormControlInput" value="<?= $Orcamento_pesquisa['sif'] ?>" placeholder="0%" aria-describedby="defaultFormControlHelp" />
 
               </div>
               <div class="col-3">
                 <label for="valor" class="form-label p-0 m-0">Arte (R$)</label>
 
-                <input class="form-check-input mt-0" id="arte" type="checkbox"
-                  aria-label="checkbox button for following text input" />
+                <input class="form-check-input mt-0" id="arte" type="checkbox" aria-label="checkbox button for following text input" />
 
-                <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00"
-                  value="<?= $Orcamento_pesquisa['ARTE'] ?>" disabled aria-label="Text input with checkbox button" />
+                <input type="text" class="form-control" id="check_arte" placeholder="R$ 00,00" value="<?= $Orcamento_pesquisa['ARTE'] ?>" disabled aria-label="Text input with checkbox button" />
 
               </div>
 
               <div class="col-3">
                 <label for="frete" class="form-label p-0 m-0">Frete (R$)</label>
 
-                <input class="form-check-input mt-0" type="checkbox" id="frete"
-                  aria-label="checkbox button for following text input" />
+                <input class="form-check-input mt-0" type="checkbox" id="frete" aria-label="checkbox button for following text input" />
 
-                <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00"
-                  value="<?= $Orcamento_pesquisa['frete'] ?>" disabled aria-label="Text input with radio button" />
+                <input type="text" class="form-control" id="check_frete" placeholder="R$ 00,00" value="<?= $Orcamento_pesquisa['frete'] ?>" disabled aria-label="Text input with radio button" />
 
               </div>
 
@@ -1087,15 +1049,13 @@ $valor_total_Finalizadas = 0;
 
               <div class="col-3">
                 <label class="form-label m-0 p-0">Desconto (%)</label>
-                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%"
-                  value="<?= $Orcamento_pesquisa['desconto'] ?>" aria-describedby="defaultFormControlHelp" />
+                <input type="text" class="form-control" id="defaultFormControlInput" placeholder="0%" value="<?= $Orcamento_pesquisa['desconto'] ?>" aria-describedby="defaultFormControlHelp" />
 
               </div>
 
             </div>
             <label for="defaultFormControlInput" class="form-label">Valor Total (R$)</label>
-            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final"
-              value="<?= $Orcamento_pesquisa['valor_total'] ?>" aria-describedby="defaultFormControlHelp" /><br></br>
+            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Valor do orçamento final" value="<?= $Orcamento_pesquisa['valor_total'] ?>" aria-describedby="defaultFormControlHelp" /><br></br>
             <!-- <button type="button" class="btn btn-info">Tabela de Corte de Papel</button> -->
             <button type="submit" class="btn btn-success">Salvar</button>
             </form>
@@ -1106,513 +1066,38 @@ $valor_total_Finalizadas = 0;
     </div>
   </div>
 
-  <!-- Botão para abrir o primeiro modal -->
 
 
 
 
-  <!-- Primeiro modal PRODUTOS GERAL -->
-  <div class="modal" id="modal1">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">PRODUTO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
-          <div class="demo-inline-spacing mt-3">
-            <div class="list-group list-group-horizontal-md text-md-center">
-              <a class="list-group-item list-group-item-action active" id="consulta-produto" data-bs-toggle="list"
-                href="#consulta1-produto">Consulta Produto</a>
-              <a class="list-group-item list-group-item-action" id="novo-produto" data-bs-toggle="list"
-                href="#novo1-produto">Novo Produto</a>
-            </div>
-
-            <div class="tab-content px-0 mt-0">
-              <div class="tab-pane fade show active" id="consulta1-produto">
-                <div class="card">
-                  <h5 class="card-header">Consulta Produto</h5>
-                  <div class="table-responsive text-nowrap">
-                    <div class="row mb-3">
-
-                      <div class="col-sm-3">
-                        <label for="pesquisarpor" class="form-label">PESQUISAR POR</label>
-                        <select class="form-select" id="pesquisarpor" aria-label="Default select example">
-                          <option value="descricao">DESCRIÇÃO</option>
-                          <option value="codigo">CODIGO</option>
-                        </select>
-                        <div id="mensagemPesquisa"></div>
-                      </div>
-
-                      <!-- Adicione os botões de opção de rádio para selecionar o tipo de produto -->
-
-                      <div class="form-check col-sm-3">
-
-                        <input name="tipoProduto" class="form-check-input" type="radio" value="PP" id="ppRadio"
-                          checked />
-                        <label class="form-check-label" for="ppRadio">PRODUÇÃO (PP)</label><br>
-                        <input name="tipoProduto" class="form-check-input" type="radio" value="PE" id="peRadio" />
-                        <label class="form-check-label" for="peRadio">PRONTA ENTREGA (PE)</label>
-                      </div>
-                      <div class="form-check col-sm-5">
-                        <div id="mensagemBusca"></div>
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="DIGITE A DESCIÇÃO DO PRODUTO QUE DESEJA"
-                            aria-label="DIGITE A SUA BUSCA" id="buscarP" aria-describedby="button-addon2" />
-                          <button class="btn btn-outline-primary" type="button" id="pesquisar">PESQUISAR</button>
-                        </div>
-                        <br>
-                        <button class="btn btn-outline-warning" type="button" id="clonar">CLONAR PRODUTO</button>
-                        <button class="btn btn-outline-danger" type="button" id="selecionar">SELECIONAR</button>
-                      </div>
-                    </div>
-
-                    <div style="height: 400px; width: 100%; overflow-y: scroll; ">
-                      <table class="table table-hover table-sm table-bordered">
-                        <thead>
-                          <tr>
-                            <th>CÓDIGO</th>
-                            <th>TIPO</th>
-                            <th>DESCRIÇÃO</th>
-                            <th>VALOR UNITÁRIO</th>
-                            <th>SELECIONAR</th>
-                          </tr>
-                        </thead>
-                        <tbody id="produtosTableBody">
-                          <!-- Os resultados da consulta serão adicionados aqui -->
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- AA -->
-                  </div>
-                </div>
-              </div>
-              <!-- novo produto -->
-              <div class="tab-pane fade" id="novo1-produto">
-                <div class="card">
-                  <h5 class="card-header">Novo Produto</h5>
-                  <div class="table-responsive text-nowrap">
-                    <div class="card-body">
-                      <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-default-name">TIPO DE PRODUTO</label>
-                        <div class="col-sm-10">
-                          <input name="TPP" class="form-check-input" type="radio" value="PP" id="PP" />
-                          <label class="form-check-label" for="PP"> PRODUÇÃO(PP) </label>
-                          <input name="TPP" class="form-check-input" type="radio" value="PE" id="PE" />
-                          <label class="form-check-label" for="PE"> PRONTA ENTREGA(PE) </label>
-                          <input class="form-check-input" name="commerce" type="checkbox" value="COMMERCE"
-                            id="COMMERCE" />
-                          <label class="form-check-label" for="COMMERCE"> SERÁ ULTILIZADO NO E-COMMERCE </label>
-                          <input class="form-check-input" name="ativo" type="checkbox" value="ATIVO" id="ATIVO" />
-                          <label class="form-check-label" for="ATIVO"> ATIVO</label>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="descricao">DESCRIÇÃO DO PRODUTO</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="descricao" placeholder="DESCRIÇÃO" />
-                          <div class="form-text">MÁXIMO 150 CARACTERES</div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="LARGURA">LARGURA</label>
-                          <input type="number" id="largura" class="form-control phone-mask" placeholder="0,0"
-                            aria-label="0,0" />
-                        </div>
-                        <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="ALTURA">ALTURA</label>
-                          <input type="number" id="largura" class="form-control phone-mask" placeholder="0,0"
-                            aria-label="0,0" />
-                        </div>
-                        <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="ESPESSURA">ESPESSURA</label>
-                          <input type="number" id="espessura" class="form-control phone-mask" placeholder="0,0"
-                            aria-label="0,0" />
-                        </div>
-                        <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="PESO">PESO</label>
-                          <input type="number" id="peso" class="form-control phone-mask" placeholder="0,0"
-                            aria-label="0,0" />
-                        </div>
-                        <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="LARGURA">QUANTIDADE FOLHAS</label>
-                          <input type="number" value="1" id="largura" class="form-control phone-mask" placeholder="1"
-                            aria-label="1" />
-                        </div>
-                        <div class="col-sm-3">
-                          <label class="col-sm-2 col-form-label" for="LARGURA">TIPO</label>
-                          <select class="form-select" id="exampleFormControlSelect1"
-                            aria-label="Default select example">
-                            <option desabled>SELECIONE</option>
-                            <option value="1">FOLHA</option>
-                            <option value="2">BLOCO</option>
-                            <option value="3">LIVRO</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="list-group list-group-horizontal-md text-md-center">
-                          <a class="list-group-item list-group-item-action active" id="papeis" data-bs-toggle="list"
-                            href="#papeis1">PAPÉIS</a>
-                          <a class="list-group-item list-group-item-action" id="acabamentos" data-bs-toggle="list"
-                            href="#acabamentos1">ACABAMENTOS</a>
-                          <a class="list-group-item list-group-item-action " id="valores" data-bs-toggle="list"
-                            href="#valores1">VALORES</a>
-                          <a class="list-group-item list-group-item-action" id="estoque" data-bs-toggle="list"
-                            href="#estoque1">ESTOQUE</a>
-                          <a class="list-group-item list-group-item-action " id="pedidos" data-bs-toggle="list"
-                            href="#pedidos1">PEDIDOS</a>
-                        </div>
-                        <div class="tab-content px-0 mt-0">
-                          <div class="tab-pane fade show active" id="papeis1">
-
-                            <h5 class="card-header">PAPÉIS</h5>
-
-                            <!-- Botão para abrir o segundo modal -->
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                              data-bs-target="#modal2">
-                              SELECIONAR PAPEL
-                            </button>
-                            <div class="table-responsive text-nowrap">
-                              <label class="form-label" for="basic-default-phone">TIPO</label>
-                              <select class="form-select">
-                                <option>SELECIONE</option>
-                                <option>CAPA</option>
-                                <option>MIOLO</option>
-                                <option>FOLHA</option>
-                                <option>1° VIA</option>
-                                <option>2° VIA</option>
-                                <option>3° VIA</option>
-                              </select>
-                              <label class="form-label" for="basic-default-phone">CORES FRENTE</label>
-                              <input type="number" placeholder="0">
-                              <label class="form-label" for="basic-default-phone">CORES VERSO</label>
-                              <input type="number" placeholder="0">
-                              <table class="table table-bordered table-hover">
-                                <tr>
-                                  <th>CÓDIGO</th>
-                                  <th>DESCRIÇÃO</th>
-                                  <th>TIPO</th>
-                                  <th>ORELHA</th>
-                                  <th>CORES FRENTE</th>
-                                  <th>CORES VERSO</th>
-                                </tr>
-                                <tr>
-                                  <td>cod</td>
-                                  <td>des</td>
-                                  <td>tp</td>
-                                  <td>or</td>
-                                  <td>cor</td>
-                                  <td>ver</td>
-                                </tr>
-                              </table>
-                            </div>
-                          </div>
-                          <div class="tab-pane fade" id="acabamentos1">
-                            <h5 class="card-header">ACABAMENTOS</h5>
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                              data-bs-target="#modal23">
-                              SELECIONAR ACABAMENTO
-                            </button>
-                            <div class="table-responsive text-nowrap">
-
-                              <table class="table table-bordered table-hover">
-                                <tr>
-                                  <th>CÓDIGO</th>
-                                  <th>DESCRIÇÃO</th>
-                                </tr>
-                                <tr>
-                                  <td>cod</td>
-                                  <td>des</td>
-                                </tr>
-                              </table>
-
-                            </div>
-                          </div>
-                          <div class="tab-pane fade" id="valores1">
-                            <h5 class="card-header">VALORES</h5>
-                            <div class="table-responsive text-nowrap">
-
-                              <label class="form-check-label" for="prev"> PRODUTO PARA PRÉ-VENDA? </label>
-                              <input class="form-check-input" name="prev" type="checkbox" value="prevendaS" id="prev" />
-                              <div class="row mb-3">
-                                <div class="col-sm-3">
-                                  <label class="col-sm-2 col-form-label" for="valorunitario">VALOR
-                                    UNITÁRIO(R$)</label>
-                                  <input type="number" class="form-control" id="valorunitario" placeholder="0,00" />
-                                </div>
-                                <label class="col-sm-2 col-form-label" for="promo">VALOR PROMOCIONAL(R$)</label>
-                                <div class="col-sm-3">
-                                  <input class="form-check-input" name="promo" type="checkbox" value="promo"
-                                    id="promo" />
-                                  <input type="number" class="form-control" id="valorpromo" placeholder="0,00" />
-                                </div>
-                              </div>
-
-                            </div>
-                          </div>
-                          <div class="tab-pane fade" id="estoque1">
-                            <h5 class="card-header">ESTOQUE</h5>
-                            <div class="table-responsive text-nowrap">
-
-                              <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">QUANTIDADE NO ESTOQUE
-                                  FÍSICO</label>
-                                <input type="number" class="form-control" id="qtdestoque" placeholder="0" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="avisoestoque">AVISO DE ESTOQUE?<input
-                                    class="form-check-input" name="avisoestoque" type="checkbox" value="avisoestoque"
-                                    id="avisoestoque" /> </label>
-                                <input type="number" class="form-control" id="qtdaviso" placeholder="0" />
-                              </div>
-
-                            </div>
-                          </div>
-                          <div class="tab-pane fade" id="pedidos1">
-                            <h5 class="card-header">PEDIDOS</h5>
-                            <div class="table-responsive text-nowrap">
-
-                              <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">QUANTIDADE MÍNIMA</label>
-                                <input type="number" class="form-control" id="qtdmin" placeholder="0" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="qtdmaxestoque">QUANTIDADE MÁXIMA<input
-                                    class="form-check-input" name="qtdmaxestoque" type="checkbox" value="qtdmaxestoque"
-                                    id="qtdmaxestoque" /> </label>
-                                <input type="number" class="form-control" id="qtdmax" placeholder="0" />
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class=" text-end  row justify-content-end">
-                        <div class="col-sm-10">
-                          <button type="submit" class="btn btn-primary">SALVAR</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Segundo modal CONTEUDO PAPEL -->
-              <div class="modal" id="modal2">
-                <div class="modal-dialog modal-lg" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">PAPEL</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
-                      <?php
-                      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis ORDER BY cod DESC");
-                      $query_papel->execute();
-                      $p = 0;
-                      while ($linha = $query_papel->fetch(PDO::FETCH_ASSOC)) {
-                        $papel[$p] = [
-                          'cod' => $linha['cod'],
-                          'descricao' => $linha['descricao'],
-                          'medida' => $linha['medida'],
-                          'gramatura' => $linha['gramatura'],
-                          'formato' => $linha['formato'],
-                          'uma_face' => $linha['uma_face'],
-                          'unitario' => $linha['unitario'],
-                        ];
-                        $p++;
-                      }
-                      ?>
-
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">DESCRIÇÃO</label>
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask"
-                              placeholder="NOME PAPEL" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">LARGURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask"
-                              placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">ALTURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask"
-                              placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">GRAMATURA</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask"
-                              placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">FORMATO</label>
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask"
-                              placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                            <label class="form-check-label" for="defaultCheck1"> UMA FACE? </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label colorbranca" for="basic-default-phone">VALOR UNITÁRIO</label>
-                            <input type="number" id="basic-default-phone" class="form-control phone-mask"
-                              placeholder="0" />
-                          </div>
-                          <div class="mb-3">
-                            <button class="btn rounded-pill btn-success">CADASTRAR</button>
-                          </div>
-                        </div>
-                        <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-                          <table class="colorbranca table table-sm table-houver">
-                            <tr>
-                              <th>CODIGO</th>
-                              <th>DESCRIÇÃO</th>
-                              <th>MEDIDA</th>
-                              <th>GRAMATURA</th>
-                              <th>FORMATO</th>
-                              <th>UMA FACE</th>
-                              <th>VALOR</th>
-                              <th>SELECIONAR</th>
-                            </tr>
-                            <?php for ($i = 0; $i < $p; $i++) {
-                              echo '<tr>
-          <td>' . $papel[$i]['cod'] . '</td>
-          <td>' . $papel[$i]['descricao'] . '</td>
-          <td>' . $papel[$i]['medida'] . '</td>
-          <td>' . $papel[$i]['gramatura'] . '</td>
-          <td>' . $papel[$i]['formato'] . '</td>
-          <td>' . $papel[$i]['uma_face'] . '</td>
-          <td>' . $papel[$i]['unitario'] . '</td>
-          <td><input type="checkbox"></td>
-        </tr>';
-                            } ?>
-
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- terceiro modal CONTEUDO ACABAMENTO -->
-              <div class="modal" id="modal23">
-                <div class="modal-dialog modal-lg" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">ACABAMENTO</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
-                      <?php
-                      $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos ORDER BY CODIGO DESC");
-                      $query_acabamento->execute();
-                      $a = 0;
-                      while ($linha = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
-                        $acabamento[$a] = [
-                          'CODIGO' => $linha['CODIGO'],
-                          'MAQUINA' => $linha['MAQUINA'],
-                          'ATIVA' => $linha['ATIVA'],
-                          'CUSTO_HORA' => $linha['CUSTO_HORA'],
-                        ];
-                        $a++;
-                      }
-                      ?>
-                      <div class="teste">
-                        <div class="row">
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label class="form-label colorbranca" for="basic-default-phone">NOME DA MÁQUINA</label>
-                              <input type="text" id="basic-default-phone" class="form-control phone-mask"
-                                placeholder="NOME MÁQUINA" />
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label colorbranca" for="basic-default-phone">CUSTO HORA</label>
-                              <input type="number" id="basic-default-phone" class="form-control phone-mask"
-                                placeholder="0" />
-                            </div>
-
-                            <div class="mb-3">
-                              <button class="btn rounded-pill btn-success">CADASTRAR</button>
-                            </div>
-                          </div>
-                          <div style="height: 700px; width: 66%; overflow-y: scroll; " class="m-0 p-0 col-6">
-                            <table class="colorbranca table table-sm table-houver">
-                              <tr>
-                                <th>CODIGO</th>
-                                <th>MÁQUINA</th>
-                                <th>ATIVA</th>
-                                <th>CUSTO HORA</th>
-                                <th>SELECIONAR</th>
-                              </tr>
-                              <?php for ($i = 0; $i < $a; $i++) {
-                                echo '<tr>
-          <td>' . $acabamento[$i]['CODIGO'] . '</td>
-          <td>' . $acabamento[$i]['MAQUINA'] . '</td>
-          <td>' . $acabamento[$i]['ATIVA'] . '</td>
-          <td>' . $acabamento[$i]['CUSTO_HORA'] . '</td>
-          <td><input type="checkbox"></td>
-        </tr>';
-                              } ?>
-
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <!-- Inicializa o Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
-              <!-- Inicializa o Bootstrap -->
-              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const busca = document.getElementById('buscarP');
+    const pesquisarpor = document.getElementById('pesquisarpor');
+    const pesquisar = document.getElementById('pesquisar');
+    const mensagemBusca = document.getElementById('mensagemBusca');
+    const mensagemPesquisa = document.getElementById('mensagemPesquisa');
+    let TipoProdutoSelect = 'PP';
 
-              <script>
-                // Obtém o elemento do segundo modal
-                const modal2 = document.getElementById('modal2');
+    pesquisarpor.addEventListener('click', vlr => {
+      if (pesquisarpor.value === 'codigo') {
+        busca.type = 'number';
+        busca.placeholder = 'DIGITE O CÓDIGO DO PRODUTO';
+      } else {
+        busca.type = 'text';
+        busca.placeholder = 'DIGITE A DESCIÇÃO DO PRODUTO';
+      }
+    });
 
-                // Adiciona o evento 'hidden.bs.modal' ao segundo modal
-                modal2.addEventListener('hidden.bs.modal', function (event) {
-                  // Obtém o elemento do primeiro modal
-                  const modal1 = document.getElementById('modal1');
-
-                  // Verifica se o elemento do primeiro modal existe antes de chamar o método 'show()'
-                  if (modal1) {
-                    modal1.show();
-                  }
-                });
-              </script>
-
-              <script>
-                const busca = document.getElementById('buscarP');
-                const pesquisarpor = document.getElementById('pesquisarpor');
-                const pesquisar = document.getElementById('pesquisar');
-                const mensagemBusca = document.getElementById('mensagemBusca');
-                const mensagemPesquisa = document.getElementById('mensagemPesquisa');
-                let TipoProdutoSelect = 'PP';
-
-                pesquisarpor.addEventListener('click', vlr => {
-                  if (pesquisarpor.value === 'codigo') {
-                    busca.type = 'number';
-                    busca.placeholder = 'DIGITE O CÓDIGO DO PRODUTO';
-                  } else {
-                    busca.type = 'text';
-                    busca.placeholder = 'DIGITE A DESCIÇÃO DO PRODUTO';
-                  }
-                });
-
-                function exibirBusca(dados) {
-                  const tableBody = document.getElementById('produtosTableBody');
-                  tableBody.innerHTML = '';
-                  if (Array.isArray(dados)) {
-                    dados.forEach(produto => {
-                    tableBody.innerHTML += `
+    function exibirBusca(dados) {
+      const tableBody = document.getElementById('produtosTableBody');
+      tableBody.innerHTML = '';
+      if (Array.isArray(dados)) {
+        dados.forEach(produto => {
+          tableBody.innerHTML += `
                     <tr>
                       <td>${produto.CODIGO}</td>
                       <td>${produto.TIPO}</td>
@@ -1620,9 +1105,9 @@ $valor_total_Finalizadas = 0;
                       <td>${produto.VALOR_UNITARIO}</td>
                       <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
                     </tr>`;
-                  });
-                } else {
-                  tableBody.innerHTML += `
+        });
+      } else {
+        tableBody.innerHTML += `
                     <tr>
                       <td>${dados[0].CODIGO}</td>
                       <td>${dados[0].TIPO}</td>
@@ -1630,61 +1115,92 @@ $valor_total_Finalizadas = 0;
                       <td>${dados[0].VALOR_UNITARIO}</td>
                       <td><input type="checkbox" value="${dados[0].CODIGO}" name="Produto${dados[0].CODIGO}"  ></td>
                     </tr>`;
-                }
-                  
-                }
+      }
 
-                function enviarBusca(consulta) {
-                  const xhr = new XMLHttpRequest();
-                  xhr.open('POST', 'api_produtos.php');
-                  xhr.setRequestHeader('Content-Type', 'application/json');
-                  xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                      const response = JSON.parse(xhr.responseText);
-                      exibirBusca(response);
-                    }
-                  };
-                  xhr.send(JSON.stringify(consulta));
-                }
+    }
 
-                pesquisar.addEventListener('click', vlr => {
-                  if (busca.value === '') {
-                    mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR, DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
-                  } else {
-                    mensagemBusca.innerHTML = '';
-                    const consulta = {
-                      TipoProdutoSelect: TipoProdutoSelect,
-                      pesquisa: pesquisarpor.value,
-                      valor: busca.value,
-                    };
-                    enviarBusca(consulta);
-                  }
+    // editar 
+    function coletarCodigos() {
+  // Seleciona a tabela
+  var tabela = document.getElementById("TabelaProdutosOrcamento");
+  
+  // Seleciona todas as linhas do corpo da tabela
+  var linhas = tabela.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+  
+  // Array para armazenar os códigos
+  var codigos = [];
+  
+  // Itera por todas as linhas
+  for (var i = 0; i < linhas.length; i++) {
+    // Seleciona a primeira célula (primeiro <td>) de cada linha
+    var primeiraCelula = linhas[i].getElementsByTagName("td")[0];
+    
+    // Adiciona o texto da célula ao array de códigos
+    codigos.push(primeiraCelula.textContent.trim());
+  }
+  
+  // Junta os códigos em uma string separada por vírgulas
+  var codigosString = codigos.join(',');
+  console.log(codigosString)
+  // Coloca a string de códigos no valor do input com id="produtos_orc_edit"
+  document.getElementById("produtos_orc_edit").value = codigosString;
+}
 
-                })
+// Chama a função para executar a coleta dos códigos
 
 
-                fetch('api_produtos.php')
-                  .then(response => response.json())
-                  .then(data => {
-                    // processa os dados recebidos
-                    const pp = data.pp;
-                    const pe = data.pe;
-                    let ativo_pp = 'Nao';
 
-                    // obtém a referência à tabela onde os resultados serão exibidos
-                    // obtém referência aos inputs de rádio
-                    const ppRadio = document.getElementById('ppRadio');
-                    const peRadio = document.getElementById('peRadio');
+    function enviarBusca(consulta) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'api_produtos.php');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          exibirBusca(response);
+        }
+      };
+      xhr.send(JSON.stringify(consulta));
+    }
 
-                    // adiciona listener de eventos às mudanças nos inputs de rádio
-                    ppRadio.addEventListener('change', function () {
-                      // atualiza a tabela com os valores de pp
-                      ativo_pp = 'Sim';
-                      TipoProdutoSelect = 'PP';
-                      const tableBody = document.getElementById('produtosTableBody');
-                      tableBody.innerHTML = '';
-                      pp.forEach(produto => {
-                        tableBody.innerHTML += `
+    pesquisar.addEventListener('click', vlr => {
+      if (busca.value === '') {
+        mensagemBusca.innerHTML = '<div id="alerta" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Erro!</div><small></small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> </div> <div class="toast-body">  POR FAVOR, DIGITE UMA DESCRIÇÃO NO CAMPO DE BUSCA! </div> </div>';
+      } else {
+        mensagemBusca.innerHTML = '';
+        const consulta = {
+          TipoProdutoSelect: TipoProdutoSelect,
+          pesquisa: pesquisarpor.value,
+          valor: busca.value,
+        };
+        enviarBusca(consulta);
+      }
+
+    })
+
+
+    fetch('api_produtos.php')
+      .then(response => response.json())
+      .then(data => {
+        // processa os dados recebidos
+        const pp = data.pp;
+        const pe = data.pe;
+        let ativo_pp = 'Nao';
+
+        // obtém a referência à tabela onde os resultados serão exibidos
+        // obtém referência aos inputs de rádio
+        const ppRadio = document.getElementById('ppRadio');
+        const peRadio = document.getElementById('peRadio');
+
+        // adiciona listener de eventos às mudanças nos inputs de rádio
+        ppRadio.addEventListener('change', function() {
+          // atualiza a tabela com os valores de pp
+          ativo_pp = 'Sim';
+          TipoProdutoSelect = 'PP';
+          const tableBody = document.getElementById('produtosTableBody');
+          tableBody.innerHTML = '';
+          pp.forEach(produto => {
+            tableBody.innerHTML += `
       <tr>
         <td>${produto.CODIGO}</td>
         <td>${produto.TIPO}</td>
@@ -1693,17 +1209,17 @@ $valor_total_Finalizadas = 0;
         <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
       </tr>
     `;
-                      });
-                    });
+          });
+        });
 
-                    peRadio.addEventListener('change', function () {
-                      // atualiza a tabela com os valores de pe
-                      TipoProdutoSelect = 'PE';
-                      ativo_pp = 'Sim';
-                      const tableBody = document.getElementById('produtosTableBody');
-                      tableBody.innerHTML = '';
-                      pe.forEach(produto => {
-                        tableBody.innerHTML += `
+        peRadio.addEventListener('change', function() {
+          // atualiza a tabela com os valores de pe
+          TipoProdutoSelect = 'PE';
+          ativo_pp = 'Sim';
+          const tableBody = document.getElementById('produtosTableBody');
+          tableBody.innerHTML = '';
+          pe.forEach(produto => {
+            tableBody.innerHTML += `
       <tr>
         <td>${produto.CODIGO}</td>
         <td>${produto.TIPO}</td>
@@ -1712,13 +1228,13 @@ $valor_total_Finalizadas = 0;
         <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
       </tr>
     `;
-                      });
-                    });
-                    if (ativo_pp === 'Nao') {
-                      const tableBody = document.getElementById('produtosTableBody');
-                      tableBody.innerHTML = '';
-                      pp.forEach(produto => {
-                        tableBody.innerHTML += `
+          });
+        });
+        if (ativo_pp === 'Nao') {
+          const tableBody = document.getElementById('produtosTableBody');
+          tableBody.innerHTML = '';
+          pp.forEach(produto => {
+            tableBody.innerHTML += `
       <tr>
         <td>${produto.CODIGO}</td>
         <td>${produto.TIPO}</td>
@@ -1727,123 +1243,125 @@ $valor_total_Finalizadas = 0;
         <td><input type="checkbox" value="${produto.CODIGO}" name="Produto${produto.CODIGO}"  ></td>
       </tr>
     `;
-                      });
-                    }
-                  })
-                  .catch(error => console.error(error));
-              </script>
+          });
+        }
+      })
+      .catch(error => console.error(error));
+  </script>
 
-              <script>
-                // const orcamentoproduto = new Vue({
-                //   el: "#orcamentacaoProduto",
-                //   data: {
-                //     produto: 'valor'
-                //   },
-                //   methods: {
-                //     atualizarProduto: function (novoValor) {
-                //       this.produto = novoValor;
-                //       this.$emit('produto-atualizado', novoValor);
-                //     }
-                //   }
-                // });
+  <script>
+    // const orcamentoproduto = new Vue({
+    //   el: "#orcamentacaoProduto",
+    //   data: {
+    //     produto: 'valor'
+    //   },
+    //   methods: {
+    //     atualizarProduto: function (novoValor) {
+    //       this.produto = novoValor;
+    //       this.$emit('produto-atualizado', novoValor);
+    //     }
+    //   }
+    // });
 
-                // const orcamentoselecionado = new Vue({
-                //   el: "#orcamentacaoselecionado",
-                //   data: {
-                //     produto: ''
-                //   },
-                //   created: function () {
-                //     orcamentoproduto.$on('produto-atualizado', (novoValor) => {
-                //       this.produto = novoValor;
-                //     });
-                //   }
-                // });
-              </script>
+    // const orcamentoselecionado = new Vue({
+    //   el: "#orcamentacaoselecionado",
+    //   data: {
+    //     produto: ''
+    //   },
+    //   created: function () {
+    //     orcamentoproduto.$on('produto-atualizado', (novoValor) => {
+    //       this.produto = novoValor;
+    //     });
+    //   }
+    // });
+  </script>
 
-              <script>
-                const frete = document.getElementById('frete');
-                const arte = document.getElementById('arte');
-                const check_frete = document.getElementById('check_frete');
-                const check_arte = document.getElementById('check_arte');
-                frete.addEventListener('click', arr => {
-                  if (check_frete.disabled === false) {
-                    check_frete.disabled = true;
-                  } else {
-                    check_frete.disabled = false;
-                  }
-                })
-                arte.addEventListener('click', arr => {
-                  if (check_arte.disabled === false) {
-                    check_arte.disabled = true;
-                  } else {
-                    check_arte.disabled = false;
-                  }
-                })
-              </script>
+  <script>
+    const frete = document.getElementById('frete');
+    const arte = document.getElementById('arte');
+    const check_frete = document.getElementById('check_frete');
+    const check_arte = document.getElementById('check_arte');
+    frete.addEventListener('click', arr => {
+      if (check_frete.disabled === false) {
+        check_frete.disabled = true;
+      } else {
+        check_frete.disabled = false;
+      }
+    })
+    arte.addEventListener('click', arr => {
+      if (check_arte.disabled === false) {
+        check_arte.disabled = true;
+      } else {
+        check_arte.disabled = false;
+      }
+    })
+  </script>
 
-              <script>
-                const cod_orc = document.getElementById('cod_orc_')
-                const grafica = document.getElementById("grafica");
-                const cliente = document.getElementById("cliente");
-                const grafica1 = document.getElementById("odN");
-                const cliente1 = document.getElementById("odA");
-                const od = document.getElementById('off');
-                if(document.getElementById('resetar')){
-                  const resatura = document.getElementById('resetar');
-                  resatura.href = 'b-update.php?acao=9&cod=' + cod_orc.value + '';
-                }
-                if (od) {
+  <script>
+    const cod_orc = document.getElementById('cod_orc_')
+    const grafica = document.getElementById("grafica");
+    const cliente = document.getElementById("cliente");
+    const grafica1 = document.getElementById("odN");
+    const cliente1 = document.getElementById("odA");
+    const od = document.getElementById('off');
+    if (document.getElementById('resetar')) {
+      const resatura = document.getElementById('resetar');
+      resatura.href = 'b-update.php?acao=9&cod=' + cod_orc.value + '';
+    }
+    if (od) {
 
-                } else {
-                  cliente.addEventListener('click', vm => {
-                    cliente.checked = true;
-                    cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                  })
-                  grafica.addEventListener('click', vm => {
-                    grafica.checked = true;
-                    cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                  })
-                  if (cliente.checked) {
-                    cliente.checked = true;
-                    cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
-                  } else {
-                    grafica.checked = true;
-                    cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
-                    grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
-                  }
-                 
-                  if (document.querySelector('off')) {
-                    cliente1.href = '#';
-                    grafica1.href = '#';
-                  }
-                }
-              </script>
+    } else {
+      cliente.addEventListener('click', vm => {
+        cliente.checked = true;
+        cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
+        grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
+      })
+      grafica.addEventListener('click', vm => {
+        grafica.checked = true;
+        cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
+        grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
+      })
+      if (cliente.checked) {
+        cliente.checked = true;
+        cliente1.href = 'b-update.php?acao=11&cod=' + cod_orc.value + '';
+        grafica1.href = 'b-update.php?acao=12&cod=' + cod_orc.value + '';
+      } else {
+        grafica.checked = true;
+        cliente1.href = 'b-update.php?acao=4&cod=' + cod_orc.value + '';
+        grafica1.href = 'b-update.php?acao=5&cod=' + cod_orc.value + '';
+      }
 
-              <script>
-                const selects = document.getElementById('selects');
-                const simpleszao = document.getElementById('simpleszao');
-                const detalhadao = document.getElementById('detalhadao');
-                const SIMPLES = document.getElementById('SIMPLES');
-                const DETALHADO = document.getElementById('DETALHADO');
+      if (document.querySelector('off')) {
+        cliente1.href = '#';
+        grafica1.href = '#';
+      }
+    }
+  </script>
 
-                SIMPLES.addEventListener('click', vlr => {
-                  simpleszao.classList.remove('tira');
-                  detalhadao.classList.add('tira');
-                })
-                DETALHADO.addEventListener('click', vlr => {
-                  detalhadao.classList.remove('tira');
-                  simpleszao.classList.add('tira');
-                })
-              </script>
+  <script>
+    const selects = document.getElementById('selects');
+    const simpleszao = document.getElementById('simpleszao');
+    const detalhadao = document.getElementById('detalhadao');
+    const SIMPLES = document.getElementById('SIMPLES');
+    const DETALHADO = document.getElementById('DETALHADO');
 
+    SIMPLES.addEventListener('click', vlr => {
+      simpleszao.classList.remove('tira');
+      detalhadao.classList.add('tira');
+    })
+    DETALHADO.addEventListener('click', vlr => {
+      detalhadao.classList.remove('tira');
+      simpleszao.classList.add('tira');
+    })
 
-
-
+    
+  </script>
 
 
 
 
-              <?php include_once("../html/../html/navbar-dow.php"); ?>
+
+
+
+
+  <?php include_once("../html/../html/navbar-dow.php"); ?>

@@ -184,8 +184,7 @@ function SelecionarProduto(valor) {
   let arraySelecioandos = ProdutoSelecionadoPE ? JSON.parse(ProdutoSelecionadoPE) : [];
   let ProdutoSelecionadoPP = localStorage.getItem('ProdutoSelecionadoPP');
   let arraySelecioandosPP = ProdutoSelecionadoPP ? JSON.parse(ProdutoSelecionadoPP) : [];
-  const SelecionadoProdutoSelecioando = Number(document.getElementById(valor).name.
-    replace('Produto', ''))
+  
   if (document.getElementById(valor).innerHTML == 'Selecioando') {
     document.getElementById('SelecioandoProduto').innerHTML = '<div id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Desmarcado. Produto que estava Selecioando!</div></div>';
     if (ativo) {
@@ -316,9 +315,9 @@ function RecuperaProdutoSelecionado() {
               campo.quantidade = `<input class="form-control2" type="number" id="quantidade" name="quantidade" value="0">`;
             }
            
-            if (data.cod_produto) {
+            if (data.CODIGO) {
               
-              campo.cod_produto = `<input  class="form-control2 " readonly type="number" name="data.cod_produto" id="data.cod_produto${data.cod_produto}" value="${data.cod_produto}"></input>`;
+              campo.cod_produto = `<input  class="form-control2 " readonly type="number" name="data.cod_produto" id="data.cod_produto${data.CODIGO}" value="${data.CODIGO}"></input>`;
             }
             if (data.observacao_produto) {
               campo.observacao_produto = data.observacao_produto;
@@ -402,7 +401,7 @@ function RecuperaProdutoSelecionado() {
                 // Acessando o elemento pelo ID após um pequeno atraso
               setTimeout(function () {
                 var elemento = document.getElementById(valor);
-                adicionarPapelDoClone(valor, data.cod_produto);
+                adicionarPapelDoClone(valor, ids);
               }, 100);
               })
             }
@@ -419,7 +418,7 @@ function RecuperaProdutoSelecionado() {
                 // Acessando o elemento pelo ID após um pequeno atraso
                 setTimeout(function () {
                   var elemento = document.getElementById(valor);
-                  adicionarAcabamentoDoClone(valor, data.cod_produto);
+                  adicionarAcabamentoDoClone(valor, ids);
                 }, 100);
 
               })
@@ -509,3 +508,40 @@ function RecuperaProdutoSelecionado() {
       });
 }
 
+// Editar
+function SelecionarProdutoParaEditar(valor, Tipo) {
+  document.getElementById('load1').style.display = 'flex';
+  
+   let tipo = Tipo;
+  let selecionado = 'Produto'+valor;
+  let ProdutoSelecionadoPE = localStorage.getItem('ProdutoSelecionadoPE');
+  let arraySelecioandos = ProdutoSelecionadoPE ? JSON.parse(ProdutoSelecionadoPE) : [];
+  let ProdutoSelecionadoPP = localStorage.getItem('ProdutoSelecionadoPP');
+  let arraySelecioandosPP = ProdutoSelecionadoPP ? JSON.parse(ProdutoSelecionadoPP) : [];
+    
+    if (tipo === 1) {
+      arraySelecioandosPP.push(selecionado);
+    } else {
+      arraySelecioandos.push(selecionado);
+    }
+  
+  localStorage.setItem('ProdutoSelecionadoPE', JSON.stringify(arraySelecioandos));
+  localStorage.setItem('ProdutoSelecionadoPP', JSON.stringify(arraySelecioandosPP));
+  setTimeout(function () {
+    window.location.reload(true);
+  }, 1500);
+}
+function ProdutosEditar(){
+  let Produto = document.getElementById('ProdutosEditarem').value;
+  let Produtos = Produto.split(',');
+  Produtos.forEach(function(codigo, index) {
+    let Tipo = document.getElementById('TipoProdutosEditarem').value;
+    if(index === 1){
+    //  SelecionarProdutoParaEditar(codigo, Tipo); 
+    }
+});
+}
+
+if(document.getElementById('ProdutosEditarem')){
+  ProdutosEditar();
+}
