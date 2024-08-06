@@ -41,7 +41,6 @@ async function SelecionarSelecioandoApagarPP() {
 async function waitForElement(elementId, timeout = 1000) {
   return new Promise((resolve) => {
     const startTime = Date.now();
-
     const checkElement = () => {
       const element = document.getElementById(elementId);
       if (element) {
@@ -57,7 +56,6 @@ async function waitForElement(elementId, timeout = 1000) {
         }
       }
     };
-
     checkElement();
   });
 }
@@ -281,11 +279,13 @@ function RecuperaProdutoSelecionado() {
      
       let promises = arraySelecionados.map(id => {
         const ids = Number(id.replace('Produto', ''))
-        console.log('api_produto_select.php?id=' + ids + '&tipo=' + tipo);
+       // console.log('api_produto_select.php?id=' + ids + '&tipo=' + tipo);
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
-
+            // console.log('----------')
+            // console.log(data)
+            // console.log('----------')
             if(data[1] == 'erro'){
              ApagarProdutoSelecioando();
             }
@@ -312,6 +312,8 @@ function RecuperaProdutoSelecionado() {
               campo.tipo_papel = data.tipo_papel;
             }
             if (data.quantidade) {
+              campo.quantidade = `<input class="form-control2" type="number" id="quantidade" name="quantidade" value="${data.quantidade}">`;
+            }else{
               campo.quantidade = `<input class="form-control2" type="number" id="quantidade" name="quantidade" value="0">`;
             }
            
@@ -324,9 +326,13 @@ function RecuperaProdutoSelecionado() {
             }
             if (data.preco_unitario) {
               campo.preco_unitario = `<input class="form-control2" type="number" name="preco_unitario" id="preco_unitario${data.CODIGO}" value="${data.preco_unitario}">`;
+            }else{
+              campo.preco_unitario = `<input class="form-control2" type="number" name="preco_unitario" id="preco_unitario${data.CODIGO}" value="0">`;
             }
             if (data.valor_digital) {
               campo.valor_digital = `<input class="form-control2" type="number" name="valor_digital" id="valor_digital${data.CODIGO}" value="${data.valor_digital}">`;
+            }else{
+              campo.valor_digital = `<input class="form-control2" type="number" name="valor_digital" id="valor_digital${data.CODIGO}" value="0">`;
             }
             if (data.tipo_trabalho) {
               campo.tipo_trabalho = data.tipo_trabalho;
@@ -340,6 +346,9 @@ function RecuperaProdutoSelecionado() {
                 campo.offset = `<input class="form-check-input" id="campo${data.CODIGO}" type="checkbox" value="2" checked name="offset">`;
               }
               
+            }else{
+                campo.digital = `<input class="form-check-input" id="campo${data.CODIGO}" type="checkbox" value="1" name="digital">`;
+                campo.offset = `<input class="form-check-input" id="campo${data.CODIGO}" type="checkbox" value="2"  name="offset">`;
             }
             if (data.ESPESSURA) {
               campo.ESPESSURA = data.ESPESSURA;
@@ -472,7 +481,7 @@ function RecuperaProdutoSelecionado() {
         }
         
         campos.forEach(campo => {
-          
+         // console.log(campo)
             if(campo.cod_produto){
               codigo_do_produto.push(campo.cod_PP);   
               codigo_do_acabado.push(campo.cod_AC)
