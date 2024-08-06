@@ -176,45 +176,60 @@ function adicionarPapelDoClone(valor, cod_produto) {
   checkedPapel();
 }
 
-function recuperarNomesAcabamento(iddovalor) {
-  const storedData = localStorage.getItem('AcabamentoSelecionado');
-  let arraySelecionados = storedData ? JSON.parse(storedData) : [];
-  const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
-  let promises = arraySelecionados.map(({ valor }) => fetch(`api_acabamento.php?id=${valor}`).then(response => response.json()));
-  
-  Promise.all(promises)
-    .then(results => {
-      const tableBody = document.getElementById(iddovalor);
-      tableBody.innerHTML = `
-        <thead>
-          <tr>
-            <th>CÓDIGO ACABAMENTO</th>
-            <th>MÁQUINA</th>
-            <th>CUSTO</th>
-          </tr>
-        </thead>`;
-      
-      if (!results || results.length === 0) {
+async function recuperarNomesAcabamento(iddovalor) {
+  try {
+    const storedData = localStorage.getItem('AcabamentoSelecionado');
+    console.log('storedData:', storedData); // Log para verificar os dados armazenados
+    let arraySelecionados = storedData ? JSON.parse(storedData) : [];
+    console.log('arraySelecionados:', arraySelecionados); // Log para verificar o array parseado
+
+    const promises = arraySelecionados.map(({ cod_produto, valor }) => {
+      const url = `api_acabamento.php?id=${valor}`;
+      console.log('Fetching URL:', url); // Log para verificar a URL da API
+      return fetch(url).then(response => response.json()).then(data => ({ ...data, cod_produto }));
+    });
+
+    const results = await Promise.all(promises);
+    console.log('results:', results); // Log para verificar os resultados das promises
+
+    const tableBody = document.getElementById(iddovalor);
+    if (!tableBody) {
+      console.error(`Elemento com ID '${iddovalor}' não encontrado.`);
+      return;
+    }
+
+    tableBody.innerHTML = `
+      <thead>
+        <tr>
+          <th>CÓDIGO PRODUTO</th>
+          <th>CÓDIGO ACABAMENTO</th>
+          <th>MÁQUINA</th>
+          <th>CUSTO</th>
+        </tr>
+      </thead>`;
+
+    if (!results || results.length === 0) {
+      tableBody.innerHTML += `
+        <tr>
+          <td align="center" colspan="4">NENHUM SELECIONADO</td>
+        </tr>`;
+    } else {
+      console.log(results)
+      results.forEach((result, index) => {
+        const inputId = `acabamento_${index}`;
         tableBody.innerHTML += `
           <tr>
-            <td align="center" colspan="3">NENHUM SELECIONADO</td>
+          <td>${result.cod_produto}</td>
+            <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.CODIGO}" id="${inputId}_id">
+            <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.CODIGO}" id="${inputId}_codigo_acabamento" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
           </tr>`;
-      } else {
-        results.forEach((result, index) => {
-          const inputId = `acabamento_${index}`;
-          tableBody.innerHTML += `
-            <tr>
-              <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.id}" id="${inputId}_id">
-              <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.id}" id="${inputId}_codigo_acabamento" readonly></td>
-              <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
-              <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
-            </tr>`;
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Erro ao recuperar nomes do acabamento:', error);
-    });
+      });
+    }
+  } catch (error) {
+    console.error('Erro ao recuperar nomes do acabamento:', error);
+  }
 }
 
 function ApagarAcabamento() {
