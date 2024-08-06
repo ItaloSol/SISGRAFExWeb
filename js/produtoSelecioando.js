@@ -518,39 +518,45 @@ function RecuperaProdutoSelecionado() {
 }
 
 // Editar
-function SelecionarProdutoParaEditar(valor, Tipo) {
-  document.getElementById('load1').style.display = 'flex';
-  
-   let tipo = Tipo;
-  let selecionado = 'Produto'+valor;
-  let ProdutoSelecionadoPE = localStorage.getItem('ProdutoSelecionadoPE');
-  let arraySelecioandos = ProdutoSelecionadoPE ? JSON.parse(ProdutoSelecionadoPE) : [];
-  let ProdutoSelecionadoPP = localStorage.getItem('ProdutoSelecionadoPP');
-  let arraySelecioandosPP = ProdutoSelecionadoPP ? JSON.parse(ProdutoSelecionadoPP) : [];
-    
-    if (tipo === 1) {
-      arraySelecioandosPP.push(selecionado);
-    } else {
-      arraySelecioandos.push(selecionado);
-    }
-  
-  localStorage.setItem('ProdutoSelecionadoPE', JSON.stringify(arraySelecioandos));
-  localStorage.setItem('ProdutoSelecionadoPP', JSON.stringify(arraySelecioandosPP));
-  setTimeout(function () {
-    window.location.reload(true);
-  }, 1500);
-}
-function ProdutosEditar(){
-  let Produto = document.getElementById('ProdutosEditarem').value;
-  let Produtos = Produto.split(',');
-  Produtos.forEach(function(codigo, index) {
-    let Tipo = document.getElementById('TipoProdutosEditarem').value;
-    if(index === 1){
-    //  SelecionarProdutoParaEditar(codigo, Tipo); 
-    }
-});
-}
 
-if(document.getElementById('ProdutosEditarem')){
-  ProdutosEditar();
+function SelecionarProdutoEditando(Produtos) {
+  ApagarProdutoSelecioando()
+  let produtosArray = Produtos.split(',');
+    // Iterando sobre o array para chamar a função SelecionarProdutoEditando para cada número
+    produtosArray.forEach(function(valor) {
+     
+      valor = 'Produto'+valor
+   
+    const PP = true; // Assumindo que PP não está checado no momento
+    let ativo = PP ? true : false;
+    let ProdutoSelecionadoPE = localStorage.getItem('ProdutoSelecionadoPE');
+    let arraySelecionadosPE = ProdutoSelecionadoPE ? JSON.parse(ProdutoSelecionadoPE) : [];
+    let ProdutoSelecionadoPP = localStorage.getItem('ProdutoSelecionadoPP');
+    let arraySelecionadosPP = ProdutoSelecionadoPP ? JSON.parse(ProdutoSelecionadoPP) : [];
+
+    // Verificar se o produto já está selecionado
+    let produtoIndexPE = arraySelecionadosPE.indexOf(valor);
+    let produtoIndexPP = arraySelecionadosPP.indexOf(valor);
+
+    if (produtoIndexPE !== -1 || produtoIndexPP !== -1) {
+        // Produto já está selecionado, vamos desmarcar
+        if (ativo) {
+            arraySelecionadosPP = arraySelecionadosPP.filter(id => id !== valor);
+        } else {
+            arraySelecionadosPE = arraySelecionadosPE.filter(id => id !== valor);
+        }
+        console.log(`Produto ${valor} desmarcado.`);
+    } else {
+        // Produto não está selecionado, vamos marcar
+        if (ativo) {
+            arraySelecionadosPP.push(valor);
+        } else {
+            arraySelecionadosPE.push(valor);
+        }
+        console.log(`Produto ${valor} selecionado.`);
+    }
+
+    localStorage.setItem('ProdutoSelecionadoPE', JSON.stringify(arraySelecionadosPE));
+    localStorage.setItem('ProdutoSelecionadoPP', JSON.stringify(arraySelecionadosPP));
+  });
 }
