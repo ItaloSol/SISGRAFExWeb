@@ -389,171 +389,94 @@ async function EditarPapel() {
 
 
 }
-function recuperarNomesPapel(valor, codigo_do_produto) {
-  const storedData = localStorage.getItem('papelSelecionado');
-  let arraySelecionados = storedData ? JSON.parse(storedData) : [];
-  const codProdutos = arraySelecionados.map(({ cod_produto }) => cod_produto);
-  // Extract the 'cod_produto' property from each object in the array
-  const tipo = localStorage.getItem('ProdutoClonado');
-  let tipoProduto = 1;
-  if (tipo != '[]') {
-    tipoProduto = 2;
-  }
-  // Extract the 'valor' property from each object in the array
-  //arraySelecionados = arraySelecionados.map(({ valor }) => valor);
-  let promises = arraySelecionados.map(id => {
-    return fetch('api_papel.php?id=' + id.valor + '&codi=' + id.cod_produto + '&tipo=' + tipoProduto)
-      .then((response) => response.json())
-      .then(data => {
-        if (data.codPapel == null) {
-          return {
-            codPapel: false
-          }
-        } else {
-          return {
-            codPapel: data.cod_papel,
-            id,
-            codproduto: id.cod_produto,
-            nomePapel: data.descricao_do_papel,
-            corFrente: data.cor_frente,
-            corVerso: data.cor_verso,
-            tipo_papel: data.tipo_papel,
-            descricao: data.descricao,
-            orelha: data.orelha,
-            preco_chapa: data.valor_chapa,
-            codPapels: data.cod_papels,
-            descricaoPapel: data.descricao_do_papel,
-            medida: data.medida,
-            preco_folha: data.unitario,
-            gramatura: data.gramatura,
-            formato: data.formato,
-            umaFace: data.uma_face,
-          };
-        }
-      });
-  });
+async function recuperarNomesPapel(valor, codigo_do_produto) {
+  try {
+    const storedData = localStorage.getItem('papelSelecionado');
+    console.log('storedData:', storedData); // Log para verificar os dados armazenados
+    let arraySelecionados = storedData ? JSON.parse(storedData) : [];
+    console.log('arraySelecionados:', arraySelecionados); // Log para verificar o array parseado
 
-  Promise.all(promises)
-    .then((results) => {
-      const nomePapel = results.map((result) => result.nomePapel).join(', ');
+    const tipo = localStorage.getItem('ProdutoClonado');
+    console.log('tipo:', tipo); // Log para verificar o tipo do produto
+    const tipoProduto = tipo !== '[]' ? 2 : 1;
+    console.log('tipoProduto:', tipoProduto); // Log para verificar o valor de tipoProduto
 
-      let tableBody = '';
-      let valor = 'tabela_campos';
-      if (valor !== 'tabela_campos') {
-        tableBody = document.getElementById('personalizaPapel');
-        tableBody.innerHTML = '';
-        if (valor == 'tabela_campos') {
-          tableBody.insertAdjacentHTML(
-            'beforeend',
-            `
-        <thead>
-        <tr>
-        <th>CÓDIGO PRODUTO</th>
-          <th>CÓDIGO PAPEL</th>
-          <th>DESCRIÇÃO</th>
-          <th>TIPO</th>
-          <th>CF</th>
-          <th>CV</th>
-          <th>FORMATO IMPRESSÃO</th>
-          <th>PERCA(%)</th>
-          <th>GASTO FOLHA</th>
-          <th>PREÇO FOLHA</th>
-          <th>QUANTIDADE DE CHAPAS</th>
-          <th>PREÇO CHAPA</th>
-        </tr>
-      </thead>`
-          );
-        } else {
-          tableBody.insertAdjacentHTML(
-            'beforeend',
-            `
-        <thead>
-        <tr>
-        <th>CÓDIGO PRODUTO</th>
-          <th>CÓDIGO PAPEL</th>
-          <th>DESCRIÇÃO</th>
-          <th>TIPO</th>
-          <th>CF</th>
-          <th>CV</th>
-          <th>FORMATO IMPRESSÃO</th>
-          <th>PERCA(%)</th>
-          <th>PREÇO FOLHA</th>
-        </tr>
-      </thead>`
-          );
-        }
+    const promises = arraySelecionados.map(async id => {
+      const url = `api_papel.php?id=${id.valor}&codi=${id.cod_produto}&tipo=${tipoProduto}`;
+      console.log('Fetching URL:', url); // Log para verificar a URL da API
+      const response = await fetch(url);
 
-      } else {
-        tableBody = document.getElementById('tabela_campos');
+      if (!response.ok) {
+        console.error('Erro na resposta da API:', response.statusText);
+        return { codPapel: false };
       }
 
-      if (!results || results.length <= 1 || results.codPapel == false) {
+      const data = await response.json();
+      console.log('Dados da API:', data); // Log para verificar os dados da API
+
+      if (!data.cod_papels) {
+        return { codPapel: false };
+      } else {
+        return {
+          codPapels: data.cod_papels,
+          codproduto: id.cod_produto,
+          nomePapel: data.descricao_do_papel,
+          medida: data.medida,
+          gramatura: data.gramatura,
+          formato: data.formato,
+          umaFace: data.uma_face,
+          preco_folha: data.unitario,
+          preco_chapa: data.valor_chapa,
+          corFrente: data.cor_frente || 0,
+          corVerso: data.cor_verso || 0,
+          tipo_papel: data.tipo_papel || '',
+        };
+      }
+    });
+
+    const results = await Promise.all(promises);
+    console.log('results:', results); // Log para verificar os resultados das promises
+
+    const nomePapel = results.map(result => result.nomePapel).join(', ');
+    console.log('nomePapel:', nomePapel); // Log para verificar os nomes dos papéis
+
+    let tableBody = document.getElementById('tabela_campos');
+    if (!tableBody) {
+      console.error("Elemento 'tabela_campos' não encontrado.");
+      return;
+    }
+
+    tableBody.innerHTML = ''; // Clear existing table content
+
+    if (results.some(result => result.codPapel === false) || results.length === 0) {
+      tableBody.insertAdjacentHTML(
+        'beforeend',
+        `<tr><td align="center" colspan="12">NENHUM SELECIONADO</td></tr>`
+      );
+    } else {
+      results.forEach(result => {
         tableBody.insertAdjacentHTML(
           'beforeend',
-          `
-      <tr>
-      <td align="center" colspan="12">
-        NENHUM SELECIONADO
-      </td>
-    </tr>`
-        );
-      } else {
-        let cont = 0;
-        results.forEach((result) => {
-          if (valor == 'tabela_campos') {
-            tableBody.insertAdjacentHTML(
-              'beforeend',
-              `<tr>
-               <td>${result.codproduto}</td>
-               <td>${result.codPapels}</td>
-               <td>${result.nomePapel}</td>
-               <td>${result.tipo_papel}</td>
-               <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
-               <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
-               <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
-               <td><input class="form-control2" value="5" type="number"></td>
-               <td><input class="form-control2" id="GFolha${result.codPapels}${result.codproduto}" value="0" type="number"></td>
-               <td>${result.preco_folha}</td>
-               <td><input class="form-control2" id="GChapa${result.codPapels}${result.codproduto}" value="0" type="number"></td>
-               <td>${result.preco_chapa}</td>
-             </tr>`
-            );
-          } else {
-            tableBody.insertAdjacentHTML(
-              'beforeend',
-              `<tr>
+          `<tr>
              <td>${result.codproduto}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
-             <td>
-             <select class="form-select">
-               <option>SELECIONE</option>
-               <option>CAPA</option>
-               <option>MIOLO</option>
-               <option>FOLHA</option>
-               <option>1° VIA</option>
-               <option>2° VIA</option>
-               <option>3° VIA</option>
-             </select></td>
+             <td>${result.tipo_papel}</td>
              <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
              <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
-             <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}"  type="number"></td>
+             <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}" type="number"></td>
              <td><input class="form-control2" value="5" type="number"></td>
-            
+             <td><input class="form-control2" id="GFolha${result.codPapels}${result.codproduto}" value="0" type="number"></td>
              <td>${result.preco_folha}</td>
-            
-            
+             <td><input class="form-control2" id="GChapa${result.codPapels}${result.codproduto}" value="0" type="number"></td>
+             <td>${result.preco_chapa}</td>
            </tr>`
-            );
-          }
-          cont++;
-        });
-      }
-    })
-
-    .catch((error) => {
-      console.error('Erro ao recuperar nomes do papel:', error);
-    });
+        );
+      });
+    }
+  } catch (error) {
+    console.error('Erro ao recuperar nomes do papel:', error);
+  }
 }
 
 function checkedPapel() {
