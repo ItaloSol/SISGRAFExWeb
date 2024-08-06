@@ -519,15 +519,13 @@ function RecuperaProdutoSelecionado() {
 
 // Editar
 
-function SelecionarProdutoEditando(Produtos) {
+function SelecionarProdutoEditando(Produtos, PP) {
   ApagarProdutoSelecioando()
   let produtosArray = Produtos.split(',');
     // Iterando sobre o array para chamar a função SelecionarProdutoEditando para cada número
     produtosArray.forEach(function(valor) {
      
       valor = 'Produto'+valor
-   
-    const PP = true; // Assumindo que PP não está checado no momento
     let ativo = PP ? true : false;
     let ProdutoSelecionadoPE = localStorage.getItem('ProdutoSelecionadoPE');
     let arraySelecionadosPE = ProdutoSelecionadoPE ? JSON.parse(ProdutoSelecionadoPE) : [];

@@ -25,7 +25,11 @@ if
     $_POST['numero2'] = $Pesquisa_Cliente;
     $_POST['tipo_cliente'] = $Tipo_Cliente;
     $Produtos = $_POST['produtos'];
-  
+    if($_POST['ttipo_produto'] == 1){
+      $tipo_produtoEditar = true;
+    }else{
+      $tipo_produtoEditar = false;
+    }
 ?>
 
 
@@ -1434,10 +1438,10 @@ if
     <script>
     // Obtendo a string de números separados por vírgulas do PHP
     let produtos = "<?php echo $Produtos; ?>";
-
+    let TipoEditar = "<?php echo $tipo_produtoEditar; ?>";
     // Dividindo a string em um array de números
     
-        SelecionarProdutoEditando(produtos);
+        SelecionarProdutoEditando(produtos, TipoEditar);
    
 
     // Definição da função SelecionarProdutoEditando
