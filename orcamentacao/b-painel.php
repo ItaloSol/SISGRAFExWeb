@@ -332,7 +332,8 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
           <label for="exampleFormControlSelect1" class="form-label">Pesquisar por</label>
           <select class="form-select" name="Tp" id="exampleFormControlSelect1" aria-label="Default select example">
             <option value="orc">Código Orçamento</option>
-            <option value="nomepro">Nome Produto</option>
+            <option value="nomepro">Nome Produto PP</option>
+            <option value="nomeproPE">Nome Produto PE</option>
             <option value="clinom">Nome Cliente</option>
             <option value="cli">Cod Cliente</option>
             <!-- <option value="oper">Nome Emisor</option> -->
@@ -531,7 +532,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                 echo '<th>Data de Validade</th>';
                 echo '<th>Status</th>';
 
-                $Orderby = "cod DESC ";
+                $Orderby = "o.cod DESC ";
 
 
                 ?>
@@ -552,6 +553,10 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                   }
                 }
                 if ($_GET['Tp'] == 'nomepro') {
+
+                  $Where = 'DESCRICAO LIKE %' . $_GET['PS'] . '% ';
+                }
+                if ($_GET['Tp'] == 'nomeproPE') {
 
                   $Where = 'DESCRICAO LIKE %' . $_GET['PS'] . '% ';
                 }
@@ -627,49 +632,59 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
               }
               // echo $Where;
               if (isset($Where)) {
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE $Where ORDER BY $Orderby LIMIT $Pg ,50");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE $Where ORDER BY $Orderby LIMIT $Pg ,50");
               } else {
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.status != '11' ORDER BY $Orderby LIMIT $Pg ,50");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.status != '11' ORDER BY $Orderby LIMIT $Pg ,50");
               }
+              
 
               if (isset($_GET['Tp'])) {
                 if ($_GET['Tp'] == 'nomepro') {
                   $nome =  $_GET['PS'];
-                  $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO INNER JOIN tabela_produtos_orcamento po ON o.cod = po.cod_orcamento INNER JOIN produtos p ON p.CODIGO = po.cod_produto  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE p.DESCRICAO like '%$nome%' ORDER BY $Orderby LIMIT $Pg ,50");
+                  
+                  $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, po.*, p.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO INNER JOIN tabela_produtos_orcamento po ON o.cod = po.cod_orcamento INNER JOIN produtos p ON p.CODIGO = po.cod_produto  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE p.DESCRICAO like '%$nome%' ORDER BY $Orderby LIMIT $Pg ,50");
+                }
+                if ($_GET['Tp'] == 'nomeproPE') {
+                  $nome =  $_GET['PS'];
+                  $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, po.*, p.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO INNER JOIN tabela_produtos_orcamento po ON o.cod = po.cod_orcamento INNER JOIN produtos_pr_ent p ON p.CODIGO = po.cod_produto  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE p.DESCRICAO like '%$nome%' ORDER BY $Orderby LIMIT $Pg ,50");
+                }
+                if ($_GET['Tp'] == 'sts') {
+                  $sts =  $_GET['PS'];
+                  $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.status = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status = $sts ORDER BY  codigoOrc DESC");
                 }
               }
               if (isset($_GET['Attr'])) {
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.data_validade < '$hoje' AND o.status NOT IN (1,3,4,5,10,11,12,13,15) ORDER BY  o.status ASC ");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.data_validade < '$hoje' AND o.status NOT IN (1,3,4,5,10,11,12,13,15) ORDER BY  o.status ASC ");
               } elseif (isset($_GET['Pro'])) {
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  IN (2,3,4,5,6,7,8,9) ORDER BY  o.data_validade DESC ");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  IN (2,3,4,5,6,7,8,9) ORDER BY  o.data_validade DESC ");
               } elseif (isset($_GET['Exp'])) {
                 if ($_GET['Exp'] == '2') {
-                  $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '2' ORDER BY  o.data_validade DESC ");
+                  $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '2' ORDER BY  o.data_validade DESC ");
                 }
               } elseif (isset($_GET['Ent'])) {
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '9' ORDER BY  o.data_validade DESC LIMIT 100 ");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE  o.status  = '9' ORDER BY  o.data_validade DESC LIMIT 100 ");
               }
               if (isset($_GET['EmProD'])) {
                 $Status_EmProD = $_GET['EmProD'];
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.status = '$Status_EmProD' ORDER BY  o.data_validade DESC ");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.status = '$Status_EmProD' ORDER BY  o.data_validade DESC ");
               }
               if (isset($_GET['ProdT'])) {
                 $sts = $_GET['ProdT'];
                 if ($sts == 0) {
-                  $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status
+                  $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status
                                 WHERE o.status >= '1' AND o.status <= '4' AND o.status != '2'  ORDER BY  o.data_validade DESC ");
                 } else {
-                  $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status
+                  $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status
                                 WHERE o.status = '$sts' ORDER BY  o.data_validade DESC ");
                 }
               }
 
               if (isset($_GET['Att'])) {
                 $Cod_Att = $_GET['Att'];
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.data_validade < '$vencendo' AND o.data_validade > '$hoje' AND o.status = '$Cod_Att'  ORDER BY  o.data_validade DESC ");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.data_validade < '$vencendo' AND o.data_validade > '$hoje' AND o.status = '$Cod_Att'  ORDER BY  o.data_validade DESC ");
               }
               if (isset($_GET['Res'])) {
-                $query_ordens_finalizadas = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO WHERE $Where ");
+                $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO WHERE $Where ");
               }
               //  echo "SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO WHERE o.data_validade < '$hoje' AND o.status = '7' ORDER BY  o.data_validade DESC";
               $query_ordens_finalizadas->execute();
@@ -678,7 +693,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                 if (isset($_GET['Res'])) {
 
                   $Ordens_Finalizadas[$i] = [
-                    'cod' => $linha['cod'],
+                    'cod' => $linha['codigoOrc'],
                     'cod_cliente' => $linha['cod_cliente'],
                     'cod_contato' => $linha['cod_contato'],
                     'cod_endereco' => $linha['cod_endereco'],
@@ -718,7 +733,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                 } else {
 
                   $Ordens_Finalizadas[$i] = [
-                    'cod' => $linha['cod'],
+                    'cod' => $linha['codigoOrc'],
                     'cod_cliente' => $linha['cod_cliente'],
                     'cod_contato' => $linha['cod_contato'],
                     'cod_endereco' => $linha['cod_endereco'],
@@ -745,7 +760,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                 $Pesquisa_Cliente = $Ordens_Finalizadas[$i]['cod_cliente'];
                 $Tipo_Cliente = $Ordens_Finalizadas[$i]['tipo_cliente'];
                 if (isset($_GET['Tp'])) {
-                  if ($_GET['Tp'] == 'nomepro') {
+                  if ($_GET['Tp'] == 'nomepro' || $_GET['Tp'] == 'nomeproPE') {
                     $cod_produto = $linha['cod_produto'];
                     $tipo_produto = $linha['tipo_produto'];
                     $quantiadade = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento  WHERE cod_produto = '$cod_produto' AND tipo_produto = $tipo_produto ");
@@ -883,7 +898,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                                   </td>
                                             </tr>';
                     echo $relatorio;
-                    echo "<script>window.location = 'painel.php?Tp=" . $tp . "&PS=" . $nome . "&Res=um'</script>";
+                    echo "<script>window.location = 'tl-painel.php?Tp=" . $tp . "&PS=" . $nome . "&Res=um'</script>";
                   } else {
                     $relatorio = '<td><b>Nenhum Resultado Encontrado!</b></td>' .
                       '<td></td>' .
