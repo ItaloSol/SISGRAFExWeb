@@ -179,18 +179,18 @@ function adicionarPapelDoClone(valor, cod_produto) {
 async function recuperarNomesAcabamento(iddovalor) {
   try {
     const storedData = localStorage.getItem('AcabamentoSelecionado');
-    console.log('storedData:', storedData); // Log para verificar os dados armazenados
+   // console.log('storedData:', storedData); // Log para verificar os dados armazenados
     let arraySelecionados = storedData ? JSON.parse(storedData) : [];
-    console.log('arraySelecionados:', arraySelecionados); // Log para verificar o array parseado
+   // console.log('arraySelecionados:', arraySelecionados); // Log para verificar o array parseado
 
     const promises = arraySelecionados.map(({ cod_produto, valor }) => {
       const url = `api_acabamento.php?id=${valor}`;
-      console.log('Fetching URL:', url); // Log para verificar a URL da API
+     // console.log('Fetching URL:', url); // Log para verificar a URL da API
       return fetch(url).then(response => response.json()).then(data => ({ ...data, cod_produto }));
     });
 
     const results = await Promise.all(promises);
-    console.log('results:', results); // Log para verificar os resultados das promises
+   // console.log('results:', results); // Log para verificar os resultados das promises
 
     const tableBody = document.getElementById(iddovalor);
     if (!tableBody) {
@@ -214,7 +214,7 @@ async function recuperarNomesAcabamento(iddovalor) {
           <td align="center" colspan="4">NENHUM SELECIONADO</td>
         </tr>`;
     } else {
-      console.log(results)
+    //  console.log(results)
       results.forEach((result, index) => {
         const inputId = `acabamento_${index}`;
         tableBody.innerHTML += `
@@ -407,18 +407,18 @@ async function EditarPapel() {
 async function recuperarNomesPapel(valor, codigo_do_produto) {
   try {
     const storedData = localStorage.getItem('papelSelecionado');
-    console.log('storedData:', storedData); // Log para verificar os dados armazenados
+   // console.log('storedData:', storedData); // Log para verificar os dados armazenados
     let arraySelecionados = storedData ? JSON.parse(storedData) : [];
-    console.log('arraySelecionados:', arraySelecionados); // Log para verificar o array parseado
+  //  console.log('arraySelecionados:', arraySelecionados); // Log para verificar o array parseado
 
     const tipo = localStorage.getItem('ProdutoClonado');
-    console.log('tipo:', tipo); // Log para verificar o tipo do produto
+  //  console.log('tipo:', tipo); // Log para verificar o tipo do produto
     const tipoProduto = tipo !== '[]' ? 2 : 1;
-    console.log('tipoProduto:', tipoProduto); // Log para verificar o valor de tipoProduto
+  //  console.log('tipoProduto:', tipoProduto); // Log para verificar o valor de tipoProduto
 
     const promises = arraySelecionados.map(async id => {
       const url = `api_papel.php?id=${id.valor}&codi=${id.cod_produto}&tipo=${tipoProduto}`;
-      console.log('Fetching URL:', url); // Log para verificar a URL da API
+   //   console.log('Fetching URL:', url); // Log para verificar a URL da API
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -427,7 +427,7 @@ async function recuperarNomesPapel(valor, codigo_do_produto) {
       }
 
       const data = await response.json();
-      console.log('Dados da API:', data); // Log para verificar os dados da API
+    //  console.log('Dados da API:', data); // Log para verificar os dados da API
 
       if (!data.cod_papels) {
         return { codPapel: false };
@@ -450,10 +450,10 @@ async function recuperarNomesPapel(valor, codigo_do_produto) {
     });
 
     const results = await Promise.all(promises);
-    console.log('results:', results); // Log para verificar os resultados das promises
+  //  console.log('results:', results); // Log para verificar os resultados das promises
 
     const nomePapel = results.map(result => result.nomePapel).join(', ');
-    console.log('nomePapel:', nomePapel); // Log para verificar os nomes dos papéis
+  //  console.log('nomePapel:', nomePapel); // Log para verificar os nomes dos papéis
 
     let tableBody = document.getElementById('tabela_campos');
     if (!tableBody) {
@@ -999,11 +999,11 @@ async function EditarServico() {
   const valorUnitario = document.getElementById('valorUnitario').value;
   const tipoServico = document.getElementById('tipoServico').value;
   const Servico_Geral = document.getElementById('Servico_Geral').checked;
-  console.log('api_servico.php?atualiza=' + idservico + '&nome=' + Nome_Servico
-    + '&valorUnitario=' + valorUnitario
-    + '&tipoServico=' + tipoServico
-    + '&valor_min=' + valor_min
-    + '&Servico_Geral=' + Servico_Geral);
+ // console.log('api_servico.php?atualiza=' + idservico + '&nome=' + Nome_Servico
+ //   + '&valorUnitario=' + valorUnitario
+ //   + '&tipoServico=' + tipoServico
+ //   + '&valor_min=' + valor_min
+ //   + '&Servico_Geral=' + Servico_Geral);
   const response = await fetch('api_servico.php?atualiza=' + idservico + '&nome=' + Nome_Servico
     + '&valorUnitario=' + valorUnitario
     + '&tipoServico=' + tipoServico
@@ -1407,7 +1407,7 @@ function Dados_Novo_Produto() {
     for (var j = 0; j < linhas.length; j++) {
       var linha = linhas[j];
       var celulas = linha.getElementsByTagName('td');
-      console.log(celulas[0].getElementsByTagName('input')[0])
+     // console.log(celulas[0].getElementsByTagName('input')[0])
       // Get the input elements and their values
       var inputCodigoAcabamento = celulas[0].getElementsByTagName('input')[1];
       var objetoJson = {
