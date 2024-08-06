@@ -24,6 +24,12 @@ if
     $_POST['numero1'] =  $Pesquisa_Cliente;
     $_POST['numero2'] = $Pesquisa_Cliente;
     $_POST['tipo_cliente'] = $Tipo_Cliente;
+    $Produtos = $_POST['produtos'];
+  
+?>
+
+
+<?php
   }
 
   $cod_orcamento = 000;
@@ -1422,4 +1428,20 @@ if
     <script src="../js/cadastros_orcamento.js"></script>
     <script src="../js/produtoClonado.js"></script>
     <script src="../js/produtoSelecioando.js"></script>
+    <?php 
+    if (!isset($_SESSION['processed']) || $_SESSION['processed'] !== true) {
+      ?>
+    <script>
+    // Obtendo a string de números separados por vírgulas do PHP
+    let produtos = "<?php echo $Produtos; ?>";
+
+    // Dividindo a string em um array de números
+    
+        SelecionarProdutoEditando(produtos);
+   
+
+    // Definição da função SelecionarProdutoEditando
+    
+</script>
+<?php  $_SESSION['processed'] = true; } ?>
     <?php include_once("../html/navbar-dow.php"); ?>

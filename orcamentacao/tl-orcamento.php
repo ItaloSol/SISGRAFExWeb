@@ -8,7 +8,6 @@
 $_SESSION["pag"] = array(1, 0);
 
 
-
 if (isset($_GET['cod'])) {
   $cod_orcamento = $_GET['cod'];
 } else {
@@ -782,6 +781,7 @@ $valor_total_Finalizadas = 0;
                           <th>OBSERVAÇÕES</th>
                         </tr>
                       </thead>
+                      <?php $_SESSION['processed'] = false; ?>
                           <form method="POST" action="abrir_orcamento.php">
                             <input type="hidden" value="<?= $cod_orcamento ?>" name="Cod_Orcamento">
                             <input type="hidden" id="produtos_orc_edit" name="produtos">
