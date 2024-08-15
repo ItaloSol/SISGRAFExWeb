@@ -36,7 +36,6 @@ if
 <?php
   }
 
-  $cod_orcamento = 000;
   if ($_POST['numero1'] != '') {
     $Pesquisa_Cliente = $_POST['numero1'];
   } else {
@@ -169,8 +168,14 @@ if
               <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                 </div>
-                <div class="card-body">
-
+                <div class="card-body"> 
+                  <?php if(isset($cod_orcamento)) {
+                    echo '
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Informações do Oçamento Sendo editado </h5><h1 id="orcamentoEdit">'. $cod_orcamento .'</h1>
+                  </div>';
+                  };
+                ?>
 
                   <br>
                   <div class="card-header d-flex align-items-center justify-content-between">
