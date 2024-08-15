@@ -1177,7 +1177,8 @@ function SalvarOrcamento() {
   const total = document.getElementById('ValorTotalOrc')
   const menu = document.getElementById('ValorManual')
   const tipo_produto = document.getElementById('TIPO_PRODUTO');
-  const data_validade = document.getElementById('data_validade')
+  const data_validade = document.getElementById('data_validade');
+  const orcamentoEdit = document.getElementById('orcamentoEdit') ? document.getElementById('orcamentoEdit').innerHTML : null;
   var manual = 0;
   if(menu == true){
      manual = 1;
@@ -1191,6 +1192,7 @@ function SalvarOrcamento() {
     let SalvaDados = BuscaDados();
     console.log(SalvaDados)
     const dados = {
+      cod_orcamento_edit: orcamentoEdit,
       cod: codigoCliente.value,
       tipo: tipocliente.value,
       contato: contato.value,
@@ -1215,7 +1217,9 @@ function SalvarOrcamento() {
       params.push(`${key}=${encodeURIComponent(dados[key])}`);
     }
     const queryString = params.join('&');
-    
+    const fullUrl = `${url}?${queryString}`;
+
+console.log('URL para acessar a API manualmente:', fullUrl);
     fetch(`${url}?${queryString}`)
       .then(response => {
         if (!response.ok) {

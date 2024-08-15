@@ -792,7 +792,7 @@ $valor_total_Finalizadas = 0;
                             <input type="hidden" value="<?= $cod_orcamento ?>" name="Cod_Orcamento">
                             <input type="hidden" id="produtos_orc_edit" name="produtos">
                             <input type="hidden" id="ttipo_produto" value="<?=  $tipo_produto ?>" name="ttipo_produto">
-                            <button type="submit" onclick="coletarCodigos()">Editar</button>
+                            <button class="btn btn-outline-success" type="submit" onclick="coletarCodigos()">Editar</button>
                           </form>
                         <tbody class="table-border-bottom-0">
                         <?php
