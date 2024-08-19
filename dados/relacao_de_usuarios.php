@@ -1,7 +1,7 @@
 <?php //**   */ 
 include_once('../conexoes/conexao.php');
 
-$query_sd_posto = $conexao->prepare("SELECT * FROM usuario_acessos u INNER JOIN tabela_atendentes a ON a.codigo_atendente = u.CODIGO_USR "); 
+$query_sd_posto = $conexao->prepare("SELECT * FROM usuario_acesso u INNER JOIN tabela_atendentes a ON a.codigo_atendente = u.CODIGO_USR "); 
 $query_sd_posto->execute(); 
 $i = 0;
  while($linha = $query_sd_posto->fetch(PDO::FETCH_ASSOC)) {

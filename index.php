@@ -193,7 +193,7 @@
     const input = document.getElementById('password');
     btn.addEventListener('click', function() { 
       console.log(input.getAttribute('type'))
-    if(input.getAttribute('type') === 'password') {
+    if(input.getAttribute('type') == 'password') {
       input.setAttribute('type', 'text');
     } else {
        input.setAttribute('type', 'password');

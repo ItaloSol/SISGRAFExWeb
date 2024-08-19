@@ -172,7 +172,7 @@ function adicionarPapelDoClone(valor, cod_produto) {
   let PapelSelecionado = JSON.parse(localStorage.getItem('papelSelecionado')) || [];
   PapelSelecionado.push({ cod_produto, valor });
   localStorage.setItem('papelSelecionado', JSON.stringify(PapelSelecionado));
-  recuperarNomesAcabamento('personalizaPapel');
+  recuperarNomesPapel('personalizaPapel',0,0);
   checkedPapel();
 }
 
@@ -197,7 +197,37 @@ async function recuperarNomesAcabamento(iddovalor) {
       console.error(`Elemento com ID '${iddovalor}' não encontrado.`);
       return;
     }
+    if(iddovalor == 'NovoAcabemtnoSe'){
+      tableBody.innerHTML = `
+      <thead>
+        <tr>
+          <th>CÓDIGO ACABAMENTO</th>
+          <th>MÁQUINA</th>
+          <th>CUSTO</th>
+        </tr>
+      </thead>`;
 
+    if (!results || results.length === 0) {
+      tableBody.innerHTML += `
+        <tr>
+          <td align="center" colspan="4">NENHUM SELECIONADO</td>
+        </tr>`;
+    } else {
+    //  console.log(results)
+      results.forEach((result, index) => {
+        const inputId = `acabamento_${index}`;
+        tableBody.innerHTML += `
+          <tr>
+            <td><input type="hidden" name="acabamentos[${index}][id]" value="${result.CODIGO}" id="${inputId}_id">
+            <input type="text" class="form-control" name="acabamentos[${index}][codigo_acabamento]" value="${result.CODIGO}" id="${inputId}_codigo_acabamento" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][maquina]" value="${result.MAQUINA}" id="${inputId}_maquina" readonly></td>
+            <td><input type="text" class="form-control" name="acabamentos[${index}][custo_hora]" value="${result.CUSTO_HORA}" id="${inputId}_custo_hora" readonly></td>
+          </tr>`;
+      });
+    }
+    }else{
+
+    
     tableBody.innerHTML = `
       <thead>
         <tr>
@@ -227,6 +257,7 @@ async function recuperarNomesAcabamento(iddovalor) {
           </tr>`;
       });
     }
+  }
   } catch (error) {
     console.error('Erro ao recuperar nomes do acabamento:', error);
   }
@@ -254,6 +285,7 @@ function selecionarPapel(dado) {
   const selecionado = JSON.parse(localStorage.getItem('papelSelecionado')) || [];
   selecionado.push(dado);
   localStorage.setItem('papelSelecionado', JSON.stringify(selecionado));
+  recuperarNomesPapel('personalizaPapel', 0, 0)
 }
 
 function checarPapel() {
@@ -277,7 +309,7 @@ function apagarPapel() {
       <div class="toast-body">Seleção de papéis limpa com sucesso!</div>
     </div>`;
   
-  recuperarNomesAcabamento('personalizaPapel');
+    recuperarNomesPapel('personalizaPapel', 0, 0);
   setTimeout(() => {
     document.getElementById('mensagemPapel').innerHTML = '';
   }, 1000);
@@ -314,7 +346,7 @@ function selecionarPapel(dado) {
   setTimeout(function () {
     document.getElementById('mensagemPapel').innerHTML = '';
   }, 1000);
-  recuperarNomesPapel('personalizaPapel')
+  recuperarNomesPapel('personalizaPapel', 0, 0)
 }
 //Editar papel
 function AbrirEditarPapel(valor) {
@@ -404,7 +436,7 @@ async function EditarPapel() {
 
 
 }
-async function recuperarNomesPapel(valor, codigo_do_produto) {
+async function recuperarNomesPapel(tabela,valor, codigo_do_produto) {
   try {
     const storedData = localStorage.getItem('papelSelecionado');
    // console.log('storedData:', storedData); // Log para verificar os dados armazenados
@@ -415,9 +447,15 @@ async function recuperarNomesPapel(valor, codigo_do_produto) {
   //  console.log('tipo:', tipo); // Log para verificar o tipo do produto
     const tipoProduto = tipo !== '[]' ? 2 : 1;
   //  console.log('tipoProduto:', tipoProduto); // Log para verificar o valor de tipoProduto
-
+    
     const promises = arraySelecionados.map(async id => {
-      const url = `api_papel.php?id=${id.valor}&codi=${id.cod_produto}&tipo=${tipoProduto}`;
+      let url;
+      if(id.cod_produto == 0){
+         url = `api_papel.php?id=${id.valor}&tipo=${tipoProduto}`;
+      }else{
+         url = `api_papel.php?id=${id.valor}&codi=${id.cod_produto}&tipo=${tipoProduto}`;
+      }
+     // console.log(url)
    //   console.log('Fetching URL:', url); // Log para verificar a URL da API
       const response = await fetch(url);
 
@@ -455,14 +493,79 @@ async function recuperarNomesPapel(valor, codigo_do_produto) {
     const nomePapel = results.map(result => result.nomePapel).join(', ');
   //  console.log('nomePapel:', nomePapel); // Log para verificar os nomes dos papéis
 
-    let tableBody = document.getElementById('tabela_campos');
+    let tableBody = document.getElementById(tabela);
     if (!tableBody) {
-      console.error("Elemento 'tabela_campos' não encontrado.");
+      console.error("Elemento "+tabela+" não encontrado.");
       return;
     }
+    if(tabela == 'personalizaPapel'){
+      tableBody.innerHTML = ''; // Clear existing table content
 
-    tableBody.innerHTML = ''; // Clear existing table content
+      if (results.some(result => result.codPapel === false) || results.length === 0) {
+        tableBody.insertAdjacentHTML(
+          'beforeend',
+          `<tr><td align="center" colspan="12">NENHUM SELECIONADO</td></tr>`
+        );
+        
+      } else {
+        tableBody.insertAdjacentHTML(
+          'beforeend',
+          `<tr>
+          <th>CÓDIGO PAPEL</th>
+          <th>DESCRIÇÃO</th>
+          <th>TIPO</th>
+          <th>CF</th>
+          <th>CV</th>
+          <th>FORMATO IMPRESSÃO</th>
+          <th>PERCA(%)</th>
+          <th>GASTO FOLHA</th>
+          <th>PREÇO FOLHA</th>
+          <th>QUANTIDADE DE CHAPAS</th>
+          <th>PREÇO CHAPA</th>
+        </tr>
+        `
+        );
+        results.forEach(result => {
+          tableBody.insertAdjacentHTML(
+            'beforeend',
+            `<tr>
+               <td><input class="form-control2" desabled value="${result.codPapels}" type="number"></td>
+               <td>${result.nomePapel}</td>
+               <td>${result.tipo_papel}</td>
+               <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
+               <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
+               <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}" type="number"></td>
+               <td><input class="form-control2" value="5" type="number"></td>
+               <td><input class="form-control2" id="GFolha${result.codPapels}${result.codproduto}" value="0" type="number"></td>
+               <td>${result.preco_folha}</td>
+               <td><input class="form-control2" id="GChapa${result.codPapels}${result.codproduto}" value="0" type="number"></td>
+               <td>${result.preco_chapa}</td>
+             </tr>`
+          );
+        });
+      }
+    }else{
 
+    
+    tableBody.innerHTML = ""; // Clear existing table content
+    tableBody.insertAdjacentHTML(
+      'beforeend',
+      `<tr>
+      <th>PRODUTO</th>
+      <th>CÓDIGO PAPEL</th>
+      <th>DESCRIÇÃO</th>
+      <th>TIPO</th>
+      <th>CF</th>
+      <th>CV</th>
+      <th>FORMATO IMPRESSÃO</th>
+      <th>PERCA(%)</th>
+      <th>GASTO FOLHA</th>
+      <th>PREÇO FOLHA</th>
+      <th>QUANTIDADE DE CHAPAS</th>
+      <th>PREÇO CHAPA</th>
+    </tr>
+    `
+    );
     if (results.some(result => result.codPapel === false) || results.length === 0) {
       tableBody.insertAdjacentHTML(
         'beforeend',
@@ -489,6 +592,7 @@ async function recuperarNomesPapel(valor, codigo_do_produto) {
         );
       });
     }
+  }
   } catch (error) {
     console.error('Erro ao recuperar nomes do papel:', error);
   }
@@ -496,7 +600,7 @@ async function recuperarNomesPapel(valor, codigo_do_produto) {
 
 function checkedPapel() {
   if (localStorage.getItem('papelSelecionado')) {
-    recuperarNomesPapel('personalizaPapel');
+    recuperarNomesPapel('personalizaPapel', 0, 0);
     const ArrayPapels = JSON.parse(localStorage.getItem('papelSelecionado'));
     if (document.getElementById('PapelsSelecionado')) {
       ArrayPapels.map((item) => {
@@ -520,7 +624,7 @@ function ApagarPapel(valor) {
     localStorage.removeItem(itemKey);
     document.getElementById('mensagemPapelApagado').innerHTML = '<div  id="alerta1" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-success top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <i class="bx bx-bell me-2"></i> <div class="me-auto fw-semibold">Aviso!</div> <small> </small>  </div> <div class="toast-body">Seleção de papel limpa com sucesso!</div></div>';
 
-    recuperarNomesPapel('personalizaPapel');
+    recuperarNomesPapel('personalizaPapel', 0, 0);
     setTimeout(function () {
       document.getElementById('mensagemPapelApagado').innerHTML = '';
     }, 1000);

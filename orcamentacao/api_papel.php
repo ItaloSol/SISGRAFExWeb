@@ -12,7 +12,7 @@ $Solicitacao = json_decode(file_get_contents("php://input"), true);
 //DEFINE QUAL ENTRADA FOI USADO
 if (isset($_GET['id'])) {
   $pesquisa = $_GET['id'];
-  $cod = $_GET['codi'];
+  $cod = !empty($_GET['codi']) ? $_GET['codi']: null;
   $tipo = $_GET['tipo'];
   $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $pesquisa  ");
   $query_do_papel->execute();

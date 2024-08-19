@@ -79,7 +79,7 @@ if(isset($_POST['submit'])){
 
         $query_Atendente = $conexao->prepare("INSERT INTO tabela_atendentes (codigo_atendente, nome_atendente, login_atendente, senha_atendente, tipo_atendente, ativo, secao_atendente) VALUES ('$codigo', '$nome', '$login', '$senha', '$tipo', '1', '' )");
 	    $query_Atendente->execute();
-        $query_Atendente = $conexao->prepare("INSERT INTO usuario_acessos (CODIGO_USR, ORC, ORC_ADM, PROD, PROD_ADM, EXP, EXP_ADM , FIN, FIN_ADM, EST, ORD) VALUES ('$codigo', $orc, $orc_ad, $prod, $prod_ad, $exp, $exp_ad, $fin, $fin_ad, $estoque, $od)");
+        $query_Atendente = $conexao->prepare("INSERT INTO usuario_acesso (CODIGO_USR, ORC, ORC_ADM, PROD, PROD_ADM, EXP, EXP_ADM , FIN, FIN_ADM, EST, ORD) VALUES ('$codigo', $orc, $orc_ad, $prod, $prod_ad, $exp, $exp_ad, $fin, $fin_ad, $estoque, $od)");
 	    $query_Atendente->execute();
     
     }
@@ -127,7 +127,7 @@ if(isset($_POST['submit'])){
    
         if($senha != 0){
 
-            $query_Atendente = $conexao->prepare("UPDATE usuario_acessos SET ORC= $orc , ORC_ADM= $orc_ad , PROD= $prod , PROD_ADM= $prod_ad , EXP= $exp, EXP_ADM= $exp_ad, FIN= $fin , FIN_ADM= $fin_ad, EST= $estoque, ORD= $od
+            $query_Atendente = $conexao->prepare("UPDATE usuario_acesso SET ORC= $orc , ORC_ADM= $orc_ad , PROD= $prod , PROD_ADM= $prod_ad , EXP= $exp, EXP_ADM= $exp_ad, FIN= $fin , FIN_ADM= $fin_ad, EST= $estoque, ORD= $od
             WHERE CODIGO_USR = '$codigo' ");
             $query_Atendente->execute();
               
@@ -136,7 +136,7 @@ if(isset($_POST['submit'])){
             WHERE codigo_atendente = '$codigo' ");
             $query_Atendente->execute();
         }else{
-            $query_Atendente = $conexao->prepare("UPDATE usuario_acessos SET ORC = $orc , ORC_ADM = $orc_ad , PROD = $prod , PROD_ADM = $prod_ad , EXP = $exp, EXP_ADM = $exp_ad, FIN = $fin , FIN_ADM = $fin_ad, EST = $estoque, ORD = $od
+            $query_Atendente = $conexao->prepare("UPDATE usuario_acesso SET ORC = $orc , ORC_ADM = $orc_ad , PROD = $prod , PROD_ADM = $prod_ad , EXP = $exp, EXP_ADM = $exp_ad, FIN = $fin , FIN_ADM = $fin_ad, EST = $estoque, ORD = $od
             WHERE CODIGO_USR = '$codigo' ");
             $query_Atendente->execute();
               

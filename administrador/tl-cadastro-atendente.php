@@ -2,7 +2,7 @@
 $_SESSION["pag"] = array(1, 0);
 
 
-$query_atendent = $conexao->prepare("SELECT * FROM usuario_acessos u INNER JOIN tabela_atendentes a ON a.codigo_atendente = u.CODIGO_USR ");
+$query_atendent = $conexao->prepare("SELECT * FROM usuario_acesso u INNER JOIN tabela_atendentes a ON a.codigo_atendente = u.CODIGO_USR ");
 $query_atendent->execute();
 $i = 0;
 while ($linha = $query_atendent->fetch(PDO::FETCH_ASSOC)) {
@@ -61,7 +61,7 @@ if (isset($_SESSION['msg'])) {
           <?php /*   */
           if (isset($_GET['cod'])) {
             $cdo = $_GET['cod'];
-            $query_atendent = $conexao->prepare("SELECT * FROM usuario_acessos u INNER JOIN tabela_atendentes a ON a.codigo_atendente = u.CODIGO_USR WHERE u.CODIGO_USR = '$cdo' ");
+            $query_atendent = $conexao->prepare("SELECT * FROM usuario_acesso u INNER JOIN tabela_atendentes a ON a.codigo_atendente = u.CODIGO_USR WHERE u.CODIGO_USR = '$cdo' ");
             $query_atendent->execute();
             $i = 0;
             if ($linha = $query_atendent->fetch(PDO::FETCH_ASSOC)) {
