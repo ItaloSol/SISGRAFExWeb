@@ -1,7 +1,7 @@
 <?php //**   */ 
 include_once('../conexoes/conexao.php');
 
-$query_acesso = $conexao->prepare("SELECT * FROM usuario_acessos WHERE CODIGO_USR = '$cod_user'"); 
+$query_acesso = $conexao->prepare("SELECT * FROM usuario_acesso WHERE CODIGO_USR = '$cod_user'"); 
 $query_acesso->execute(); 
 $i = 0;
 $Admin_User = 0;

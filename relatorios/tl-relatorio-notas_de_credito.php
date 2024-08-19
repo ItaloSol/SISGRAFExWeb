@@ -1,5 +1,5 @@
 <?php /* |-1  !-1 */ include_once("../html/../html/navbar.php");
-$Query_Atem = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acessos u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' ORDER BY a.nome_atendente ASC ");
+$Query_Atem = $conexao->prepare("SELECT * FROM tabela_atendentes a INNER JOIN usuario_acesso u ON a.codigo_atendente = u.CODIGO_USR WHERE u.PROD = '1' ORDER BY a.nome_atendente ASC ");
 $Query_Atem->execute();
 $Operadores = 0;
 while ($linha = $Query_Atem->fetch(PDO::FETCH_ASSOC)) {
