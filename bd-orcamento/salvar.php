@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $cod_user = $_SESSION["usuario"][2];
@@ -52,4 +53,5 @@ VALUES
     $SUPERVISAO->execute();
     echo "Dados atualizados com sucesso!";
  
+
 

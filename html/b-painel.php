@@ -699,11 +699,13 @@
 
                       ?>
 
-                     <div class="table-responsive text-nowrap">
-                       <table class="table">
-                         <thead>
-                           <tr>
-                             <?php
+
+                   <div class="table-responsive text-nowrap">
+                     <table class="table table-responsive">
+                       <thead>
+                         <tr>
+                           <?php
+
                               if (!isset($_GET['Tp']) & !isset($_GET['Att']) & !isset($_GET['Exp']) & !isset($_GET['Pro']) & !isset($_GET['Ent'])) {
                                 if (isset($_GET['b'])) {
                                   if (isset($_GET['Pg'])) {
