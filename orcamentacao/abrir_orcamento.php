@@ -7,11 +7,7 @@
 ?>
 
 <?php
-if 
-    
-   (     isset($_POST['numero1']) || isset($_POST['numero2']) || isset($_POST['Cod_Orcamento'] ) )
-
-  {
+if (isset($_POST['numero1']) || isset($_POST['numero2']) || isset($_POST['Cod_Orcamento'])) {
   if (isset($_POST['Cod_Orcamento'])) {
     $cod_orcamento = $_POST['Cod_Orcamento'];
     $query_orcamentos = $conexao->prepare("SELECT * FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO WHERE cod = $cod_orcamento ");
@@ -25,15 +21,15 @@ if
     $_POST['numero2'] = $Pesquisa_Cliente;
     $_POST['tipo_cliente'] = $Tipo_Cliente;
     $Produtos = $_POST['produtos'];
-    if($_POST['ttipo_produto'] == 1){
+    if ($_POST['ttipo_produto'] == 1) {
       $tipo_produtoEditar = true;
-    }else{
+    } else {
       $tipo_produtoEditar = false;
     }
 ?>
 
 
-<?php
+  <?php
   }
 
   if ($_POST['numero1'] != '') {
@@ -67,7 +63,7 @@ if
   while ($linha = $configuracoes->fetch(PDO::FETCH_ASSOC)) {
     $preco_chapa = $linha['parametro'];
   }
-  
+
   if ($Tipo_Cliente == '1') {
 
     $cliente = 'Fisico';
@@ -91,9 +87,9 @@ if
       $documento = $linha2['cpf'];
     }
   }
- 
 
-  $Clientes_Contato_Juridicos = $conexao->prepare("SELECT * FROM tabela_associacao_contatos a INNER JOIN tabela_contatos e ON a.cod_contato = e.cod WHERE a.cod_cliente = '$Pesquisa_Cliente' AND a.tipo_cliente = '$Tipo_Cliente' LIMIT 15");
+
+  $Clientes_Contato_Juridicos = $conexao->prepare("SELECT * FROM tabela_associacao_contatos a INNER JOIN tabela_contatos e ON a.cod_contato = e.cod WHERE a.cod_cliente = '$Pesquisa_Cliente' AND a.tipo_cliente = '$Tipo_Cliente' ");
   $Clientes_Contato_Juridicos->execute();
   $contato = 0;
   while ($linha = $Clientes_Contato_Juridicos->fetch(PDO::FETCH_ASSOC)) {
@@ -111,7 +107,7 @@ if
     ];
     $contato++;
   }
-  $Clientes_Endereco_Juridicos = $conexao->prepare("SELECT * FROM tabela_associacao_enderecos a INNER JOIN tabela_enderecos e ON a.cod_endereco = e.cod WHERE a.cod_cliente = '$Pesquisa_Cliente' AND a.tipo_cliente = '$Tipo_Cliente' LIMIT 15 ");
+  $Clientes_Endereco_Juridicos = $conexao->prepare("SELECT * FROM tabela_associacao_enderecos a INNER JOIN tabela_enderecos e ON a.cod_endereco = e.cod WHERE a.cod_cliente = '$Pesquisa_Cliente' AND a.tipo_cliente = '$Tipo_Cliente' ");
   $Clientes_Endereco_Juridicos->execute();
   $i = 0;
   $endereco = 0;
@@ -146,7 +142,7 @@ if
   $data30 = date('Y-m-d', strtotime('+' . 30 . 'day', strtotime($hoje)));
 
 
-?>
+  ?>
   <?php
 
   ?>
@@ -168,14 +164,14 @@ if
               <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                 </div>
-                <div class="card-body"> 
-                  <?php if(isset($cod_orcamento)) {
+                <div class="card-body">
+                  <?php if (isset($cod_orcamento)) {
                     echo '
                     <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Informações do Oçamento Sendo editado </h5><h1 id="orcamentoEdit">'. $cod_orcamento .'</h1>
+                    <h5 class="mb-0">Informações do Oçamento Sendo editado </h5><h1 id="orcamentoEdit">' . $cod_orcamento . '</h1>
                   </div>';
                   };
-                ?>
+                  ?>
 
                   <br>
                   <div class="card-header d-flex align-items-center justify-content-between">
@@ -225,8 +221,9 @@ if
 
                         </select>
                       </div>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalContato">Adicionar um Novo Contato</button>
                       <div class="divider divider-dark">
-                        <div class="divider-text">ENDEREÇO</div>
+                      
                       </div>
                       <div class="mb-3">
                         <label for="selecione_endereco" class="form-label">Endereço:</label>
@@ -241,6 +238,7 @@ if
                           ?>
                         </select>
                       </div>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEndereco">Adicionar um Novo Endereço</button>
                     </div>
 
                     <div class="divider divider-dark">
@@ -327,14 +325,14 @@ if
             </div>
             <div class="tab-content px-0 mt-0">
               <div class="tab-pane fade show active" id="horizontal-prod">
-              <?php 
-              if(isset($_POST['produtos'])){
-                $Produtos = $_POST['produtos'];
-                $TipoProdutoEditar = $_POST['ttipo_produto'];
-                echo '<input type="hidden" value="'.$TipoProdutoEditar.'" id="TipoProdutosEditarem">';
-                echo '<input type="hidden" value="'.$Produtos.'" id="ProdutosEditarem">';
-              }
-              ?>
+                <?php
+                if (isset($_POST['produtos'])) {
+                  $Produtos = $_POST['produtos'];
+                  $TipoProdutoEditar = $_POST['ttipo_produto'];
+                  echo '<input type="hidden" value="' . $TipoProdutoEditar . '" id="TipoProdutosEditarem">';
+                  echo '<input type="hidden" value="' . $Produtos . '" id="ProdutosEditarem">';
+                }
+                ?>
                 <div class="card">
                   <div id="SelecioandoProduto"></div>
                   <h5 class="card-header">PRODUTOS
@@ -613,6 +611,133 @@ if
             </div>
           </div>
 
+          <!-- ENDEREÇO -->
+
+          <div class="modal fade" id="modalEndereco" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel4">ENDEREÇO</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="exampleFormControlSelect1" class="form-label">Tipo de Endereço</label>
+                      <select class="form-select" id="tipo_endereco" name="tipo_endereco" aria-label="Default select example">
+                        <option value="1">Residencial</option>
+                        <option value="2">Comercial</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="cep">CEP</label>
+                      <input type="text" class="form-control" id="cep" name="cep" placeholder="Insira o CEP do cliente" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="bairro">Bairro</label>
+                      <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Insira o bairro do cliente" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="cidade">Cidade</label>
+                      <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Insira a cidade do cliente" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="uf">UF</label>
+                      <input type="text" class="form-control" id="uf" name="uf" placeholder="Insira a UF do cliente" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="logadouro">Logradouro</label>
+                      <input type="text" class="form-control" id="logadouro" name="logadouro" placeholder="Insira o logradouro" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="complemento">Complemento</label>
+                      <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Insira o complemento (opcional)" />
+                    </div>
+                    <div class="mb-1">
+                    <input type="hidden" disabled class="form-control form-control-sm" name="id_cliente" id="id_cliente"  value="<?= $Pesquisa_Cliente ?>">
+                    <input type="hidden" disabled class="form-control form-control-sm" name="tipo_cliente"  id="tipo_cliente" value="<?= $Tipo_Cliente  ?>">
+                    </div>
+                    <button type="submit" class="btn btn-success" onclick="EnviarCadastroEnderecoNovo()">Salvar Endereço</button>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                      Fechar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTATO -->
+          <div class="modal fade" id="modalContato" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel4">CONTATO</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nome Para Contato</label>
+                    <input type="text" class="form-control" id="basic-default-fullname" name="nome_contato" value="" placeholder="Insira um nome para contato" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Email</label>
+                    <input type="text" class="form-control" id="basic-default-email" name="email" value="" placeholder="Insira o email do cliente" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-department">Departamento</label>
+                    <input type="text" class="form-control" id="basic-default-department" name="departamento" value="" placeholder="Insira o departamento" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="tipo_telefone_principal" class="form-label">Tipo de Telefone Principal</label>
+                    <select id="tipo_telefone_principal" class="form-select" name="tipo_telefone_principal">
+                      <option>Selecione...</option>
+                      <option value="1">Fixo</option>
+                      <option value="2">Móvel</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-telefone">Número</label>
+                    <input type="text" class="form-control" id="basic-default-telefone" name="telefone" value="<?= $Cliente_Contato_Puxado[0]['telefone'] ?>" placeholder="Insira o número principal" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-ramal">Ramal</label>
+                    <input type="text" class="form-control" id="basic-default-ramal" name="ramal" value="<?= $Cliente_Contato_Puxado[0]['ramal'] ?>" placeholder="Insira o ramal principal" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="tipo_telefone_secundario" class="form-label">Tipo de Telefone Secundário</label>
+                    <select id="tipo_telefone_secundario" class="form-select" name="tipo_telefone_secundario">
+                      <option>Selecione...</option>
+                      <option value="1">Fixo</option>
+                      <option value="2">Móvel</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-telefone2">Número 2</label>
+                    <input type="text" class="form-control" id="basic-default-telefone2" name="telefone2" value="<?= $Cliente_Contato_Puxado[0]['telefone2'] ?>" placeholder="Insira o número secundário" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-ramal2">Ramal 2</label>
+                    <input type="text" class="form-control" id="basic-default-ramal2" name="ramal2" value="<?= $Cliente_Contato_Puxado[0]['ramal2'] ?>" placeholder="Insira o ramal secundário" />
+                  </div>
+                  <input type="hidden" name="id_cliente" value="<?= $Pesquisa_Cliente ?>">
+                  <input type="hidden" name="tipo_cliente" value="<?= $Tipo_Cliente  ?>">
+                  <button type="submit" class="btn btn-success" onclick="EnviarCadastroContatoNovo()">Salvar Contato</button>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                      Fechar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CIF -->
           <div class="container row ">
 
             <div class="col-3">
@@ -1098,6 +1223,13 @@ if
                 </div>
               </div>
 
+              <!-- Modal Cadastrar contato -->
+              <!-- Extra Large Modal -->
+              <!-- Extra Large Modal -->
+
+
+
+
 
 
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -1351,7 +1483,7 @@ if
 
               <?php
             } else {
-              if (     !isset($_POST['numero1']) || !isset($_POST['numero2']) )  {  ?>
+              if (!isset($_POST['numero1']) || !isset($_POST['numero2'])) {  ?>
                 <div id="alerta2" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
                   <div class="toast-header"> <i class="bx bx-bell me-2"></i>
                     <div class="me-auto fw-semibold">Aviso!</div> <small> </small>
@@ -1437,20 +1569,20 @@ if
     <script src="../js/cadastros_orcamento.js"></script>
     <script src="../js/produtoClonado.js"></script>
     <script src="../js/produtoSelecioando.js"></script>
-    <?php 
+    <?php
     if (!isset($_SESSION['processed']) || $_SESSION['processed'] !== true) {
-      ?>
-    <script>
-    // Obtendo a string de números separados por vírgulas do PHP
-    let produtos = "<?php echo $Produtos; ?>";
-    let TipoEditar = "<?php echo $tipo_produtoEditar; ?>";
-    // Dividindo a string em um array de números
-    
-        SelecionarProdutoEditando(produtos, TipoEditar);
-   
+    ?>
+      <script>
+        // Obtendo a string de números separados por vírgulas do PHP
+        let produtos = "<?php echo $Produtos; ?>";
+        let TipoEditar = "<?php echo $tipo_produtoEditar; ?>";
+        // Dividindo a string em um array de números
 
-    // Definição da função SelecionarProdutoEditando
-    
-</script>
-<?php  $_SESSION['processed'] = true; } ?>
+        SelecionarProdutoEditando(produtos, TipoEditar);
+
+
+        // Definição da função SelecionarProdutoEditando
+      </script>
+    <?php $_SESSION['processed'] = true;
+    } ?>
     <?php include_once("../html/navbar-dow.php"); ?>

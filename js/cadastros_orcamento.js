@@ -1,3 +1,105 @@
+// Cadastrar Contato
+function EnviarCadastroContatoNovo() {
+  // Coletar os valores dos campos do formulário
+  const nome_contato = document.getElementById('basic-default-fullname').value;
+  const email = document.getElementById('basic-default-email').value;
+  const departamento = document.getElementById('basic-default-department').value;
+  const tipo_telefone_principal = document.getElementById('tipo_telefone_principal').value;
+  const telefone = document.getElementById('basic-default-telefone').value;
+  const ramal = document.getElementById('basic-default-ramal').value;
+  const tipo_telefone_secundario = document.getElementById('tipo_telefone_secundario').value;
+  const telefone2 = document.getElementById('basic-default-telefone2').value;
+  const ramal2 = document.getElementById('basic-default-ramal2').value;
+  const id_cliente = document.getElementById('id_cliente').value;
+  const tipo_cliente = document.getElementById('tipo_cliente').value;
+
+  // Criar um objeto com os dados
+  const data = {
+      nome_contato: nome_contato,
+      email: email,
+      departamento: departamento,
+      tipo_telefone_principal: tipo_telefone_principal,
+      telefone: telefone,
+      ramal: ramal,
+      tipo_telefone_secundario: tipo_telefone_secundario,
+      telefone2: telefone2,
+      ramal2: ramal2,
+      id_cliente: id_cliente,
+      tipo_cliente: tipo_cliente
+  };
+
+  // Enviar os dados para a API em PHP
+  fetch('api_contato_endereco.php', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+      if (result.success) {
+          alert('Contato salvo com sucesso!');
+          // Aqui você pode redirecionar ou limpar o formulário, se necessário
+      } else {
+          alert('Erro ao salvar o contato: ' + result.message);
+      }
+  })
+  .catch(error => {
+      console.error('Erro:', error);
+      alert('Erro ao enviar os dados.');
+  });
+}
+
+// Cadastrar Endereço
+function EnviarCadastroEnderecoNovo() {
+  // Coleta os valores dos inputs
+  const tipo_endereco = document.getElementById('tipo_endereco').value;
+  const cep = document.getElementById('cep').value;
+  const bairro = document.getElementById('bairro').value;
+  const cidade = document.getElementById('cidade').value;
+  const uf = document.getElementById('uf').value;
+  const logadouro = document.getElementById('logadouro').value;
+  const complemento = document.getElementById('complemento').value;
+  const cod_cliente = document.getElementById('id_cliente').value;
+  const tipo_cliente = document.getElementById('tipo_cliente').value;
+
+  // Cria um objeto com os dados do formulário
+  const data = {
+      tipo_endereco: tipo_endereco,
+      cep: cep,
+      bairro: bairro,
+      cidade: cidade,
+      uf: uf,
+      logadouro: logadouro,
+      complemento: complemento,
+      cod_cliente: cod_cliente,
+      tipo_cliente: tipo_cliente
+  };
+
+  // Envia os dados para a API PHP usando fetch
+  fetch('api_endereco_cadastro.php', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+      if (result.success) {
+          alert('Endereço salvo com sucesso!');
+          // Você pode redirecionar ou limpar o formulário aqui
+      } else {
+          alert('Erro ao salvar o endereço: ' + result.message);
+      }
+  })
+  .catch(error => {
+      alert('Erro ao salvar o endereço: ' + error);
+  });
+}
+
+
 // Papel
 function CadastraPapel() {
   const Nome_papel = document.getElementById('Nome_papel').value.toUpperCase();

@@ -50,7 +50,7 @@ if (empty($Solicitacao)) {
     if ($linha = $query_produtos->fetch(PDO::FETCH_ASSOC)) {
         $cod_produto = $linha['CODIGO'];
         $VALOR = $linha;
-        if (isset($linha['cod_produto'])) {
+        if (isset($linha['CODIGO'])) {
             $query_do_acabamento = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE cod_produto = $cod_produto AND tipo_produto = '$tipo_produto'  ");
             $query_do_acabamento->execute();
             while ($linha4 = $query_do_acabamento->fetch(PDO::FETCH_ASSOC)) {
@@ -60,14 +60,11 @@ if (empty($Solicitacao)) {
             }
             if (isset($Do_Acabamento_cod)) {
                 $VALOR["cod_acabamentos"] = $Do_Acabamento_cod;
-                $VALOR["cod_produto_papel"] = $linha['cod_produto'];
             } else {
                 $VALOR["cod_acabamentos"] = null;
-                $VALOR["cod_produto_papel"] = null;
             }
         } else {
             $VALOR["cod_acabamentos"] = null;
-            $VALOR["cod_produto_papel"] = null;
         }
         if (isset($linha['cod_papel'])) {
             $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE cod_produto = $cod_produto AND tipo_produto = '$tipo_produto'  ");
