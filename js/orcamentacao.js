@@ -529,7 +529,7 @@ async function recuperarNomesPapel(tabela,valor, codigo_do_produto) {
           tableBody.insertAdjacentHTML(
             'beforeend',
             `<tr>
-               <td><input class="form-control2" desabled value="${result.codPapels}" type="number"></td>
+               <td>${result.codPapels}</td>
                <td>${result.nomePapel}</td>
                <td>${result.tipo_papel}</td>
                <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
@@ -1471,36 +1471,51 @@ function Dados_Novo_Produto() {
   var tbodies = tabela.getElementsByTagName('tbody');
   var dadosJson = [];
   // Itera sobre cada tbody
-  for (var t = 0; t < tbodies.length; t++) {
+  var tbodies = document.getElementById('personalizaPapel').getElementsByTagName('tbody');
+var dadosJson = [];
 
-    var linhas = tbodies[t].getElementsByTagName('tr');
+for (var t = 0; t < tbodies.length; t++) {
 
-    // Itera sobre cada linha do tbody
-    for (var i = 0; i < linhas.length; i++) {
-      var linha = linhas[i];
+  var linhas = tbodies[t].getElementsByTagName('tr');
 
-      // Obtém as células da linha
-      var celulas = linha.getElementsByTagName('td');
+  // Itera sobre cada linha do tbody
+  for (var i = 0; i < linhas.length; i++) {
+    var linha = linhas[i];
 
-      // Cria um objeto JSON para armazenar os valores da linha
-      var objetoJson = {
-        CODIGO_PAPEL: celulas[1].innerText,
-        DESCRICAO: celulas[2].innerText,
-        TIPO: celulas[3].querySelector('select').value,
-        CF: celulas[4].getElementsByTagName('input')[0].value,
-        CV: celulas[5].getElementsByTagName('input')[0].value,
-        FORMATO_IMPRESSAO: celulas[6].getElementsByTagName('input')[0].value,
-        PERCA: celulas[7].getElementsByTagName('input')[0].value,
-      };
+    // Obtém as células da linha
+    var celulas = linha.getElementsByTagName('td');
 
-      // Adiciona o objeto ao array
-      dadosJson.push(objetoJson);
+    // Log para ver o número de células e o conteúdo
+    console.log('Número de células na linha:', celulas.length);
+    console.log('Conteúdo das células:', Array.from(celulas).map(c => c.innerText));
+
+    // Certifica-se de que a linha tenha células suficientes antes de acessar
+    if (celulas.length >= 8) {
+      try {
+        var objetoJson = {
+          CODIGO_PAPEL: celulas[0].innerText, // Corrigido para índice correto
+          DESCRICAO: celulas[1].innerText,
+          TIPO: celulas[2].innerText,
+          CF: celulas[3].querySelector('input').value,
+          CV: celulas[4].querySelector('input').value,
+          FORMATO_IMPRESSAO: celulas[5].querySelector('input').value,
+          PERCA: celulas[6].querySelector('input').value,
+        };
+
+        // Adiciona o objeto ao array
+        dadosJson.push(objetoJson);
+      } catch (error) {
+        console.error('Erro ao processar a linha:', linha, error);
+      }
+    } else {
+      console.error('A linha não possui células suficientes:', linha);
     }
-
   }
+}
 
-  // Converte o array para uma string JSON
-  var jsonPapel = JSON.stringify(dadosJson);
+// Converte o array para uma string JSON
+var jsonPapel = JSON.stringify(dadosJson);
+console.log('JSON Resultante:', jsonPapel);
 
   var tabela = document.getElementById('NovoAcabemtnoSe');
   var tbodies = tabela.getElementsByTagName('tbody');

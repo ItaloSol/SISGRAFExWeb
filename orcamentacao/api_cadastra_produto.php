@@ -134,9 +134,9 @@ for ($i = 0; $i < count($papel); $i++) {
 
 
 /// acabamento
+
 for ($i = 0; $i < count($acabamento); $i++) {
   $CODIGO_ACABAMENTO = $acabamento[$i]['CODIGO_ACABAMENTO'];
-
   // Verifica se o registro já existe
   $query_verifica_existencia = $conexao->prepare("SELECT COUNT(*) FROM `tabela_componentes_produto` WHERE `tipo_produto` = :tipo_produto AND `cod_produto` = :cod_produto AND `cod_acabamento` = :cod_acabamento");
   $query_verifica_existencia->bindParam(':tipo_produto', $tipo_produto);
@@ -147,6 +147,7 @@ for ($i = 0; $i < count($acabamento); $i++) {
 
   // Se o registro não existir, insere
   if ($registro_existe == 0) {
+   
     $query_cadastra_prod_acabamento = $conexao->prepare("INSERT INTO `tabela_componentes_produto` (`tipo_produto`, `cod_produto`, `cod_acabamento`) VALUES (:tipo_produto, :cod_produto, :cod_acabamento)");
     $query_cadastra_prod_acabamento->bindParam(':tipo_produto', $tipo_produto);
     $query_cadastra_prod_acabamento->bindParam(':cod_produto', $cod_produto);

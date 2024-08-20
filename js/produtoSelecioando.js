@@ -279,7 +279,7 @@ function RecuperaProdutoSelecionado() {
      
       let promises = arraySelecionados.map(id => {
         const ids = Number(id.replace('Produto', ''))
-       // console.log('api_produto_select.php?id=' + ids + '&tipo=' + tipo);
+        console.log('api_produto_select.php?id=' + ids + '&tipo=' + tipo);
         return fetch('api_produto_select.php?id=' + ids + '&tipo=' + tipo)
           .then(response => response.json())
           .then(data => {
@@ -370,7 +370,7 @@ function RecuperaProdutoSelecionado() {
             if (data.PRECO_CUSTO) {
               campo.PRECO_CUSTO = data.PRECO_CUSTO;
             }
-         
+         console.log(data)
             if (data.cod_acabamentos) {
               campo.cod_acabamentos = data.cod_acabamentos;
             }
@@ -481,7 +481,7 @@ function RecuperaProdutoSelecionado() {
         }
         
         campos.forEach(campo => {
-         // console.log(campo)
+     
             if(campo.cod_produto){
               codigo_do_produto.push(campo.cod_PP);   
               codigo_do_acabado.push(campo.cod_AC)
@@ -503,7 +503,7 @@ function RecuperaProdutoSelecionado() {
             <td>${campo.valor_digital}</td>
             <td>${campo.preco_unitario}</td>
           </tr>`;
-        
+          console.log(campo)
         });
        
     
