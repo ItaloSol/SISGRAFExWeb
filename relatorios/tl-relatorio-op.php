@@ -72,7 +72,7 @@ $hoje = date('Y-m-d');
                   </select>
                 </div>
                 <div class="mb-3">
-                  <input id="defaultInput" name="clientecod" class="form-control" type="number"
+                  <input id="clientecod" name="clientecod" class="form-control" type="number"
                     placeholder="Digite o código aqui" />
                 </div>
                 <div class="form-check mt-3">
@@ -87,7 +87,7 @@ $hoje = date('Y-m-d');
                   </select>
                 </div>
                 <div class="mb-3">
-                  <input id="defaultInput" name="clientenome" class="form-control" type="text"
+                  <input id="clientenome" name="clientenome" class="form-control" type="text"
                     placeholder="Digite o nome aqui" />
                 </div>
                 <div class="form-check mt-3">
@@ -113,7 +113,7 @@ $hoje = date('Y-m-d');
                   <label class="form-check-label" for="OpOrc"> Ordem de Produção (Código) </label>
                 </div>
                 <div class="mb-3">
-                  <input id="defaultInput" class="form-control" name="OpOrcCod" type="number"
+                  <input id="OpOrcCod" class="form-control" name="OpOrcCod" type="number"
                     placeholder="Digite o código aqui" />
                 </div>
                 <div class="form-check mt-3">
@@ -121,7 +121,7 @@ $hoje = date('Y-m-d');
                   <label class="form-check-label" for="OrcCod"> Orçamento Base (Código) </label>
                 </div>
                 <div class="mb-3">
-                  <input id="defaultInput" class="form-control" name="CodOpOrc" type="number"
+                  <input id="CodOpOrc" class="form-control" name="CodOpOrc" type="number"
                     placeholder="Digite o código aqui" />
                 </div>
                 <div class="form-check mt-3">
@@ -136,28 +136,23 @@ $hoje = date('Y-m-d');
                   <label class="form-check-label" for="produtocod"> Por Código </label>
                 </div>
                 <div class="mb-3">
-                  <input id="defaultInput" class="form-control" name="produtoCod" type="number"
+                  <input id="produtoCod" class="form-control" name="produtoCod" type="number"
                     placeholder="Digite o código aqui" />
                 </div>
-                <!-- <div class="form-check mt-3">
-                               <input class="form-check-input" type="radio" name="produto" value="DesPro" id="defaultCheck1" />
-                                <label class="form-check-label" for="defaultCheck1"> Por Descrição </label>
+                <div class="form-check mt-3">
+                               <input class="form-check-input" type="radio" name="produto" value="nomePP" id="prodPP" />
+                                <label class="form-check-label" for="prodPP"> Por Nome Produto Para Produção </label>
                               </div>
                               <div class="mb-3">
-                                <input id="defaultInput" class="form-control" name="produto"  type="text" placeholder="Digite a descrição aqui" />
+                                <input id="produtoNomePP" class="form-control" name="produtoNomePP"  type="text" placeholder="Digite o nome do produto" />
                               </div>
                               <div class="form-check mt-3">
-                               <input class="form-check-input" type="radio" name="produto" value="TipoPro" id="defaultCheck1" />
-                                <label class="form-check-label" for="defaultCheck1"> Por Tipo </label>
+                               <input class="form-check-input" type="radio" name="produto" value="nomePE" id="produtoPE" />
+                                <label class="form-check-label" for="produtoPE"> Por Nome Produto a Pronta Entrega </label>
                               </div>
                               <div class="mb-3">
-                                <select class="form-select" name="produtoTipo" >
-                                  <option selected>Selecione o tipo de produto</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  
-                                </select>
-                              </div> -->
+                                <input id="produtoNomePE" class="form-control" name="produtoNomePE"  type="text" placeholder="Digite o nome do produto" />
+                              </div>
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="radio" name="produto" value="todos" checked
                     id="portodes" />
