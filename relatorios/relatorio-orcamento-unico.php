@@ -42,6 +42,7 @@ while ($linha = $query_op->fetch(PDO::FETCH_ASSOC)) {
         $data_emissao = $linha14['data_emissao'];
         $tipo_cliente = $linha14['tipo_cliente'];
         $frete = $linha14['frete'];
+        $cif = $linha14['sif'];
         $valor_total = $linha14['valor_total'];
         $descricao_orc = $linha14['descricao'];
         $cod_emissor = $linha14['cod_emissor'];
@@ -417,6 +418,11 @@ if ($frete != '0.0') {
     <td align="center">1</td>
     <td align="center">' . number_format($frete, 2, ',', '.') . '</td></td>
     </tr>';
+}
+if($cif != '0'){
+    $parte3 .= '<tr>
+    <td align="right" colspan="4">CIF (%)</td>
+    <td align="center">' . number_format($cif, 2, ',', '.') . '</td> </tr>';
 }
 $parte3 .= '<tr>
     <td align="right" colspan="4"><b>TOTAL (R$)</b></td>

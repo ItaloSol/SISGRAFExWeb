@@ -78,11 +78,22 @@ if (isset($_POST['OpOrc'])) {
 }else{
     $Query_OpOrc ='';
 }
+$ProdutoJoin = '';
 if (isset($_POST['produto'])) {
     if ($_POST['produto'] == 'CodPro') {
+        $ProdutoJoin = '';
         $Produto = " tabela_ordens_producao.cod_produto = '" . $_POST['produtoCod'] . "'";
     }
+    if ($_POST['produto'] == 'nomePP') {
+        $ProdutoJoin = " INNER JOIN produtos ON produtos.CODIGO = tabela_ordens_producao.cod_produto ";
+        $Produto = "produtos.DESCRICAO LIKE '%" . $_POST['produtoNomePP'] . "%' ";
+    }
+    if ($_POST['produto'] == 'nomePE') {
+        $ProdutoJoin = " INNER JOIN produtos_pr_ent ON produtos_pr_ent.CODIGO = tabela_ordens_producao.cod_produto ";
+        $Produto = "produtos_pr_ent.DESCRICAO LIKE '%" . $_POST['produtoNomePE'] . "%' ";
+    }
     if ($_POST['produto'] == 'todos') {
+        
         $Produto = null;
     }
     // if($_POST['produto'] == 'TipoPro' ){
@@ -488,7 +499,7 @@ if (isset($Inner)) {
     }
 }
 if (isset($Query_Campos)) {
-    $Query_Campos_Completa = $Query_Campos . " , orcamento_base, STS_DESCRICAO FROM tabela_ordens_producao  INNER JOIN sts_op s ON s.CODIGO = tabela_ordens_producao.status ";
+    $Query_Campos_Completa =" * FROM tabela_ordens_producao  INNER JOIN sts_op s ON s.CODIGO = tabela_ordens_producao.status ";
     if (isset($Query_Inner)) {
         $Query_Inicio = $Query_Select . $Query_Campos_Completa . $Query_Inner;
     } else {
@@ -504,7 +515,7 @@ if (
     isset($Query_OpOrc) || isset($Query_Produto) || isset($Query_Cliente) || isset($Query_Emissor) || isset($Query_Periodo) ||
     isset($Query_Status)
 ) {
-    $Query_Busca_Completa = $Query_Inicio . ' WHERE cod != "-1" ' . $Query_OpOrc . $Query_Produto . $Query_Cliente . $Query_Emissor . $Query_Periodo . $Query_Status;
+    $Query_Busca_Completa = $Query_Inicio . $ProdutoJoin .' WHERE cod != "-1" ' . $Query_OpOrc . $Query_Produto . $Query_Cliente . $Query_Emissor . $Query_Periodo . $Query_Status;
 }
     $Query_Busca_Completa = $Query_Busca_Completa . $OrderBy;
 
