@@ -7,20 +7,15 @@ include_once('../conexoes/conexao.php');
 if (isset($_POST['NomeCliente']) && isset($_POST['Cep']) && isset($_POST['Email'])) {
   $NomeCliente = $_POST['NomeCliente'];
   $TipoCliente = $_POST['TipoCliente'];
-  if (isset($_POST['NomeFantasia'])) {
-    $NomeFantasia = $_POST['NomeFantasia'];
-  }
-  if (isset($_POST['CPF'])) {
-    $CPF = $_POST['CPF'];
-  }
-  if (isset($_POST['CNPJ'])) {
-    $CNPJ = $_POST['CNPJ'];
-  }
+  
+  // Campos opcionais
+  $NomeFantasia = isset($_POST['NomeFantasia']) ? $_POST['NomeFantasia'] : null;
+  $CPF = isset($_POST['CPF']) ? $_POST['CPF'] : null;
+  $CNPJ = isset($_POST['CNPJ']) ? $_POST['CNPJ'] : null;
+  $Filial = isset($_POST['Filial']) ? $_POST['Filial'] : null;
+  
+  // Campos obrigatórios
   $Atividade = $_POST['Atividade'];
-  if (isset($_POST['Filial'])) {
-    $Filial = $_POST['Filial'];
-  }
-  // $ramal = $_POST['Ramal'];
   $CodAtendente = $_POST['CodAtendente'];
   $NomeAtendente = $_POST['NomeAtendente'];
   $ObsCliente = $_POST['ObsCliente'];
@@ -35,43 +30,62 @@ if (isset($_POST['NomeCliente']) && isset($_POST['Cep']) && isset($_POST['Email'
   $Email = $_POST['Email'];
   $Departamento = $_POST['Departamento'];
   $Telefone = $_POST['Telefone'];
-  $Telefone2 = $_POST['Telefone2'];
-  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Cadastrou um novo cliente: $NomeCliente ' , '$cod_user' , '$dataHora')");
+  $Telefone2 = $_POST['Celular'];
+  
+  // Insere atividade de supervisão
+  $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Cadastrou um novo cliente: $NomeCliente', '$cod_user', '$dataHora')");
   $Atividade_Supervisao->execute();
 
-  if ($TipoCliente == '1') {
-    $cliente = 'tabela_clientes_fisicos';
-    $Cadatro_cliente = $conexao->prepare("INSERT INTO tabela_clientes_fisicos (nome , cpf, atividade, cod_atendente, nome_atendente, observacoes, credito) VALUES ('$NomeCliente', '$CPF', '$Atividade', '$CodAtendente', '$NomeAtendente', '$ObsCliente', 0.0)");
-    $Cadatro_cliente->execute();
-  } else {
-    $cliente = 'tabela_clientes_juridicos';
-    $Cadatro_cliente = $conexao->prepare("INSERT INTO tabela_clientes_juridicos (nome , nome_fantasia, cnpj, atividade, filial_coligada, cod_atendente, nome_atendente, observacao, credito) VALUES ('$NomeCliente', '$NomeFantasia', '$CNPJ','$Atividade','$Filial','$CodAtendente', '$NomeAtendente', '$ObsCliente', 0.0 )");
-    $Cadatro_cliente->execute();
+  // Inserção baseada no tipo de cliente
+  if ($TipoCliente == '1') { // Cliente físico
+      $cliente = 'tabela_clientes_fisicos';
+      $Cadastro_cliente = $conexao->prepare("INSERT INTO tabela_clientes_fisicos (nome, cpf, atividade, cod_atendente, nome_atendente, observacoes, credito) VALUES ('$NomeCliente', '$CPF', '$Atividade', '$CodAtendente', '$NomeAtendente', '$ObsCliente', 0.0)");
+      $Cadastro_cliente->execute();
+  } else { // Cliente jurídico
+      $cliente = 'tabela_clientes_juridicos';
+      $Cadastro_cliente = $conexao->prepare("INSERT INTO tabela_clientes_juridicos (nome, nome_fantasia, cnpj, atividade, filial_coligada, cod_atendente, nome_atendente, observacao, credito) VALUES ('$NomeCliente', '$NomeFantasia', '$CNPJ', '$Atividade', '$Filial', '$CodAtendente', '$NomeAtendente', '$ObsCliente', 0.0)");
+      $Cadastro_cliente->execute();
   }
-  $Cadatro_contato = $conexao->prepare("INSERT INTO tabela_contatos (nome_contato , email, telefone, telefone2) VALUES ('$NomeContato', '$Email', '$Telefone', '$Telefone2' )");
-  $Cadatro_contato->execute();
-  $Cadatro_endereco = $conexao->prepare("INSERT INTO tabela_enderecos (cep , tipo_endereco, logadouro, bairro, uf, cidade,complemento) VALUES ('$Cep', '$TipoEndereco', '$logadouro', '$Bairro', '$uf', '$cidade', '$complemento')");
-  $Cadatro_endereco->execute();
+  
+  // Inserir contato
+  $Cadastro_contato = $conexao->prepare("INSERT INTO tabela_contatos (nome_contato, email, telefone, telefone2) VALUES ('$NomeContato', '$Email', '$Telefone', '$Telefone2')");
+  $Cadastro_contato->execute();
+  
+  // Inserir endereço
+  $Cadastro_endereco = $conexao->prepare("INSERT INTO tabela_enderecos (cep, tipo_endereco, logadouro, bairro, uf, cidade, complemento) VALUES ('$Cep', '$TipoEndereco', '$logadouro', '$Bairro', '$uf', '$cidade', '$complemento')");
+  $Cadastro_endereco->execute();
+  
+  // Recuperar o ID do cliente recém-inserido
   $busca_cliente = $conexao->prepare("SELECT * FROM $cliente WHERE nome = '$NomeCliente' ORDER BY cod DESC");
   $busca_cliente->execute();
   if ($linha = $busca_cliente->fetch(PDO::FETCH_ASSOC)) {
-    $Id_Cliente = $linha['cod'];
+      $Id_Cliente = $linha['cod'];
   }
+  
+  // Recuperar o ID do endereço recém-inserido
   $busca_endereco = $conexao->prepare("SELECT * FROM tabela_enderecos WHERE cep = '$Cep' ORDER BY cod DESC");
   $busca_endereco->execute();
   if ($linha = $busca_endereco->fetch(PDO::FETCH_ASSOC)) {
-    $Cod_endereco = $linha['cod'];
+      $Cod_endereco = $linha['cod'];
   }
+  
+  // Recuperar o ID do contato recém-inserido
   $busca_contato = $conexao->prepare("SELECT * FROM tabela_contatos WHERE nome_contato = '$NomeContato' ORDER BY cod DESC");
   $busca_contato->execute();
   if ($linha = $busca_contato->fetch(PDO::FETCH_ASSOC)) {
-    $Cod_contato = $linha['cod'];
+      $Cod_contato = $linha['cod'];
   }
-  $Cadatro_associacao_endereco = $conexao->prepare("INSERT INTO tabela_associacao_enderecos (cod_endereco , cod_cliente, tipo_cliente) VALUES ($Cod_endereco,$Id_Cliente, $TipoCliente)");
-  $Cadatro_associacao_endereco->execute();
+  
+  // Associar endereço ao cliente
+  $Cadastro_associacao_endereco = $conexao->prepare("INSERT INTO tabela_associacao_enderecos (cod_endereco, cod_cliente, tipo_cliente) VALUES ($Cod_endereco, $Id_Cliente, $TipoCliente)");
+  $Cadastro_associacao_endereco->execute();
+  
+  // Associar contato ao cliente
+  $Cadastro_associacao_contato = $conexao->prepare("INSERT INTO tabela_associacao_contatos (cod_contato, cod_cliente, tipo_cliente) VALUES ($Cod_contato, $Id_Cliente, $TipoCliente)");
+  $Cadastro_associacao_contato->execute();
+  
+  echo "Cliente cadastrado com sucesso!";
 
-  $Cadatro_asociacao_contato = $conexao->prepare("INSERT INTO tabela_associacao_contatos (cod_contato , cod_cliente, tipo_cliente) VALUES ($Cod_contato, $Id_Cliente, $TipoCliente )");
-  $Cadatro_asociacao_contato->execute();
   $_SESSION['msg'] = ' <div id="alerta<?=$a?>"
 role="bs-toast"
 class=" bs-toast toast toast-placement-ex m-3 fade bg-primary top-0 end-0 hide show "

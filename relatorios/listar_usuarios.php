@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once "../conexoes/conn.php";
 
 $nome_usuario = filter_input(INPUT_GET, "nome", FILTER_SANITIZE_STRING);

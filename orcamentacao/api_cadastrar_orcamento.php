@@ -28,6 +28,7 @@ $tipo_produto = $_GET['tipo_produto'] == 'PP' ? '1' : '2';
 
 $cod_orcamento = $_GET['cod_orcamento_edit'] ?? null;
 if ($cod_orcamento != 'null') {
+  $editando = true;
   // Modo de edição: apagar registros antigos
   $apagaProdutosOrcamento = $conexao->prepare("DELETE FROM tabela_produtos_orcamento WHERE cod_orcamento = ?");
   $apagaProdutosOrcamento->execute([$cod_orcamento]);
@@ -140,7 +141,7 @@ foreach ($dado_clique as $clique) {
 // Registro de atividade de supervisão
 $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade, atendente_supervisao, data_supervisao) VALUES (?, ?, ?)");
 $Atividade_Supervisao->execute([
-  "Orçamento $cod_orcamento " . ($cod_orcamento ? "atualizado" : "criado"),
+  "Orçamento $cod_orcamento " . ($editando ? "atualizado" : "criado"),
   $cod_user,
   $dataHora
 ]);
