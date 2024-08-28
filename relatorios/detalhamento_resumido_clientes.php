@@ -249,14 +249,18 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
             ];
         }
     }
+    $cod_produto = $Ordens_Finalizadas[$i]['cod_produto'];
     $Cod_opr = $Ordens_Finalizadas[$i]['cod'];
     $Pesquisa_Orc = $Ordens_Finalizadas[$i]['orcamento_base'];
-    $query_Pesquisa_Orc = $conexao->prepare("SELECT * FROM tabela_orcamentos  WHERE cod = '$Pesquisa_Orc'");
+    $query_Pesquisa_Orc = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE cod_orcamento = '$Pesquisa_Orc' AND cod_produto = '$cod_produto'");
     $query_Pesquisa_Orc->execute();
 
     while ($linha2 = $query_Pesquisa_Orc->fetch(PDO::FETCH_ASSOC)) {
+        $qtdLinha2 = $linha2['quantidade'];
+        $valorLinha2 = $linha2['preco_unitario'];
+        $ToltalLINHA2 = $qtdLinha2 * $valorLinha2;
         $Tabela_Orc_Finalizados[$i] = [
-            'valor_total' => $linha2['valor_total']
+            'valor_total' => $ToltalLINHA2
         ];
         $VVvalor_total_Faturamentos = $conexao->prepare("SELECT * FROM faturamentos f WHERE  f.CODIGO_OP = '$Cod_opr'");
         $VVvalor_total_Faturamentos->execute();

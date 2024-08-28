@@ -469,7 +469,7 @@ function calcularCif() {
 
 function clacularArte() {
   let ValorArte = null;
-  if (document.getElementById('check_arte').value) {
+  if (document.getElementById('check_arte').checked == true) {
     ValorArte = Number(document.getElementById('arte').value);
   } else {
     ValorArte = 0;
@@ -479,7 +479,7 @@ function clacularArte() {
 
 function caluclarFrete() {
   let ValorFrete = null;
-  if (document.getElementById('check_frete').value) {
+  if (document.getElementById('check_frete').checked == true) {
     ValorFrete = Number(document.getElementById('frete').value);
   } else {
     ValorFrete = 0;
@@ -695,6 +695,15 @@ function retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, nume
 function calcularTotal(item) {
   console.log(`INICIO TOTAL -------------------------------`)
   const { QUANTIDADE, VALOR_UNITARIO } = item;
+  
+  let total = QUANTIDADE * VALOR_UNITARIO;
+  console.log(`QUANTIDADE * VALOR_UNITARIO = ${QUANTIDADE} ${VALOR_UNITARIO} = ${QUANTIDADE * VALOR_UNITARIO}`)
+
+ 
+  return total;
+
+}
+function AdicionarValorAdicional(total){
   // Calcule o valor do frete, arte e desconto
   // CIF
   let CifConvertido = calcularCif();
@@ -707,8 +716,6 @@ function calcularTotal(item) {
 
   // DESCONTO
   let DescontoConvertido = calcularDesconto();
-  let total = QUANTIDADE * VALOR_UNITARIO;
-  console.log(`QUANTIDADE * VALOR_UNITARIO = ${QUANTIDADE} ${VALOR_UNITARIO} = ${QUANTIDADE * VALOR_UNITARIO}`)
 
   total += (total * CifConvertido);
   total += ValorFrete;
@@ -718,9 +725,7 @@ function calcularTotal(item) {
   console.log(`TOTAL APOS EXTRAS(CIF, ARTE, FRETE, DESCONTO) = ${total}`)
   console.log(`FIM TOTAL -------------------------------`)
   return total;
-
 }
-
 function calculateUnitario(item, clique, manual, servico) {
   console.log(`INICIO -------------------------------`)
   const { CODIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
@@ -957,9 +962,7 @@ function BuscaDados() {
         PREÇO_CHAPA: celulas[11].innerText
       };
     }else{
-      if(document.getElementById('ValorManual').checked == false){
-      window.alert('A CAIXA DE VALOR UNITARIO DEVE SER INSERIDA MANUALMETE MEDIANTE ATIVAÇÃO DA CAIXA "INSERIR MANUALMENTE"');
-      }
+     
       var objetoJson = {
         CODIGO_PRODUTO: 0 ,
         CODIGO_PAPEL: 0 ,
@@ -1194,11 +1197,7 @@ function calcularValor() {
           tab.show();
            window.alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
           break;
-        } else {
-          setTimeout(() => {
-            document.getElementById('SalvarPO').style.display = 'block';
-          }, 500);
-        }
+        } 
         document.getElementById('GFolha' + item[i].codigoPapel + item[i].produto).value = QuantidadeGasta;
         if (digital === true) {
           document.getElementById('settings-list-Clique').style.display = 'block';
@@ -1257,8 +1256,10 @@ function calcularValor() {
 
     setTimeout(() => {
       console.log(`+ VALOR DE CLIQUE TOTAL = ${ValorClique}`)
+      Total = AdicionarValorAdicional(Total);
       document.getElementById('ValorTotalOrc').value = Total.toFixed(2);
       console.log(`TOTAL ORÇAMENTO: ${Total}`);
+      document.getElementById('SalvarPO').style.display = 'block';
     }, 500);
     // ADICIONA VALOR AO CAMPO DE VALOR TOTAL
 
