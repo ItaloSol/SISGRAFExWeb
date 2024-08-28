@@ -98,15 +98,15 @@ foreach ($linhas as $linha) {
     0,
     $cod_orcamento,
     $tipo_produto,
-    $linha['CODIGO_PRODUTO'],
-    $linha['CODIGO_PAPEL'],
-    $linha['TIPO'],
-    $linha['GASTO_FOLHA'],
-    $linha['GASTO_FOLHA'],
-    $linha['QUANTIDADE_DE_CHAPAS'],
+    isset($linha['CODIGO_PRODUTO']) ? $linha['CODIGO_PRODUTO'] : null,
+    isset($linha['CODIGO_PAPEL']) ? $linha['CODIGO_PAPEL'] : 0,
+    isset($linha['TIPO']) ? $linha['TIPO'] : 'PAPEL',
+    isset($linha['GASTO_FOLHA']) ? $linha['GASTO_FOLHA'] : 0,
+    isset($linha['GASTO_FOLHA']) ? $linha['GASTO_FOLHA'] : 0,
+    isset($linha['QUANTIDADE_DE_CHAPAS']) ? $linha['QUANTIDADE_DE_CHAPAS'] : 0,
     0,
-    $linha['FORMATO_IMPRESSÃO'],
-    $linha['PERCA']
+    isset($linha['FORMATO_IMPRESSÃO']) ? $linha['FORMATO_IMPRESSÃO'] : 0,
+    isset($linha['PERCA']) ? $linha['PERCA'] : 0
   ]);
 }
 
@@ -141,7 +141,7 @@ foreach ($dado_clique as $clique) {
 // Registro de atividade de supervisão
 $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade, atendente_supervisao, data_supervisao) VALUES (?, ?, ?)");
 $Atividade_Supervisao->execute([
-  "Orçamento $cod_orcamento " . ($editando ? "atualizado" : "criado"),
+  "Orçamento $cod_orcamento " . (isset($editando) ? "atualizado" : "criado"),
   $cod_user,
   $dataHora
 ]);
