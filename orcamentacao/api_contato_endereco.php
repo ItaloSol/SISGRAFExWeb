@@ -9,6 +9,13 @@ $hora = date('H:i:s');
 $Solicitacao = json_decode(file_get_contents("php://input"), true);
 
 header('Content-Type: application/json');
+if(isset($_GET['Codigo_contato'])){
+    $cod = $_GET['Codigo_contato'];
+    $Deletar_Clientes_Contato = $conexao->prepare("DELETE FROM tabela_associacao_contatos WHERE  cod_contato = $cod");
+    $Deletar_Clientes_Contato->execute();
+    echo json_encode(['success' => true, 'message' => 'Sucesso: ']);
+}else{
+
 
 try {
   
@@ -53,5 +60,6 @@ try {
 } catch (PDOException $e) {
     // Retornar uma resposta de erro
     echo json_encode(['success' => false, 'message' => 'Erro ao salvar o contato: ' . $e->getMessage()]);
+}
 }
 ?>

@@ -8,6 +8,8 @@ $dataHora = date('d/m/Y H:i:s');
 $hoje = date('Y-m-d');
 $valido = date('Y-m-d', strtotime('+' . 15 . 'day', strtotime($hoje)));
 
+
+if($_POST['contato']){
   // Recebe os dados do formulário
   $nome_contato = $_POST['nome_contato'];
   $email = $_POST['email'];
@@ -53,5 +55,12 @@ VALUES
     $SUPERVISAO->execute();
     echo "Dados atualizados com sucesso!";
  
+
+
+    $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Contato do cliente $id_cliente, $tipo_cliente' , '$cod_user' , '$dataHora')");
+    $Atividade_Supervisao->execute();
+    ?> <script> 
+   setTimeout(function() {window.location.href = `../orcamentacao/tl-orcamento.php`;}, 1000);    </script> <?php
+  }
 
 
