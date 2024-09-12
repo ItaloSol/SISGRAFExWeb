@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $cod_user = $_SESSION["usuario"][2];
@@ -55,9 +56,11 @@ VALUES
     echo "Dados atualizados com sucesso!";
  
 
+
     $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Contato do cliente $id_cliente, $tipo_cliente' , '$cod_user' , '$dataHora')");
     $Atividade_Supervisao->execute();
     ?> <script> 
    setTimeout(function() {window.location.href = `../orcamentacao/tl-orcamento.php`;}, 1000);    </script> <?php
   }
-    ?>
+
+
