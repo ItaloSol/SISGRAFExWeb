@@ -31,21 +31,36 @@ if (isset($_POST['NomeCliente']) && isset($_POST['Cep']) && isset($_POST['Email'
   $Departamento = $_POST['Departamento'];
   $Telefone = $_POST['Telefone'];
   $Telefone2 = $_POST['Celular'];
-  
+  // Verificar se já existe um cliente com o mesmo nome
+if ($TipoCliente == '1') { // Cliente físico
+  $cliente = 'tabela_clientes_fisicos';
+} else { // Cliente jurídico
+  $cliente = 'tabela_clientes_juridicos';
+}
+
+$consulta_cliente = $conexao->prepare("SELECT COUNT(*) FROM $cliente WHERE nome = :NomeCliente");
+$consulta_cliente->bindParam(':NomeCliente', $NomeCliente);
+$consulta_cliente->execute();
+$cliente_existe = $consulta_cliente->fetchColumn();
+
+if ($cliente_existe > 0) {
+  // Cliente com o mesmo nome já existe, trate o caso
+  echo "<h1>Erro: Já existe um cliente cadastrado com esse nome. <a href='./tl-cadastro-clientes-ori.php'>CLIQUE AQUI PARA Voltar para o cadastro</a></h1>";
+} else {
+  // Cliente não existe, prosseguir com a inserção
+
   // Insere atividade de supervisão
   $Atividade_Supervisao = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade , atendente_supervisao, data_supervisao) VALUES ('Cadastrou um novo cliente: $NomeCliente', '$cod_user', '$dataHora')");
   $Atividade_Supervisao->execute();
 
-  // Inserção baseada no tipo de cliente
   if ($TipoCliente == '1') { // Cliente físico
-      $cliente = 'tabela_clientes_fisicos';
       $Cadastro_cliente = $conexao->prepare("INSERT INTO tabela_clientes_fisicos (nome, cpf, atividade, cod_atendente, nome_atendente, observacoes, credito) VALUES ('$NomeCliente', '$CPF', '$Atividade', '$CodAtendente', '$NomeAtendente', '$ObsCliente', 0.0)");
       $Cadastro_cliente->execute();
   } else { // Cliente jurídico
-      $cliente = 'tabela_clientes_juridicos';
       $Cadastro_cliente = $conexao->prepare("INSERT INTO tabela_clientes_juridicos (nome, nome_fantasia, cnpj, atividade, filial_coligada, cod_atendente, nome_atendente, observacao, credito) VALUES ('$NomeCliente', '$NomeFantasia', '$CNPJ', '$Atividade', '$Filial', '$CodAtendente', '$NomeAtendente', '$ObsCliente', 0.0)");
       $Cadastro_cliente->execute();
   }
+
   
   // Inserir contato
   $Cadastro_contato = $conexao->prepare("INSERT INTO tabela_contatos (nome_contato, email, telefone, telefone2) VALUES ('$NomeContato', '$Email', '$Telefone', '$Telefone2')");
@@ -106,6 +121,7 @@ aria-atomic="true">
 </div>
 </div>';
   header("Location: tl-cadastro-clientes-ori.php");
+}
 } else {
   $_SESSION['msg'] = ' <div id="alerta<?=$a?>" role="bs-toast" class=" bs-toast toast toast-placement-ex m-3 fade bg-danger top-0 end-0 hide show " role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-header">
