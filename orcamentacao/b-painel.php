@@ -46,7 +46,7 @@ if (isset($_GET['PS'])) {
       $Where = 'cod = ' . $_GET['PS'];
     }
   }
-  
+
 
   if ($_GET['Tp'] == 'cli') {
     if (!is_numeric($_GET['PS'])) {
@@ -318,7 +318,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
   ?>
   <div class=" mb-6 pesquisa-painel">
     <form action="tl-painel.php" method="GET">
-      <?php  if (isset($GET)) {
+      <?php if (isset($GET)) {
 
 
 
@@ -331,10 +331,31 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
         <div class="col-3">
           <label for="exampleFormControlSelect1" class="form-label">Pesquisar por</label>
           <select class="form-select" name="Tp" id="exampleFormControlSelect1" aria-label="Default select example">
+            <?php if (isset($_GET['Tp'])) {
+              // Mapeamento de valores possíveis para 'Tp'
+              $descricaoMap = [
+                'orc' => 'Código Orçamento',
+                'nomepro' => 'Nome Produto PP',
+                'nomeproPE' => 'Nome Produto PE',
+                'clinom' => 'Nome Cliente',
+                'clisigla' => 'Sigla OM',
+                'cli' => 'Cod Cliente'
+              ];
+
+              // Verifica se o valor de 'Tp' está no mapeamento e define a descrição
+              $Tp = $_GET['Tp'];
+              $Descricao = isset($descricaoMap[$Tp]) ? $descricaoMap[$Tp] : '';
+
+              if ($Descricao) {
+                echo "<option value='" . $Tp . "'>" . $Descricao . "</option>";
+              }
+            }
+            ?>
             <option value="orc">Código Orçamento</option>
             <option value="nomepro">Nome Produto PP</option>
             <option value="nomeproPE">Nome Produto PE</option>
             <option value="clinom">Nome Cliente</option>
+            <option value="clisigla">Sigla OM</option>
             <option value="cli">Cod Cliente</option>
             <!-- <option value="oper">Nome Emisor</option> -->
             <!-- <option value="data">Data Emissão</option> -->
@@ -360,13 +381,13 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
         </div>
       </div>
     </form>
-    <?php  if (!isset($_GET['Att'])) {  ?>
+    <?php if (!isset($_GET['Att'])) {  ?>
       <nav style="margin-top: 10px; " aria-label="Page navigation">
         <ul class="pagination">
 
 
           <li class="page-item prev">
-            <?php  $V = $a - 2;
+            <?php $V = $a - 2;
             if ($V < 0) {
               $V = 0;
             } ?>
@@ -393,7 +414,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
             ?>
 
           </li>
-          <?php  $Proximo = $Pg - 1;
+          <?php $Proximo = $Pg - 1;
               if ($Proximo > $total_paginas) {
                 $Proximo = 0;
               }
@@ -433,7 +454,7 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
             <?php   }
               } ?>
             </li>
-            <?php  if (!isset($Pg)) {
+            <?php if (!isset($Pg)) {
                 $Pg = 0;
               }
               $Proximo = $Pg + 5;
@@ -608,6 +629,23 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
                   $Pesquisa_Nome = '(' . implode(',', $Cod_Cliente_Buscado) . ')';
                   $Where = 'cod_cliente IN ' . $Pesquisa_Nome;
                 }
+                if ($_GET['Tp'] == 'clisigla') {
+
+                  $i = 0;
+                  $PqNome = $_GET['PS'];
+
+                  $Nome_Clientes2 = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE nome_fantasia LIKE '%$PqNome%' ");
+
+
+                  $Nome_Clientes2->execute();
+
+                  while ($linha2 = $Nome_Clientes2->fetch(PDO::FETCH_ASSOC)) {
+                    $Cod_Cliente_Buscado[$i] = $linha2['cod'];
+                    $i++;
+                  }
+                  $Pesquisa_Nome = '(' . implode(',', $Cod_Cliente_Buscado) . ')';
+                  $Where = 'cod_cliente IN ' . $Pesquisa_Nome;
+                }
                 if ($_GET['Tp'] == 'data') {
                   if (!is_numeric($_GET['PS'])) {
                     notificaerro();
@@ -636,12 +674,12 @@ while ($linha = $query_ordens_finalizadas->fetch(PDO::FETCH_ASSOC)) {
               } else {
                 $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE o.status != '11' ORDER BY $Orderby LIMIT $Pg ,50");
               }
-              
+
 
               if (isset($_GET['Tp'])) {
                 if ($_GET['Tp'] == 'nomepro') {
                   $nome =  $_GET['PS'];
-                  
+
                   $query_ordens_finalizadas = $conexao->prepare("SELECT o.cod AS codigoOrc, o.*, s.*, po.*, p.*, c.* FROM tabela_orcamentos o INNER JOIN sts_orcamento s ON o.`status` = s.CODIGO INNER JOIN tabela_produtos_orcamento po ON o.cod = po.cod_orcamento INNER JOIN produtos p ON p.CODIGO = po.cod_produto  INNER JOIN controle_tempo c ON c.fk_status = o.status WHERE p.DESCRICAO like '%$nome%' ORDER BY $Orderby LIMIT $Pg ,50");
                 }
                 if ($_GET['Tp'] == 'nomeproPE') {
