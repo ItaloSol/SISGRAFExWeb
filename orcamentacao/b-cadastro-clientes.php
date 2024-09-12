@@ -347,8 +347,8 @@ if (isset($_GET['Cnt'])) {
                               <label for="tipo_telefone_principal" class="form-label">Tipo de Telefone Principal</label>
                               <select id="tipo_telefone_principal" class="form-select" name="tipo_telefone_principal">
                                 <option>Selecione...</option>
-                                <option value="1" <?= $Cliente_Contato_Puxado[0]['tipo_telefone_principal'] == 1 ? 'selected' : '' ?>>Fixo</option>
-                                <option value="2" <?= $Cliente_Contato_Puxado[0]['tipo_telefone_principal'] == 2 ? 'selected' : '' ?>>Móvel</option>
+                                <option value="1" >Fixo</option>
+                                <option value="2" >Móvel</option>
                               </select>
                             </div>
                             <div class="mb-3">
@@ -363,8 +363,8 @@ if (isset($_GET['Cnt'])) {
                               <label for="tipo_telefone_secundario" class="form-label">Tipo de Telefone Secundário</label>
                               <select id="tipo_telefone_secundario" class="form-select" name="tipo_telefone_secundario">
                                 <option>Selecione...</option>
-                                <option value="1" <?= $Cliente_Contato_Puxado[0]['tipo_telefone_secundario'] == 1 ? 'selected' : '' ?>>Fixo</option>
-                                <option value="2" <?= $Cliente_Contato_Puxado[0]['tipo_telefone_secundario'] == 2 ? 'selected' : '' ?>>Móvel</option>
+                                <option value="1">Fixo</option>
+                                <option value="2">Móvel</option>
                               </select>
                             </div>
                             <div class="mb-3">
@@ -377,7 +377,7 @@ if (isset($_GET['Cnt'])) {
                             </div>
                             <input type="hidden" name="id_cliente" value="<?= $_GET['Select'] ?>">
                             <input type="hidden" name="tipo_cliente" value="<?= $_GET['Ty'] ?>">
-                            <button type="submit" class="btn btn-success">Salvar Contato</button>
+                            <input type="submit" name="contato" value="Salvar Contato" class="btn btn-success">
                           </form>
 
                           <div class="card">
@@ -438,7 +438,7 @@ if (isset($_GET['Cnt'])) {
                                             </button>
                                             <div class="dropdown-menu">
                                               <a class="dropdown-item" name='Cliente_Select' href="tl-cadastro-clientes.php?Select=<?= $Cliente_Puxado[0]["cod"] ?>&Ty=<?= $Tipo_Cliente ?>&End=<?= $Cliente_Enderecos_Puxado[0]["cod"] ?>&Cnt=<?= $Cliente_Contato_Puxado[$Percorrer_Contato]["cod"]  ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                              <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                                              <button id="<?= $Cliente_Contato_Puxado[$Percorrer_Contato]["cod"] ?>" onclick="DeleteContato(this.id)" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
                                             </div>
                                           </div>
                                         </td>
@@ -467,11 +467,11 @@ if (isset($_GET['Cnt'])) {
       </div>
     </div>
     <script>
-      function DeletarContato(cliente, contato, tipo) {
-        fetch('api_contato_endereco.php?cliente=' + cliente + '&contato=' + contato + '&tipo=' + tipo)
+      function DeleteContato(Codigo_contato) {
+        fetch('api_contato_endereco.php?Codigo_contato='+Codigo_contato)
           .then(response => response.json())
           .then(data => {
-            if (data.contato === true) {
+            if (data.success === true) {
               window.alert(`Contato Excluido com sucesso`);
             } else {
 
