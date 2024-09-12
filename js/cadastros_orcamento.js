@@ -1293,7 +1293,8 @@ function SalvarOrcamento() {
     window.alert('O Contato do cliente ou o Endereço não foi selecionado!');
   } else {
     let SalvaDados = BuscaDados();
-    console.log(SalvaDados)
+    console.log(SalvaDados);
+    
     const dados = {
       cod_orcamento_edit: orcamentoEdit,
       cod: codigoCliente.value,
@@ -1340,5 +1341,5 @@ console.log('URL para acessar a API manualmente:', fullUrl);
         // Aqui você pode lidar com erros de solicitação
         console.error('Erro:', error);
       });
-  }
+  } 
 }

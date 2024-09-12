@@ -450,11 +450,35 @@
                      <div class="col-3">
                        <label for="exampleFormControlSelect1" class="form-label">Pesquisar por</label>
                        <select class="form-select" name="Tp" id="exampleFormControlSelect1" aria-label="Default select example">
+                         <?php
+                          if (isset($_GET['Tp'])) {
+                            // Mapeamento de valores possíveis para 'Tp'
+                            $descricaoMap = [
+                              'cod' => 'Código Op',
+                              'orc' => 'Orçamento Base',
+                              'pro' => 'Produto',
+                              'nomepro' => 'Nome Produto',
+                              'clinom' => 'Nome Cliente',
+                              'cli' => 'Cod Cliente',
+                              'clisigla' => 'Sigla OM',
+                              'oper' => 'Nome Operador'
+                            ];
+
+                            // Verifica se o valor de 'Tp' está no mapeamento e define a descrição
+                            $Tp = $_GET['Tp'];
+                            $Descricao = isset($descricaoMap[$Tp]) ? $descricaoMap[$Tp] : '';
+
+                            if ($Descricao) {
+                              echo "<option value='" . $Tp . "'>" . $Descricao . "</option>";
+                            }
+                          }
+                          ?>
                          <option value="cod">Código Op</option>
                          <option value="orc">Orçamento Base</option>
                          <option value="pro">Produto</option>
                          <option value="nomepro">Nome Produto</option>
                          <option value="clinom">Nome Cliente</option>
+                         <option value="clisigla">Sigla OM</option>
                          <option value="cli">Cod Cliente</option>
                          <option value="oper">Nome Operador</option>
                          <!-- <option value="data">Data Emissão</option>
@@ -1060,6 +1084,23 @@
                                   $Cod_Cliente_Buscado[$i] = $linha1['cod'];
                                   $i++;
                                 }
+                                while ($linha2 = $Nome_Clientes2->fetch(PDO::FETCH_ASSOC)) {
+                                  $Cod_Cliente_Buscado[$i] = $linha2['cod'];
+                                  $i++;
+                                }
+                                $Pesquisa_Nome = '(' . implode(',', $Cod_Cliente_Buscado) . ')';
+                                $Where = 'cod_cliente IN ' . $Pesquisa_Nome;
+                              }
+                              if ($_GET['Tp'] == 'clisigla') {
+
+                                $i = 0;
+                                $PqNome = $_GET['PS'];
+              
+                                $Nome_Clientes2 = $conexao->prepare("SELECT * FROM tabela_clientes_juridicos WHERE nome_fantasia LIKE '%$PqNome%' ");
+              
+              
+                                $Nome_Clientes2->execute();
+              
                                 while ($linha2 = $Nome_Clientes2->fetch(PDO::FETCH_ASSOC)) {
                                   $Cod_Cliente_Buscado[$i] = $linha2['cod'];
                                   $i++;
