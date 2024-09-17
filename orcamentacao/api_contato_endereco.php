@@ -9,11 +9,27 @@ $hora = date('H:i:s');
 $Solicitacao = json_decode(file_get_contents("php://input"), true);
 
 header('Content-Type: application/json');
+if(isset($_GET['Codigo_contato']) || isset($_GET['Codigo_endereco'])){
 if(isset($_GET['Codigo_contato'])){
     $cod = $_GET['Codigo_contato'];
     $Deletar_Clientes_Contato = $conexao->prepare("DELETE FROM tabela_associacao_contatos WHERE  cod_contato = $cod");
     $Deletar_Clientes_Contato->execute();
+    $Deletar_Clientes_Contato = $conexao->prepare("DELETE FROM tabela_contatos WHERE  cod = $cod");
+    $Deletar_Clientes_Contato->execute();
+    $SUPERVISAO = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade, atendente_supervisao, data_supervisao) VALUES ('Contato Excluido', '$cod_user', '$dataHora')");
+    $SUPERVISAO->execute();
     echo json_encode(['success' => true, 'message' => 'Sucesso: ']);
+}
+if(isset($_GET['Codigo_endereco'])){
+    $cod = $_GET['Codigo_endereco'];
+    $Deletar_Clientes_endereco = $conexao->prepare("DELETE FROM tabela_associacao_enderecos WHERE  cod_endereco = $cod");
+    $Deletar_Clientes_endereco->execute();
+    $Deletar_Clientes_endereco = $conexao->prepare("DELETE FROM tabela_enderecos WHERE  cod = $cod");
+    $Deletar_Clientes_endereco->execute();
+    $SUPERVISAO = $conexao->prepare("INSERT INTO supervisao_atividade (alteracao_atividade, atendente_supervisao, data_supervisao) VALUES ('Endereço Excluido', '$cod_user', '$dataHora')");
+    $SUPERVISAO->execute();
+    echo json_encode(['success' => true, 'message' => 'Sucesso: ']);
+}
 }else{
 
 

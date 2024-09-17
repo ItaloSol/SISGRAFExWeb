@@ -217,42 +217,50 @@ if (isset($_GET['Cnt'])) {
                         <div class="tab-pane fade" id="horizontal-profile">
                           <form method="POST" action="../bd-orcamento/salvar.php">
                             <div class="mb-3">
-                              <label for="exampleFormControlSelect1" class="form-label">Tipo de Endereço</label>
-                              <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-                                <?php /* |||  ||| */ if ($Cliente_Enderecos_Puxado[0]['tipo_endereco'] == 'RESIDENCIAL') { ?>
-                                  <option value="1">Residencial</option>
-                                <?php /* |||  ||| */  }  ?>
-                                <?php /* |||  ||| */ if ($Cliente_Enderecos_Puxado[0]['tipo_endereco'] == 'COMERCIAL') { ?>
-                                  <option value="2">Comercial</option>
-                                <?php /* |||  ||| */  }  ?>
-
-                                <option value="1">Residencial</option>
-                                <option value="2">Comercial</option>
+                              <label for="tipo_endereco" class="form-label">Tipo de Endereço</label>
+                              <select class="form-select" id="tipo_endereco" name="tipo_endereco" aria-label="Default select example">
+                                <?php if ($Cliente_Enderecos_Puxado[0]['tipo_endereco'] == 'RESIDENCIAL') { ?>
+                                  <option value="Residencial" selected>Residencial</option>
+                                <?php } else { ?>
+                                  <option value="Residencial">Residencial</option>
+                                <?php } ?>
+                                <?php if ($Cliente_Enderecos_Puxado[0]['tipo_endereco'] == 'COMERCIAL') { ?>
+                                  <option value="Comercial" selected>Comercial</option>
+                                <?php } else { ?>
+                                  <option value="Comercial">Comercial</option>
+                                <?php } ?>
                               </select>
                             </div>
-                            <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">CEP</label>
-                              <input type="text" class="form-control" value="<?= $Cliente_Enderecos_Puxado[0]['cep'] ?>" id="cep" placeholder="Insira o CEP do cleinte" />
-                            </div>
-                            <div class="mb-3">
 
-                              <label class="form-label" for="basic-default-company">Bairro</label>
-                              <input type="text" class="form-control" id="basic-default-company" value="<?= $Cliente_Enderecos_Puxado[0]['bairro'] ?>" name="bairro" id="bairro" placeholder="Insira o bairro do cliente" />
-                            </div>
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-company">Cidade</label>
-                              <input type="text" class="form-control" id="basic-default-company" value="<?= $Cliente_Enderecos_Puxado[0]['cidade'] ?>" placeholder="Insira a cidade do cliente" />
+                              <label class="form-label" for="cep">CEP</label>
+                              <input type="text" class="form-control" id="cep" name="cep" value="<?= $Cliente_Enderecos_Puxado[0]['cep'] ?>" placeholder="Insira o CEP do cliente" />
                             </div>
+
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-company">UF</label>
-                              <input type="text" class="form-control" id="basic-default-company" value="<?= $Cliente_Enderecos_Puxado[0]['uf'] ?>" placeholder="Insira a uf do cliente" />
+                              <label class="form-label" for="bairro">Bairro</label>
+                              <input type="text" class="form-control" id="bairro" name="bairro" value="<?= $Cliente_Enderecos_Puxado[0]['bairro'] ?>" placeholder="Insira o bairro do cliente" />
                             </div>
+
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-company">Logadouro</label>
-                              <input type="text" class="form-control" id="basic-default-company" value="<?= $Cliente_Enderecos_Puxado[0]['logadouro'] ?>" placeholder="Insira o logadouro" />
+                              <label class="form-label" for="cidade">Cidade</label>
+                              <input type="text" class="form-control" id="cidade" name="cidade" value="<?= $Cliente_Enderecos_Puxado[0]['cidade'] ?>" placeholder="Insira a cidade do cliente" />
                             </div>
-                            <button type="submit" class="btn btn-success">Salvar Endereço</button>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="uf">UF</label>
+                              <input type="text" class="form-control" id="uf" name="uf" value="<?= $Cliente_Enderecos_Puxado[0]['uf'] ?>" placeholder="Insira a UF do cliente" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="logadouro">Logradouro</label>
+                              <input type="text" class="form-control" id="logadouro" name="logadouro" value="<?= $Cliente_Enderecos_Puxado[0]['logadouro'] ?>" placeholder="Insira o logradouro" />
+                            </div>
+                            <input type="hidden" name="id_cliente" value="<?= $_GET['Select'] ?>">
+                            <input type="hidden" name="tipo_cliente" value="<?= $_GET['Ty'] ?>">
+                            <input type="submit" value="Salvar Endereço" name="Endereco" class="btn btn-success" />
                           </form>
+
                           <div class="card">
                             <h5 class="card-header">Endereços</h5>
                             <div class="card-body">
@@ -276,9 +284,10 @@ if (isset($_GET['Cnt'])) {
                                     $Clientes_Endereco_Juridicos = $conexao->prepare("SELECT * FROM tabela_associacao_enderecos a INNER JOIN tabela_enderecos e ON a.cod_endereco = e.cod WHERE a.cod_cliente = '$Cod_Selecionado' AND a.tipo_cliente = $Tipo_Cliente ORDER BY e.cod DESC ");
                                     $Clientes_Endereco_Juridicos->execute();
                                     $i = 0;
+                                    $Percorrer_Enderecos = 0;
                                     while ($linha = $Clientes_Endereco_Juridicos->fetch(PDO::FETCH_ASSOC)) {
 
-                                      $Cliente_Enderecos_Puxado[] = [
+                                      $Cliente_Enderecos_Puxado[$Percorrer_Enderecos] = [
                                         'cod' => $linha['cod'],
                                         'cep' => $linha['cep'],
                                         'tipo_endereco' => $linha['tipo_endereco'],
@@ -291,6 +300,7 @@ if (isset($_GET['Cnt'])) {
                                         'casa' => $linha['casa'],
 
                                       ];
+                                      $Percorrer_Enderecos++;
                                     }
 
 
@@ -312,8 +322,8 @@ if (isset($_GET['Cnt'])) {
                                               <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                              <a class="dropdown-item" name='Cliente_Select' href="tl-cadastro-clientes.php?Select=<?= $Cliente_Puxado[0]["cod"] ?>&Ty=<?= $Tipo_Cliente ?>&End=<?= $Cliente_Enderecos_Puxado[$Percorrer_Enderecos]["cod"] ?>&Cnt=<?= $Cliente_Contato_Puxado[0]["cod"]  ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                              <input type="text" disabled id="<?= $_GET['Select'] ?>" value="<?= $_GET['Ty'] ?>" name="<?= $Cliente_Enderecos_Puxado[$Percorrer_Enderecos]["cod"] ?>"><i class="bx bx-trash me-1"></i> Delete</a onclick="DeletarContato(this.id, this.name, this.value)">
+                                              <a class="dropdown-item" name='Cliente_Select' href="tl-cadastro-clientes.php?Select=<?= $Cliente_Puxado[$Percorrer_Enderecos]["cod"] ?>&Ty=<?= $Tipo_Cliente ?>&End=<?= $Cliente_Enderecos_Puxado[$Percorrer_Enderecos]["cod"] ?>&Cnt=<?= $Cliente_Contato_Puxado[$Percorrer_Enderecos]["cod"]  ?>"><i class="bx bx-edit-alt me-1"></i> Editar</a>
+                                              <button type="hidden" class="dropdown-item" id="<?= $Cliente_Enderecos_Puxado[$Percorrer_Enderecos]["cod"] ?>" onclick="DeleteEndereco(this.id)"> <i class="bx bx-trash me-1"></i>   Delete</button>
                                             </div>
                                           </div>
                                         </td>
@@ -347,8 +357,8 @@ if (isset($_GET['Cnt'])) {
                               <label for="tipo_telefone_principal" class="form-label">Tipo de Telefone Principal</label>
                               <select id="tipo_telefone_principal" class="form-select" name="tipo_telefone_principal">
                                 <option>Selecione...</option>
-                                <option value="1" >Fixo</option>
-                                <option value="2" >Móvel</option>
+                                <option value="1">Fixo</option>
+                                <option value="2">Móvel</option>
                               </select>
                             </div>
                             <div class="mb-3">
@@ -437,7 +447,7 @@ if (isset($_GET['Cnt'])) {
                                               <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                              <a class="dropdown-item" name='Cliente_Select' href="tl-cadastro-clientes.php?Select=<?= $Cliente_Puxado[0]["cod"] ?>&Ty=<?= $Tipo_Cliente ?>&End=<?= $Cliente_Enderecos_Puxado[0]["cod"] ?>&Cnt=<?= $Cliente_Contato_Puxado[$Percorrer_Contato]["cod"]  ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                              <a class="dropdown-item" name='Cliente_Select' href="tl-cadastro-clientes.php?Select=<?= $Cliente_Puxado[$Percorrer_Contato]["cod"] ?>&Ty=<?= $Tipo_Cliente ?>&End=<?= $Cliente_Enderecos_Puxado[$Percorrer_Contato]["cod"] ?>&Cnt=<?= $Cliente_Contato_Puxado[$Percorrer_Contato]["cod"]  ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                                               <button id="<?= $Cliente_Contato_Puxado[$Percorrer_Contato]["cod"] ?>" onclick="DeleteContato(this.id)" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
                                             </div>
                                           </div>
@@ -468,11 +478,22 @@ if (isset($_GET['Cnt'])) {
     </div>
     <script>
       function DeleteContato(Codigo_contato) {
-        fetch('api_contato_endereco.php?Codigo_contato='+Codigo_contato)
+        fetch('api_contato_endereco.php?Codigo_contato=' + Codigo_contato)
           .then(response => response.json())
           .then(data => {
             if (data.success === true) {
               window.alert(`Contato Excluido com sucesso`);
+            } else {
+
+            }
+          });
+      }
+      function DeleteEndereco(Codigo_Endereco) {
+        fetch('api_contato_endereco.php?Codigo_endereco=' + Codigo_Endereco)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success === true) {
+              window.alert(`Endereco Excluido com sucesso`);
             } else {
 
             }
