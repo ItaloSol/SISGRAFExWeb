@@ -778,6 +778,7 @@ $refresh = 0;
                   <button v-if="confirmado == true" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div v-if="confirmado == false">
+                <div class="toast-body text-center"><b>🎉Chegamos a reta final do sistema.🎉</b></div>
                   <div class="toast-body">Qual a satisfação quanto a ultilização do sistema e as funções?</div>
                   <div style="padding-left: 20px;" v-if="respondido == false">É necessário enviar um feedback</div>
                   <div style="padding-left: 20px;" v-else>Clique em Enviar Feedback</div>
@@ -790,7 +791,7 @@ $refresh = 0;
                   </div>
                   <div class="p-2">
                     <label>Deixe um feedback (opcional)</label>
-                    <input class="form-control" v-model="feedback.texto" type="text" placeholder="Deixe aqui seu feedback" id="html5-text-input">
+                    <input class="form-control" v-model="feedback.texto" type="text" placeholder="Deixe aqui sua opnião aqui (Opcional)" id="html5-text-input">
                     <br>
                     <div class="align-items-center justify-content-center text-center">
                       <button v-if="respondido == true" @click="enviarrelatorio()" class=" col-6  btn btn-outline-success">Enviar Feedback</button>
