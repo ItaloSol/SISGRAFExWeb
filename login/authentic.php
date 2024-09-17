@@ -53,7 +53,7 @@ if ($_POST["usuario"] != '' && $_POST["password"] != '' && $conexao != null) {
     $hoje = date('Y-m-d H:i:s');
     $_SESSION["feedback"] = 'false';
     
-    if ($user['feedback'] == '4') {
+    if ($user['feedback'] == '5') {
       $_SESSION["feedback"] = 'true';
     }
     $LOGIN = $conexao->prepare("UPDATE tabela_atendentes SET DT_ULT_LOGIN = '$hoje' , bkp = '$bkp' WHERE codigo_atendente = '$cod' ");
