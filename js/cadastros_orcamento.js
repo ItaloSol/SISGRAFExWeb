@@ -1316,29 +1316,31 @@ function SalvarOrcamento() {
     };
 
     const url = 'api_cadastrar_orcamento.php';
-    const params = [];
-    for (const key in dados) {
-      params.push(`${key}=${encodeURIComponent(dados[key])}`);
-    }
-    const queryString = params.join('&');
-    const fullUrl = `${url}?${queryString}`;
 
-console.log('URL para acessar a API manualmente:', fullUrl);
-    fetch(`${url}?${queryString}`)
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dados)
+    })
       .then(response => {
         if (!response.ok) {
           throw new Error('Erro na solicitação!');
         }
-        // Aqui você pode lidar com a resposta da solicitação se necessário
-        return response.json(); // Ou outro método para obter o corpo da resposta
+        return response.text(); // Retorna o texto da resposta em vez de JSON
       })
-      .then(data => {
-        // Aqui você pode lidar com os dados da resposta, se necessário
-        console.log(data)
-        window.location.href = `tl-orcamento.php?cod=${data.orcamento}&tipo=${data.tipo}`;
+      .then(text => {
+        console.log(text); // Verifica o texto da resposta para ver se há algum erro
+        try {
+          const data = JSON.parse(text); // Tenta parsear o texto como JSON
+          console.log(data);
+          window.location.href = `tl-orcamento.php?cod=${data.orcamento}&tipo=${data.tipo}`;
+        } catch (error) {
+          console.error('Erro:', error);
+        }
       })
       .catch(error => {
-        // Aqui você pode lidar com erros de solicitação
         console.error('Erro:', error);
       });
   } 
