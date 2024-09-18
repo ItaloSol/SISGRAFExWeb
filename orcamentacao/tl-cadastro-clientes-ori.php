@@ -107,7 +107,7 @@ $_SESSION["pag"] = array(1, 0); ?>
                 <label for="Cep" class="form-label">CEP</label>
                 <input class="form-control" type="text" name="Cep" id="Cep" placeholder="Insira o CEP do Cliente" required />
               </div>
-              <button type="button" class="btn btn-primary" id="buscarCep" onclick="BuscarCep(document.getElementById('Cep').value)">Buscar CEP</button><br><br>
+              <button type="button" class="btn btn-primary" id="buscarCep" onclick="BuscarCep(document.getElementById('Cep').value)">Buscar CEP (OPCIONAL)</button><br><br>
               <div id="carregando"></div>
               <div id="puxadoApi">
                 <div class="mb-3">
@@ -177,12 +177,12 @@ const selecionado = document.getElementById('TipoCliente');
 const AtividadeFisico = document.getElementById('AtividadeFisico');
 const juridicoAtivi = document.getElementById('juridicoAtivi');
 const filialcoligada = document.getElementById('filialcoligada');
-document.getElementById("puxadoApi").style.display = 'none';
+document.getElementById("puxadoApi").style.display = 'block';
 
 
 
 async function BuscarCep(val) {
-  document.getElementById("puxadoApi").style.display = 'none';
+  document.getElementById("puxadoApi").style.display = 'block';
   document.getElementById("carregando").innerHTML = '<p>CARREGANDO....</p>';
   
   try {
