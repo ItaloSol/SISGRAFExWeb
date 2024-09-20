@@ -531,7 +531,7 @@ async function recuperarNomesPapel(tabela,valor, codigo_do_produto) {
             `<tr>
                <td>${result.codPapels}</td>
                <td>${result.nomePapel}</td>
-               <td>${result.tipo_papel}</td>
+               <td><input class="form-control2" id="TpLivro${result.codPapels}${result.codproduto}" value="${result.tipo_papel}" type="text" readonly></td>
                <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
                <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
                <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}" type="number"></td>
@@ -579,7 +579,7 @@ async function recuperarNomesPapel(tabela,valor, codigo_do_produto) {
              <td>${result.codproduto}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
-             <td>${result.tipo_papel}</td>
+             <td><input class="form-control2" id="TpLivro${result.codPapels}${result.codproduto}" value="${result.tipo_papel}" type="text" readonly></td>
              <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
              <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
              <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}" type="number"></td>

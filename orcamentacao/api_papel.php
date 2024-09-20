@@ -35,14 +35,15 @@ if (isset($_GET['id'])) {
     }
   }
     if($cod != null){
-      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE cod_produto = $cod AND tipo_produto = $tipo");
+      $tb_produtos = ($tipo == 1) ? 'produtos' : 'produtos_pr_ent';
+      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto pp INNER JOIN $tb_produtos p ON pp.cod_produto = p.CODIGO WHERE pp.cod_produto = $cod AND pp.tipo_produto = $tipo");
     
    
    
     $query_papel->execute();
 
     if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
-      $Do_Papel['tipo_papel'] = $linha3['tipo_papel'];
+      $Do_Papel['tipo_papel'] = $linha3['TIPO'];
       $Do_Papel['cod_papel'] = $linha3['cod_papel'];
       $Do_Papel['cor_frente'] = $linha3['cor_frente'];
       $Do_Papel['cor_verso'] = $linha3['cor_verso'];

@@ -243,7 +243,7 @@ function SalvaProdutoNovo() {
         CODIGO_PRODUTO: celulas[0].innerText,
         CODIGO_PAPEL: celulas[1].innerText,
         DESCRICAO: celulas[2].innerText,
-        TIPO: celulas[3].innerText,
+        TIPO: celulas[3].getElementsByTagName('input')[0].value,
         CF: celulas[4].getElementsByTagName('input')[0].value,
         CV: celulas[5].getElementsByTagName('input')[0].value,
         FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
@@ -337,7 +337,7 @@ function ObterPapelCorreto() {
         produto: celulas[0].textContent,
         codigoPapel: celulas[1].textContent,
         descricao: celulas[2].textContent,
-        tipo: celulas[3].textContent,
+        tipo: celulas[3].getElementsByTagName('input')[0].value,
         cf: celulas[4].querySelector('input').value,
         cv: celulas[5].querySelector('input').value,
         formatoImpressao: celulas[6].querySelector('input').value,
@@ -375,7 +375,7 @@ function obterTabelaPapeis() {
       produto: celulas[0].textContent,
       codigoPapel: celulas[1].textContent,
       descricao: celulas[2].textContent,
-      tipo: celulas[3].textContent,
+      tipo: celulas[3].getElementsByTagName('input')[0].value,
       cf: celulas[4].querySelector('input').value,
       cv: celulas[5].querySelector('input').value,
       formatoImpressao: celulas[6].querySelector('input').value,
@@ -581,8 +581,9 @@ function AdicionarCliqueAtabela(quantiade, valor) { // , quantiade, valor
         </tr>`;
 }
 
-function retornarQuantidadedeClique(quantidade, codigo) {
+function retornarQuantidadedeClique(quantidade, codigo, quantidadeItens) {
   return new Promise((resolve, reject) => {
+    var TpLivro = document.getElementById('TpLivro' + codigo).value;
     var cf = document.getElementById('GCF' + codigo);
     var cv = document.getElementById('GCV' + codigo);
     var PFolha = +cf.value + +cv.value;
@@ -601,6 +602,11 @@ function retornarQuantidadedeClique(quantidade, codigo) {
         } else {
           Clique *= 2;
           valorT = Clique * +valorP;
+        }
+          console.log('Tp = ' + TpLivro + ' QUANTIDADE '+ quantidade)
+        if(TpLivro == 'LIVRO'){
+          valorT *= quantidadeItens;
+          Clique *= quantidadeItens
         }
         AdicionarCliqueAtabela(Clique, valorT.toFixed(2));
         PuxaDisponibilidade(Clique, Tipo);
@@ -631,9 +637,12 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
     CalculoF1 = Math.floor((quantidadeFolhasF1 * perca) / 100);
     quantidadeFolhasF1 += CalculoF1;
   }
-  if (tipoPapel == 2) {
+  if (tipoProduto == 2) {
+    // quantidadeFolhasF1 = (quantidadeFolhas / 2) * 4; console.log(`(${quantidadeFolhas} / 2) * 4 = ` + (quantidadeFolhas / 2) * 4) 
+    //  quantidadeFolhasF1 *= 0.281;
     quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
-    quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
+    CalculoF1 = Math.floor((quantidadeFolhasF1 * perca) / 100);
+    quantidadeFolhasF1 += CalculoF1;
   } else if (tipoPapel == 3) {
     quantidadeFolhasF1 = Math.ceil((quantidadeFolhas / formatoImpressao) * tiragem);
     ///  
@@ -642,7 +651,7 @@ function retornaQuantidadeFolhas(tipoProduto, tipoPapel, quantidadeFolhas, forma
     quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
     ///
   }
-  if (tipoProduto == 2) {
+  if (tipoProduto == 1) {
     if (tipoPapel == 1 || tipoPapel == 2) {
       quantidadeFolhasF1 = Math.ceil(tiragem / formatoImpressao);
       quantidadeFolhasF1 += Math.floor((quantidadeFolhasF1 * perca) / 100);
@@ -731,13 +740,13 @@ function calculateUnitario(item, clique, manual, servico) {
   const { CODIGO_PRODUTO, QUANTIDADE, CUSTO, PREÇO_FOLHA, GASTO_FOLHA, DIGITAL, FORMATO_IMPRESSÃO, VALOR_IMPRESSAO_DIGITAL, OFFSET, PREÇO_CHAPA, PERCA, QUANTIDADE_DE_CHAPAS, VALOR_UNITARIO } = item;
   let total = 0;
   if (manual == true) {
-    total = document.getElementById('preco_unitario' + CODIGO_PRODUTO).value;
+    total = document.getElementById('preco_unitario ' + CODIGO_PRODUTO).value;
   } else {
     if (OFFSET == 1) {
       if (PREÇO_CHAPA && QUANTIDADE_DE_CHAPAS) {
         total += PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS;
-        total /= FORMATO_IMPRESSÃO
-        console.log('valor chapa =', PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS);
+        total /= QUANTIDADE
+        console.log('valor chapa PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS = ', PREÇO_CHAPA * QUANTIDADE_DE_CHAPAS);
       }
       if (QUANTIDADE && CUSTO) {
         total += CUSTO;
@@ -750,11 +759,11 @@ function calculateUnitario(item, clique, manual, servico) {
         total += PREÇO_FOLHA * GASTO_FOLHA;
         total /= FORMATO_IMPRESSÃO
         total /= GASTO_FOLHA;
-        console.log('valor papel =', PREÇO_FOLHA * GASTO_FOLHA, ' FInal ', total);
+        console.log('valor papel PREÇO_FOLHA * GASTO_FOLHA = ', PREÇO_FOLHA * GASTO_FOLHA, ' FInal ', total);
       }
       if (QUANTIDADE && CUSTO) {
         total += CUSTO;
-        console.log('valor acabamento =', CUSTO);
+        console.log('valor acabamento = ', CUSTO);
       }
     }
     const clicado = clique / QUANTIDADE;
@@ -765,7 +774,7 @@ function calculateUnitario(item, clique, manual, servico) {
     total += clicado;
     if (DIGITAL === 1 && VALOR_IMPRESSAO_DIGITAL) {
       total += parseFloat(VALOR_IMPRESSAO_DIGITAL);
-      console.log('valor impressao =', VALOR_IMPRESSAO_DIGITAL);
+      console.log('valor impressao = ', VALOR_IMPRESSAO_DIGITAL);
     }
   }
   console.log(' Adicioando valor de serviço a cada unidade ' + servico);
@@ -951,7 +960,7 @@ function BuscaDados() {
         CODIGO_PRODUTO: celulas[0].innerText,
         CODIGO_PAPEL: celulas[1].innerText,
         DESCRICAO_PAPEL: celulas[2].innerText,
-        TIPO: celulas[3].innerText,
+        TIPO: celulas[3].getElementsByTagName('input')[0].value,
         CF: celulas[4].getElementsByTagName('input')[0].value,
         CV: celulas[5].getElementsByTagName('input')[0].value,
         FORMATO_IMPRESSÃO: celulas[6].getElementsByTagName('input')[0].value,
@@ -1116,7 +1125,6 @@ function calcularValor() {
     offset = item.offset;
 
   });
-
   // PAPEIS
   const JsPapeis = JSON.stringify(ObterPapelCorreto());
   const Papeis = JSON.parse(`[${JsPapeis}]`)
@@ -1180,7 +1188,6 @@ function calcularValor() {
           }
         }
 
-
         QuantidadeGasta = retornaQuantidadeFolhas(
           +tipoProduto,
           +tipoPapel,
@@ -1202,7 +1209,7 @@ function calcularValor() {
         if (digital === true) {
           document.getElementById('settings-list-Clique').style.display = 'block';
 
-          retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel + item[i].produto)
+          retornarQuantidadedeClique(QuantidadeGasta, item[i].codigoPapel + item[i].produto, Quantidade)
             .then(result => {
               ValorClique += +result.valor;
               Qtd_ApuraClique += result.quantidade;
@@ -1217,7 +1224,6 @@ function calcularValor() {
             window.alert('ATENCAO!! \n A QUANTIDADE DE CLIQUE UTILIZADA NESSA OP PASSA DE 8 MIL CLIQUES. \n O VALOR DE CLIQUE UTILIZADO PELA OP ESTÁ MUITO ALTO! \n RECOMENDADO RODAR NA OFFSET.')
           }
         } else {
-          console.log(tipoProduto + ' + ' + tipoPapel + ' + ' + numeroCoresFrente + ' + ' + numeroCoresVerso + ' + ' + formatoImpressao + ' + ' + quantidadePaginas)
           QuantidadeGastaChapa = retornaQuantidadeChapas(tipoProduto, tipoPapel, numeroCoresFrente, numeroCoresVerso, formatoImpressao, quantidadePaginas)
           console.log(QuantidadeGastaChapa)
           QtdChapa += QuantidadeGastaChapa;
