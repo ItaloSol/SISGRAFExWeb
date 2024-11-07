@@ -1205,6 +1205,12 @@ function calcularValor() {
            window.alert('O FORMATO DO PAPEL NÃO FOI SELECIONADO!')
           break;
         } 
+        if (document.getElementById('TpLivro' + item[i].codigoPapel + item[i].produto).value === '') {
+          var tab = new bootstrap.Tab(document.getElementById('settings-list-item3'));
+          tab.show();
+           window.alert('MIOLO, CAPA, FOLHA OU LIVRO?\nO TIPO DO PAPEL NÃO FOI SELECIONADO!\nDescreva se é MIOLO, CAPA, FOLHA OU LIVRO')
+          break;
+        } 
         document.getElementById('GFolha' + item[i].codigoPapel + item[i].produto).value = QuantidadeGasta;
         if (digital === true) {
           document.getElementById('settings-list-Clique').style.display = 'block';

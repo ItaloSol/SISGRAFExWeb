@@ -95,7 +95,6 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
 
   while ($linha_pp = $query_produtos_orcamentos->fetch(PDO::FETCH_ASSOC)) {
 
-
     $Produtos_orcamento[$qtdX] = [
       'cod' => $linha_pp['cod'],
       'cod_orcamento' => $linha_pp['cod_orcamento'],
@@ -191,7 +190,7 @@ if ($linha = $query_orcamentos->fetch(PDO::FETCH_ASSOC)) {
       $Total_De_cada[$tipo_papel_qtd_loop] = $total;
     }
 
-    $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_papel = $cod_papels AND tipo_papel = '$calculo_tipo_papel' ");
+    $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_papel = $cod_papels");
     $query_papel->execute();
 
     if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {

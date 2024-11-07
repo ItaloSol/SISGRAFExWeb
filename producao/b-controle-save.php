@@ -351,6 +351,25 @@ if (isset($_POST['sim'])) {
   }
   }
 
+  if(isset($_POST['data_previa_prova'])){
+    if($_POST['data_previa_prova'] != ''){
+      if (isset($Where)) {
+        $Where = $Where . " , " . "data_previa_prova = '" . $_POST['data_previa_prova'] . "'";
+      } else {
+        $Where = "data_previa_prova = '" . $_POST['data_previa_prova'] . "'";
+      }
+    }
+  }
+  if(isset($_POST['data_previa_impressao'])){
+    if($_POST['data_previa_impressao'] != ''){
+      if (isset($Where)) {
+        $Where = $Where . " , " . "data_previa_impressao = '" . $_POST['data_previa_impressao'] . "'";
+      } else {
+        $Where = "data_previa_impressao = '" . $_POST['data_previa_impressao'] . "'";
+      }
+    }
+  }
+
   if (isset($_POST['D_saida_expedicao'])) {
     if ($_POST['D_saida_expedicao'] != '') {
     // echo $_POST['D_saida_expedicao']."'";
