@@ -466,12 +466,6 @@ $hoje = date('Y-m-d');
                       Trabalhos</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="campos27" id="Previsão Termino dos Trabalhos"
-                      value="PrevisãoTerminoTrabalhos" />
-                    <label class="form-check-label" for="Previsão Termino dos Trabalhos">Previsão Termino dos
-                      Trabalhos</label>
-                  </div>
-                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" name="campos25" id="Quantidade de Prova"
                       value="qtd_prova_entregue" />
                     <label class="form-check-label" for="Quantidade de Prova">Quantidade de Prova</label>
@@ -480,6 +474,22 @@ $hoje = date('Y-m-d');
                     <input class="form-check-input" type="checkbox" name="campos26" id="Data Expedição de Prova"
                       value="DATA_EXPEDICAO_PROVA" />
                     <label class="form-check-label" for="Data Expedição de Prova">Data Expedição de Prova</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="campos27" id="Previsão Termino dos Trabalhos"
+                      value="PrevisãoTerminoTrabalhos" />
+                    <label class="form-check-label" for="Previsão Termino dos Trabalhos">Previsão Termino dos
+                      Trabalhos</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="campos28" id="Data Previsão de Impressão"
+                      value="data_previa_impressao" />
+                    <label class="form-check-label" for="Data Previsão de Impressão">Data Previsão de Impressão</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="campos29" id="Data Previsão de Prova"
+                      value="data_previa_prova" />
+                    <label class="form-check-label" for="Data Previsão de Prova">Data Previsão de Prova</label>
                   </div>
 
                 </div>

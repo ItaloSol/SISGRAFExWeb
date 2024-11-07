@@ -113,8 +113,8 @@ if (isset($_GET['cod'])) {
             $Calculo_montagem[$papels] = $montagem;
             $Calculo_formato[$papels] = $formato;
             $Calculo_perca[$papels] = $perca;
-            // echo "SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto AND cod_orcamento = $codigo_orc";
-            $query_orid_orc = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto AND cod_orcamento = $codigo_orc");
+
+            $query_orid_orc = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_orcamento = $codigo_orc");
             $query_orid_orc->execute();
 
             if ($linha14 = $query_orid_orc->fetch(PDO::FETCH_ASSOC)) {
@@ -122,8 +122,8 @@ if (isset($_GET['cod'])) {
                 $preco_unitario = $linha14['preco_unitario'];
                 $total = $quantidade * $preco_unitario;
             }
-            echo "SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto AND cod_papel = $cod_papels  ";
-            $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto AND cod_papel = $cod_papels  ");
+
+            $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produtos AND cod_papel = $cod_papels AND tipo_papel = '$calculo_tipo_papel' ");
             $query_papel->execute();
 
             if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -141,17 +141,18 @@ if (isset($_GET['cod'])) {
                 $Papel_cor_verso[$papels] = $cor_verso;
                 $Papel_descricao[$papels] = $descricao;
                 $Papel_orelha[$papels] = $orelha;
-                echo "SELECT * FROM tabela_papeis WHERE cod = $cod_papel";
-                $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $cod_papel  ");
+
+                $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $cod_papels  ");
                 $query_do_papel->execute();
                 if ($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
+                    $cod_papels = $linha4['cod'];
                     $descricao_do_papel = $linha4['descricao'];
                     $medida = $linha4['medida'];
                     $gramatura = $linha4['gramatura'];
                     $formato = $linha4['formato'];
                     $uma_face = $linha4['uma_face'];
                     $unitario = $linha4['unitario'];
-                       echo '<br>cod_papels '. $cod_papels . ' - '. $calculo_tipo_papel . '<br>';
+                    //    echo 'cod_papels '. $cod_papels . ' - '. $calculo_tipo_papel . '<br>';
                     $Do_Papel_cod[$tipo_papel_qtd_loop] = $cod_papels;
                     $Do_Papel_descricao_do_papel[$tipo_papel_qtd_loop] = $descricao_do_papel;
                     $Do_Papel_midida[$tipo_papel_qtd_loop] = $medida;
@@ -161,31 +162,28 @@ if (isset($_GET['cod'])) {
                     $Do_Papel_unitario[$tipo_papel_qtd_loop] = $unitario;
                     $tipo_papel_qtd_loop++;
                 }
-               
-
             }
-       
+            $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
+            $query_componente->execute();
+            while ($linha12 = $query_componente->fetch(PDO::FETCH_ASSOC)) {
+                $cod_acabamento = $linha12['cod_acabamento'];
+                $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE CODIGO = $cod_acabamento  ");
+                $query_acabamento->execute();
+                if ($linha13 = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
+
+                    $cod_acb = $linha13['CODIGO'];
+                    $Maquina = $linha13['MAQUINA'];
+                    $ATIVA = $linha13['ATIVA'];
+                    $CUSTO_HORA = $linha13['CUSTO_HORA'];
+
+                    $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acb;
+                    $Do_Acabamento_Maquina[$qtd_acabamentos] = $Maquina;
+                    $Do_Acabamento_midida[$qtd_acabamentos] = $ATIVA;
+                    $Do_Acabamento_CUSTO_HORA[$qtd_acabamentos] = $CUSTO_HORA;
+                    $qtd_acabamentos++;
+                }
+            }
             $papels++;
-        }
-        $query_componente = $conexao->prepare("SELECT * FROM tabela_componentes_produto WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto  ");
-        $query_componente->execute();
-        while ($linha12 = $query_componente->fetch(PDO::FETCH_ASSOC)) {
-            $cod_acabamento = $linha12['cod_acabamento'];
-            $query_acabamento = $conexao->prepare("SELECT * FROM acabamentos WHERE CODIGO = $cod_acabamento  ");
-            $query_acabamento->execute();
-            if ($linha13 = $query_acabamento->fetch(PDO::FETCH_ASSOC)) {
-
-                $cod_acb = $linha13['CODIGO'];
-                $Maquina = $linha13['MAQUINA'];
-                $ATIVA = $linha13['ATIVA'];
-                $CUSTO_HORA = $linha13['CUSTO_HORA'];
-
-                $Do_Acabamento_cod[$qtd_acabamentos] = $cod_acb;
-                $Do_Acabamento_Maquina[$qtd_acabamentos] = $Maquina;
-                $Do_Acabamento_midida[$qtd_acabamentos] = $ATIVA;
-                $Do_Acabamento_CUSTO_HORA[$qtd_acabamentos] = $CUSTO_HORA;
-                $qtd_acabamentos++;
-            }
         }
         if ($tipo_produto == 2) {
             $query_orid_orc = $conexao->prepare("SELECT * FROM tabela_produtos_orcamento WHERE tipo_produto = $tipo_produto AND cod_produto = $cod_produto AND cod_orcamento = $codigo_orc");
@@ -359,8 +357,7 @@ CHAPAS
  ' border='1'>";
     $parte4 = '';
     $papeis1 = 0;
-    echo $tipo_papel_qtd_loop;
-    while ($papeis1 < $tipo_papel_qtd_loop) {
+    while ($papeis1 < $papels) {
         $parte4 = $parte4 . "<tr>
         <td>CÓDIGO PAPEL: " . $Do_Papel_cod[$papeis1] . "</td>
         <td style='text-align: center;'>NENHUMA SELECIONADA</td>
@@ -455,34 +452,34 @@ $parte9 .= "]</td>
 </table>
 ";
 $html = $parte1 . $parte2 . $parte3 . $parte4 . $parte5 . $parte6 . $parte7 . $parte10 . $parte9;
- echo $html;
+// echo $html;
 
-// require_once __DIR__ . '../../vendor/autoload.php';
-// // Create an instance of the class:
-// $mpdf = new \mPDF();
+require_once __DIR__ . '../../vendor/autoload.php';
+// Create an instance of the class:
+$mpdf = new \mPDF();
 
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'retrato') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4');
-//     }
-// }
-// if ($_POST['orientacao']) {
-//     if ($_POST['orientacao'] == 'paisagem') {
-//         // Write some HTML code:
-//         $mpdf = new mPDF('C', 'A4-L');
-//     }
-// }
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'retrato') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4');
+    }
+}
+if ($_POST['orientacao']) {
+    if ($_POST['orientacao'] == 'paisagem') {
+        // Write some HTML code:
+        $mpdf = new mPDF('C', 'A4-L');
+    }
+}
 
 
-// $mpdf->SetDisplayMode('fullpage');
+$mpdf->SetDisplayMode('fullpage');
 
-// $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
-// //level of a list
+$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first 
+//level of a list
 
-// // LOAD a stylesheet
+// LOAD a stylesheet
 
-// $mpdf->WriteHTML($html, 2);
-// $nome = 'OrdemProducao' . $codigo_op;
-// $mpdf->Output($nome, 'I');
-// exit;
+$mpdf->WriteHTML($html, 2);
+$nome = 'OrdemProducao' . $codigo_op;
+$mpdf->Output($nome, 'I');
+exit;

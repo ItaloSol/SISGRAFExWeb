@@ -411,6 +411,20 @@ if (isset($_POST['campos24'])) {
         $Campos = "DT_ENTRADA_PLOTTER , data_ent_tipografia, DT_ENT_DIGITAL, data_ent_acabamento, data_ent_offset , DT_ENVIADO_EXPEDICAO , DT_ENTRADA_PRE_IMP_PROVA , DT_TIPOGRAFIA_PROVA, DT_ACABAMENTO_PROVA,DT_ENTRADA_PRE_IMP, DT_ENTRADA_CTP ";
     }
 }
+if (isset($_POST['campos28'])) {
+    if (isset($Campos)) {
+        $Campos = $Campos . "data_previa_impressao "   . ' , ';
+    } else {
+        $Campos = "data_previa_impressao ";
+    }
+}
+if (isset($_POST['campos29'])) {
+    if (isset($Campos)) {
+        $Campos = $Campos . "data_previa_prova "   . ' , ';
+    } else {
+        $Campos = "data_previa_prova ";
+    }
+}
 if (isset($_POST['campos15'])) {
     if (isset($Campos)) {
         $Campos = $Campos . $_POST['campos15'] . ' , ';
@@ -595,6 +609,22 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
         $prioridade_ = $linha['prioridade_op'];
         $prioridade[$Recebe] = $prioridade_;
     }
+    if (isset($_POST['campos28'])) {
+        $data_previa_impressao_ = $linha['data_previa_impressao'];
+        if($data_previa_impressao_ != ''){
+            $data_previa_impressao[$Recebe] = date('d/m/Y', strtotime($data_previa_impressao_));
+        }else{
+            $data_previa_impressao[$Recebe] = $data_previa_impressao_;
+        }
+    }
+    if (isset($_POST['campos29'])) {
+        $data_previa_prova_ = $linha['data_previa_prova'];
+        if($data_previa_prova_ != ''){
+            $data_previa_prova[$Recebe] = date('d/m/Y', strtotime($data_previa_prova_));
+        }else{
+            $data_previa_prova[$Recebe] = $data_previa_prova_;
+        }
+    }
 
     if (isset($_POST['campos8'])) {
         $orcamento_base_ = $linha['orcamento_base'];
@@ -611,32 +641,33 @@ while ($linha = $Query_Busca_Completa_Executavel->fetch(PDO::FETCH_ASSOC)) {
     }
     if (isset($_POST['campos9'])) {
         $data_emissao_ = $linha['data_emissao'];
-        $data_emissao[$Recebe] =  date('d/m/Y', strtotime($data_emissao_));
+        $data_emissao[$Recebe] = !empty($data_emissao_) ? date('d/m/Y', strtotime($data_emissao_)) : '';
     }
     if (isset($_POST['campos10'])) {
         $data_entrega_ = $linha['data_entrega'];
-        $data_entrega[$Recebe] = date('d/m/Y', strtotime($data_entrega_));
+        $data_entrega[$Recebe] = !empty($data_entrega_) ? date('d/m/Y', strtotime($data_entrega_)) : 'N/C';
     }
     if (isset($_POST['campos11'])) {
         $data_1a_prova_ = $linha['data_1a_prova'];
-        $data_1a_prova[$Recebe] =  date('d/m/Y', strtotime($data_1a_prova_));
+        $data_1a_prova[$Recebe] = !empty($data_1a_prova_) ? date('d/m/Y', strtotime($data_1a_prova_)) : 'N/C';
     }
     if (isset($_POST['campos12'])) {
         $data_2a_prova_ = $linha['data_2a_prova'];
-        $data_2a_prova[$Recebe] =  date('d/m/Y', strtotime($data_2a_prova_));
+        $data_2a_prova[$Recebe] = !empty($data_2a_prova_) ? date('d/m/Y', strtotime($data_2a_prova_)) : 'N/C';
     }
     if (isset($_POST['campos13'])) {
         $data_3a_prova_ = $linha['data_3a_prova'];
-        $data_3a_prova[$Recebe] =  date('d/m/Y', strtotime($data_3a_prova_));
+        $data_3a_prova[$Recebe] = !empty($data_3a_prova_) ? date('d/m/Y', strtotime($data_3a_prova_)) : 'N/C';
     }
     if (isset($_POST['campos14'])) {
         $data_4a_prova_ = $linha['data_4a_prova'];
-        $data_4a_prova[$Recebe] =  date('d/m/Y', strtotime($data_4a_prova_));
+        $data_4a_prova[$Recebe] = !empty($data_4a_prova_) ? date('d/m/Y', strtotime($data_4a_prova_)) : 'N/C';
     }
     if (isset($_POST['campos15'])) {
         $data_5a_prova_ = $linha['data_5a_prova'];
-        $data_5a_prova[$Recebe] =  date('d/m/Y', strtotime($data_5a_prova_));
+        $data_5a_prova[$Recebe] = !empty($data_5a_prova_) ? date('d/m/Y', strtotime($data_5a_prova_)) : 'N/C';
     }
+    
     if (isset($_POST['campos21'])) {
         $descricao_Obs_ = $linha['descricao'];
         $descricao_Obs[$Recebe] = $descricao_Obs_;
@@ -1099,6 +1130,20 @@ if (isset($_POST['campos26'])) {
         $Cabesalhos = "<th style=' color:Black'>DATA EXPEDIÇÃO DE PROVA</th>";
     }
 }
+if (isset($_POST['campos29'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>PREVISÃO DE PROVA</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>PREVISÃO DE PROVA</th>";
+    }
+}
+if (isset($_POST['campos28'])) {
+    if (isset($Cabesalhos)) {
+        $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>PREVISÃO DE IMPRESSÃO</th>";
+    } else {
+        $Cabesalhos = "<th style=' color:Black'>PREVISÃO DE IMPRESSÃO</th>";
+    }
+}
 if (isset($_POST['campos19'])) {
     if (isset($Cabesalhos)) {
         $Cabesalhos = $Cabesalhos . "<th style=' color:Black'>STATUS</th>";
@@ -1106,6 +1151,8 @@ if (isset($_POST['campos19'])) {
         $Cabesalhos = "<th style=' color:Black'>STATUS</th>";
     }
 }
+
+
 
 $Fecha_Inicio = " </tr>";
 $Exibir = 0;
@@ -1503,7 +1550,37 @@ while ($Exibir < $Recebe) {
             }
         }
     }
-
+    if (isset($_POST['campos29'])) {
+        if (isset($data_previa_prova[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $data_previa_prova[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+    if (isset($_POST['campos28'])) {
+        if (isset($data_previa_impressao[$Exibir])) {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>" . $data_previa_impressao[$Exibir] . "</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        } else {
+            if (isset($Dados)) {
+                $Dados = $Dados . "<td>N/C</td>";
+            } else {
+                $Dados = "<td>N/C</td>";
+            }
+        }
+    }
+    
     if (isset($_POST['campos19'])) {
         if (isset($status[$Exibir])) {
             if (isset($Dados)) {
@@ -1519,7 +1596,7 @@ while ($Exibir < $Recebe) {
             }
         }
     }
-
+    
     $Exibir++;
     //  echo $Dados .' <br><br> ';
 }
