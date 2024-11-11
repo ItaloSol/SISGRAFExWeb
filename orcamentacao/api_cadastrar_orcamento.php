@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   if (empty($cod_orcamento)) {
     throw new Exception('O código não pode ser vazio');
-}
+  }
   // Inserir ou atualizar orçamento na tabela_orcamentos
   $Insere_Orcamento = $conexao->prepare("REPLACE INTO tabela_orcamentos (cod_cliente, cod_contato, cod_endereco, tipo_cliente, data_validade, data_emissao, valor_unitario, sif, desconto, valor_total, frete, ARTE, precos_manuais, status, descricao, cod_emissor, FAT_TOTALMENTE, cod, COD_LI) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
   $Insere_Orcamento->execute([
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($linha = $Busca_orcamento->fetch(PDO::FETCH_ASSOC)) {
     $ctr_clique = $linha['id'];
   }
- 
+
   foreach ($dado_clique as $clique) {
     $Insere_Clique_Utilizado = $conexao->prepare("INSERT INTO clique_utilizado (fk_orcamento, ctr_clique, clique_utilizado, valor_calculado, ativado) VALUES (?, ?, ?, ?, ?)");
     $Insere_Clique_Utilizado->execute([

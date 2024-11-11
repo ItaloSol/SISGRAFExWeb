@@ -531,7 +531,7 @@ async function recuperarNomesPapel(tabela,valor, codigo_do_produto) {
             `<tr>
                <td>${result.codPapels}</td>
                <td>${result.nomePapel}</td>
-               <td><input class="form-control2" id="TpLivro${result.codPapels}${result.codproduto}" value="${result.tipo_papel}" type="text"></td>
+               <td><input class="form-control2" style="text-transform: uppercase;" id="TpLivro${result.codPapels}${result.codproduto}" value="${result.tipo_papel}" type="text"></td>
                <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
                <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
                <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}" type="number"></td>
@@ -579,7 +579,7 @@ async function recuperarNomesPapel(tabela,valor, codigo_do_produto) {
              <td>${result.codproduto}</td>
              <td>${result.codPapels}</td>
              <td>${result.nomePapel}</td>
-             <td><input class="form-control2" id="TpLivro${result.codPapels}${result.codproduto}" value="${result.tipo_papel}" type="text"></td>
+             <td><input class="form-control2" style="text-transform: uppercase;" id="TpLivro${result.codPapels}${result.codproduto}" value="${result.tipo_papel}" type="text"></td>
              <td><input class="form-control2" id="GCF${result.codPapels}${result.codproduto}" value="${result.corFrente}" type="number"></td>
              <td><input class="form-control2" id="GCV${result.codPapels}${result.codproduto}" value="${result.corVerso}" type="number"></td>
              <td><input class="form-control2 formato-impressao" id="Impre${result.codPapels}${result.codproduto}" type="number"></td>
@@ -1495,9 +1495,9 @@ for (var t = 0; t < tbodies.length; t++) {
         var objetoJson = {
           CODIGO_PAPEL: celulas[0].innerText, // Corrigido para índice correto
           DESCRICAO: celulas[1].innerText,
-          TIPO: celulas[2].innerText,
+          TIPO: celulas[2].querySelector('input').value,
           CF: celulas[3].querySelector('input').value,
-          CV: celulas[4].querySelector('input').value,
+          CV: celulas[4].querySelector('input').value,jsonPapel,
           FORMATO_IMPRESSAO: celulas[5].querySelector('input').value,
           PERCA: celulas[6].querySelector('input').value,
         };
@@ -1601,9 +1601,9 @@ console.log('JSON Resultante:', jsonPapel);
   } else {
     document.getElementById('tipo_div').classList.remove('erro')
   }
-  // if(jsonPapel.tipo[0] === 'SELECIONE'){
-  //   window.alert('TIPO DO PAPEL É OBRIGATÓRIO');
-  // } 
+  if(jsonPapel.TIPO === 'SELECIONE'){
+    window.alert('TIPO DO PAPEL É OBRIGATÓRIO');
+  } 
   if (EM_BRANCO == 0) {
     if (window.confirm(`VOCÊ CONFIRMA A QUANTIDADE DE PAGINAS DE "${JsonDadosGeral.qtdfolhas}"? \n
     E VOCÊ CONFIRMA O TIPO DO PRODUTO DE "${JsonDadosGeral.tipoproduto}"?
@@ -1643,7 +1643,7 @@ console.log('JSON Resultante:', jsonPapel);
         })
         .catch(error => {
           // handle any errors that occurred
-          console.error(error);
+          console.error('Erro:', error);
         });
     } else {
 
