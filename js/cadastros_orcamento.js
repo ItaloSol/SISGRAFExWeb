@@ -337,7 +337,7 @@ function ObterPapelCorreto() {
         produto: celulas[0].textContent,
         codigoPapel: celulas[1].textContent,
         descricao: celulas[2].textContent,
-        tipo: celulas[3].getElementsByTagName('input')[0].value,
+        tipo: celulas[3].querySelector('input').value,
         cf: celulas[4].querySelector('input').value,
         cv: celulas[5].querySelector('input').value,
         formatoImpressao: celulas[6].querySelector('input').value,

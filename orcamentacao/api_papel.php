@@ -14,6 +14,7 @@ if (isset($_GET['id'])) {
   $pesquisa = $_GET['id'];
   $cod = !empty($_GET['codi']) ? $_GET['codi']: null;
   $tipo = $_GET['tipo'];
+
   $query_do_papel = $conexao->prepare("SELECT * FROM tabela_papeis WHERE cod = $pesquisa  ");
   $query_do_papel->execute();
   if ($linha4 = $query_do_papel->fetch(PDO::FETCH_ASSOC)) {
@@ -33,17 +34,16 @@ if (isset($_GET['id'])) {
     if ($linha5 = $query_chapa->fetch(PDO::FETCH_ASSOC)) {
       $Do_Papel['valor_chapa'] = $linha5['parametro'];
     }
-  }
     if($cod != null){
       $tb_produtos = ($tipo == 1) ? 'produtos' : 'produtos_pr_ent';
-      $query_papel = $conexao->prepare("SELECT * FROM tabela_papeis_produto pp INNER JOIN $tb_produtos p ON pp.cod_produto = p.CODIGO WHERE pp.cod_produto = $cod AND pp.tipo_produto = $tipo");
+        $query_papel = $conexao->prepare("SELECT pp.tipo_papel AS papel_tipo, pp.*, p.* FROM tabela_papeis_produto pp INNER JOIN $tb_produtos p ON pp.cod_produto = p.CODIGO WHERE pp.cod_produto = $cod AND pp.tipo_produto = $tipo");
     
    
    
     $query_papel->execute();
 
     if ($linha3 = $query_papel->fetch(PDO::FETCH_ASSOC)) {
-      $Do_Papel['tipo_papel'] = $linha3['TIPO'];
+      $Do_Papel['tipo_papel'] = $linha3['papel_tipo'];
       $Do_Papel['cod_papel'] = $linha3['cod_papel'];
       $Do_Papel['cor_frente'] = $linha3['cor_frente'];
       $Do_Papel['cor_verso'] = $linha3['cor_verso'];
@@ -51,6 +51,8 @@ if (isset($_GET['id'])) {
       $Do_Papel['orelha'] = $linha3['orelha'];
     }
   }
+}
+
  if(isset($Do_Papel)){
   echo json_encode($Do_Papel);
  }else{
